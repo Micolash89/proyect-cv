@@ -85,7 +85,7 @@ export async function postLogin(formdata: FormData) {
   //guardar un cookie del admin
 
   revalidatePath("/"); //borrar el cache de la tabla
-  redirect("/");
+  redirect("/"); // redirect
 
   //prisma.
 

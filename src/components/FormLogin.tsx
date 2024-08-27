@@ -1,0 +1,62 @@
+"use client";
+
+import { postLogin } from "@/lib/actions";
+
+function FormLogin() {
+  return (
+    <>
+      <div className="bg-gray-100 p-4">
+        <div className="mx-auto max-w-sm">
+          <form action={postLogin} className="space-y-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Email
+                </label>
+                <div className="mt-1">
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    autoComplete="email"
+                    className="block w-full ring-0 border-0 border-b-2 border-gray-300 appearance-none bg-transparent py-1 px-2 focus:ring-0 focus:outline-none focus:border-blue-500 sm:text-sm"
+                  />
+                </div>
+              </div>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Password
+                </label>
+                <div className="mt-1">
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    autoComplete="current-password"
+                    className="block w-full ring-0 border-0 border-b-2 border-gray-300 appearance-none bg-transparent py-1 px-2 focus:ring-0 focus:outline-none focus:border-blue-500 sm:text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="submit"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Sign in
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default FormLogin;

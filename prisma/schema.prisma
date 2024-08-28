@@ -19,7 +19,7 @@ model User {
   nombre          String
   apellido        String
   telefono        String
-  fechaNacimiento String
+  fechaNacimiento DateTime
   email           String        @unique
   domicilio       String
   ciudad          String

@@ -5,43 +5,133 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 const prisma = new PrismaClient();
 
+import { z } from "zod";
+import { createResponse } from "./utils";
+
+const CreateSchemaUsuario = z.object({
+  nombre: z
+    .string({ message: "ingrese un nombre" })
+    .min(4, "el nombre debe de tener al menos 4 caracteres"),
+  apellido: z
+    .string({ message: "ingrese un apellido" })
+    .min(3, "el apellido debe tener al menos 3 caracter"),
+  email: z
+    .string({ message: "ingrese un email" })
+    .email("Debe ser un email válido")
+    .min(6, "el email debe tener al menos 6 caracteres"),
+  telefono: z.string().min(6, "el telefono debe tener al menos 6 caracteres"),
+  fechaNacimiento: z.coerce.date({
+    message: "se requiere una fecha de nacimiento",
+  }),
+  domicilio: z
+    .string()
+    .min(4, "el domicilio debe de tener al menos 4 caracteres"),
+  ciudad: z.string().min(4, "la ciudad debe de tener al menos 4 caracteres"),
+  provincia: z
+    .string()
+    .min(4, "la provincia debe de tener al menos 4 caracteres"),
+  linkedin: z.string().url({ message: "debe ser una url valida" }),
+  estudios: z.string().min(4, "los estudios deben tener al menos 4 caracteres"),
+  experiencia: z
+    .string()
+    .min(4, "la experiencia deben tener al menos 4 caracteres"),
+});
+
+const CreateUsuario = CreateSchemaUsuario.omit({
+  estudios: true,
+  experiencia: true,
+  linkedin: true,
+});
+
+// export const validateUser = (formData: FormData) => {
+//   const user = CreateSchemaEstudiante.parse(formData);
+//   console.log(user);
+//   return user;
+// };
+
 export async function postUsuarios(formData: FormData) {
-  const nombre = formData.get("nombre");
-  const apellido = formData.get("apellido");
-  const telefono = formData.get("telefono");
-  const fechaNacimiento = formData.get("fechaNacimiento");
-  const email = formData.get("email");
-  const domicilio = formData.get("domicilio");
-  const ciudad = formData.get("ciudad");
-  const provincia = formData.get("provincia");
-  const linkedin = formData.get("linkedin");
-  const estudios = formData.get("estudios");
-  const experiencia = formData.get("experiencia");
+  const validatedFields = CreateUsuario.safeParse({
+    nombre: formData.get("nombre"),
+    apellido: formData.get("apellido"),
+    email: formData.get("email"),
+    telefono: formData.get("telefono"),
+    fechaNacimiento: formData.get("fechaNacimiento"),
+    domicilio: formData.get("domicilio"),
+    ciudad: formData.get("ciudad"),
+    provincia: formData.get("provincia"),
+    //linkedin: formData.get("linkedin"),
+  });
+
+  // const nombre = formData.get("nombre");
+  // const apellido = formData.get("apellido");
+  // const telefono = formData.get("telefono");
+  // const fechaNacimiento = formData.get("fechaNacimiento");
+  // const email = formData.get("email");
+  // const domicilio = formData.get("domicilio");
+  // const ciudad = formData.get("ciudad");
+  // const provincia = formData.get("provincia");
+  // const linkedin = formData.get("linkedin");
+  // const estudios = formData.get("estudios");
+  // const experiencia = formData.get("experiencia");
+
+  if (!validatedFields.success) {
+    console.log(validatedFields.error.flatten().fieldErrors);
+    return createResponse(
+      false,
+      [],
+      "Error En Algun Campo",
+      validatedFields.error?.flatten().fieldErrors
+    );
+  }
+
+  const {
+    data: {
+      nombre,
+      apellido,
+      telefono,
+      fechaNacimiento,
+      email,
+      domicilio,
+      ciudad,
+      provincia,
+    },
+  } = validatedFields;
+
+  console.log(
+    nombre,
+    apellido,
+    telefono,
+    fechaNacimiento,
+    email,
+    domicilio,
+    ciudad,
+    provincia
+  );
 
   try {
-    prisma.$connect();
-    const user = await prisma.user.create({
-      data: {
-        nombre: nombre as string,
-        apellido: apellido as string,
-        telefono: telefono as string,
-        fechaNacimiento: fechaNacimiento as string,
-        email: email as string,
-        domicilio: domicilio as string,
-        ciudad: ciudad as string,
-        provincia: provincia as string,
-        linkedin: linkedin as string,
-        // estudios: estudios as string,
-        // experiencia: experiencia as string
-      },
-    });
-
-    console.log(user);
+    // const user = await prisma.user.create({
+    //   data: {
+    //     nombre: nombre as string,
+    //     apellido: apellido as string,
+    //     telefono: telefono as string,
+    //     fechaNacimiento: fechaNacimiento as Date,
+    //     email: email as string,
+    //     domicilio: domicilio as string,
+    //     ciudad: ciudad as string,
+    //     provincia: provincia as string,
+    //     linkedin: linkedin as string,
+    //     // estudios: estudios as string,
+    //     // experiencia: experiencia as string
+    //   },
+    // });
+    // console.log(user);
   } catch (error) {
     console.log(error);
   } finally {
     prisma.$disconnect();
   }
+
+  return createResponse(true, [], "Usuario Creado Correctamente");
 }
 
 // export async function getAllUsers() {

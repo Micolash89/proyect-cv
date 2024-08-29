@@ -6,7 +6,9 @@ import { redirect } from "next/navigation";
 const prisma = new PrismaClient();
 
 import { z } from "zod";
-import { createResponse } from "./utils";
+import { createResponse, JWTCreate } from "./utils";
+import { cookies } from "next/headers";
+import { comparePassword } from "./utilsBcrypt";
 
 const CreateSchemaUsuario = z.object({
   nombre: z
@@ -147,27 +149,84 @@ export async function postUsuarios(formData: FormData) {
 //   }
 // }
 
+const createSchemaLogin = z.object({
+  email: z
+    .string()
+    .min(1, "el email es requerido")
+    .email({ message: "debe ser un email valido" }),
+  password: z
+    .string()
+    .min(1, "la contraseña es requerida")
+    .min(6, "la contraseña debe de tener al menos 6 caracteres"),
+});
+
 export async function postLogin(formdata: FormData) {
-  const email = formdata.get("email");
-  const password = formdata.get("password");
+  // const email = formdata.get("email");
+  // const password = formdata.get("password");
+  // console.log(formdata);
+
+  const validatedFields = createSchemaLogin.safeParse({
+    email: formdata.get("email"),
+    password: formdata.get("password"),
+  });
+
+  if (!validatedFields.success) {
+    return createResponse(
+      false,
+      [],
+      "Error En Algun Campo",
+      validatedFields.error?.flatten().fieldErrors
+    );
+  }
+
+  const { email, password } = validatedFields.data;
 
   try {
     prisma.$connect();
-    const user = await prisma.administrador.findFirst({
+    const administrador = await prisma.administrador.findFirst({
       where: {
         email: email as string,
       },
     });
 
-    if (!user) {
+    // const administrador = await prisma.administrador.findUnique({
+    //   where: { email: email },
+    // });
+
+    console.log(administrador);
+
+    if (!administrador) {
       console.log("no existe el email");
-      return null;
+      return;
+      createResponse(false, [], "no existe Email");
     }
     //validar password con bvrypt
 
-    console.log(user);
+    const comparePass = await comparePassword(password, administrador.password);
+
+    if (!comparePass) {
+      return createResponse(false, [], "Error Contraseña");
+    }
+
+    const { password: password_administrador, ...rest } = administrador;
+
+    const token = await JWTCreate(rest);
+
+    if (!token) {
+      throw new Error("error en la generacion de token");
+    }
+
+    cookies().set({
+      name: "token",
+      value: token,
+      httpOnly: true,
+      path: "/",
+    });
+
+    console.log(administrador);
   } catch (error) {
     console.log(error);
+    return null;
   } finally {
     prisma.$disconnect();
   }

@@ -3,11 +3,17 @@
 import { postLogin } from "@/lib/actions";
 
 function FormLogin() {
+  const handleSubmit = async (e: FormData) => {
+    const data = await postLogin(e);
+
+    console.log(data);
+  };
+
   return (
     <>
       <div className="bg-gray-100 p-4">
         <div className="mx-auto max-w-sm">
-          <form action={postLogin} className="space-y-4">
+          <form action={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label

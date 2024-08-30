@@ -1,12 +1,27 @@
 "use client";
 
 import { postLogin } from "@/lib/actions";
+import { useState } from "react";
 
 function FormLogin() {
+  const [dataResponse, setDataResponse] = useState({
+    message: "" as string,
+    errors: {
+      email: [],
+      password: [],
+    },
+  });
   const handleSubmit = async (e: FormData) => {
     const data = await postLogin(e);
 
-    console.log(data);
+    if (data && !data.success) {
+      const newErrors = { ...dataResponse.errors, ...data.errors };
+
+      setDataResponse({
+        message: data.message,
+        errors: newErrors, // Usamos los nuevos errores si existen, si no mantenemos los antiguos
+      });
+    }
   };
 
   return (
@@ -30,6 +45,18 @@ function FormLogin() {
                     autoComplete="email"
                     className="block w-full ring-0 border-0 border-b-2 border-gray-300 appearance-none bg-transparent py-1 px-2 focus:ring-0 focus:outline-none focus:border-blue-500 sm:text-sm"
                   />
+                  <div
+                    id="customer-error"
+                    aria-live="polite"
+                    aria-atomic="true"
+                  >
+                    {dataResponse.errors?.email &&
+                      dataResponse.errors.email.map((error: string) => (
+                        <p className="mt-2 text-sm text-red-500" key={error}>
+                          {error}
+                        </p>
+                      ))}
+                  </div>
                 </div>
               </div>
               <div>
@@ -47,6 +74,18 @@ function FormLogin() {
                     autoComplete="current-password"
                     className="block w-full ring-0 border-0 border-b-2 border-gray-300 appearance-none bg-transparent py-1 px-2 focus:ring-0 focus:outline-none focus:border-blue-500 sm:text-sm"
                   />
+                  <div
+                    id="customer-error"
+                    aria-live="polite"
+                    aria-atomic="true"
+                  >
+                    {dataResponse.errors?.email &&
+                      dataResponse.errors.email.map((error: string) => (
+                        <p className="mt-2 text-sm text-red-500" key={error}>
+                          {error}
+                        </p>
+                      ))}
+                  </div>
                 </div>
               </div>
             </div>

@@ -189,16 +189,11 @@ export async function postLogin(formdata: FormData) {
       },
     });
 
-    // const administrador = await prisma.administrador.findUnique({
-    //   where: { email: email },
-    // });
-
     console.log(administrador);
 
     if (!administrador) {
       console.log("no existe el email");
-      return;
-      createResponse(false, [], "no existe Email");
+      return createResponse(false, [], "no existe Email");
     }
     //validar password con bvrypt
 
@@ -219,6 +214,7 @@ export async function postLogin(formdata: FormData) {
     cookies().set({
       name: "token",
       value: token,
+      maxAge: 60 * 60 * 24 * 30,
       httpOnly: true,
       path: "/",
     });

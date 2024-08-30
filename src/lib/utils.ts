@@ -7,7 +7,8 @@ export async function JWTCreate(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("7d")
+    // .setExpirationTime("7d")
+    .setExpirationTime("30s")
     .sign(encodedKey);
 }
 

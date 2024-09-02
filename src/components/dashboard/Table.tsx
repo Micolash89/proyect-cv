@@ -60,19 +60,19 @@ export default async function InvoicesTable({
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
-                  Customer
+                  nombre
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Email
+                  apellido
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Amount
+                  email
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Date
+                  fecha de nacimiento
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Status
+                  telefono
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
                   <span className="sr-only">Edit</span>
@@ -85,7 +85,7 @@ export default async function InvoicesTable({
                   key={invoice.id}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
-                  <td className="whitespace-nowrap py-3 pl-6 pr-3">
+                  <td className="whitespace-nowrap py-3 pl-6 ">
                     {/* <div className="flex items-center gap-3">
                       <Image
                         src={invoice.image_url}
@@ -96,18 +96,21 @@ export default async function InvoicesTable({
                       />
                       <p>{invoice.name}</p>
                     </div> */}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {invoice.email}
+                    {invoice.nombre}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {invoice.apellido}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
+                    {invoice.email}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
                     {/* {formatDateToLocal(invoice.fechaNacimiento)} */}
+                    {formatDateToLocal(invoice.fechaNacimiento.toDateString())}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {/* <InvoiceStatus status={invoice.status} /> */}
+                    {invoice.telefono}
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">

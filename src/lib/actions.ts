@@ -111,22 +111,22 @@ export async function postUsuarios(formData: FormData) {
   );
 
   try {
-    // const user = await prisma.user.create({
-    //   data: {
-    //     nombre: nombre as string,
-    //     apellido: apellido as string,
-    //     telefono: telefono as string,
-    //     fechaNacimiento: fechaNacimiento as Date,
-    //     email: email as string,
-    //     domicilio: domicilio as string,
-    //     ciudad: ciudad as string,
-    //     provincia: provincia as string,
-    //     linkedin: linkedin as string,
-    //     // estudios: estudios as string,
-    //     // experiencia: experiencia as string
-    //   },
-    // });
-    // console.log(user);
+    const user = await prisma.user.create({
+      data: {
+        nombre: nombre as string,
+        apellido: apellido as string,
+        telefono: telefono as string,
+        fechaNacimiento: fechaNacimiento as Date,
+        email: email as string,
+        domicilio: domicilio as string,
+        ciudad: ciudad as string,
+        provincia: provincia as string,
+        // linkedin: linkedin as string,
+        // estudios: estudios as string,
+        // experiencia: experiencia as string
+      },
+    });
+    console.log(user);
   } catch (error) {
     console.log(error);
   } finally {
@@ -235,4 +235,96 @@ export async function postLogin(formdata: FormData) {
   //prisma.
 
   //  return user;
+}
+
+export async function deleteUser(id: number) {
+  try {
+    await prisma.user.delete({
+      where: { id },
+    });
+    revalidatePath("/dashboard/users");
+    return { message: "Deleted User." };
+  } catch (error) {
+    return {
+      message: "Database Error: Failed to Delete User.",
+    };
+  }
+}
+
+const UpdateUserSchema = z.object({
+  id: z.coerce.number({
+    invalid_type_error: "El ID debe ser un número entero",
+    message: "El ID debe ser un número entero",
+  }),
+  nombre: z.string().min(4, "El nombre debe tener al menos 4 caracteres"),
+  apellido: z.string().min(3, "El apellido debe tener al menos 3 caracteres"),
+  telefono: z.string().min(6, "El teléfono debe tener al menos 6 caracteres"),
+  // fechaNacimiento: z.date("La fecha de nacimiento debe ser una fecha válida"),
+  email: z
+    .string()
+    .email("Debe ser un email válido")
+    .min(6, "El email debe tener al menos 6 caracteres"),
+  domicilio: z.string().min(1, "El domicilio no puede estar vacío"),
+  ciudad: z.string().min(1, "La ciudad no puede estar vacía"),
+  provincia: z.string().min(1, "La provincia no puede estar vacía"),
+  linkedin: z.string().optional(),
+});
+
+export async function updateUser(formData: FormData, params: { id: string }) {
+  const UpdateUserData = UpdateUserSchema.safeParse({
+    id: params.id,
+    nombre: formData.get("nombre"),
+    apellido: formData.get("apellido"),
+    telefono: formData.get("telefono"),
+    // fechaNacimiento: z.date().safeParse(formData.get("fechaNacimiento")),
+    email: formData.get("email"),
+    domicilio: formData.get("domicilio"),
+    ciudad: formData.get("ciudad"),
+    provincia: formData.get("provincia"),
+    linkedin: formData.get("linkedin"),
+  });
+
+  if (!UpdateUserData.success) {
+    return createResponse(
+      false,
+      [],
+      "Error En Algun Campo",
+      UpdateUserData.error?.flatten().fieldErrors
+    );
+  }
+
+  const {
+    id,
+    nombre,
+    apellido,
+    telefono,
+    email,
+    domicilio,
+    ciudad,
+    provincia,
+    linkedin,
+  } = UpdateUserData.data;
+
+  try {
+    await prisma.user.update({
+      where: { id },
+      data: {
+        nombre,
+        apellido,
+        telefono,
+        email,
+        domicilio,
+        ciudad,
+        provincia,
+        linkedin,
+      },
+    });
+  } catch (error) {
+    return {
+      message: "Database Error: Failed to Update User.",
+    };
+  }
+
+  revalidatePath("/dashboard/users");
+  redirect("/dashboard/users");
 }

@@ -2,7 +2,7 @@
 
 import { generatePagination } from "@/lib/libs";
 import clsx from "clsx";
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+// import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 
 import Link from "next/link";
 
@@ -114,19 +114,17 @@ function PaginationArrow({
   //       "ml-2 md:ml-4": direction === "right",
   //     }
   //   );
-
-  const icon =
-    direction === "left" ? (
-      <ArrowLeftIcon className="w-4" />
-    ) : (
-      <ArrowRightIcon className="w-4" />
-    );
-
-  return isDisabled ? (
-    <div className={className}>{icon}</div>
-  ) : (
-    <Link className={className} href={href}>
-      {icon}
-    </Link>
-  );
+  // const icon =
+  //   direction === "left" ? (
+  //     <ArrowLeftIcon className="w-4" />
+  //   ) : (
+  //     <ArrowRightIcon className="w-4" />
+  //   );
+  // return isDisabled ? (
+  //   <div className={className}>{icon}</div>
+  // ) : (
+  //   <Link className={className} href={href}>
+  //     {icon}
+  //   </Link>
+  // );
 }

@@ -1,8 +1,9 @@
 //ejecutar una query usando prima en una funcion en postgre
+"use server"
 
 import { PrismaClient } from "@prisma/client";
 
-export const prisma = new PrismaClient();
+ const prisma = new PrismaClient();
 const ITEMS_PER_PAGE = 6;
 
 export async function getAllUsers() {
@@ -81,6 +82,27 @@ export async function fetchFilteredUsers(query: string, currentPage: number) {
     return users;
   } catch (error) {
     console.error("Database Error:", error);
-    throw new Error("Failed to fetch users.");
+    // throw new Error("Failed to fetch users.");
   }
+}
+
+
+export async function getUser() {
+  
+  try {
+    
+    const user = await prisma.user.findUnique({
+      where: {
+        id: 1 as number,
+  }})
+
+
+  console.log("base", user);
+
+  return user;
+
+  } catch (error) {
+    console.error("Database Error:", error);
+  }
+
 }

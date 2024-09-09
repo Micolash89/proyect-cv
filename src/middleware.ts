@@ -3,7 +3,7 @@ import { verifyJwtToken } from "./lib/utils";
 // import { JWTValidate } from "./lib/utils";
 
 // 1. Specify protected and public routes
-const protectedRoutes = [""];
+const protectedRoutes = ["/dashboard","/pdf"];
 const publicRoutes = ["/login"];
 
 export async function middleware(req: NextRequest) {

@@ -25,6 +25,9 @@ function FormUser() {
     },
   });
 
+  const data= [] 
+  data.length
+
   const handleSubmit = async (e: FormData) => {
     const data = await postUsuarios(e);
 

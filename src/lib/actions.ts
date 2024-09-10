@@ -77,7 +77,6 @@ export async function postUsuarios(formData: FormData) {
   // const experiencia = formData.get("experiencia");
 
   if (!validatedFields.success) {
-    console.log(validatedFields.error.flatten().fieldErrors);
     return createResponse(
       false,
       [],
@@ -189,8 +188,6 @@ export async function postLogin(formdata: FormData) {
       },
     });
 
-    console.log(administrador);
-
     if (!administrador) {
       console.log("no existe el email");
       return createResponse(false, [], "no existe Email");
@@ -230,11 +227,12 @@ export async function postLogin(formdata: FormData) {
   //guardar un cookie del admin
 
   revalidatePath("/"); //borrar el cache de la tabla
-  redirect("/"); // redirect
+  //redirect("/"); // redirect
 
   //prisma.
 
   //  return user;
+  return createResponse(true, [], "login correcto");
 }
 
 export async function deleteUser(id: number) {

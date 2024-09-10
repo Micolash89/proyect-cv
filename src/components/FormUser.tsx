@@ -2,6 +2,7 @@
 
 import { postUsuarios } from "@/lib/actions";
 import { useState } from "react";
+import { toast } from "sonner";
 
 type Data = {
   success: boolean;
@@ -28,30 +29,71 @@ function FormUser() {
   const data= [] 
   data.length
 
-  const handleSubmit = async (e: FormData) => {
+  const actionPost = async (e:FormData) => {
+    
+    try{
     const data = await postUsuarios(e);
-
-    if (data && !data.success) {
-      // console.log(data.message);
-
-      // Mantenemos el mensaje pero actualizamos errores si existen.
-      // setDataResponse((prevState) => ({
-      //   //...prevState,
-      //   ...data,//{message : data.message, errors:data.errors}
-      //   //       errors: data.errors || prevState.errors, // Usamos errores recibidos o mantenemos los existentes.
-      // }));
-      // setDataResponse(data);
-
-      const newErrors = { ...dataResponse.errors, ...data.errors };
+      // Verifica el campo `success` de la respuesta y lanza un error si es `false`
+      if (!data.success) {
+          const newErrors = { ...dataResponse.errors, ...data.errors };
 
       setDataResponse({
         message: data.message,
         errors: newErrors, // Usamos los nuevos errores si existen, si no mantenemos los antiguos
       });
-
-      console.log("soy io", dataResponse.message);
-
+        throw data;
+      }
+  
+      // Si todo está bien, devuelve los datos
+      return data;
+  
+    } catch (data) {
+      // Propaga el error para que `toast.promise` pueda manejarlo
+      throw data;
     }
+  };
+
+  const handleSubmit = async (e: FormData) => {
+
+    const postPromise = actionPost(e); // Tu promesa original
+
+  try {
+     const data = toast.promise(postPromise, {
+      loading: 'Loading...',
+      success: (dato) => `${dato.message}`, // Ajusta este mensaje según la respuesta que esperas
+      error: (error)=>`${error.message}`,
+    });
+
+    // Aquí puedes usar los datos devueltos por la promesa
+    console.log('Datos recibidos:', data);
+    // Realiza otras acciones con `data` aquí, si es necesario
+
+  } catch (error) {
+    console.error('Error al agregar usuario:', error);
+    // Maneja cualquier error adicional si es necesario
+  }
+
+    // if (data && !data.success) {
+    //   // console.log(data.message);
+
+    //   // Mantenemos el mensaje pero actualizamos errores si existen.
+    //   // setDataResponse((prevState) => ({
+    //   //   //...prevState,
+    //   //   ...data,//{message : data.message, errors:data.errors}
+    //   //   //       errors: data.errors || prevState.errors, // Usamos errores recibidos o mantenemos los existentes.
+    //   // }));
+    //   // setDataResponse(data);
+
+    //   const newErrors = { ...dataResponse.errors, ...data.errors };
+
+    //   setDataResponse({
+    //     message: data.message,
+    //     errors: newErrors, // Usamos los nuevos errores si existen, si no mantenemos los antiguos
+    //   });
+
+    //    console.log("soy io", dataResponse.message);
+
+    // }
   };
 
   return (

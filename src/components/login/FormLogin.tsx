@@ -1,8 +1,8 @@
 "use client";
 
 import { postLogin } from "@/lib/actions";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 function FormLogin() {
   const [dataResponse, setDataResponse] = useState({
@@ -12,17 +12,44 @@ function FormLogin() {
       password: [],
     },
   });
-  const handleSubmit = async (e: FormData) => {
-    const data = await postLogin(e);
 
-    if (data && !data.success) {
-      const newErrors = { ...dataResponse.errors, ...data.errors };
+  const actionLogin = async (e:FormData)=>{
 
-      setDataResponse({
-        message: data.message,
-        errors: newErrors, // Usamos los nuevos errores si existen, si no mantenemos los antiguos
-      });
+    try {
+      const data = await postLogin(e);
+  
+      if (data && !data.success) {
+        const newErrors = { ...dataResponse.errors, ...data.errors };
+  
+        setDataResponse({
+          message: data.message,
+          errors: newErrors, // Usamos los nuevos errores si existen, si no mantenemos los antiguos
+        });
+        
+        throw data
+      }
+
+      return data
+    } catch (data) {
+
+      throw data;
+
     }
+
+
+  }
+
+  const handleSubmit = async (e: FormData) => {
+    
+    const postPromise = actionLogin(e); // Tu promesa original
+
+  
+     const data = toast.promise(postPromise, {
+      loading: 'Loading...',
+      success: (dato) => `${dato?.message}`, // Ajusta este mensaje según la respuesta que esperas
+      error: (error)=>`${error.message}`,
+    });
+
   };
 
   return (
@@ -80,8 +107,8 @@ function FormLogin() {
                     aria-live="polite"
                     aria-atomic="true"
                   >
-                    {dataResponse.errors?.email &&
-                      dataResponse.errors.email.map((error: string) => (
+                    {dataResponse.errors?.password &&
+                      dataResponse.errors.password.map((error: string) => (
                         <p className="mt-2 text-sm text-red-500" key={error}>
                           {error}
                         </p>
@@ -99,6 +126,7 @@ function FormLogin() {
               </button>
             </div>
           </form>
+          <button onClick={() => toast('This is a sonner toast')}>Render my toast</button>
         </div>
       </div>
     </>

@@ -52,6 +52,10 @@ const CreateUsuario = CreateSchemaUsuario.omit({
 // };
 
 export async function postUsuarios(formData: FormData) {
+
+  console.log(formData);
+  console.log(formData.get("anioFinEducacion"));
+
   const validatedFields = CreateUsuario.safeParse({
     nombre: formData.get("nombre"),
     apellido: formData.get("apellido"),

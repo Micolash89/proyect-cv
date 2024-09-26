@@ -1,17 +1,33 @@
-import FormRegister from "@/components/FormRegister";
-import FormUser from "@/components/FormUser";
-import { getAllUsers } from "@/database/database";
-import { postUsuarios } from "@/lib/actions";
-import { headers } from "next/headers";
-import Image from "next/image";
+"use client"
 
-export default async function Home() {
+import AnimatedCounter from "@/components/AnimatedCounter";
+import FormRegister from "@/components/FormRegister";
+import { useState } from "react";
+
+export default function Home() {
+
+  const [cvData, setCVData] = useState({
+    name: '',
+    lastName: '',
+    email: '',
+    fechaNacimiento:"",
+    phone: '',
+    ciudad: '',
+    provincia: '',
+    education: [],
+    experience: [],
+    cusos: [],
+  })
+
+  const updateCVData = (newData:any) => {
+    setCVData((prevData) => ({ ...prevData, ...newData }))
+  }
+
   return (
     <>
       {/* <FormUser /> */}
 
-      <FormRegister/>
-
+      <FormRegister cvData={cvData} updateCVData={updateCVData}/>
     </>
   );
 }

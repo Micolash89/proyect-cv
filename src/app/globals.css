@@ -2,31 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-.toast{
-    position : absolute;
-    top : 15px;
-    left: 50%;
-    transform: translateY(-150px);
+.deleteButton:hover > svg:first-child{
+    display: none;
 }
 
-.toast__animation{
-    
-   
-    animation: toast 5s ease-out;
-    transition: all .6;
-}
+.deleteButton > svg:last-child{
 
-@keyframes toast {
-    0% {
-        
-        transform: translateY(-200px);
-    }
-    50% {
-        
-        transform: translateY(0px);
-    }
-    100% {
-        
-        transform: translateY(-200px);
-    }
+    display: none;
+}
+.deleteButton:hover > svg:last-child{
+
+    display: block;
 }

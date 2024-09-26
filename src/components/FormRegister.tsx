@@ -32,13 +32,18 @@ function FormRegister({
     anioInicioEducacion: "",
     anioFinEducacion: "",
   });
+  const [newCursos, setNewCursos] = useState({
+    curso: "",
+    institucion: "",
+    anioInicioCurso: "",
+  });
 
   const [newExperience, setNewExperience] = useState({
-    title: "",
-    company: "",
-    startDate: "",
-    endDate: "",
-    description: "",
+    puesto: "",
+    nombreEmpresa: "",
+    anioInicioExperiencia: "",
+    anioFinExperiencia: "",
+    descripcionExperiencia:""
   });
 
   const handleEducationChange = (e: any) => {
@@ -46,23 +51,7 @@ function FormRegister({
     setNewEducation((prev) => ({ ...prev, [name]: value }));
   };
 
-  
-
   const addEducation = () => {
-    console.log("dentre");
-    // updateCVData({ education: [...cvData.education, newEducation] });
-    // setNewEducation({
-    //   estudios: "",
-    //   estado: "",
-    //   carrera: "",
-    //   nombreTitulo: "",
-    //   anioInicioEducacion: "",
-    //   anioFinEducacion: "",
-    // });
-
-    console.log(   (newEducation.estudios&& newEducation.carrera  && newEducation.estado)    );
-    console.log(   newEducation.estudios  , newEducation.estado, newEducation.carrera    );
-
     if (newEducation.estudios  && newEducation.estado && newEducation.carrera) {
       updateCVData({ education: [...cvData.education, newEducation] })
       setNewEducation({
@@ -75,11 +64,48 @@ function FormRegister({
     }
   };
 
+  const handleExperienceChange = (e:any) => {
+    const { name, value } = e.target
+    setNewExperience((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleCursoChange = (e:any) => {
+    const { name, value } = e.target
+    setNewCursos((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const addExperience = () => {
+    if (newExperience.nombreEmpresa && newExperience.puesto) {
+      updateCVData({ experience: [...cvData.experience, newExperience] })
+      setNewExperience({ puesto: '', nombreEmpresa: '', anioInicioExperiencia: '', anioFinExperiencia: '', descripcionExperiencia: '' })
+    }
+  }
+  const addCursos = () => {
+    if (newCursos.curso && newCursos.institucion) {
+      updateCVData({ cursos: [...cvData.cursos, newCursos] })
+      setNewCursos({  curso: "",
+        institucion: "",
+        anioInicioCurso: "", })
+    }
+  }
+
+  const removeExperience = (index:any) => {
+    const updatedExperience = cvData.experience.filter((_:any, i:any) => i !== index)
+    updateCVData({ experience: updatedExperience })
+  }
+
   const removeEducation = (index: any) => {
     const updatedEducation = cvData.education.filter(
       (_: any, i: any) => i !== index
     );
     updateCVData({ education: updatedEducation });
+  };
+
+  const removeCursos = (index: any) => {
+    const updatedCursos = cvData.cursos.filter(
+      (_: any, i: any) => i !== index
+    );
+    updateCVData({ cursos: updatedCursos });
   };
 
   const [newAward, setNewAward] = useState({ title: "", year: "" });
@@ -130,7 +156,7 @@ function FormRegister({
     <>
       <form
         action={handleSubmit}
-        className="max-w-md mx-auto py-14 flex flex-col gap-9 "
+        className=" py-14 flex flex-col gap-9 "
       >
         <div className="border-gray-200 rounded-lg border-2 p-10 shadow-lg">
           <h2 className="capitalize text-lg text-nowrap mx-auto w-full text-center text-gray-700 dark:text-gray-400">
@@ -144,8 +170,9 @@ function FormRegister({
               id="floating_first_name"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              defaultValue={cvData.name}
+              value={cvData.name}
               required
+              onChange={handleInputChange}
             />
             <label
               htmlFor="floating_first_name"
@@ -162,7 +189,8 @@ function FormRegister({
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
-              defaultValue={cvData.lastName}
+              value={cvData.lastName}
+              onChange={handleInputChange}
             />
             <label
               htmlFor="floating_last_name"
@@ -180,7 +208,8 @@ function FormRegister({
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
-              defaultValue={cvData.fechaNacimiento}
+              value={cvData.fechaNacimiento}
+              onChange={handleInputChange}
             />
             <label
               htmlFor="floating_company"
@@ -199,7 +228,8 @@ function FormRegister({
               name="phone"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              defaultValue={cvData.phone}
+              value={cvData.phone}
+              onChange={handleInputChange}
               required
             />
             <label
@@ -215,7 +245,8 @@ function FormRegister({
               name="email"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              defaultValue={cvData.email}
+              value={cvData.email}
+              onChange={handleInputChange}
             />
             <label
               htmlFor="floating_email"
@@ -233,7 +264,8 @@ function FormRegister({
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
-              defaultValue={cvData.provincia}
+              value={cvData.provincia}
+              onChange={handleInputChange}
             />
             <label
               htmlFor="floating_email"
@@ -249,7 +281,8 @@ function FormRegister({
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required
-              defaultValue={cvData.ciudad}
+              value={cvData.ciudad}
+              onChange={handleInputChange}
             />
             <label
               htmlFor="floating_email"
@@ -431,6 +464,33 @@ function FormRegister({
             Experiencia Laboral
           </h2>
 
+          {cvData.experience.map((edu: any, index: any) => (
+            <div
+              key={index}
+              className=" mb-4 p-3 border rounded-lg text-black w-full "
+            >
+              <div className="flex flex-col justify-center items-center">
+
+              <h3 className="font-bold">{edu.puesto}</h3>
+              <p>
+                {edu.nombreEmpresa}, {edu.descripcionExperiencia}
+              </p>
+              <p>
+                {edu.anioInicioExperiencia}, {edu.anioFinExperiencia}
+              </p>
+              </div>
+              <button
+                type="button"
+                className="mt-2 flex flex-row gap-2 items-center justify-center text-red-500 hover:bg-red-50 transition-colors duration-700 hover:border-red-500 border-2 p-2 rounded-lg  deleteButton"
+                onClick={() => removeExperience(index)}
+              >
+                <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"></path></svg>
+                <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM13.4142 13.9997L15.182 15.7675L13.7678 17.1817L12 15.4139L10.2322 17.1817L8.81802 15.7675L10.5858 13.9997L8.81802 12.232L10.2322 10.8178L12 12.5855L13.7678 10.8178L15.182 12.232L13.4142 13.9997ZM9 4V6H15V4H9Z"></path></svg>
+                 Eliminar
+              </button>
+            </div>
+          ))}
+
           <div className="relative z-0 w-full mb-5 group">
             <input
               type="text"
@@ -438,7 +498,8 @@ function FormRegister({
               id="floating_email"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=""
-              required
+              value={newExperience.puesto}
+              onChange={handleExperienceChange}
             />
             <label
               htmlFor="floating_email"
@@ -455,7 +516,8 @@ function FormRegister({
               id="floating_email"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=""
-              required
+              value={newExperience.nombreEmpresa}
+              onChange={handleExperienceChange}
             />
             <label
               htmlFor="floating_email"
@@ -475,8 +537,11 @@ function FormRegister({
             <textarea
               id="message"
               rows={4}
+              name="descripcionExperiencia"
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-400 dark:border-gray-400 dark:placeholder-white dark:text-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="breve descripcion de las tareas"
+              onChange={handleExperienceChange}
+              value={newExperience.descripcionExperiencia}
             ></textarea>
           </div>
 
@@ -492,9 +557,11 @@ function FormRegister({
               </label>
               <select
                 id="countries"
-                name="anioInicio"
+                name="anioInicioExperiencia"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                defaultValue={""}
+                // defaultValue={""}
+                onChange={handleExperienceChange}
+                value={newExperience.anioInicioExperiencia}
               >
                 <option value={""} hidden>
                   seleccione año
@@ -519,9 +586,10 @@ function FormRegister({
               </label>
               <select
                 id="countries"
-                name="anioFin"
+                name="anioFinExperiencia"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                defaultValue={""}
+                onChange={handleExperienceChange}
+                value={newExperience.anioFinExperiencia}
               >
                 <option value={""} hidden>
                   seleccione año
@@ -537,12 +605,44 @@ function FormRegister({
               </select>
             </div>
           </div>
-          <button>agregar</button>
+          <button type="button" className="border-2 px-4 py-2 mt-5 flex flex-row rounded-lg text-blue-400 hover:bg-blue-100 border-gray-200 transition-colors duration-700 hover:border-blue-400" onClick={addExperience}>
+            <svg width={24} height={24} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path></svg>
+              <span>
+              agregar
+              </span>
+            </button>
         </div>
         <div className="border-gray-200 rounded-lg border-2 p-10 shadow-lg">
           <h2 className="capitalize text-lg text-nowrap mx-auto w-full text-center text-gray-700 dark:text-gray-400">
             Cursos/Certificaciones
           </h2>
+
+          {cvData.cursos.map((edu: any, index: any) => (
+            <div
+              key={index}
+              className=" mb-4 p-3 border rounded-lg text-black w-full "
+            >
+              <div className="flex flex-col justify-center items-center">
+
+              <h3 className="font-bold">{edu.curso}</h3>
+              <p>
+                {edu.institucion}
+              </p>
+              <p>
+                {edu.anioInicioExperiencia}
+              </p>
+              </div>
+              <button
+                type="button"
+                className="mt-2 flex flex-row gap-2 items-center justify-center text-red-500 hover:bg-red-50 transition-colors duration-700 hover:border-red-500 border-2 p-2 rounded-lg  deleteButton"
+                onClick={() => removeCursos(index)}
+              >
+                <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"></path></svg>
+                <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM13.4142 13.9997L15.182 15.7675L13.7678 17.1817L12 15.4139L10.2322 17.1817L8.81802 15.7675L10.5858 13.9997L8.81802 12.232L10.2322 10.8178L12 12.5855L13.7678 10.8178L15.182 12.232L13.4142 13.9997ZM9 4V6H15V4H9Z"></path></svg>
+                 Eliminar
+              </button>
+            </div>
+          ))}
 
           <div className="relative z-0 w-full mb-5 group">
             <input
@@ -551,7 +651,8 @@ function FormRegister({
               id="floating_email"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=""
-              required
+              value={newCursos.curso}
+              onChange={handleCursoChange}
             />
             <label
               htmlFor="floating_email"
@@ -568,7 +669,8 @@ function FormRegister({
               id="floating_email"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=""
-              required
+              onChange={handleCursoChange}
+              value={newCursos.institucion}
             />
             <label
               htmlFor="floating_email"
@@ -592,7 +694,8 @@ function FormRegister({
                 id="countries"
                 name="anioInicioCurso"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                defaultValue={""}
+                value={newCursos.anioInicioCurso}
+                onChange={handleCursoChange}
               >
                 <option value={""} hidden>
                   seleccione año
@@ -607,7 +710,7 @@ function FormRegister({
                 })}
               </select>
             </div>
-
+{/* 
             <div className="max-w-sm mx-auto">
               <label
                 htmlFor="countries"
@@ -633,9 +736,14 @@ function FormRegister({
                   );
                 })}
               </select>
-            </div>
+            </div> */}
           </div>
-          <button>agregar</button>
+          <button type="button" className="border-2 px-4 py-2 mt-5 flex flex-row rounded-lg text-blue-400 hover:bg-blue-100 border-gray-200 transition-colors duration-700 hover:border-blue-400" onClick={addCursos}>
+            <svg width={24} height={24} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path></svg>
+              <span>
+              agregar
+              </span>
+            </button>
         </div>
 
         <button

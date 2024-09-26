@@ -2,6 +2,7 @@
 
 import AnimatedCounter from "@/components/AnimatedCounter";
 import FormRegister from "@/components/FormRegister";
+import PreviewCV from "@/components/PreviewCV";
 import { useState } from "react";
 
 export default function Home() {
@@ -16,7 +17,7 @@ export default function Home() {
     provincia: '',
     education: [],
     experience: [],
-    cusos: [],
+    cursos: [],
   })
 
   const updateCVData = (newData:any) => {
@@ -27,7 +28,12 @@ export default function Home() {
     <>
       {/* <FormUser /> */}
 
+      <main className="grid grid-cols-2 w-full">
       <FormRegister cvData={cvData} updateCVData={updateCVData}/>
+
+      <PreviewCV cvData={cvData}/>
+
+      </main>
     </>
   );
 }

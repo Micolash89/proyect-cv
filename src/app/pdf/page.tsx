@@ -1,11 +1,12 @@
 "use client"
-import { MyDocumentPDF } from "@/components/pdf/GeneratorPDF";
+
 import { getUser } from "@/database/database";
 // import { PDFViewer } from "@react-pdf/renderer";
-import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
 
+import dynamic from "next/dynamic";
 const PDFViewer = dynamic(() => import('@react-pdf/renderer').then(mod => mod.PDFViewer), { ssr: false });
+import { MyDocumentPDF } from '@/components/pdf/GeneratorPDF';
 
 
 
@@ -41,7 +42,7 @@ function Page() {
     <>
       {responseBack && <PDFViewer width="100%" height="100%">
         
-          <MyDocumentPDF data ={responseBack}/>
+          {/* <MyDocumentPDF data ={responseBack}/> */}
         
       </PDFViewer>}
     </>

@@ -34,7 +34,7 @@ model Estudio {
   carrera      String //titulo
   estado       EstudioEstadoEnum
   tipo         EstudioTipoEnum //estudios
-  institucion  String //estudios
+  institucion  String 
   fechaIngreso String
   fechaEgreso  String?
   idUsuario    Int

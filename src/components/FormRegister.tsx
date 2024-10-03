@@ -3,6 +3,7 @@
 import { postUsuarios } from "@/lib/actions";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Experiencia } from './../lib/actions';
 
 function FormRegister({
   cvData,
@@ -133,7 +134,19 @@ function FormRegister({
 
 
   const handleSubmit = async (e: FormData) => {
-    const postPromise = postUsuarios(e); // Tu promesa original
+
+    const experience:any =[];
+    const cursos1:any = [];
+    const education:any = [];
+
+    console.log(experience)
+    console.log(updateCVData.experience)
+
+    const newpost = postUsuarios.bind(null, experience).bind(null,cursos1).bind(null,education);
+    
+    
+
+    const postPromise = newpost(e); // Tu promesa original
 
     toast.promise(postPromise, {
       loading: "Loading...",
@@ -224,7 +237,7 @@ function FormRegister({
               type="tel"
               //caracteristica segun region
               // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-              pattern="[0-9]{15}"
+              // pattern="[0-9]{15}"
               name="phone"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
@@ -263,7 +276,7 @@ function FormRegister({
               id="floating_email"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required
+          
               value={cvData.provincia}
               onChange={handleInputChange}
             />
@@ -280,7 +293,7 @@ function FormRegister({
               name="ciudad"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required
+              
               value={cvData.ciudad}
               onChange={handleInputChange}
             />
@@ -380,7 +393,7 @@ function FormRegister({
               name="carrera"
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
-              required
+              
               // defaultValue={newEducation.carrera}
               value={newEducation.carrera}
               onChange={handleEducationChange}

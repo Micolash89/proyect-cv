@@ -1,6 +1,6 @@
 "use server";
 
-import { PrismaClient } from "@prisma/client";
+import { EstudioEstadoEnum, EstudioTipoEnum, PrismaClient } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 const prisma = new PrismaClient();
@@ -11,74 +11,77 @@ import { cookies } from "next/headers";
 import { comparePassword } from "./utilsBcrypt";
 
 const CreateSchemaUsuario = z.object({
-  nombre: z
+  name: z
     .string({ message: "ingrese un nombre" })
     .min(4, "el nombre debe de tener al menos 4 caracteres"),
-  apellido: z
+  lastName: z
     .string({ message: "ingrese un apellido" })
     .min(3, "el apellido debe tener al menos 3 caracter"),
   email: z
     .string({ message: "ingrese un email" })
     .email("Debe ser un email válido")
     .min(6, "el email debe tener al menos 6 caracteres"),
-  telefono: z.string().min(6, "el telefono debe tener al menos 6 caracteres"),
-  fechaNacimiento: z.coerce.date({
-    message: "se requiere una fecha de nacimiento",
-  }),
-  domicilio: z
-    .string()
-    .min(4, "el domicilio debe de tener al menos 4 caracteres"),
+    fechaNacimiento: z.string({
+      message: "seleccione una fecha de nacimiento",
+    }),
+  phone: z.string().min(6, "el telefono debe tener al menos 6 caracteres"),
   ciudad: z.string().min(4, "la ciudad debe de tener al menos 4 caracteres"),
   provincia: z
     .string()
     .min(4, "la provincia debe de tener al menos 4 caracteres"),
-  linkedin: z.string().url({ message: "debe ser una url valida" }),
-  estudios: z.string().min(4, "los estudios deben tener al menos 4 caracteres"),
-  experiencia: z
-    .string()
-    .min(4, "la experiencia deben tener al menos 4 caracteres"),
+  education: z
+    .array(
+      z.object({
+        carrera: z.string().min(4, "la carrera debe de tener al menos 4 caracteres"),
+        estado: z.string({message:"seleccione el estado"}),
+        estudios: z.string().min(4, "los estudios deben tener al menos 4 caracteres"),
+        //falta la insitucion
+        anioInicioEducacion: z.string().min(4, "el a o de inicio de los estudios debe de tener al menos 4 caracteres"),
+        anioFinEducacion: z.string(),
+      })
+    ),
+  experience: z.array(
+    z.object({
+      nombreEmpresa: z.string().min(4, "el nombre de la empresa debe de tener al menos 4 caracteres"),
+      puesto: z.string().min(4, "el puesto debe de tener al menos 4 caracteres"),
+      anioInicioExperiencia: z.string().min(4, "el a o de inicio de la experiencia debe de tener al menos 4 caracteres"),
+      anioFinExperiencia: z.string().min(4, "el a o de fin de la experiencia debe de tener al menos 4 caracteres"),
+      descripcionExperiencia: z.string().min(5, "la descripci n de la experiencia debe de tener al menos 5 caracteres"),
+    }),
+
+  ),
+  cursos: z.array(
+    z.object({
+      curso: z.string().min(4, "el curso debe de tener al menos 4 caracteres"),
+      institucion: z.string().min(4, "la instituci n debe de tener al menos 4 caracteres"),
+      anioInicioCurso: z.string().min(4, "el a o de inicio del curso debe de tener al menos 4 caracteres"),
+    }),
+  ),
 });
 
-const CreateUsuario = CreateSchemaUsuario.omit({
-  estudios: true,
-  experiencia: true,
-  linkedin: true,
-});
+const CreateUsuario = CreateSchemaUsuario.omit({});
 
-// export const validateUser = (formData: FormData) => {
-//   const user = CreateSchemaEstudiante.parse(formData);
-//   console.log(user);
-//   return user;
-// };
+export  interface Experiencia{
+  puesto:string;
+  nombreEmpresa:string;
+  anioInicioExperiencia:string;
+  anioFinExperiencia:string;
+  descripcionExperiencia:string;
+}
 
-export async function postUsuarios(formData: FormData) {
+export async function postUsuarios(experience:Experiencia[],cursos1:any[], education:any[] ,formData: FormData) {
 
-  console.log(formData);
-  console.log(formData.get("anioFinEducacion"));
+  console.log(Object.fromEntries(formData));
+  console.log("experiencia",experience)
+  console.log("cursos",cursos1)
+  console.log("educacion",education)
 
   const validatedFields = CreateUsuario.safeParse({
-    nombre: formData.get("nombre"),
-    apellido: formData.get("apellido"),
-    email: formData.get("email"),
-    telefono: formData.get("telefono"),
-    fechaNacimiento: formData.get("fechaNacimiento"),
-    domicilio: formData.get("domicilio"),
-    ciudad: formData.get("ciudad"),
-    provincia: formData.get("provincia"),
-    //linkedin: formData.get("linkedin"),
+    ...Object.fromEntries(formData),
+    education,
+    cursos:cursos1,
+    experience
   });
-
-  // const nombre = formData.get("nombre");
-  // const apellido = formData.get("apellido");
-  // const telefono = formData.get("telefono");
-  // const fechaNacimiento = formData.get("fechaNacimiento");
-  // const email = formData.get("email");
-  // const domicilio = formData.get("domicilio");
-  // const ciudad = formData.get("ciudad");
-  // const provincia = formData.get("provincia");
-  // const linkedin = formData.get("linkedin");
-  // const estudios = formData.get("estudios");
-  // const experiencia = formData.get("experiencia");
 
   if (!validatedFields.success) {
     return createResponse(
@@ -91,14 +94,17 @@ export async function postUsuarios(formData: FormData) {
 
   const {
     data: {
-      nombre,
-      apellido,
-      telefono,
-      fechaNacimiento,
+      
+      name: nombre ,
+      lastName: apellido ,
       email,
-      domicilio,
-      ciudad,
-      provincia,
+      fechaNacimiento,
+      phone: telefono ,
+       ciudad ,
+       provincia ,
+       education:educacion,
+       experience:experiencia,
+       cursos,
     },
   } = validatedFields;
 
@@ -106,9 +112,8 @@ export async function postUsuarios(formData: FormData) {
     nombre,
     apellido,
     telefono,
-    fechaNacimiento,
     email,
-    domicilio,
+    fechaNacimiento,
     ciudad,
     provincia
   );
@@ -119,38 +124,71 @@ export async function postUsuarios(formData: FormData) {
         nombre: nombre as string,
         apellido: apellido as string,
         telefono: telefono as string,
-        fechaNacimiento: fechaNacimiento as Date,
+        fechaNacimiento: fechaNacimiento as string,
         email: email as string,
-        domicilio: domicilio as string,
         ciudad: ciudad as string,
         provincia: provincia as string,
-        // linkedin: linkedin as string,
-        // estudios: estudios as string,
-        // experiencia: experiencia as string
       },
     });
-    console.log(user);
+    
+    if(educacion.length>0){
+      
+      
+      educacion.forEach(async (educacion) => {
+        await prisma.estudio.create({
+          data: {
+            carrera: educacion.carrera as string,
+            estado: educacion.estado as EstudioEstadoEnum,
+            tipo: educacion.estudios as EstudioTipoEnum,
+            fechaIngreso: educacion.anioInicioEducacion as string,
+            institucion:"",//falta agregar institucion frontend
+            fechaEgreso: educacion.anioFinEducacion as string,
+            idUsuario: user.id,
+          },
+        });
+      });
+
+    }
+
+    if(experiencia.length>0){
+      experiencia.forEach(async (experiencia) => {
+        await prisma.experiencia.create({
+          data: {
+            nombre: experiencia.nombreEmpresa as string,
+            puesto: experiencia.puesto as string,
+            fechaInicio: experiencia.anioInicioExperiencia as string,
+            fechaFin: experiencia.anioFinExperiencia as string,
+            descripcion: experiencia.descripcionExperiencia as string,
+            idUsuario: user.id,
+          },
+        });
+      });
+    }
+
+    if(cursos.length>0){
+
+      cursos.forEach(async (cursos) => {(
+        await prisma.curso.create({
+          data: {
+            nombre: cursos.curso as string,
+            institucion: cursos.institucion as string,
+            fechaInicio: cursos.anioInicioCurso as string,
+            idUsuario: user.id,
+          },
+        })
+      )
+
+      })
+    }
   } catch (error) {
     console.log(error);
   } finally {
     prisma.$disconnect();
   }
-
-  return createResponse(true, [], "Usuario Creado Correctamente");
+  
+  return createResponse(true, [], "Registro Satisfactorio");
 }
 
-// export async function getAllUsers() {
-//   try {
-//     prisma.$connect();
-
-//     const users = await prisma.user.findMany();
-//     return users;
-//   } catch (error) {
-//     console.error(error);
-//   } finally {
-//     prisma.$disconnect();
-//   }
-// }
 
 const createSchemaLogin = z.object({
   email: z
@@ -315,7 +353,7 @@ export async function updateUser(formData: FormData, params: { id: string }) {
         apellido,
         telefono,
         email,
-        domicilio,
+      
         ciudad,
         provincia,
         linkedin,

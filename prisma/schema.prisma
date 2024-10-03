@@ -21,43 +21,56 @@ model User {
   telefono        String
   fechaNacimiento DateTime
   email           String        @unique
-  domicilio       String
   ciudad          String
   provincia       String
   linkedin        String?
   estudios        Estudio[]     @relation("UserEstudios")
   experiencias    Experiencia[] @relation("UserExperiencias")
+  cursos          Curso[] @relation("UserCursos")
 }
 
 model Estudio {
   id           Int               @id @default(autoincrement())
-  tipo         EstudioTipoEnum
-  fechaIngreso Int
-  fechaEgreso  Int?
+  carrera      String //titulo
   estado       EstudioEstadoEnum
-  carrera      String
+  tipo         EstudioTipoEnum //estudios
+  institucion  String //estudios
+  fechaIngreso String
+  fechaEgreso  String?
   idUsuario    Int
   usuario      User              @relation(fields: [idUsuario], references: [id], name: "UserEstudios")
 }
 
 model Experiencia {
   id          Int    @id @default(autoincrement())
+  nombre      String//nombre empresa
+  puesto      String
+  fechaInicio String
+  fechaFin    String?
   descripcion String
-  fechaInicio Int
-  fechaFin    Int?
   idUsuario   Int
   usuario     User   @relation(fields: [idUsuario], references: [id], name: "UserExperiencias")
 }
 
+model Curso {
+  id          Int    @id @default(autoincrement())
+  nombre      String//curso
+  institucion String
+  fechaInicio String
+  idUsuario   Int
+  usuario     User   @relation(fields: [idUsuario], references: [id], name: "UserCursos")
+}
+
 enum EstudioEstadoEnum {
-  TERMINADO
-  ABANDONADO
-  EN_PROCESO
+  COMPLETADO
+  INCOMPLETO
+  PROCESO
 }
 
 enum EstudioTipoEnum {
   PRIMARIO
   SECUNDARIO
+  TERCEARIO
   UNIVERSITARIO
 }
 

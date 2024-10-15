@@ -9,6 +9,7 @@ import { z } from "zod";
 import { createResponse, JWTCreate } from "./utils";
 import { cookies } from "next/headers";
 import { comparePassword } from "./utilsBcrypt";
+import { generarPerfilExperiencia } from "./actionsIA";
 
 const CreateSchemaUsuario = z.object({
   name: z
@@ -21,7 +22,7 @@ const CreateSchemaUsuario = z.object({
     .string({ message: "ingrese un email" })
     .email("Debe ser un email válido")
     .min(6, "el email debe tener al menos 6 caracteres"),
-    fechaNacimiento: z.string({
+    fechaNacimiento: z.coerce.date({
       message: "seleccione una fecha de nacimiento",
     }),
   phone: z.string().min(6, "el telefono debe tener al menos 6 caracteres"),
@@ -71,7 +72,8 @@ export  interface Experiencia{
 
 export async function postUsuarios(experience:Experiencia[],cursos1:any[], education:any[] ,formData: FormData) {
 
-  console.log(Object.fromEntries(formData));
+  // console.log(Object.fromEntries(formData));
+  console.log("backend")
   console.log("experiencia",experience)
   console.log("cursos",cursos1)
   console.log("educacion",education)
@@ -108,15 +110,19 @@ export async function postUsuarios(experience:Experiencia[],cursos1:any[], educa
     },
   } = validatedFields;
 
-  console.log(
-    nombre,
-    apellido,
-    telefono,
-    email,
-    fechaNacimiento,
-    ciudad,
-    provincia
-  );
+console.log(educacion);
+console.log(experiencia);
+console.log(cursos);
+
+  // console.log(
+  //   nombre,
+  //   apellido,
+  //   telefono,
+  //   email,
+  //   fechaNacimiento,
+  //   ciudad,
+  //   provincia
+  // );
 
   try {
     const user = await prisma.user.create({
@@ -124,7 +130,7 @@ export async function postUsuarios(experience:Experiencia[],cursos1:any[], educa
         nombre: nombre as string,
         apellido: apellido as string,
         telefono: telefono as string,
-        fechaNacimiento: fechaNacimiento as string,
+        fechaNacimiento: fechaNacimiento as Date,
         email: email as string,
         ciudad: ciudad as string,
         provincia: provincia as string,
@@ -367,4 +373,16 @@ export async function updateUser(formData: FormData, params: { id: string }) {
 
   revalidatePath("/dashboard/users");
   redirect("/dashboard/users");
+}
+
+
+/*IA*/
+
+export async function generatorProfileAI (experience:Experiencia[],formData: FormData ){
+
+
+  const perfilDescripcion :string = await generarPerfilExperiencia(experience)
+
+  return  createResponse(true, {message:perfilDescripcion},"creación de perfil exitoso");
+
 }

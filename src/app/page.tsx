@@ -8,6 +8,7 @@ import { PDFViewer } from "@react-pdf/renderer";
 import Link from "next/link";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import IARegister from "@/components/IARegister";
 
 export default function Home() {
 
@@ -26,8 +27,17 @@ const PDFViewer = dynamic(() => import('@react-pdf/renderer').then(mod => mod.PD
     cursos: [],
   })
 
+  const [iaData, setIAData]= useState({
+    profile:"",
+    skills:"",
+    descriptionWork:""
+  })
+
   const updateCVData = (newData:any) => {
     setCVData((prevData) => ({ ...prevData, ...newData }))
+  }
+  const updateIAData = (newData:any) => {
+    setIAData((prevData) => ({ ...prevData, ...newData }))
   }
 
   return (
@@ -37,18 +47,22 @@ const PDFViewer = dynamic(() => import('@react-pdf/renderer').then(mod => mod.PD
       <main className="grid grid-cols-2 w-full">
       <FormRegister cvData={cvData} updateCVData={updateCVData}/>
 
-      <PreviewCV cvData={cvData}/>
+
+      <PreviewCV cvData={cvData} iaData={iaData}/>
+
+
 
       {/* <Link href={"/"}>
         Generar PDF
-      </Link> */}
+        </Link> */}
 
 
 
       </main>
+        <IARegister cvData={cvData} updateIAData={updateIAData}/>
       {<PDFViewer width="100%" height="100%">
         
-      <MyDocumentPDF cvData={cvData}/>
+      <MyDocumentPDF cvData={cvData} iaData={iaData}/>
         {/* <MyDocumentPDF data ={responseBack}/> */}
         
       

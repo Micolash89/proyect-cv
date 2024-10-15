@@ -63,6 +63,9 @@ function FormRegister({
         anioFinEducacion: "",
       });
     }
+
+ 
+
   };
 
   const handleExperienceChange = (e:any) => {
@@ -135,17 +138,8 @@ function FormRegister({
 
   const handleSubmit = async (e: FormData) => {
 
-    const experience:any =[];
-    const cursos1:any = [];
-    const education:any = [];
-
-    console.log(experience)
-    console.log(updateCVData.experience)
-
-    const newpost = postUsuarios.bind(null, experience).bind(null,cursos1).bind(null,education);
+    const newpost = postUsuarios.bind(null, cvData.experience).bind(null,cvData.cursos).bind(null,cvData.education);
     
-    
-
     const postPromise = newpost(e); // Tu promesa original
 
     toast.promise(postPromise, {

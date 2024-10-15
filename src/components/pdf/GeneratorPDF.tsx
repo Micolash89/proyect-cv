@@ -1,5 +1,6 @@
 
 import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
+import { TypeIAData } from '../PreviewCV';
 
 Font.register({
   family: 'Times New Roman',
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
 });
 
 // Componente principal
-export const MyDocumentPDF: React.FC<{ cvData: CVData }> = ({ cvData }) => (
+export const MyDocumentPDF: React.FC<{ cvData: CVData, iaData:TypeIAData }> = ({ cvData, iaData }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       {/* Encabezado */}
@@ -74,6 +75,9 @@ export const MyDocumentPDF: React.FC<{ cvData: CVData }> = ({ cvData }) => (
         <Text style={styles.title}>{`${cvData.name} ${cvData.lastName}`}</Text>
       <View style={styles.section2}>
         <Text style={styles.text}>{cvData.email} | {cvData.phone} | {cvData.ciudad}, {cvData.provincia} | {cvData.fechaNacimiento}</Text>
+      </View>
+      <View style={styles.section2}>
+        <Text style={styles.text}>{iaData.profile}</Text>
       </View>
         
       </View>

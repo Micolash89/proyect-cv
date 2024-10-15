@@ -18,6 +18,7 @@ import {
   HarmBlockThreshold,
 } from "@google/generative-ai";
 import { createResponse } from "./utils";
+import { Experiencia } from "./actions";
 
 const apiKey: string = process.env.API_KEY_GEMINI || "";
 const genAI = new GoogleGenerativeAI(apiKey);
@@ -61,4 +62,40 @@ export async function ActionIARun(formData: FormData) {
 
   const result = await chatSession.sendMessage(input as string);
   return createResponse(true, [result.response.text()], "se logro conectar");
+}
+
+export async function generarPerfilExperiencia(experience:Experiencia[]){
+  
+
+  const chatSession = model.startChat({
+    generationConfig,
+    // safetySettings: Adjust safety settings
+    // See https://ai.google.dev/gemini-api/docs/safety-settings
+    history: [
+      {
+        role: "user",
+        parts: [
+          {
+            text: "Crea un perfil de currículum vitae en un solo párrafo, en primera persona. lo mas formal posible, solo maximo un parrafo",
+          },
+        ],
+      },
+      {
+        role: "model",
+        parts: [
+          { text: "Claro, dime qué información quieres incluir en el perfil." },
+        ],
+      },
+    ],
+  });
+
+  let mensaje = "";
+  experience.map(e=>{
+    mensaje+=`puesto: ${e.puesto} , empresa: ${e.nombreEmpresa}, año desde:${e.anioInicioExperiencia}, año hasta:${e.anioFinExperiencia};`
+  })
+
+  const result = await chatSession.sendMessage(mensaje);
+  //return createResponse(true, [result.response.text()], "se logro conectar");
+
+  return result.response.text();
 }

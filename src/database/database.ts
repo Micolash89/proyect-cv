@@ -68,7 +68,7 @@ export async function fetchFilteredUsers(query: string, currentPage: number) {
           { apellido: { contains: query } },
           { telefono: { contains: query } },
           { email: { contains: query } },
-          { domicilio: { contains: query } },
+          // { domicilio: { contains: query } },
           { ciudad: { contains: query } },
           { provincia: { contains: query } },
           { linkedin: { contains: query } },
@@ -86,7 +86,6 @@ export async function fetchFilteredUsers(query: string, currentPage: number) {
   }
 }
 
-
 export async function getUser() {
   
   try {
@@ -95,7 +94,6 @@ export async function getUser() {
       where: {
         id: 1 as number,
   }})
-
 
   console.log("base", user);
 

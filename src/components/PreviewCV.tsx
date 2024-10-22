@@ -32,12 +32,12 @@ export default function PreviewCV({cvData, iaData}:{cvData:any, iaData:TypeIADat
 
       <div className="mb-6">
         <h2 className="text-xl font-bold border-b-2 border-gray-300 mb-2">EXPERIENCIA PROFESIONAL</h2>
-        {cvData.experience.map((exp:any, index:any) => (
+        {cvData.experience.map((exp:any, index:number) => (
           <div key={index} className="mb-4">
             <p className="font-bold">{exp.puesto}</p>
             <p className="italic">{exp.nombreEmpresa}</p>
             <p>{exp.anioInicioExperiencia} - {exp.anioFinExperiencia}</p>
-            <p>{exp.descripcionExperiencia}</p>
+            <p>{iaData.descriptionWork.split('\n')[index]}</p>
           </div>
         ))}
       </div>
@@ -53,7 +53,18 @@ export default function PreviewCV({cvData, iaData}:{cvData:any, iaData:TypeIADat
           ))}
         </div>
       )}
+      {iaData.skills.length > 0 && (
+        <div className="mb-6">
+          <h2 className="text-xl font-bold border-b-2 border-gray-300 mb-2">CURSOS</h2>
+            <div  className="mb-2">
+              <p>{iaData.skills}</p>
+            </div>
+          
+        </div>
+      )}
      
+
+      
     </div> 
     </>
   )

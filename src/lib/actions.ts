@@ -9,7 +9,7 @@ import { z } from "zod";
 import { createResponse, JWTCreate } from "./utils";
 import { cookies } from "next/headers";
 import { comparePassword } from "./utilsBcrypt";
-import { generarPerfilExperiencia } from "./actionsIA";
+import { generarItemsExperiencia, generarPerfilExperiencia, generarSkills } from "./actionsIA";
 
 const CreateSchemaUsuario = z.object({
   name: z
@@ -365,6 +365,20 @@ export async function generatorProfileAI (experience:Experiencia[],formData: For
 
   const perfilDescripcion :string = await generarPerfilExperiencia(experience)
 
-  return  createResponse(true, {message:perfilDescripcion},"creación de perfil exitoso");
+  return  createResponse(true, {profile:perfilDescripcion},"creación de perfil exitoso");
+
+}
+export async function generatorItemsWorkAI (experience:Experiencia[],formData: FormData ){
+
+  const perfilDescripcion :string = await generarItemsExperiencia(experience, 1);
+
+  return  createResponse(true, {descriptionWork:perfilDescripcion},"creación de descripciones exitoso");
+
+}
+export async function generatorSkillsAI (experience:Experiencia[],formData: FormData ){
+
+  const perfilDescripcion :string = await generarSkills(experience, experience.length<=4?`${6/experience.length} de cada uno de los empleos`:" 6 palabras clave en total");
+
+  return  createResponse(true, {skills:perfilDescripcion},"creación de skills exitoso");
 
 }

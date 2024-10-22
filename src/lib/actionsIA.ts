@@ -97,3 +97,69 @@ export async function generarPerfilExperiencia(experience:Experiencia[]){
 
   return result.response.text();
 }
+export async function generarItemsExperiencia(experience:Experiencia[], max : number){
+  
+  const chatSession = model.startChat({
+    generationConfig,
+    // safetySettings: Adjust safety settings
+    // See https://ai.google.dev/gemini-api/docs/safety-settings
+    history: [
+      {
+        role: "user",
+        parts: [
+          {
+            text: `creame las tareas que desempeñaria en un trabajo en un renglón máximo ${max} renglon${max<1?"nes":""} de la tarea que con la descripcion de las tareas que te voy a indicar.solo quiero los renglones de las tareas desarrolladas por ti nada mas, es para copiar y pegar asi como esta, no quiero titulo ni que me lo marques de cual es cada una , yo me guio por el orden en que te lo fui dando, no quiero que me lo des con codigo markdown solo texto, solo separamelo con saltos de linea.escribilo para un curriculum asi que sea de manera formal`,
+          },
+        ],
+      },
+      {
+        role: "model",
+        parts: [
+          { text: "Claro, dime qué información quieres incluir para la creación de tareas." },
+        ],
+      },
+    ],
+  });
+
+  let mensaje = "";
+  experience.map(e=>{
+    mensaje+=`puesto: ${e.puesto} , empresa: ${e.nombreEmpresa}, descripción de tareas realizadas:${e.descripcionExperiencia};`
+  })
+
+  const result = await chatSession.sendMessage(mensaje);
+
+  return result.response.text();
+}
+export async function generarSkills(experience:Experiencia[], max : string){
+
+  const chatSession = model.startChat({
+    generationConfig,
+    // safetySettings: Adjust safety settings
+    // See https://ai.google.dev/gemini-api/docs/safety-settings
+    history: [
+      {
+        role: "user",
+        parts: [
+          {
+            text: `me puedes hacer palabras clave de las siguientes experiencias que te voy a mencionar lo quiero en un renglón, como maximo ${max}, las palbras desarrolladas por ti nada más, es para copiar y pegar asi como esta, no quiero titulo ni que me lo marques de cual es cada una , no quiero que me lo des con codigo markdown solo texto, solo separamelo con '|' cada una.escribilo para un curriculum asi que sea de manera formal `,
+          },
+        ],
+      },
+      {
+        role: "model",
+        parts: [
+          { text: "Claro, dime qué información quieres incluir para la creación de habilidades." },
+        ],
+      },
+    ],
+  });
+
+  let mensaje = "";
+  experience.map(e=>{
+    mensaje+=`puesto: ${e.puesto} , empresa: ${e.nombreEmpresa}, descripción de tareas realizadas:${e.descripcionExperiencia};`
+  })
+
+  const result = await chatSession.sendMessage(mensaje);
+
+  return result.response.text();
+}

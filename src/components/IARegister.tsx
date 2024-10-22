@@ -1,13 +1,30 @@
 import React from 'react'
 import { TypeIAData } from './PreviewCV'
 import { toast } from 'sonner';
-import { generatorProfileAI } from '@/lib/actions';
+import { generatorItemsWorkAI, generatorProfileAI, generatorSkillsAI } from '@/lib/actions';
 
-export default function IARegister({cvData, updateIAData, title}:{cvData:any, updateIAData:any, title:string}) {
+export default function IARegister({cvData, updateIAData, title, tipo}:{cvData:any, updateIAData:any, title:string,tipo:number}) {
 
     const handleProfile = async (e:FormData) => {
+      let newPost;
 
-        const newPost = generatorProfileAI.bind(null,cvData.experience)
+      switch(tipo){
+
+        case 1:
+          newPost = generatorProfileAI.bind(null,cvData.experience)
+          break;
+          case 2:
+            newPost = generatorItemsWorkAI.bind(null,cvData.experience)
+            break;
+          case 3:
+            newPost = generatorSkillsAI.bind(null,cvData.experience)
+            break;
+        
+          default:
+            toast.error("tipo no válido") ;
+          return;
+
+      }
 
         const postPromise = newPost(e); // Tu promesa original
 
@@ -15,7 +32,7 @@ export default function IARegister({cvData, updateIAData, title}:{cvData:any, up
           loading: "Loading...",
           success: (dato: any) => {
             console.log(dato);
-            updateIAData({profile:dato.data.message});
+            updateIAData(dato.data);
             return `${dato.message}`;
           },
           error: (error) => {

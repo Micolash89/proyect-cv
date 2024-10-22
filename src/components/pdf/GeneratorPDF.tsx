@@ -104,7 +104,7 @@ export const MyDocumentPDF: React.FC<{ cvData: CVData, iaData:TypeIAData }> = ({
           <View key={index} style={{ marginBottom: 10 }}>
             <Text style={styles.subHeader}>{exp.puesto}</Text>
             <Text style={styles.text}>{`${exp.nombreEmpresa}, ${exp.anioInicioExperiencia} - ${exp.anioFinExperiencia}`}</Text>
-            <Text style={styles.text}>{exp.descripcionExperiencia}</Text>
+            <Text style={styles.text}>{iaData.descriptionWork.split('\n')[index]}</Text>
           </View>
         ))}
       </View>
@@ -117,6 +117,15 @@ export const MyDocumentPDF: React.FC<{ cvData: CVData, iaData:TypeIAData }> = ({
             {`${curso.curso}, ${curso.institucion}, ${curso.anioInicioCurso}`}
           </Text>
         ))}
+      </View>
+
+      {/*Skills*/}
+      <View style={styles.section}>
+      <Text style={styles.header}>Skills</Text>
+      <View style={styles.section2}>
+        <Text style={styles.text}>{iaData.skills}</Text>
+      </View>
+        
       </View>
     </Page>
   </Document>

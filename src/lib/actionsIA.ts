@@ -66,7 +66,6 @@ export async function ActionIARun(formData: FormData) {
 
 export async function generarPerfilExperiencia(experience:Experiencia[]){
   
-
   const chatSession = model.startChat({
     generationConfig,
     // safetySettings: Adjust safety settings
@@ -76,7 +75,7 @@ export async function generarPerfilExperiencia(experience:Experiencia[]){
         role: "user",
         parts: [
           {
-            text: "Crea un perfil de currículum vitae en un solo párrafo, en primera persona. lo mas formal posible, solo maximo un parrafo",
+            text: "Crea un perfil de currículum vitae en un solo párrafo, en primera persona. lo mas formal posible, maximo un parrafo",
           },
         ],
       },
@@ -91,11 +90,10 @@ export async function generarPerfilExperiencia(experience:Experiencia[]){
 
   let mensaje = "";
   experience.map(e=>{
-    mensaje+=`puesto: ${e.puesto} , empresa: ${e.nombreEmpresa}, año desde:${e.anioInicioExperiencia}, año hasta:${e.anioFinExperiencia};`
+    mensaje+=`puesto: ${e.puesto} , empresa: ${e.nombreEmpresa}, año desde:${e.anioInicioExperiencia}, año hasta:${e.anioFinExperiencia}, descripción de tareas realizadas:${e.descripcionExperiencia};`
   })
 
   const result = await chatSession.sendMessage(mensaje);
-  //return createResponse(true, [result.response.text()], "se logro conectar");
 
   return result.response.text();
 }

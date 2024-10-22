@@ -36,7 +36,7 @@ const CreateSchemaUsuario = z.object({
         carrera: z.string().min(4, "la carrera debe de tener al menos 4 caracteres"),
         estado: z.string({message:"seleccione el estado"}),
         estudios: z.string().min(4, "los estudios deben tener al menos 4 caracteres"),
-        //falta la insitucion
+        institucion:z.string().min(3,"la institución deben tener al menos 3 caracteres"),
         anioInicioEducacion: z.string().min(4, "el a o de inicio de los estudios debe de tener al menos 4 caracteres"),
         anioFinEducacion: z.string(),
       })
@@ -110,20 +110,6 @@ export async function postUsuarios(experience:Experiencia[],cursos1:any[], educa
     },
   } = validatedFields;
 
-console.log(educacion);
-console.log(experiencia);
-console.log(cursos);
-
-  // console.log(
-  //   nombre,
-  //   apellido,
-  //   telefono,
-  //   email,
-  //   fechaNacimiento,
-  //   ciudad,
-  //   provincia
-  // );
-
   try {
     const user = await prisma.user.create({
       data: {
@@ -137,9 +123,7 @@ console.log(cursos);
       },
     });
     
-    if(educacion.length>0){
-      
-      
+    if(educacion.length>0){      
       educacion.forEach(async (educacion) => {
         await prisma.estudio.create({
           data: {
@@ -147,13 +131,12 @@ console.log(cursos);
             estado: educacion.estado as EstudioEstadoEnum,
             tipo: educacion.estudios as EstudioTipoEnum,
             fechaIngreso: educacion.anioInicioEducacion as string,
-            institucion:"",//falta agregar institucion frontend
+            institucion:educacion.institucion as string,//falta agregar institucion frontend
             fechaEgreso: educacion.anioFinEducacion as string,
             idUsuario: user.id,
           },
         });
       });
-
     }
 
     if(experiencia.length>0){

@@ -31,47 +31,47 @@ function FormUser() {
 
   const actionPost = async (e:FormData) => {
     
-    try{
-    const data = await postUsuarios(e);
-      // Verifica el campo `success` de la respuesta y lanza un error si es `false`
-      if (!data.success) {
-          const newErrors = { ...dataResponse.errors, ...data.errors };
+    // try{
+    // const data = await postUsuarios(e);
+    //   // Verifica el campo `success` de la respuesta y lanza un error si es `false`
+    //   if (!data.success) {
+    //       const newErrors = { ...dataResponse.errors, ...data.errors };
 
-      setDataResponse({
-        message: data.message,
-        errors: newErrors, // Usamos los nuevos errores si existen, si no mantenemos los antiguos
-      });
-        throw data;
-      }
+    //   setDataResponse({
+    //     message: data.message,
+    //     errors: newErrors, // Usamos los nuevos errores si existen, si no mantenemos los antiguos
+    //   });
+    //     throw data;
+    //   }
   
-      // Si todo está bien, devuelve los datos
-      return data;
+    //   // Si todo está bien, devuelve los datos
+    //   return data;
   
-    } catch (data) {
-      // Propaga el error para que `toast.promise` pueda manejarlo
-      throw data;
-    }
+    // } catch (data) {
+    //   // Propaga el error para que `toast.promise` pueda manejarlo
+    //   throw data;
+    // }
   };
 
   const handleSubmit = async (e: FormData) => {
 
-    const postPromise = actionPost(e); // Tu promesa original
+  //   const postPromise = actionPost(e); // Tu promesa original
 
-  try {
-     const data = toast.promise(postPromise, {
-      loading: 'Loading...',
-      success: (dato) => `${dato.message}`, // Ajusta este mensaje según la respuesta que esperas
-      error: (error)=>`${error.message}`,
-    });
+  // try {
+  //    const data = toast.promise(postPromise, {
+  //     loading: 'Loading...',
+  //     success: (dato) => `${dato.message}`, // Ajusta este mensaje según la respuesta que esperas
+  //     error: (error)=>`${error.message}`,
+  //   });
 
-    // Aquí puedes usar los datos devueltos por la promesa
-    console.log('Datos recibidos:', data);
-    // Realiza otras acciones con `data` aquí, si es necesario
+  //   // Aquí puedes usar los datos devueltos por la promesa
+  //   console.log('Datos recibidos:', data);
+  //   // Realiza otras acciones con `data` aquí, si es necesario
 
-  } catch (error) {
-    console.error('Error al agregar usuario:', error);
-    // Maneja cualquier error adicional si es necesario
-  }
+  // } catch (error) {
+  //   console.error('Error al agregar usuario:', error);
+  //   // Maneja cualquier error adicional si es necesario
+  // }
 
     // if (data && !data.success) {
     //   // console.log(data.message);

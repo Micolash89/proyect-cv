@@ -42,24 +42,14 @@ const PDFViewer = dynamic(() => import('@react-pdf/renderer').then(mod => mod.PD
 
   return (
     <>
-      {/* <FormUser /> */}
 
       <main className="grid grid-cols-2 w-full">
       <FormRegister cvData={cvData} updateCVData={updateCVData}/>
 
-
       <PreviewCV cvData={cvData} iaData={iaData}/>
 
-
-
-      {/* <Link href={"/"}>
-        Generar PDF
-        </Link> */}
-
-
-
       </main>
-        <IARegister cvData={cvData} updateIAData={updateIAData}/>
+        <IARegister cvData={cvData} updateIAData={updateIAData} title={"generar perfil IA"}/>
       {<PDFViewer width="100%" height="100%">
         
       <MyDocumentPDF cvData={cvData} iaData={iaData}/>

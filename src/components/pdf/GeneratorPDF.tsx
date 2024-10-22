@@ -15,7 +15,7 @@ interface CVData {
   phone: string;
   ciudad: string;
   provincia: string;
-  education: Array<{ carrera: string; estado: string; estudios: string; anioInicioEducacion:string;anioFinEducacion:string;  }>;
+  education: Array<{ carrera: string; estado: string; estudios: string;institucion:string; anioInicioEducacion:string;anioFinEducacion:string;  }>;
   experience: Array<{ nombreEmpresa: string; puesto: string; anioInicioExperiencia: string; anioFinExperiencia: string; descripcionExperiencia: string }>;
   cursos: Array<{ curso: string; institucion: string; anioInicioCurso: string }>;
 }
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    marginBottom: 10,
+    marginBottom: 5,
     textTransform: 'uppercase',
     fontWeight: 'bold',
     textAlign: 'center'
@@ -88,6 +88,7 @@ export const MyDocumentPDF: React.FC<{ cvData: CVData, iaData:TypeIAData }> = ({
       <View style={[styles.section2]}>
         {cvData.education.map((edu, index) => (
           <View key={index} style={{ marginBottom: 5 }}>
+            <Text style={styles.subHeader}>{edu.institucion}</Text>
             <Text style={styles.subHeader}>{edu.carrera}</Text>
             <Text style={styles.text}>{`${edu.estudios}, ${edu.estado}`}</Text>
             <Text style={styles.text}>{`${edu.anioInicioEducacion}, ${edu.anioFinEducacion}`}</Text>

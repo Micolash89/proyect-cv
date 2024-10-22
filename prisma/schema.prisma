@@ -20,7 +20,7 @@ model User {
   apellido        String
   telefono        String
   fechaNacimiento DateTime
-  email           String        @unique
+  email           String        
   ciudad          String
   provincia       String
   linkedin        String?

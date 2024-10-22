@@ -72,7 +72,6 @@ export  interface Experiencia{
 
 export async function postUsuarios(experience:Experiencia[],cursos1:any[], education:any[] ,formData: FormData) {
 
-  // console.log(Object.fromEntries(formData));
   console.log("backend")
   console.log("experiencia",experience)
   console.log("cursos",cursos1)

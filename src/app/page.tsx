@@ -49,9 +49,9 @@ const PDFViewer = dynamic(() => import('@react-pdf/renderer').then(mod => mod.PD
       <PreviewCV cvData={cvData} iaData={iaData}/>
 
       </main>
-        <IARegister cvData={cvData} updateIAData={updateIAData} title={"generar perfil IA"} tipo={1}/>
-        <IARegister cvData={cvData} updateIAData={updateIAData} title={"generar tareas IA"} tipo={2}/>
-        <IARegister cvData={cvData} updateIAData={updateIAData} title={"generar skills IA"} tipo={3}/>
+        <IARegister cvData={cvData} updateIAData={updateIAData} title={"generar perfil IA"} tipo={1} iaData={iaData.profile}/>
+        <IARegister cvData={cvData} updateIAData={updateIAData} title={"generar tareas IA"} tipo={2} iaData={iaData.descriptionWork}/>
+        <IARegister cvData={cvData} updateIAData={updateIAData} title={"generar skills IA"} tipo={3} iaData={iaData.skills}/>
       {<PDFViewer width="100%" height="100%">
         
       <MyDocumentPDF cvData={cvData} iaData={iaData}/>

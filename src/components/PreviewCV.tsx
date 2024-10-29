@@ -55,7 +55,7 @@ export default function PreviewCV({cvData, iaData}:{cvData:any, iaData:TypeIADat
       )}
       {iaData.skills.length > 0 && (
         <div className="mb-6">
-          <h2 className="text-xl font-bold border-b-2 border-gray-300 mb-2">CURSOS</h2>
+          <h2 className="text-xl font-bold border-b-2 border-gray-300 mb-2">HABILIDADES</h2>
             <div  className="mb-2">
               <p>{iaData.skills}</p>
             </div>

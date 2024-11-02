@@ -43,6 +43,7 @@ function FormRegister({
   const [newExperience, setNewExperience] = useState({
     puesto: "",
     nombreEmpresa: "",
+    zonaEmpresa: "",
     anioInicioExperiencia: "",
     anioFinExperiencia: "",
     descripcionExperiencia: "",
@@ -86,6 +87,7 @@ function FormRegister({
         anioInicioExperiencia: "",
         anioFinExperiencia: "",
         descripcionExperiencia: "",
+        zonaEmpresa: "",
       });
     }
   };
@@ -134,10 +136,6 @@ function FormRegister({
     },
   });
 
-  type InvoiceForm = {
-    id: string;
-  };
-
   const handleSubmit = async (e: FormData) => {
     const newpost = postUsuarios
       .bind(null, cvData.experience)
@@ -164,145 +162,142 @@ function FormRegister({
   };
 
   return (
-    <>
-      <form action={handleSubmit} className=" py-14 flex flex-col gap-9 ">
-        <div className="border-gray-200 rounded-lg border-2 p-10 shadow-lg">
-          <h2 className="capitalize text-lg text-nowrap mx-auto w-full text-center text-gray-700 dark:text-gray-400">
+    <div className="max-w-4xl mx-auto p-6 space-y-8">
+      <form action={handleSubmit} className=" space-y-8 ">
+        <section className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-3xl font-semibold mb-4 capitalize">
             datos personales
           </h2>
 
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="text"
-              name="name"
-              id="floating_first_name"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              value={cvData.name}
-              required
-              onChange={handleInputChange}
-            />
-            <label
-              htmlFor="floating_first_name"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Nombres
-            </label>
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="text"
-              name="lastName"
-              id="floating_last_name"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
-              value={cvData.lastName}
-              onChange={handleInputChange}
-            />
-            <label
-              htmlFor="floating_last_name"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Apellido
-            </label>
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="relative z-0 w-full mb-5 group">
+              <input
+                type="text"
+                name="name"
+                id="floating_first_name"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                value={cvData.name}
+                required
+                onChange={handleInputChange}
+              />
+              <label
+                htmlFor="floating_first_name"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Nombres
+              </label>
+            </div>
+            <div className="relative z-0 w-full mb-5 group">
+              <input
+                type="text"
+                name="lastName"
+                id="floating_last_name"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                required
+                value={cvData.lastName}
+                onChange={handleInputChange}
+              />
+              <label
+                htmlFor="floating_last_name"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Apellido
+              </label>
+            </div>
 
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="date"
-              name="fechaNacimiento"
-              id="floating_company"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
-              value={cvData.fechaNacimiento}
-              onChange={handleInputChange}
-            />
-            <label
-              htmlFor="floating_company"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Fecha de nacimiento
-            </label>
-          </div>
+            <div className="relative z-0 w-full mb-5 group">
+              <input
+                type="date"
+                name="fechaNacimiento"
+                id="floating_company"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                required
+                value={cvData.fechaNacimiento}
+                onChange={handleInputChange}
+              />
+              <label
+                htmlFor="floating_company"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Fecha de nacimiento
+              </label>
+            </div>
 
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="tel"
-              //caracteristica segun region
-              // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-              // pattern="[0-9]{15}"
-              name="phone"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              value={cvData.phone}
-              onChange={handleInputChange}
-              required
-            />
-            <label
-              htmlFor="floating_phone"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              N° Contacto (Celular/WhatsApp)
-            </label>
+            <div className="relative z-0 w-full mb-5 group">
+              <input
+                type="tel"
+                name="phone"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                value={cvData.phone}
+                onChange={handleInputChange}
+                required
+              />
+              <label
+                htmlFor="floating_phone"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Teléfono
+              </label>
+            </div>
+            <div className="relative z-0 w-full mb-5 group">
+              <input
+                type="email"
+                name="email"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                value={cvData.email}
+                onChange={handleInputChange}
+              />
+              <label
+                htmlFor="floating_email"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 capitalize"
+              >
+                correo electrónico
+              </label>
+            </div>
+            {/* hacerlo con una appi que se despliegue la ciudad */}
+            <div className="relative z-0 w-full mb-5 group">
+              <input
+                type="text"
+                name="provincia"
+                id="floating_email"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                value={cvData.provincia}
+                onChange={handleInputChange}
+              />
+              <label
+                htmlFor="floating_email"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Provincia
+              </label>
+            </div>
+            <div className="relative z-0 w-full mb-5 group">
+              <input
+                type="text"
+                name="ciudad"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                value={cvData.ciudad}
+                onChange={handleInputChange}
+              />
+              <label
+                htmlFor="floating_email"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Ciudad
+              </label>
+            </div>
           </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="email"
-              name="email"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              value={cvData.email}
-              onChange={handleInputChange}
-            />
-            <label
-              htmlFor="floating_email"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Email
-            </label>
-          </div>
-          {/* hacerlo con una appi que se despliegue la ciudad */}
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="text"
-              name="provincia"
-              id="floating_email"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              value={cvData.provincia}
-              onChange={handleInputChange}
-            />
-            <label
-              htmlFor="floating_email"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Provincia
-            </label>
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="text"
-              name="ciudad"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              value={cvData.ciudad}
-              onChange={handleInputChange}
-            />
-            <label
-              htmlFor="floating_email"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Ciudad
-            </label>
-          </div>
-        </div>
+        </section>
 
-        <div className="border-gray-200 rounded-lg border-2 p-10 shadow-lg">
-          <h2 className="capitalize text-lg text-nowrap mx-auto w-full text-center text-gray-700 dark:text-gray-400">
-            educación
-          </h2>
+        <section className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-semibold mb-4 capitalize">educación</h2>
 
           {cvData.education.map((edu: any, index: any) => (
             <div
@@ -347,101 +342,101 @@ function FormRegister({
             </div>
           ))}
 
-          <div className="relative z-0 w-full mb-5 group ">
-            <input
-              type="text"
-              name="institucion"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              // defaultValue={newEducation.carrera}
-              value={newEducation.institucion}
-              onChange={handleEducationChange}
-            />
-            <label
-              htmlFor="floating_email"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Nombre de la institución
-            </label>
-          </div>
-          <div className="relative z-0 w-full mb-5 group ">
-            <input
-              type="text"
-              name="carrera"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              // defaultValue={newEducation.carrera}
-              value={newEducation.carrera}
-              onChange={handleEducationChange}
-            />
-            <label
-              htmlFor="floating_email"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Nombre del titulo
-            </label>
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div className="relative z-0 w-full group ">
+              <input
+                type="text"
+                name="institucion"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                // defaultValue={newEducation.carrera}
+                value={newEducation.institucion}
+                onChange={handleEducationChange}
+              />
+              <label
+                htmlFor="floating_email"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Nombre de la institución
+              </label>
+            </div>
+            <div className="relative z-0 w-full  group ">
+              <input
+                type="text"
+                name="carrera"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+                // defaultValue={newEducation.carrera}
+                value={newEducation.carrera}
+                onChange={handleEducationChange}
+              />
+              <label
+                htmlFor="floating_email"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Nombre del titulo
+              </label>
+            </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="countries"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-            >
-              Estudios:
-            </label>
-            <select
-              id="countries"
-              name="estudios"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-400 dark:border-gray-300 dark:placeholder-gray-400 dark:text-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              // defaultValue={newEducation.estudios}
-              onChange={handleEducationChange}
-              value={newEducation.estudios}
-            >
-              <option value={""} hidden>
-                seleccione nivel
-              </option>
-              <option value={"PRIMARIO"}>Primario</option>
-              <option value={"SECUNDARIO"}>Secundario</option>
-              <option value={"TERCEARIO"}>Terceario</option>
-              <option value={"UNIVERSITARIO"}>Universitario</option>
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="countries"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-            >
-              estado:
-            </label>
-            <select
-              id="countries"
-              name="estado"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-400 dark:border-gray-300 dark:placeholder-gray-400 dark:text-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              // defaultValue={newEducation.estado}
-              value={newEducation.estado}
-              onChange={handleEducationChange}
-            >
-              <option value={""} hidden>
-                seleccione un estado
-              </option>
-              <option value={"COMPLETADO"}>completado</option>
-              <option value={"PROCESO"}>en proceso</option>
-              <option value={"INCOMPLETO"}>incompleto</option>
-            </select>
-          </div>
-
-          <div className="grid grid-cols-2 gap-x-6 h-fit">
-            <div className="max-w-sm mx-auto">
+            <div className="">
               <label
                 htmlFor="countries"
-                className="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-400 capitalize"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+              >
+                Estudios:
+              </label>
+              <select
+                id="countries"
+                name="estudios"
+                className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md"
+                // defaultValue={newEducation.estudios}
+                onChange={handleEducationChange}
+                value={newEducation.estudios}
+              >
+                <option value={""} hidden>
+                  seleccione nivel
+                </option>
+                <option value={"PRIMARIO"}>Primario</option>
+                <option value={"SECUNDARIO"}>Secundario</option>
+                <option value={"TERCEARIO"}>Terceario</option>
+                <option value={"UNIVERSITARIO"}>Universitario</option>
+              </select>
+            </div>
+
+            <div className="">
+              <label
+                htmlFor="countries"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+              >
+                estado:
+              </label>
+              <select
+                id="countries"
+                name="estado"
+                className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md"
+                // defaultValue={newEducation.estado}
+                value={newEducation.estado}
+                onChange={handleEducationChange}
+              >
+                <option value={""} hidden>
+                  seleccione un estado
+                </option>
+                <option value={"COMPLETADO"}>completo</option>
+                <option value={"PROCESO"}>en proceso</option>
+                <option value={"INCOMPLETO"}>incompleto</option>
+              </select>
+            </div>
+
+            <div className=" ">
+              <label
+                htmlFor="countries"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
               >
                 año inicio
               </label>
               <select
                 name="anioInicioEducacion"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 text-sm rounded-md"
                 // defaultValue={newEducation.anioInicioEducacion}
                 value={newEducation.anioInicioEducacion}
                 onChange={handleEducationChange}
@@ -460,17 +455,17 @@ function FormRegister({
               </select>
             </div>
 
-            <div className="max-w-sm mx-auto">
+            <div className="">
               <label
                 htmlFor="countries"
-                className="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-400 capitalize"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
               >
                 año fin
               </label>
               <select
                 disabled={newEducation.estado == "INCOMPLETO"}
                 name="anioFinEducacion"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md"
                 value={newEducation.anioFinEducacion}
                 onChange={handleEducationChange}
               >
@@ -488,9 +483,10 @@ function FormRegister({
               </select>
             </div>
           </div>
+
           <button
             type="button"
-            className="border-2 px-4 py-2 mt-5 flex flex-row rounded-lg text-blue-400 hover:bg-blue-100 border-gray-200 transition-colors duration-700 hover:border-blue-400"
+            className=" flex flex-row gap-2 capitalize px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             onClick={addEducation}
           >
             <svg
@@ -504,9 +500,9 @@ function FormRegister({
             </svg>
             <span>agregar</span>
           </button>
-        </div>
+        </section>
 
-        <div className="border-gray-200 rounded-lg border-2 p-10 shadow-lg">
+        <section className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="capitalize text-lg text-nowrap mx-auto w-full text-center text-gray-700 dark:text-gray-400">
             Experiencia Laboral
           </h2>
@@ -553,7 +549,9 @@ function FormRegister({
             </div>
           ))}
 
-          <div className="relative z-0 w-full mb-5 group">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+
+          <div className="relative z-0 w-full group">
             <input
               type="text"
               name="puesto"
@@ -571,7 +569,7 @@ function FormRegister({
             </label>
           </div>
 
-          <div className="relative z-0 w-full mb-5 group">
+          <div className="relative z-0 w-full group">
             <input
               type="text"
               name="nombreEmpresa"
@@ -585,11 +583,28 @@ function FormRegister({
               htmlFor="floating_email"
               className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
             >
-              Nombre de la Empresa
+              Nombre de la empresa
+            </label>
+          </div>
+          <div className="relative z-0 w-full group md:col-span-2">
+            <input
+              type="text"
+              name="zonaEmpresa"
+              id="floating_email"
+              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+              placeholder=""
+              value={newExperience.zonaEmpresa}
+              onChange={handleExperienceChange}
+            />
+            <label
+              htmlFor="floating_email"
+              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >
+              Zona de la empresa
             </label>
           </div>
 
-          <div className="max-w-sm mx-auto mb-6">
+          <div className="md:col-span-2">
             <label
               htmlFor="message"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
@@ -607,20 +622,18 @@ function FormRegister({
             ></textarea>
           </div>
 
-          {/* cambiar nombres de name solo para el frnt */}
-
-          <div className="grid grid-cols-2 gap-x-6 h-fit">
-            <div className="max-w-sm mx-auto">
+          {/* cambiar nombres de name solo para el frnt */}     
+            <div className="">
               <label
                 htmlFor="countries"
-                className="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-400 capitalize"
+                className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
               >
                 año inicio
               </label>
               <select
                 id="countries"
                 name="anioInicioExperiencia"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="w-full px-3 text-sm py-2 border border-gray-300 rounded-md"
                 // defaultValue={""}
                 onChange={handleExperienceChange}
                 value={newExperience.anioInicioExperiencia}
@@ -639,17 +652,17 @@ function FormRegister({
               </select>
             </div>
 
-            <div className="max-w-sm mx-auto">
+            <div className="">
               <label
                 htmlFor="countries"
-                className="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-400 capitalize"
+                className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
               >
                 año fin
               </label>
               <select
                 id="countries"
                 name="anioFinExperiencia"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md"
                 onChange={handleExperienceChange}
                 value={newExperience.anioFinExperiencia}
               >
@@ -664,9 +677,10 @@ function FormRegister({
                     </option>
                   );
                 })}
-              </select>
-            </div>
+              </select> 
           </div>
+          </div>
+
           <button
             type="button"
             className="border-2 px-4 py-2 mt-5 flex flex-row rounded-lg text-blue-400 hover:bg-blue-100 border-gray-200 transition-colors duration-700 hover:border-blue-400"
@@ -683,7 +697,8 @@ function FormRegister({
             </svg>
             <span>agregar</span>
           </button>
-        </div>
+        </section>
+
         <div className="border-gray-200 rounded-lg border-2 p-10 shadow-lg">
           <h2 className="capitalize text-lg text-nowrap mx-auto w-full text-center text-gray-700 dark:text-gray-400">
             Cursos/Certificaciones
@@ -776,7 +791,7 @@ function FormRegister({
               <select
                 id="countries"
                 name="anioInicioCurso"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 value={newCursos.anioInicioCurso}
                 onChange={handleCursoChange}
               >
@@ -846,7 +861,7 @@ function FormRegister({
           Submit
         </button>
       </form>
-    </>
+    </div>
   );
 }
 

@@ -3,7 +3,6 @@
 import { postUsuarios } from "@/lib/actions";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { Experiencia } from "./../lib/actions";
 
 type Section = "personal" | "education" | "experience" | "cursos";
 
@@ -324,13 +323,16 @@ function FormRegister({
             </div>
           </div>
 
-          <div className="flex justify-end">
+          <div className="flex justify-end ">
             <button
               type="button"
               onClick={() => moveToNextSection("personal", "education")}
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              Siguiente
+              className="mt-4 px-4 py-2 bg-green-400 text-white rounded hover:bg-green-500 flex items-center gap-1"
+              >
+              <span>
+                Siguiente
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg>
             </button>
           </div>
         </section>
@@ -552,9 +554,12 @@ function FormRegister({
             <button
               type="button"
               onClick={() => moveToNextSection("education", "experience")}
-              className="ml-4 px-4 py-2 bg-green-400 text-white rounded hover:bg-green-500 justify-self-end"
+              className="ml-4 px-4 py-2 bg-green-400 text-white rounded hover:bg-green-500 justify-self-end flex items-center gap-1"
             >
-              Siguiente
+              <span>
+                Siguiente
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg>
             </button>
           </div>
         </section>
@@ -769,9 +774,12 @@ function FormRegister({
           <button
             type="button"
             onClick={() => moveToNextSection("experience", "cursos")}
-            className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+            className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
           >
-            Siguiente
+            <span>
+                Siguiente
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg>
           </button>
             </div>
         </section>

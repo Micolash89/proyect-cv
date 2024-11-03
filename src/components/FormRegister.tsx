@@ -1,9 +1,11 @@
 "use client";
 
 import { postUsuarios } from "@/lib/actions";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Experiencia } from "./../lib/actions";
+
+type Section = "personal" | "education" | "experience" | "cursos";
 
 function FormRegister({
   cvData,
@@ -47,6 +49,20 @@ function FormRegister({
     anioInicioExperiencia: "",
     anioFinExperiencia: "",
     descripcionExperiencia: "",
+  });
+
+  const [activeSection, setActiveSection] = useState<Section>("personal");
+  const sectionRefs = {
+    personal: useRef<HTMLDivElement>(null),
+    education: useRef<HTMLDivElement>(null),
+    experience: useRef<HTMLDivElement>(null),
+    cursos: useRef<HTMLDivElement>(null),
+  };
+
+  const [sectionRefsStatus, setSectionRefsStatus] = useState({
+    education: "",
+    experience: "",
+    cursos: "",
   });
 
   const handleEducationChange = (e: any) => {
@@ -120,8 +136,6 @@ function FormRegister({
   const [newAward, setNewAward] = useState({ title: "", year: "" });
 
   const [dataResponse, setDataResponse] = useState({
-    // success: null,
-    // data: [] as any,
     message: "" as string,
     errors: {
       nombre: [],
@@ -161,6 +175,21 @@ function FormRegister({
     });
   };
 
+  const moveToNextSection = (currentSection: Section, nextSection: Section) => {
+    setActiveSection(nextSection);
+    setSectionRefsStatus((prev) => ({
+      ...prev,
+      [nextSection]: currentSection,
+    }));
+    sectionRefs[nextSection].current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    if (activeSection && sectionRefs[activeSection].current) {
+      sectionRefs[activeSection].current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [activeSection]);
+
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
       <form action={handleSubmit} className=" space-y-8 ">
@@ -170,7 +199,7 @@ function FormRegister({
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="relative z-0 w-full mb-5 group">
+            <div className="relative z-0 w-full group">
               <input
                 type="text"
                 name="name"
@@ -188,7 +217,7 @@ function FormRegister({
                 Nombres
               </label>
             </div>
-            <div className="relative z-0 w-full mb-5 group">
+            <div className="relative z-0 w-full group">
               <input
                 type="text"
                 name="lastName"
@@ -207,7 +236,7 @@ function FormRegister({
               </label>
             </div>
 
-            <div className="relative z-0 w-full mb-5 group">
+            <div className="relative z-0 w-full group">
               <input
                 type="date"
                 name="fechaNacimiento"
@@ -226,7 +255,7 @@ function FormRegister({
               </label>
             </div>
 
-            <div className="relative z-0 w-full mb-5 group">
+            <div className="relative z-0 w-full group">
               <input
                 type="tel"
                 name="phone"
@@ -243,7 +272,7 @@ function FormRegister({
                 Teléfono
               </label>
             </div>
-            <div className="relative z-0 w-full mb-5 group">
+            <div className="relative z-0 w-full group">
               <input
                 type="email"
                 name="email"
@@ -260,7 +289,7 @@ function FormRegister({
               </label>
             </div>
             {/* hacerlo con una appi que se despliegue la ciudad */}
-            <div className="relative z-0 w-full mb-5 group">
+            <div className="relative z-0 w-full group">
               <input
                 type="text"
                 name="provincia"
@@ -277,7 +306,7 @@ function FormRegister({
                 Provincia
               </label>
             </div>
-            <div className="relative z-0 w-full mb-5 group">
+            <div className="relative z-0 w-full group">
               <input
                 type="text"
                 name="ciudad"
@@ -294,9 +323,24 @@ function FormRegister({
               </label>
             </div>
           </div>
+
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={() => moveToNextSection("personal", "education")}
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Siguiente
+            </button>
+          </div>
         </section>
 
-        <section className="bg-white p-6 rounded-lg shadow-md">
+        <section
+          ref={sectionRefs.education}
+          className={`bg-white p-6 rounded-lg shadow-md ${
+            sectionRefsStatus.education == "" ? "hidden" : ""
+          } `}
+        >
           <h2 className="text-2xl font-semibold mb-4 capitalize">educación</h2>
 
           {cvData.education.map((edu: any, index: any) => (
@@ -389,7 +433,6 @@ function FormRegister({
                 id="countries"
                 name="estudios"
                 className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md"
-                // defaultValue={newEducation.estudios}
                 onChange={handleEducationChange}
                 value={newEducation.estudios}
               >
@@ -414,7 +457,6 @@ function FormRegister({
                 id="countries"
                 name="estado"
                 className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md"
-                // defaultValue={newEducation.estado}
                 value={newEducation.estado}
                 onChange={handleEducationChange}
               >
@@ -437,7 +479,6 @@ function FormRegister({
               <select
                 name="anioInicioEducacion"
                 className="w-full px-3 py-2 border border-gray-300 text-sm rounded-md"
-                // defaultValue={newEducation.anioInicioEducacion}
                 value={newEducation.anioInicioEducacion}
                 onChange={handleEducationChange}
               >
@@ -463,7 +504,7 @@ function FormRegister({
                 año fin
               </label>
               <select
-                disabled={newEducation.estado == "INCOMPLETO"}
+                disabled={newEducation.anioInicioEducacion == ""}
                 name="anioFinEducacion"
                 className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md"
                 value={newEducation.anioFinEducacion}
@@ -473,36 +514,57 @@ function FormRegister({
                   seleccione año
                 </option>
 
+                {newEducation.estado == "PROCESO" && (
+                  <option value={"Actualidad"}>Actualidad</option>
+                )}
+
                 {arr.map((e, i) => {
-                  return (
+                  return newEducation.anioInicioEducacion <= e ? (
                     <option key={`${e}-${i}`} value={e}>
                       {e}
                     </option>
+                  ) : (
+                    ""
                   );
                 })}
               </select>
             </div>
           </div>
 
-          <button
-            type="button"
-            className=" flex flex-row gap-2 capitalize px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={addEducation}
-          >
-            <svg
-              width={24}
-              height={24}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
+          <div className="flex justify-between ">
+            <button
+              type="button"
+              className=" flex flex-row gap-2 capitalize px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={addEducation}
             >
-              <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
-            </svg>
-            <span>agregar</span>
-          </button>
+              <svg
+                width={24}
+                height={24}
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
+              </svg>
+              <span>agregar</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => moveToNextSection("education", "experience")}
+              className="ml-4 px-4 py-2 bg-green-400 text-white rounded hover:bg-green-500 justify-self-end"
+            >
+              Siguiente
+            </button>
+          </div>
         </section>
 
-        <section className="bg-white p-6 rounded-lg shadow-md">
+        <section
+          ref={sectionRefs.experience}
+          className={`bg-white p-6 rounded-lg shadow-md ${
+            sectionRefsStatus.experience == "" ? "hidden" : ""
+          }`}
+        >
           <h2 className="capitalize text-lg text-nowrap mx-auto w-full text-center text-gray-700 dark:text-gray-400">
             Experiencia Laboral
           </h2>
@@ -549,80 +611,62 @@ function FormRegister({
             </div>
           ))}
 
-<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div className="relative z-0 w-full group">
+              <input
+                type="text"
+                name="puesto"
+                id="floating_email"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=""
+                value={newExperience.puesto}
+                onChange={handleExperienceChange}
+              />
+              <label
+                htmlFor="floating_email"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Nombre del puesto
+              </label>
+            </div>
 
-          <div className="relative z-0 w-full group">
-            <input
-              type="text"
-              name="puesto"
-              id="floating_email"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=""
-              value={newExperience.puesto}
-              onChange={handleExperienceChange}
-            />
-            <label
-              htmlFor="floating_email"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Nombre del puesto
-            </label>
-          </div>
+            <div className="relative z-0 w-full group">
+              <input
+                type="text"
+                name="nombreEmpresa"
+                id="floating_email"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=""
+                value={newExperience.nombreEmpresa}
+                onChange={handleExperienceChange}
+              />
+              <label
+                htmlFor="floating_email"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Nombre de la empresa
+              </label>
+            </div>
 
-          <div className="relative z-0 w-full group">
-            <input
-              type="text"
-              name="nombreEmpresa"
-              id="floating_email"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=""
-              value={newExperience.nombreEmpresa}
-              onChange={handleExperienceChange}
-            />
-            <label
-              htmlFor="floating_email"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Nombre de la empresa
-            </label>
-          </div>
-          <div className="relative z-0 w-full group md:col-span-2">
-            <input
-              type="text"
-              name="zonaEmpresa"
-              id="floating_email"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=""
-              value={newExperience.zonaEmpresa}
-              onChange={handleExperienceChange}
-            />
-            <label
-              htmlFor="floating_email"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Zona de la empresa
-            </label>
-          </div>
+            <div className="relative z-0 w-full group md:col-span-2">
+              <input
+                type="text"
+                name="zonaEmpresa"
+                id="floating_email"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=""
+                value={newExperience.zonaEmpresa}
+                onChange={handleExperienceChange}
+              />
+              <label
+                htmlFor="floating_email"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Zona de la empresa
+              </label>
+            </div>
 
-          <div className="md:col-span-2">
-            <label
-              htmlFor="message"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-            >
-              Tareas
-            </label>
-            <textarea
-              id="message"
-              rows={4}
-              name="descripcionExperiencia"
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-400 dark:border-gray-400 dark:placeholder-white dark:text-gray-500 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="breve descripcion de las tareas"
-              onChange={handleExperienceChange}
-              value={newExperience.descripcionExperiencia}
-            ></textarea>
-          </div>
-
-          {/* cambiar nombres de name solo para el frnt */}     
+            {/* cambiar nombres de name solo para el frnt */}
             <div className="">
               <label
                 htmlFor="countries"
@@ -665,42 +709,80 @@ function FormRegister({
                 className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md"
                 onChange={handleExperienceChange}
                 value={newExperience.anioFinExperiencia}
+                disabled={newExperience.anioInicioExperiencia === ""}
               >
                 <option value={""} hidden>
                   seleccione año
                 </option>
 
+                <option value={"Actualidad"}>Actualidad</option>
+
                 {arr.map((e, i) => {
-                  return (
+                  return newExperience.anioInicioExperiencia <= e ? (
                     <option key={`${e}-${i}`} value={e}>
                       {e}
                     </option>
+                  ) : (
+                    ""
                   );
                 })}
-              </select> 
-          </div>
+              </select>
+            </div>
+
+            <div className="md:col-span-2">
+              <label
+                htmlFor="message"
+                className="block capitalize mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+              >
+                Descripción
+              </label>
+              <textarea
+                id="message"
+                rows={4}
+                name="descripcionExperiencia"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                placeholder="Descripción de tareas"
+                onChange={handleExperienceChange}
+                value={newExperience.descripcionExperiencia}
+              ></textarea>
+            </div>
           </div>
 
+          <div className="flex justify-between ">
           <button
             type="button"
-            className="border-2 px-4 py-2 mt-5 flex flex-row rounded-lg text-blue-400 hover:bg-blue-100 border-gray-200 transition-colors duration-700 hover:border-blue-400"
+            className="flex flex-row gap-2 capitalize px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             onClick={addExperience}
-          >
+            >
             <svg
               width={24}
               height={24}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-            >
+              >
               <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
             </svg>
             <span>agregar</span>
           </button>
+
+          <button
+            type="button"
+            onClick={() => moveToNextSection("experience", "cursos")}
+            className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+          >
+            Siguiente
+          </button>
+            </div>
         </section>
 
-        <div className="border-gray-200 rounded-lg border-2 p-10 shadow-lg">
-          <h2 className="capitalize text-lg text-nowrap mx-auto w-full text-center text-gray-700 dark:text-gray-400">
+        <section
+          ref={sectionRefs.cursos}
+          className={`bg-white p-6 rounded-lg shadow-md ${
+            sectionRefsStatus.cursos == "" ? "hidden" : ""
+          }`}
+        >
+          <h2 className="capitalize text-2xl font-semibold mb-4">
             Cursos/Certificaciones
           </h2>
 
@@ -742,56 +824,55 @@ function FormRegister({
             </div>
           ))}
 
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="text"
-              name="curso"
-              id="floating_email"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=""
-              value={newCursos.curso}
-              onChange={handleCursoChange}
-            />
-            <label
-              htmlFor="floating_email"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Nombre del curso
-            </label>
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div className="relative z-0 w-full group">
+              <input
+                type="text"
+                name="curso"
+                id="floating_email"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=""
+                value={newCursos.curso}
+                onChange={handleCursoChange}
+              />
+              <label
+                htmlFor="floating_email"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Nombre del curso
+              </label>
+            </div>
 
-          <div className="relative z-0 w-full mb-5 group">
-            <input
-              type="text"
-              name="institucion"
-              id="floating_email"
-              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=""
-              onChange={handleCursoChange}
-              value={newCursos.institucion}
-            />
-            <label
-              htmlFor="floating_email"
-              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-            >
-              Nombre del la institución
-            </label>
-          </div>
+            <div className="relative z-0 w-full group">
+              <input
+                type="text"
+                name="institucion"
+                id="floating_email"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=""
+                onChange={handleCursoChange}
+                value={newCursos.institucion}
+              />
+              <label
+                htmlFor="floating_email"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Nombre de la institución
+              </label>
+            </div>
 
-          {/* cambiar nombres de name solo para el frnt */}
-
-          <div className="grid grid-cols-2 gap-x-6 h-fit">
-            <div className="max-w-sm mx-auto">
+            {/* cambiar nombres de name solo para el frnt */}
+            <div className="">
               <label
                 htmlFor="countries"
-                className="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-400 capitalize"
+                className="block text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
               >
                 año inicio
               </label>
               <select
                 id="countries"
                 name="anioInicioCurso"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md"
                 value={newCursos.anioInicioCurso}
                 onChange={handleCursoChange}
               >
@@ -808,37 +889,11 @@ function FormRegister({
                 })}
               </select>
             </div>
-            {/* 
-            <div className="max-w-sm mx-auto">
-              <label
-                htmlFor="countries"
-                className="block mb-2 text-lg font-medium text-gray-900 dark:text-gray-400 capitalize"
-              >
-                año fin
-              </label>
-              <select
-                id="countries"
-                name="anioFinCurso"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                defaultValue={""}
-              >
-                <option value={""} hidden>
-                  seleccione año
-                </option>
-
-                {arr.map((e, i) => {
-                  return (
-                    <option key={`${e}-${i}`} value={e}>
-                      {e}
-                    </option>
-                  );
-                })}
-              </select>
-            </div> */}
           </div>
+
           <button
             type="button"
-            className="border-2 px-4 py-2 mt-5 flex flex-row rounded-lg text-blue-400 hover:bg-blue-100 border-gray-200 transition-colors duration-700 hover:border-blue-400"
+            className="flex flex-row gap-2 capitalize px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             onClick={addCursos}
           >
             <svg
@@ -852,13 +907,19 @@ function FormRegister({
             </svg>
             <span>agregar</span>
           </button>
-        </div>
+        </section>
 
         <button
           type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className={`w-full capitalize px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 ${
+            sectionRefsStatus.experience != "" &&
+            sectionRefsStatus.cursos != "" &&
+            sectionRefsStatus.education != ""
+              ? ""
+              : "hidden"
+          }`}
         >
-          Submit
+          Registrar Datos
         </button>
       </form>
     </div>

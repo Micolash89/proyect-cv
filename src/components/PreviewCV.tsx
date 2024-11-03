@@ -12,8 +12,7 @@ export default function PreviewCV({cvData, iaData}:{cvData:any, iaData:TypeIADat
      <div id="cv-preview" className="w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 font-serif">
       <div className="mb-6 text-center">
         <h1 className="text-3xl font-bold uppercase">{cvData.name} {cvData.lastName}</h1>
-        <p className="text-sm">{cvData.ciudad} {cvData.provincia}</p>
-        <p className="text-sm">{cvData.phone} | {cvData.email}</p>
+        <p className="text-sm">{cvData.ciudad} | {cvData.provincia} | {cvData.phone} | {cvData.email}</p>
       </div>
       <div className="my-3 text-left">
         <p className="text-base">{iaData.profile}</p>

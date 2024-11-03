@@ -37,6 +37,7 @@ const CreateSchemaUsuario = z.object({
         estado: z.string({message:"seleccione el estado"}),
         estudios: z.string().min(4, "los estudios deben tener al menos 4 caracteres"),
         institucion:z.string().min(3,"la institución deben tener al menos 3 caracteres"),
+        zonaInstitucion: z.string().min(4, "La ubicación debe de tener al menos 4 caracteres"),
         anioInicioEducacion: z.string().min(4, "el a o de inicio de los estudios debe de tener al menos 4 caracteres"),
         anioFinEducacion: z.string(),
       })
@@ -45,6 +46,7 @@ const CreateSchemaUsuario = z.object({
     z.object({
       nombreEmpresa: z.string().min(4, "el nombre de la empresa debe de tener al menos 4 caracteres"),
       puesto: z.string().min(4, "el puesto debe de tener al menos 4 caracteres"),
+      zonaEmpresa: z.string().min(4, "La ubicación debe de tener al menos 4 caracteres"),
       anioInicioExperiencia: z.string().min(4, "el a o de inicio de la experiencia debe de tener al menos 4 caracteres"),
       anioFinExperiencia: z.string().min(4, "el a o de fin de la experiencia debe de tener al menos 4 caracteres"),
       descripcionExperiencia: z.string().min(5, "la descripci n de la experiencia debe de tener al menos 5 caracteres"),
@@ -129,6 +131,7 @@ export async function postUsuarios(experience:Experiencia[],cursos1:any[], educa
             carrera: educacion.carrera as string,
             estado: educacion.estado as EstudioEstadoEnum,
             tipo: educacion.estudios as EstudioTipoEnum,
+            ubicacion: educacion.zonaInstitucion as string,
             fechaIngreso: educacion.anioInicioEducacion as string,
             institucion:educacion.institucion as string,//falta agregar institucion frontend
             fechaEgreso: educacion.anioFinEducacion as string,
@@ -144,6 +147,7 @@ export async function postUsuarios(experience:Experiencia[],cursos1:any[], educa
           data: {
             nombre: experiencia.nombreEmpresa as string,
             puesto: experiencia.puesto as string,
+            ubicacion: experiencia.zonaEmpresa as string,
             fechaInicio: experiencia.anioInicioExperiencia as string,
             fechaFin: experiencia.anioFinExperiencia as string,
             descripcion: experiencia.descripcionExperiencia as string,

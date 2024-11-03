@@ -20,13 +20,13 @@ model User {
   apellido        String
   telefono        String
   fechaNacimiento DateTime
-  email           String        
+  email           String
   ciudad          String
   provincia       String
   linkedin        String?
   estudios        Estudio[]     @relation("UserEstudios")
   experiencias    Experiencia[] @relation("UserExperiencias")
-  cursos          Curso[] @relation("UserCursos")
+  cursos          Curso[]       @relation("UserCursos")
 }
 
 model Estudio {
@@ -34,7 +34,8 @@ model Estudio {
   carrera      String //titulo
   estado       EstudioEstadoEnum
   tipo         EstudioTipoEnum //estudios
-  institucion  String 
+  institucion  String
+  ubicacion    String            @default("")
   fechaIngreso String
   fechaEgreso  String?
   idUsuario    Int
@@ -42,19 +43,20 @@ model Estudio {
 }
 
 model Experiencia {
-  id          Int    @id @default(autoincrement())
-  nombre      String//nombre empresa
+  id          Int     @id @default(autoincrement())
+  nombre      String //nombre empresa
   puesto      String
+  ubicacion   String  @default("")
   fechaInicio String
   fechaFin    String?
   descripcion String
   idUsuario   Int
-  usuario     User   @relation(fields: [idUsuario], references: [id], name: "UserExperiencias")
+  usuario     User    @relation(fields: [idUsuario], references: [id], name: "UserExperiencias")
 }
 
 model Curso {
   id          Int    @id @default(autoincrement())
-  nombre      String//curso
+  nombre      String //curso
   institucion String
   fechaInicio String
   idUsuario   Int

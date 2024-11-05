@@ -108,7 +108,7 @@ export async function generarItemsExperiencia(experience:Experiencia[], max : nu
         role: "user",
         parts: [
           {
-            text: `creame las tareas que desempeñaria en un trabajo en un renglón máximo ${max} renglon${max<1?"nes":""} de la tarea que con la descripcion de las tareas que te voy a indicar.solo quiero los renglones de las tareas desarrolladas por ti nada mas, es para copiar y pegar asi como esta, no quiero titulo ni que me lo marques de cual es cada una , yo me guio por el orden en que te lo fui dando, no quiero que me lo des con codigo markdown solo texto, solo separamelo con saltos de linea.escribilo para un curriculum asi que sea de manera formal`,
+            text: `creame las tareas que desempeñaria en un trabajo en un renglón máximo en solo ${max} renglon${max<1?"nes":""} de la tarea que con la descripcion de las tareas que te voy a indicar.solo quiero los renglones de las tareas desarrolladas por ti nada mas, es para copiar y pegar asi como esta, no quiero titulo ni que me lo marques de cual es cada una , yo me guio por el orden en que te lo fui dando, no quiero que me lo des con codigo markdown solo texto, solo separamelo con saltos de linea.escribilo para un curriculum asi que sea de manera formal`,
           },
         ],
       },

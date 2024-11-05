@@ -8,6 +8,12 @@ import {
 } from "@react-pdf/renderer";
 import { TypeIAData } from "../PreviewCV";
 
+// Font.register({
+//   family: "Times New Roman",
+//   src: "/fonts/TimesNewRoman.ttf",
+  
+// });
+
 Font.register({
   family: "Times New Roman",
   src: "/fonts/TimesNewRoman.ttf",
@@ -50,9 +56,9 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
+    fontFamily: "Times New Roman",
     backgroundColor: "#FFFFFF",
     padding: 10,
-    fontFamily: "Times New Roman",
   },
   section: {
     margin: 10,
@@ -87,7 +93,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   profile:{
-    fontStyle: "italic",
+    // fontStyle: "italic",
   },
   bold: {
     fontWeight: "bold",
@@ -103,6 +109,7 @@ export const MyDocumentPDF: React.FC<{
   cvData: CVData;
   iaData: TypeIAData;
 }> = ({ cvData, iaData }) => (
+  
   <Document>
     <Page size="A4" style={styles.page}>
       {/* Encabezado */}
@@ -110,8 +117,8 @@ export const MyDocumentPDF: React.FC<{
         <Text style={styles.title}>{`${cvData.name} ${cvData.lastName}`}</Text>
         <View style={styles.section2}>
           <Text style={styles.text}>
-            {cvData.ciudad}, {cvData.provincia} | {cvData.email} |{" "}
-            {cvData.phone} | {cvData.fechaNacimiento}
+            {cvData.ciudad}, {cvData.provincia} |  {new Date(cvData.fechaNacimiento).toLocaleDateString("es-ES")}
+             {cvData.phone} {cvData.email? " | "+ cvData.email:""} 
           </Text>
         </View>
         <View style={styles.profile}>

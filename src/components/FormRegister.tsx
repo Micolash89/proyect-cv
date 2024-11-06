@@ -16,6 +16,8 @@ function FormRegister({
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     updateCVData({ [name]: value });
+    console.log(name);
+    console.log(value);
   };
 
   const max = new Date().getFullYear();
@@ -32,14 +34,24 @@ function FormRegister({
     estado: "",
     carrera: "",
     institucion: "",
-    zonaInstitucion:"",
+    zonaInstitucion: "",
     anioInicioEducacion: "",
     anioFinEducacion: "",
   });
+
   const [newCursos, setNewCursos] = useState({
     curso: "",
     institucion: "",
     anioInicioCurso: "",
+  });
+
+  const [newIdioma, setNewIdioma] = useState({
+    idioma: "",
+    nivel: "",
+  });
+
+  const [newDisponibilidad, setNewDisponibilidad] = useState({
+    disponibilidad: "",
   });
 
   const [newExperience, setNewExperience] = useState({
@@ -57,12 +69,16 @@ function FormRegister({
     education: useRef<HTMLDivElement>(null),
     experience: useRef<HTMLDivElement>(null),
     cursos: useRef<HTMLDivElement>(null),
+    idiomas: useRef<HTMLDivElement>(null),
+    informacionA: useRef<HTMLDivElement>(null),
   };
 
   const [sectionRefsStatus, setSectionRefsStatus] = useState({
     education: "",
     experience: "",
     cursos: "",
+    idiomas: "",
+    informacionA: "",
   });
 
   const handleEducationChange = (e: any) => {
@@ -78,7 +94,7 @@ function FormRegister({
         estado: "",
         carrera: "",
         institucion: "",
-        zonaInstitucion:"",
+        zonaInstitucion: "",
         anioInicioEducacion: "",
         anioFinEducacion: "",
       });
@@ -90,9 +106,19 @@ function FormRegister({
     setNewExperience((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleIdiomaChange = (e: any) => {
+    const { name, value } = e.target;
+    setNewIdioma((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleCursoChange = (e: any) => {
     const { name, value } = e.target;
     setNewCursos((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleDisponibilidadChange = (e: any) => {
+    const { name, value } = e.target;
+    setNewDisponibilidad((prev) => ({ ...prev, [name]: value }));
   };
 
   const addExperience = () => {
@@ -115,6 +141,13 @@ function FormRegister({
     }
   };
 
+  const addIdiomas = () => {
+    if (newIdioma.nivel && newIdioma.idioma) {
+      updateCVData({ idiomas: [...cvData.idiomas, newIdioma] });
+      setNewIdioma({ idioma: "", nivel: "" });
+    }
+  };
+
   const removeExperience = (index: any) => {
     const updatedExperience = cvData.experience.filter(
       (_: any, i: any) => i !== index
@@ -134,7 +167,12 @@ function FormRegister({
     updateCVData({ cursos: updatedCursos });
   };
 
-  const [newAward, setNewAward] = useState({ title: "", year: "" });
+  const removeIdiomas = (index: any) => {
+    const updatedIdiomas = cvData.idiomas.filter(
+      (_: any, i: any) => i !== index
+    );
+    updateCVData({ idiomas: updatedIdiomas });
+  };
 
   const [dataResponse, setDataResponse] = useState({
     message: "" as string,
@@ -330,11 +368,17 @@ function FormRegister({
               type="button"
               onClick={() => moveToNextSection("personal", "education")}
               className="mt-4 px-4 py-2 bg-green-400 text-white rounded hover:bg-green-500 flex items-center gap-1"
+            >
+              <span>Siguiente</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="currentColor"
               >
-              <span>
-                Siguiente
-              </span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg>
+                <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+              </svg>
             </button>
           </div>
         </section>
@@ -409,7 +453,7 @@ function FormRegister({
                 Nombre de la institución
               </label>
             </div>
-            
+
             <div className="relative z-0 w-full  group ">
               <input
                 type="text"
@@ -575,10 +619,16 @@ function FormRegister({
               onClick={() => moveToNextSection("education", "experience")}
               className="ml-4 px-4 py-2 bg-green-400 text-white rounded hover:bg-green-500 justify-self-end flex items-center gap-1"
             >
-              <span>
-                Siguiente
-              </span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg>
+              <span>Siguiente</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="currentColor"
+              >
+                <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+              </svg>
             </button>
           </div>
         </section>
@@ -602,9 +652,7 @@ function FormRegister({
                 <h3 className="font-bold">{edu.puesto}</h3>
                 <h3 className="font-bold">{edu.nombreEmpresa}</h3>
                 <h3 className="font-bold">{edu.zonaEmpresa}</h3>
-                <p>
-                  {edu.descripcionExperiencia}
-                </p>
+                <p>{edu.descripcionExperiencia}</p>
                 <p>
                   {edu.anioInicioExperiencia}, {edu.anioFinExperiencia}
                 </p>
@@ -775,34 +823,40 @@ function FormRegister({
           </div>
 
           <div className="flex justify-between ">
-          <button
-            type="button"
-            className="flex flex-row gap-2 capitalize px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={addExperience}
+            <button
+              type="button"
+              className="flex flex-row gap-2 capitalize px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={addExperience}
             >
-            <svg
-              width={24}
-              height={24}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
+              <svg
+                width={24}
+                height={24}
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
               >
-              <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
-            </svg>
-            <span>agregar</span>
-          </button>
+                <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
+              </svg>
+              <span>agregar</span>
+            </button>
 
-          <button
-            type="button"
-            onClick={() => moveToNextSection("experience", "cursos")}
-            className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
-          >
-            <span>
-                Siguiente
-              </span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg>
-          </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => moveToNextSection("experience", "cursos")}
+              className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
+            >
+              <span>Siguiente</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="currentColor"
+              >
+                <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+              </svg>
+            </button>
+          </div>
         </section>
 
         <section
@@ -919,23 +973,233 @@ function FormRegister({
               </select>
             </div>
           </div>
-
-          <button
-            type="button"
-            className="flex flex-row gap-2 capitalize px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={addCursos}
-          >
-            <svg
-              width={24}
-              height={24}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
+          <div className="flex justify-between ">
+            <button
+              type="button"
+              className="flex flex-row gap-2 capitalize px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={addCursos}
             >
-              <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
-            </svg>
-            <span>agregar</span>
-          </button>
+              <svg
+                width={24}
+                height={24}
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
+              </svg>
+              <span>agregar</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => moveToNextSection("cursos", "idiomas")}
+              className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
+            >
+              <span>Siguiente</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="currentColor"
+              >
+                <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+              </svg>
+            </button>
+          </div>
+        </section>
+
+        <section
+          ref={sectionRefs.idiomas}
+          className={`bg-white p-6 rounded-lg shadow-md ${
+            sectionRefsStatus.idiomas == "" ? "hidden" : ""
+          }`}
+        >
+          <h2 className="capitalize text-2xl font-semibold mb-4">Idiomas</h2>
+
+          {cvData.idiomas.map((edu: any, index: any) => (
+            <div
+              key={index}
+              className=" mb-4 p-3 border rounded-lg text-black w-full "
+            >
+              <div className="flex flex-col justify-center items-center">
+                <h3 className="font-bold">{edu.idioma}</h3>
+                <p>{edu.nivel}</p>
+              </div>
+              <button
+                type="button"
+                className="mt-2 flex flex-row gap-2 items-center justify-center text-red-500 hover:bg-red-50 transition-colors duration-700 hover:border-red-500 border-2 p-2 rounded-lg  deleteButton"
+                onClick={() => removeIdiomas(index)}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                >
+                  <path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"></path>
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM13.4142 13.9997L15.182 15.7675L13.7678 17.1817L12 15.4139L10.2322 17.1817L8.81802 15.7675L10.5858 13.9997L8.81802 12.232L10.2322 10.8178L12 12.5855L13.7678 10.8178L15.182 12.232L13.4142 13.9997ZM9 4V6H15V4H9Z"></path>
+                </svg>
+                Eliminar
+              </button>
+            </div>
+          ))}
+
+          <div className="grid grid-cols-1 gap-4 mb-4">
+            <div className="relative z-0 w-full group">
+              <input
+                type="text"
+                name="idioma"
+                id="floating_idioma"
+                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=""
+                value={newIdioma.idioma}
+                onChange={handleIdiomaChange}
+              />
+              <label
+                htmlFor="floating_idioma"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Nombre de idioma
+              </label>
+            </div>
+
+            <div className="">
+              <label
+                htmlFor="idioma_nivel"
+                className="block text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
+              >
+                nivel{" "}
+              </label>
+              <select
+                id="idioma_nivel"
+                name="nivel"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md"
+                value={newIdioma.nivel}
+                onChange={handleIdiomaChange}
+              >
+                <option value={""} hidden>
+                  seleccione nivel
+                </option>
+
+                <option value={"BASICO"}>básico</option>
+                <option value={"INTERMEDIO"}>intermedio</option>
+                <option value={"AVANZADO"}>avanzado</option>
+              </select>
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <button
+              type="button"
+              className="flex flex-row gap-2 capitalize px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={addIdiomas}
+            >
+              <svg
+                width={24}
+                height={24}
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
+              </svg>
+              <span>agregar</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => moveToNextSection("idiomas", "informacionA")}
+              className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
+            >
+              <span>Siguiente</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="currentColor"
+              >
+                <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+              </svg>
+            </button>
+          </div>
+        </section>
+
+        <section
+          ref={sectionRefs.informacionA}
+          className={`bg-white p-6 rounded-lg shadow-md ${
+            sectionRefsStatus.informacionA == "" ? "hidden" : ""
+          } `}
+        >
+          <h2 className="text-2xl font-semibold mb-4 capitalize">
+            Información adicional
+          </h2>
+
+          <div className="grid grid-cols-1  gap-4">
+            <div className="flex gap-2 relative z-0 w-full group">
+              <input type="checkbox" name="licencia" id="licencia" onChange={handleInputChange} />
+              <label
+                htmlFor="licencia"
+                className="block  text-sm font-medium text-gray-900 dark:text-gray-300
+                capitalize"
+              >
+                Licencia de conducir.
+              </label>
+            </div>
+
+            <div className="flex gap-2 relative z-0 w-full group">
+              <input type="checkbox" name="movilidad" id="movilidad" onChange={handleInputChange}  />
+              <label
+                htmlFor="movilidad"
+                className="block  text-sm font-medium text-gray-900 dark:text-gray-300
+              "
+              >
+                Movilidad propia.
+              </label>
+            </div>
+
+            <div className="flex gap-2 relative z-0 w-full group">
+              <input type="checkbox" name="incorporacion" id="incorporacion" onChange={handleInputChange}  />
+              <label
+                htmlFor="incorporacion"
+                className="block  text-sm font-medium text-gray-900 dark:text-gray-300
+              "
+              >
+                Incorporación inmediata.
+              </label>
+            </div>
+
+            <div className="">
+              <label
+                htmlFor="disponibilidad"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
+              >
+                disponibilidad horaria
+              </label>
+              <select
+                id="disponibilidad"
+                name="disponibilidad"
+                className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md"
+                onChange={handleInputChange} 
+                
+              >
+                <option value={""} hidden>
+                  seleccione disponibilidad
+                </option>
+                <option value={"FULLTIME"}>full time</option>
+                <option value={"PARTTIME"}>part time</option>
+              </select>
+            </div>
+          </div>
         </section>
 
         <button
@@ -943,7 +1207,9 @@ function FormRegister({
           className={`w-full capitalize px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 ${
             sectionRefsStatus.experience != "" &&
             sectionRefsStatus.cursos != "" &&
-            sectionRefsStatus.education != ""
+            sectionRefsStatus.education != "" &&
+            sectionRefsStatus.idiomas != "" &&
+            sectionRefsStatus.informacionA != ""
               ? ""
               : "hidden"
           }`}

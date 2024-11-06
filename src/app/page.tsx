@@ -1,11 +1,8 @@
 "use client";
 
-import AnimatedCounter from "@/components/AnimatedCounter";
 import FormRegister from "@/components/FormRegister";
 import MyDocumentPDF from "@/components/pdf/GeneratorPDF";
 import PreviewCV from "@/components/PreviewCV";
-import { PDFViewer } from "@react-pdf/renderer";
-import Link from "next/link";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import IARegister from "@/components/IARegister";
@@ -27,6 +24,12 @@ export default function Home() {
     education: [],
     experience: [],
     cursos: [],
+    idiomas: [],
+    licencia:"",
+    movilidad:"",
+    incorporacion:"",
+    disponibilidad:"",
+
   });
 
   const [iaData, setIAData] = useState({
@@ -37,6 +40,7 @@ export default function Home() {
 
   const updateCVData = (newData: any) => {
     setCVData((prevData) => ({ ...prevData, ...newData }));
+    console.log(cvData);
   };
   const updateIAData = (newData: any) => {
     setIAData((prevData) => ({ ...prevData, ...newData }));

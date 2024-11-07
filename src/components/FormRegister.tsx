@@ -4,7 +4,7 @@ import { postUsuarios } from "@/lib/actions";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
-type Section = "personal" | "education" | "experience" | "cursos";
+type Section = "personal" | "education" | "experience" | "cursos" | "idiomas" | "informacionA";
 
 function FormRegister({
   cvData,
@@ -193,7 +193,8 @@ function FormRegister({
     const newpost = postUsuarios
       .bind(null, cvData.experience)
       .bind(null, cvData.cursos)
-      .bind(null, cvData.education);
+      .bind(null, cvData.education)
+      .bind(null, cvData.idiomas);
 
     const postPromise = newpost(e); // Tu promesa original
 
@@ -442,7 +443,6 @@ function FormRegister({
                 name="institucion"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
-                // defaultValue={newEducation.carrera}
                 value={newEducation.institucion}
                 onChange={handleEducationChange}
               />
@@ -460,7 +460,6 @@ function FormRegister({
                 name="carrera"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
-                // defaultValue={newEducation.carrera}
                 value={newEducation.carrera}
                 onChange={handleEducationChange}
               />
@@ -1097,6 +1096,7 @@ function FormRegister({
               </select>
             </div>
           </div>
+
           <div className="flex justify-between">
             <button
               type="button"
@@ -1149,7 +1149,7 @@ function FormRegister({
               <input type="checkbox" name="licencia" id="licencia" onChange={handleInputChange} />
               <label
                 htmlFor="licencia"
-                className="block  text-sm font-medium text-gray-900 dark:text-gray-300
+                className="block  text-sm font-medium text-gray-900 
                 capitalize"
               >
                 Licencia de conducir.
@@ -1160,7 +1160,7 @@ function FormRegister({
               <input type="checkbox" name="movilidad" id="movilidad" onChange={handleInputChange}  />
               <label
                 htmlFor="movilidad"
-                className="block  text-sm font-medium text-gray-900 dark:text-gray-300
+                className="block  text-sm font-medium text-gray-900 
               "
               >
                 Movilidad propia.
@@ -1171,7 +1171,7 @@ function FormRegister({
               <input type="checkbox" name="incorporacion" id="incorporacion" onChange={handleInputChange}  />
               <label
                 htmlFor="incorporacion"
-                className="block  text-sm font-medium text-gray-900 dark:text-gray-300
+                className="block  text-sm font-medium text-gray-900 
               "
               >
                 Incorporación inmediata.
@@ -1181,7 +1181,7 @@ function FormRegister({
             <div className="">
               <label
                 htmlFor="disponibilidad"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
+                className="block mb-2 text-sm font-medium text-gray-900  capitalize"
               >
                 disponibilidad horaria
               </label>

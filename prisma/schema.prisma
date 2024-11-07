@@ -15,18 +15,20 @@ datasource db {
 }
 
 model User {
-  id              Int           @id @default(autoincrement())
-  nombre          String
-  apellido        String
-  telefono        String
-  fechaNacimiento DateTime
-  email           String
-  ciudad          String
-  provincia       String
-  linkedin        String?
-  estudios        Estudio[]     @relation("UserEstudios")
-  experiencias    Experiencia[] @relation("UserExperiencias")
-  cursos          Curso[]       @relation("UserCursos")
+  id                  Int                   @id @default(autoincrement())
+  nombre              String
+  apellido            String
+  telefono            String
+  fechaNacimiento     DateTime
+  email               String
+  ciudad              String
+  provincia           String
+  linkedin            String?
+  estudios            Estudio[]             @relation("UserEstudios")
+  experiencias        Experiencia[]         @relation("UserExperiencias")
+  cursos              Curso[]               @relation("UserCursos")
+  idiomas             Idiomas[]             @relation("UserIdiomas")
+  informacionAdiciona InformacionAdiconal[] @relation("UserInformacionAdicional")
 }
 
 model Estudio {
@@ -63,6 +65,24 @@ model Curso {
   usuario     User   @relation(fields: [idUsuario], references: [id], name: "UserCursos")
 }
 
+model Idiomas {
+  id        Int             @id @default(autoincrement())
+  idiomas   String
+  nivel     NivelIdiomaEnum
+  idUsuario Int
+  usuario   User            @relation(fields: [idUsuario], references: [id], name: "UserIdiomas")
+}
+
+model InformacionAdiconal {
+  id             Int                @id @default(autoincrement())
+  licencia       String
+  movilidad      String
+  incorporacion  String
+  disponibilidad DisponibilidadEnum
+  idUsuario      Int
+  usuario        User               @relation(fields: [idUsuario], references: [id], name: "UserInformacionAdicional")
+}
+
 enum EstudioEstadoEnum {
   COMPLETADO
   INCOMPLETO
@@ -74,6 +94,17 @@ enum EstudioTipoEnum {
   SECUNDARIO
   TERCEARIO
   UNIVERSITARIO
+}
+
+enum NivelIdiomaEnum {
+  BASICO
+  INTERMEDIO
+  AVANZADO
+}
+
+enum DisponibilidadEnum {
+  FULLTIME
+  PARTTIME
 }
 
 model Administrador {

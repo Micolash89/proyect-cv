@@ -29,7 +29,6 @@ export default function Home() {
     movilidad:"",
     incorporacion:"",
     disponibilidad:"",
-
   });
 
   const [iaData, setIAData] = useState({
@@ -40,7 +39,6 @@ export default function Home() {
 
   const updateCVData = (newData: any) => {
     setCVData((prevData) => ({ ...prevData, ...newData }));
-    console.log(cvData);
   };
   const updateIAData = (newData: any) => {
     setIAData((prevData) => ({ ...prevData, ...newData }));

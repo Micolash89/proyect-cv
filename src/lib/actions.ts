@@ -1,6 +1,12 @@
 "use server";
 
-import { EstudioEstadoEnum, EstudioTipoEnum, PrismaClient } from "@prisma/client";
+import {
+  DisponibilidadEnum,
+  EstudioEstadoEnum,
+  EstudioTipoEnum,
+  NivelIdiomaEnum,
+  PrismaClient,
+} from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 const prisma = new PrismaClient();
@@ -9,7 +15,11 @@ import { z } from "zod";
 import { createResponse, JWTCreate } from "./utils";
 import { cookies } from "next/headers";
 import { comparePassword } from "./utilsBcrypt";
-import { generarItemsExperiencia, generarPerfilExperiencia, generarSkills } from "./actionsIA";
+import {
+  generarItemsExperiencia,
+  generarPerfilExperiencia,
+  generarSkills,
+} from "./actionsIA";
 
 const CreateSchemaUsuario = z.object({
   name: z
@@ -22,71 +32,154 @@ const CreateSchemaUsuario = z.object({
     .string({ message: "ingrese un email" })
     .email("Debe ser un email válido")
     .min(6, "el email debe tener al menos 6 caracteres"),
-    fechaNacimiento: z.coerce.date({
-      message: "seleccione una fecha de nacimiento",
-    }),
+  fechaNacimiento: z.coerce.date({
+    message: "seleccione una fecha de nacimiento",
+  }),
   phone: z.string().min(6, "el telefono debe tener al menos 6 caracteres"),
   ciudad: z.string().min(4, "la ciudad debe de tener al menos 4 caracteres"),
   provincia: z
     .string()
     .min(4, "la provincia debe de tener al menos 4 caracteres"),
-  education: z
-    .array(
-      z.object({
-        carrera: z.string().min(4, "la carrera debe de tener al menos 4 caracteres"),
-        estado: z.string({message:"seleccione el estado"}),
-        estudios: z.string().min(4, "los estudios deben tener al menos 4 caracteres"),
-        institucion:z.string().min(3,"la institución deben tener al menos 3 caracteres"),
-        zonaInstitucion: z.string().min(4, "La ubicación debe de tener al menos 4 caracteres"),
-        anioInicioEducacion: z.string().min(4, "el a o de inicio de los estudios debe de tener al menos 4 caracteres"),
-        anioFinEducacion: z.string(),
-      })
-    ),
+  education: z.array(
+    z.object({
+      carrera: z
+        .string()
+        .min(4, "la carrera debe de tener al menos 4 caracteres"),
+      estado: z.string({ message: "seleccione el estado" }),
+      estudios: z
+        .string()
+        .min(4, "los estudios deben tener al menos 4 caracteres"),
+      institucion: z
+        .string()
+        .min(3, "la institución deben tener al menos 3 caracteres"),
+      zonaInstitucion: z
+        .string()
+        .min(4, "La ubicación debe de tener al menos 4 caracteres"),
+      anioInicioEducacion: z
+        .string()
+        .min(
+          4,
+          "el a o de inicio de los estudios debe de tener al menos 4 caracteres"
+        ),
+      anioFinEducacion: z.string(),
+    })
+  ),
   experience: z.array(
     z.object({
-      nombreEmpresa: z.string().min(4, "el nombre de la empresa debe de tener al menos 4 caracteres"),
-      puesto: z.string().min(4, "el puesto debe de tener al menos 4 caracteres"),
-      zonaEmpresa: z.string().min(4, "La ubicación debe de tener al menos 4 caracteres"),
-      anioInicioExperiencia: z.string().min(4, "el a o de inicio de la experiencia debe de tener al menos 4 caracteres"),
-      anioFinExperiencia: z.string().min(4, "el a o de fin de la experiencia debe de tener al menos 4 caracteres"),
-      descripcionExperiencia: z.string().min(5, "la descripci n de la experiencia debe de tener al menos 5 caracteres"),
-    }),
-
+      nombreEmpresa: z
+        .string()
+        .min(4, "el nombre de la empresa debe de tener al menos 4 caracteres"),
+      puesto: z
+        .string()
+        .min(4, "el puesto debe de tener al menos 4 caracteres"),
+      zonaEmpresa: z
+        .string()
+        .min(4, "La ubicación debe de tener al menos 4 caracteres"),
+      anioInicioExperiencia: z
+        .string()
+        .min(
+          4,
+          "el año de inicio de la experiencia debe de tener al menos 4 caracteres"
+        ),
+      anioFinExperiencia: z
+        .string()
+        .min(
+          4,
+          "el año de fin de la experiencia debe de tener al menos 4 caracteres"
+        ),
+      descripcionExperiencia: z
+        .string({message:"debe ingresar una descripción"})
+      })
   ),
   cursos: z.array(
     z.object({
       curso: z.string().min(4, "el curso debe de tener al menos 4 caracteres"),
-      institucion: z.string().min(4, "la instituci n debe de tener al menos 4 caracteres"),
-      anioInicioCurso: z.string().min(4, "el a o de inicio del curso debe de tener al menos 4 caracteres"),
-    }),
+      institucion: z
+        .string()
+        .min(4, "la instituci n debe de tener al menos 4 caracteres"),
+      anioInicioCurso: z
+        .string()
+        .min(
+          4,
+          "el a o de inicio del curso debe de tener al menos 4 caracteres"
+        ),
+    })
   ),
+  idiomas: z.array(
+    z
+      .object({
+        idioma: z
+          .string()
+          .min(4, "el idiomas debe de tener al menos 4 caracteres"),
+        nivel: z.string({ message: "seleccione el nivel" }),
+      })
+      .optional()
+  ),
+        licencia:z.string({message:"seleccione una opción"}).optional(),
+        movilidad:z.string({message:"seleccione una opción"}).optional(),
+        incorporacion:z.string({message:"seleccione una opción"}).optional(),
+        disponibilidad:z.string({message:"seleccione una opción"}).optional(),
 });
 
 const CreateUsuario = CreateSchemaUsuario.omit({});
 
-export  interface Experiencia{
-  puesto:string;
-  nombreEmpresa:string;
-  anioInicioExperiencia:string;
-  anioFinExperiencia:string;
-  descripcionExperiencia:string;
+// enum EstudioEstadoEnum {
+//   "COMPLETADO",
+//   "INCOMPLETO",
+//   "PROCESO"
+// }
+
+// enum EstudioTipoEnum {
+//   "PRIMARIO",
+//   "SECUNDARIO",
+//   "TERCEARIO",
+//   "UNIVERSITARIO",
+// }
+
+// enum NivelIdiomaEnum {
+//   "BASICO",
+//   "INTERMEDIO",
+//   "AVANZADO",
+// }
+
+// enum DisponibilidadEnum {
+//   "FULLTIME",
+//   "PARTTIME",
+// }
+
+export interface Experiencia {
+  puesto: string;
+  nombreEmpresa: string;
+  anioInicioExperiencia: string;
+  anioFinExperiencia: string;
+  descripcionExperiencia: string;
 }
 
-export async function postUsuarios(experience:Experiencia[],cursos1:any[], education:any[] ,formData: FormData) {
 
-  console.log("backend")
-  console.log("experiencia",experience)
-  console.log("cursos",cursos1)
-  console.log("educacion",education)
+
+export async function postUsuarios(
+  experience: Experiencia[],
+  cursos1: any[],
+  education: any[],
+  idiomas: any[],
+  formData: FormData
+) {
+  console.log("backend");
+  console.log("experiencia", experience);
+  console.log("cursos", cursos1);
+  console.log("educacion", education);
+  console.log("idiomas", idiomas);
 
   const validatedFields = CreateUsuario.safeParse({
     ...Object.fromEntries(formData),
     education,
-    cursos:cursos1,
-    experience
+    cursos: cursos1,
+    experience,
+    idiomas
   });
 
   if (!validatedFields.success) {
+    console.log(validatedFields.error.flatten().fieldErrors);
     return createResponse(
       false,
       [],
@@ -97,17 +190,22 @@ export async function postUsuarios(experience:Experiencia[],cursos1:any[], educa
 
   const {
     data: {
-      
-      name: nombre ,
-      lastName: apellido ,
+      name: nombre,
+      lastName: apellido,
       email,
       fechaNacimiento,
-      phone: telefono ,
-       ciudad ,
-       provincia ,
-       education:educacion,
-       experience:experiencia,
-       cursos,
+      phone: telefono,
+      ciudad,
+      provincia,
+      education: educacion,
+      experience: experiencia,
+      cursos,
+      idiomas: idiomas1,
+      licencia,
+      movilidad,
+      incorporacion,
+      disponibilidad,
+
     },
   } = validatedFields;
 
@@ -123,17 +221,17 @@ export async function postUsuarios(experience:Experiencia[],cursos1:any[], educa
         provincia: provincia as string,
       },
     });
-    
-    if(educacion.length>0){      
+
+    if (educacion.length > 0) {
       educacion.forEach(async (educacion) => {
         await prisma.estudio.create({
           data: {
             carrera: educacion.carrera as string,
-            estado: educacion.estado as EstudioEstadoEnum,
-            tipo: educacion.estudios as EstudioTipoEnum,
+            estado: educacion.estado  as EstudioEstadoEnum,
+            tipo: educacion.estudios  as EstudioTipoEnum,
             ubicacion: educacion.zonaInstitucion as string,
             fechaIngreso: educacion.anioInicioEducacion as string,
-            institucion:educacion.institucion as string,//falta agregar institucion frontend
+            institucion: educacion.institucion as string, //falta agregar institucion frontend
             fechaEgreso: educacion.anioFinEducacion as string,
             idUsuario: user.id,
           },
@@ -141,7 +239,7 @@ export async function postUsuarios(experience:Experiencia[],cursos1:any[], educa
       });
     }
 
-    if(experiencia.length>0){
+    if (experiencia.length > 0) {
       experiencia.forEach(async (experiencia) => {
         await prisma.experiencia.create({
           data: {
@@ -157,9 +255,8 @@ export async function postUsuarios(experience:Experiencia[],cursos1:any[], educa
       });
     }
 
-    if(cursos.length>0){
-
-      cursos.forEach(async (cursos) => {(
+    if (cursos.length > 0) {
+      cursos.forEach(async (cursos) => {
         await prisma.curso.create({
           data: {
             nombre: cursos.curso as string,
@@ -167,20 +264,42 @@ export async function postUsuarios(experience:Experiencia[],cursos1:any[], educa
             fechaInicio: cursos.anioInicioCurso as string,
             idUsuario: user.id,
           },
-        })
-      )
-
-      })
+        });
+      });
     }
+
+    if (idiomas1.length > 0) {
+      idiomas1.forEach(async (idioma) => {
+        await prisma.idiomas.create({
+          data: {
+            idiomas: idioma?.idioma as string,
+            nivel: idioma?.nivel as NivelIdiomaEnum,
+            idUsuario: user.id,
+          },
+        });
+      });
+    }
+
+   if(licencia || movilidad || incorporacion || disponibilidad){
+    await prisma.informacionAdiconal.create({
+      data:{
+        licencia:licencia as string ,
+        movilidad:movilidad as string ,
+        incorporacion:incorporacion as string,
+        disponibilidad:disponibilidad as DisponibilidadEnum,
+        idUsuario:user.id
+      }
+    })
+   }
+
   } catch (error) {
     console.log(error);
   } finally {
     prisma.$disconnect();
   }
-  
+
   return createResponse(true, [], "Registro Satisfactorio");
 }
-
 
 const createSchemaLogin = z.object({
   email: z
@@ -345,7 +464,7 @@ export async function updateUser(formData: FormData, params: { id: string }) {
         apellido,
         telefono,
         email,
-      
+
         ciudad,
         provincia,
         linkedin,
@@ -361,28 +480,49 @@ export async function updateUser(formData: FormData, params: { id: string }) {
   redirect("/dashboard/users");
 }
 
-
 /*IA*/
 
-export async function generatorProfileAI (experience:Experiencia[],formData: FormData ){
+export async function generatorProfileAI(
+  experience: Experiencia[],
+  formData: FormData
+) {
+  const perfilDescripcion: string = await generarPerfilExperiencia(experience);
 
-
-  const perfilDescripcion :string = await generarPerfilExperiencia(experience)
-
-  return  createResponse(true, {profile:perfilDescripcion},"creación de perfil exitoso");
-
+  return createResponse(
+    true,
+    { profile: perfilDescripcion },
+    "creación de perfil exitoso"
+  );
 }
-export async function generatorItemsWorkAI (experience:Experiencia[],formData: FormData ){
+export async function generatorItemsWorkAI(
+  experience: Experiencia[],
+  formData: FormData
+) {
+  const perfilDescripcion: string = await generarItemsExperiencia(
+    experience,
+    1
+  );
 
-  const perfilDescripcion :string = await generarItemsExperiencia(experience, 1);
-
-  return  createResponse(true, {descriptionWork:perfilDescripcion},"creación de descripciones exitoso");
-
+  return createResponse(
+    true,
+    { descriptionWork: perfilDescripcion },
+    "creación de descripciones exitoso"
+  );
 }
-export async function generatorSkillsAI (experience:Experiencia[],formData: FormData ){
+export async function generatorSkillsAI(
+  experience: Experiencia[],
+  formData: FormData
+) {
+  const perfilDescripcion: string = await generarSkills(
+    experience,
+    experience.length <= 4
+      ? `${6 / experience.length} de cada uno de los empleos`
+      : " 6 palabras clave en total"
+  );
 
-  const perfilDescripcion :string = await generarSkills(experience, experience.length<=4?`${6/experience.length} de cada uno de los empleos`:" 6 palabras clave en total");
-
-  return  createResponse(true, {skills:perfilDescripcion},"creación de skills exitoso");
-
+  return createResponse(
+    true,
+    { skills: perfilDescripcion },
+    "creación de skills exitoso"
+  );
 }

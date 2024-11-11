@@ -6,6 +6,7 @@ import PreviewCV from "@/components/PreviewCV";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import IARegister from "@/components/IARegister";
+import TextZoom from "@/components/TextZoom";
 
 export default function Home() {
   const PDFViewer = dynamic(
@@ -29,6 +30,7 @@ export default function Home() {
     movilidad:"",
     incorporacion:"",
     disponibilidad:"",
+    office:"",
   });
 
   const [iaData, setIAData] = useState({
@@ -36,6 +38,8 @@ export default function Home() {
     skills: "",
     descriptionWork: "",
   });
+
+  const [contador, setContador] = useState(0);
 
   const updateCVData = (newData: any) => {
     setCVData((prevData) => ({ ...prevData, ...newData }));
@@ -46,8 +50,8 @@ export default function Home() {
 
   return (
     <>
-      <main className="grid grid-cols-2 w-full">
-        <FormRegister cvData={cvData} updateCVData={updateCVData} />
+      <main className=" w-full">
+        <FormRegister cvData={cvData} updateCVData={updateCVData}  />
 
         <PreviewCV cvData={cvData} iaData={iaData} />
       </main>
@@ -72,9 +76,12 @@ export default function Home() {
         tipo={3}
         iaData={iaData.skills}
       />
+
+      <TextZoom setContador={setContador} contador={contador}/>
+
       {
         <PDFViewer width="100%" height="100%">
-          <MyDocumentPDF cvData={cvData} iaData={iaData} />
+          <MyDocumentPDF cvData={cvData} iaData={iaData} contador={contador} />
           {/* <MyDocumentPDF data ={responseBack}/> */}
         </PDFViewer>
       }

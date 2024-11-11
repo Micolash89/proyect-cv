@@ -7,12 +7,6 @@ import {
   generatorSkillsAI,
 } from "@/lib/actions";
 
-type IAData = {
-  profile: string;
-  skills: string;
-  descriptionWork: string;
-};
-
 export default function IARegister({
   cvData,
   updateIAData,
@@ -55,7 +49,7 @@ export default function IARegister({
       case 3:
         newPost = generatorSkillsAI.bind(null, cvData.experience);
         break;
-
+      
       default:
         toast.error("tipo no válido");
         return;

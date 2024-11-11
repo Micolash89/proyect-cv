@@ -78,13 +78,14 @@ model InformacionAdiconal {
   licencia       String
   movilidad      String
   incorporacion  String
+  office  String?
   disponibilidad DisponibilidadEnum
   idUsuario      Int
   usuario        User               @relation(fields: [idUsuario], references: [id], name: "UserInformacionAdicional")
 }
 
 enum EstudioEstadoEnum {
-  COMPLETADO
+  COMPLETO
   INCOMPLETO
   PROCESO
 }

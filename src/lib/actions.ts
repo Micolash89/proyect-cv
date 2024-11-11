@@ -119,6 +119,7 @@ const CreateSchemaUsuario = z.object({
         movilidad:z.string({message:"seleccione una opción"}).optional(),
         incorporacion:z.string({message:"seleccione una opción"}).optional(),
         disponibilidad:z.string({message:"seleccione una opción"}).optional(),
+        office:z.string({message:"seleccione una opción"}).optional(),
 });
 
 const CreateUsuario = CreateSchemaUsuario.omit({});
@@ -205,7 +206,7 @@ export async function postUsuarios(
       movilidad,
       incorporacion,
       disponibilidad,
-
+      office
     },
   } = validatedFields;
 
@@ -280,13 +281,14 @@ export async function postUsuarios(
       });
     }
 
-   if(licencia || movilidad || incorporacion || disponibilidad){
+   if(licencia || movilidad || incorporacion || disponibilidad || office){
     await prisma.informacionAdiconal.create({
       data:{
-        licencia:licencia as string ,
-        movilidad:movilidad as string ,
-        incorporacion:incorporacion as string,
-        disponibilidad:disponibilidad as DisponibilidadEnum,
+        licencia:licencia?licencia as string: "",
+        movilidad:  movilidad? movilidad as string: "" ,
+        incorporacion:incorporacion? incorporacion as string : "",
+        office: office? office as string : "",
+        disponibilidad:disponibilidad as DisponibilidadEnum ,
         idUsuario:user.id
       }
     })

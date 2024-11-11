@@ -260,7 +260,7 @@ function FormRegister({
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
       <form action={handleSubmit} className="space-y-8">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="sync">
           <motion.section
             initial="hidden"
             animate="visible"
@@ -418,15 +418,15 @@ function FormRegister({
             </div>
           </motion.section>
 
+        { sectionRefsStatus.education &&
+
           <motion.section
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={sectionVariants}
             ref={sectionRefs.education}
-            className={`bg-white p-6 rounded-lg shadow-md ${
-              sectionRefsStatus.education == "" ? "hidden" : ""
-            } `}
+            className={`bg-white p-6 rounded-lg shadow-md  `}
           >
             <h2 className="text-2xl font-semibold mb-4 capitalize">
               educación
@@ -670,17 +670,17 @@ function FormRegister({
                 </svg>
               </button>
             </div>
-          </motion.section>
+          </motion.section>}
+          
 
+         {sectionRefsStatus.experience &&
           <motion.section
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={sectionVariants}
             ref={sectionRefs.experience}
-            className={`bg-white p-6 rounded-lg shadow-md ${
-              sectionRefsStatus.experience == "" ? "hidden" : ""
-            }`}
+            className={`bg-white  p-6 rounded-lg shadow-md `}
           >
             <h2 className="text-2xl font-semibold mb-4 capitalize">
               Experiencia Laboral
@@ -902,15 +902,17 @@ function FormRegister({
             </div>
           </motion.section>
 
-          <motion.section
+          }
+          
+          { sectionRefsStatus.cursos &&
+
+            <motion.section
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={sectionVariants}
             ref={sectionRefs.cursos}
-            className={`bg-white p-6 rounded-lg shadow-md ${
-              sectionRefsStatus.cursos == "" ? "hidden" : ""
-            }`}
+            className={`bg-white p-6 rounded-lg shadow-md `}
           >
             <h2 className="capitalize text-2xl font-semibold mb-4">
               Cursos/Certificaciones
@@ -1054,7 +1056,10 @@ function FormRegister({
                 </svg>
               </button>
             </div>
-          </motion.section>
+          </motion.section>}
+
+         {
+          sectionRefsStatus.idiomas &&
 
           <motion.section
             initial="hidden"
@@ -1062,9 +1067,7 @@ function FormRegister({
             exit="exit"
             variants={sectionVariants}
             ref={sectionRefs.idiomas}
-            className={`bg-white p-6 rounded-lg shadow-md ${
-              sectionRefsStatus.idiomas == "" ? "hidden" : ""
-            }`}
+            className={`bg-white p-6 rounded-lg shadow-md `}
           >
             <h2 className="capitalize text-2xl font-semibold mb-4">Idiomas</h2>
 
@@ -1184,17 +1187,16 @@ function FormRegister({
                 </svg>
               </button>
             </div>
-          </motion.section>
+          </motion.section>}
 
+         { sectionRefsStatus.informacionA &&
           <motion.section
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={sectionVariants}
             ref={sectionRefs.informacionA}
-            className={`bg-white p-6 rounded-lg shadow-md ${
-              sectionRefsStatus.informacionA == "" ? "hidden" : ""
-            } `}
+            className={`bg-white p-6 rounded-lg shadow-md  `}
           >
             <h2 className="text-2xl font-semibold mb-4 capitalize">
               Información adicional
@@ -1286,7 +1288,7 @@ function FormRegister({
                 </select>
               </div>
             </div>
-          </motion.section>
+          </motion.section>}
         </AnimatePresence>
 
         <button

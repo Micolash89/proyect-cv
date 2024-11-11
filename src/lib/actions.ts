@@ -523,15 +523,18 @@ export async function generatorSkillsAI(
   formData: FormData
 ) {
 
+  console.log(experience.length <= 4
+    ? ` $ ${Math.floor( (6 / experience.length))} de cada uno de los empleos`
+    : " 6 palabras clave en total")
+
   const perfilDescripcion: string = await generarSkills(
     experience,
     educacion,
     cursos,
     idiomas,
     orientadoCV,
-    experience.length <= 4
-      ? `${6 / experience.length} de cada uno de los empleos`
-      : " 6 palabras clave en total"
+   
+       " 6 palabras clave en total"
   );
 
   return createResponse(

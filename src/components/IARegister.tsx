@@ -42,7 +42,7 @@ export default function IARegister({
     switch (tipo) {
       case 1:
         newPost = generatorProfileAI.bind(null, cvData.experience)
-        .bind(null, cvData.educacion)
+        .bind(null, cvData.education)
         .bind(null, cvData.idiomas)
         .bind(null, cvData.cursos)
         .bind(null, cvData.orientadoCV);

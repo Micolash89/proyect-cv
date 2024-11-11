@@ -69,7 +69,7 @@ interface CVData {
 
 const styles = StyleSheet.create({
   page: {
-    padding: "0.75in",
+   
     fontFamily: "Times",
     fontSize: 12,
     lineHeight: 1.5,
@@ -144,7 +144,7 @@ const MyDocumentPDF: React.FC<{
 }> = ({ cvData, iaData, contador }) => {
   return (
     <Document>
-      <Page size="A4" style={styles.page}>
+      <Page size="A4" style={[styles.page,{ padding: 45 - (contador<=5? contador*5:25)}]}>
         {/* Header */}
         <View style={styles.header}>
           <Text style={[styles.name, { fontSize: 18 + contador }]}>

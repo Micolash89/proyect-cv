@@ -259,14 +259,14 @@ function FormRegister({
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
-      <form action={handleSubmit} className="space-y-8">
+      <form action={handleSubmit} className="flex flex-col">
         <AnimatePresence mode="sync">
           <motion.section
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={sectionVariants}
-            className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-colors duration-200"
+            className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-colors duration-200 mt-8"
           >
             <h2 className="text-3xl font-semibold mb-4 capitalize text-gray-900 dark:text-white">
               datos personales
@@ -278,7 +278,7 @@ function FormRegister({
                   type="text"
                   name="name"
                   id="floating_first_name"
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   value={cvData.name}
                   required
@@ -425,7 +425,7 @@ function FormRegister({
               exit="exit"
               variants={sectionVariants}
               ref={sectionRefs.education}
-              className={`bg-white p-6 rounded-lg shadow-md  `}
+              className={`bg-white p-6 rounded-lg shadow-md mt-8 `}
             >
               <h2 className="text-2xl font-semibold mb-4 capitalize">
                 educación
@@ -683,18 +683,18 @@ function FormRegister({
               exit="exit"
               variants={sectionVariants}
               ref={sectionRefs.experience}
-              className={`bg-white  p-6 rounded-lg shadow-md `}
+              className={`bg-white  p-6 rounded-lg shadow-md mt-8 `}
             >
               <h2 className="text-2xl font-semibold mb-4 capitalize">
                 Experiencia Laboral
               </h2>
 
               {cvData.experience.map((edu: any, index: any) => (
-                 <motion.div
-                 initial="hidden"
-                 animate="visible"
-                 exit="exit"
-                 variants={sectionVariants}
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  variants={sectionVariants}
                   key={index}
                   className="max-w-sm mb-4 p-3 border rounded-lg text-black w-full "
                 >
@@ -917,18 +917,18 @@ function FormRegister({
               exit="exit"
               variants={sectionVariants}
               ref={sectionRefs.cursos}
-              className={`bg-white p-6 rounded-lg shadow-md `}
+              className={`bg-white p-6 rounded-lg shadow-md mt-8`}
             >
               <h2 className="capitalize text-2xl font-semibold mb-4">
                 Cursos/Certificaciones
               </h2>
 
               {cvData.cursos.map((edu: any, index: any) => (
-                 <motion.div
-                 initial="hidden"
-                 animate="visible"
-                 exit="exit"
-                 variants={sectionVariants}
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  variants={sectionVariants}
                   key={index}
                   className=" mb-4 p-3 border rounded-lg text-black w-full "
                 >
@@ -1075,18 +1075,18 @@ function FormRegister({
               exit="exit"
               variants={sectionVariants}
               ref={sectionRefs.idiomas}
-              className={`bg-white p-6 rounded-lg shadow-md `}
+              className={`bg-white p-6 rounded-lg shadow-md mt-8`}
             >
               <h2 className="capitalize text-2xl font-semibold mb-4">
                 Idiomas
               </h2>
 
               {cvData.idiomas.map((edu: any, index: any) => (
-                 <motion.div
-                 initial="hidden"
-                 animate="visible"
-                 exit="exit"
-                 variants={sectionVariants}
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  variants={sectionVariants}
                   key={index}
                   className=" mb-4 p-3 border rounded-lg text-black w-full "
                 >
@@ -1211,7 +1211,7 @@ function FormRegister({
               exit="exit"
               variants={sectionVariants}
               ref={sectionRefs.informacionA}
-              className={`bg-white p-6 rounded-lg shadow-md  `}
+              className={`bg-white p-6 rounded-lg shadow-md  mt-8`}
             >
               <h2 className="text-2xl font-semibold mb-4 capitalize">
                 Información adicional
@@ -1307,9 +1307,53 @@ function FormRegister({
           )}
         </AnimatePresence>
 
+        {sectionRefsStatus.informacionA && (
+          <motion.section
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={sectionVariants}
+            ref={sectionRefs.informacionA}
+            className={`bg-white p-6 rounded-lg shadow-md  mt-8`}
+          >
+            <h2 className="text-2xl font-semibold mb-4 capitalize">
+              CV Orientado a empleo
+            </h2>
+
+            <div className="grid grid-cols-1  gap-4">
+              <div className="relative z-0 w-full group">
+                <input
+                  type="text"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  name="orientadoCV"
+                  id="floating_orientado"
+                  placeholder=" "
+                  value={cvData.orientacion}
+                  required
+                  onChange={handleInputChange}
+                />
+                <label
+                  htmlFor="floating_orientado"
+                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Orientado a empleo
+                </label>
+                <div className="mt-5">
+
+                <span className="text-xs text-gray-500 ">
+                  *Tipo de empleo que desea orientar el CV por ejemplo: <br />
+                  sin experiencia, trabajo el cual desenpeña o puesto de trabajo que
+                  deseen aspirar.
+                </span>
+                </div>
+              </div>
+            </div>
+          </motion.section>
+        )}
+
         <button
           type="submit"
-          className={`w-full capitalize px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 ${
+          className={`w-full capitalize px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 mt-8 ${
             sectionRefsStatus.experience != "" &&
             sectionRefsStatus.cursos != "" &&
             sectionRefsStatus.education != "" &&

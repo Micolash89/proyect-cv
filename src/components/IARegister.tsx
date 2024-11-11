@@ -1,5 +1,4 @@
 import React from "react";
-import { TypeIAData } from "./PreviewCV";
 import { toast } from "sonner";
 import {
   generatorItemsWorkAI,
@@ -38,23 +37,32 @@ export default function IARegister({
 
   const handleProfile = async (e: FormData) => {
     let newPost;
+    
 
     switch (tipo) {
       case 1:
-        newPost = generatorProfileAI.bind(null, cvData.experience);
+        newPost = generatorProfileAI.bind(null, cvData.experience)
+        .bind(null, cvData.educacion)
+        .bind(null, cvData.idiomas)
+        .bind(null, cvData.cursos)
+        .bind(null, cvData.orientadoCV);
         break;
-      case 2:
-        newPost = generatorItemsWorkAI.bind(null, cvData.experience);
+        case 2:
+          newPost = generatorItemsWorkAI.bind(null, cvData.experience);
         break;
       case 3:
-        newPost = generatorSkillsAI.bind(null, cvData.experience);
+        newPost = generatorSkillsAI.bind(null, cvData.experience)
+        .bind(null, cvData.education)
+        .bind(null, cvData.idiomas)
+        .bind(null, cvData.cursos)
+        .bind(null, cvData.orientadoCV);
         break;
-      
+        
       default:
         toast.error("tipo no válido");
         return;
     }
-
+    
     const postPromise = newPost(e); // Tu promesa original
 
     toast.promise(postPromise, {

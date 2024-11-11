@@ -20,6 +20,27 @@ import {
 import { createResponse } from "./utils";
 import { Experiencia } from "./actions";
 
+export interface Curso{
+  curso: string;
+    institucion: string;
+    anioInicioCurso: string;
+}
+
+export interface Idioma{
+  idioma: string;
+    nivel: string;
+}
+
+export interface Educacion{
+  carrera: string;
+    estado: string;
+    estudios: string;
+    institucion: string;
+    zonaInstitucion: string;
+    anioInicioEducacion: string;
+    anioFinEducacion: string;
+}
+
 const apiKey: string = process.env.API_KEY_GEMINI || "";
 const genAI = new GoogleGenerativeAI(apiKey);
 
@@ -64,7 +85,7 @@ export async function ActionIARun(formData: FormData) {
   return createResponse(true, [result.response.text()], "se logro conectar");
 }
 
-export async function generarPerfilExperiencia(experience:Experiencia[]){
+export async function generarPerfilExperiencia(experience:Experiencia[], educacion: Educacion[], cursos: Curso[], idiomas: Idioma[], orientadoCV:string){
   
   const chatSession = model.startChat({
     generationConfig,
@@ -130,7 +151,7 @@ export async function generarItemsExperiencia(experience:Experiencia[], max : nu
 
   return result.response.text();
 }
-export async function generarSkills(experience:Experiencia[], max : string){
+export async function generarSkills(experience:Experiencia[], educacion: Educacion[], cursos: Curso[], idiomas: Idioma[], orientadoCV:string, max : string){
 
   const chatSession = model.startChat({
     generationConfig,

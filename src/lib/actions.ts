@@ -16,9 +16,12 @@ import { createResponse, JWTCreate } from "./utils";
 import { cookies } from "next/headers";
 import { comparePassword } from "./utilsBcrypt";
 import {
+  Curso,
+  Educacion,
   generarItemsExperiencia,
   generarPerfilExperiencia,
   generarSkills,
+  Idioma,
 } from "./actionsIA";
 
 const CreateSchemaUsuario = z.object({
@@ -486,9 +489,13 @@ export async function updateUser(formData: FormData, params: { id: string }) {
 
 export async function generatorProfileAI(
   experience: Experiencia[],
+  educacion:Educacion[],
+  idiomas:Idioma[],
+  cursos:Curso[],
+  orientadoCV:string,
   formData: FormData
 ) {
-  const perfilDescripcion: string = await generarPerfilExperiencia(experience);
+  const perfilDescripcion: string = await generarPerfilExperiencia(experience, educacion,  cursos,idiomas,orientadoCV);
 
   return createResponse(
     true,
@@ -512,11 +519,16 @@ export async function generatorItemsWorkAI(
   );
 }
 export async function generatorSkillsAI(
-  experience: Experiencia[],
+  experience:Experiencia[], educacion: Educacion[], cursos: Curso[], idiomas: Idioma[], orientadoCV:string,
   formData: FormData
 ) {
+
   const perfilDescripcion: string = await generarSkills(
     experience,
+    educacion,
+    cursos,
+    idiomas,
+    orientadoCV,
     experience.length <= 4
       ? `${6 / experience.length} de cada uno de los empleos`
       : " 6 palabras clave en total"

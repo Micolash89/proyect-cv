@@ -31,6 +31,7 @@ export default function Home() {
     incorporacion:"",
     disponibilidad:"",
     office:"",
+    orientadoCV:""
   });
 
   const [iaData, setIAData] = useState({

@@ -7,13 +7,13 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import IARegister from "@/components/IARegister";
 import TextZoom from "@/components/TextZoom";
-import Navigation from "@/components/Navigation";
 
 export default function Home() {
   const PDFViewer = dynamic(
     () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
     { ssr: false }
   );
+
 
   const [cvData, setCVData] = useState({
     name: "",

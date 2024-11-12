@@ -14,7 +14,6 @@ export default function Home() {
     { ssr: false }
   );
 
-
   const [cvData, setCVData] = useState({
     name: "",
     lastName: "",
@@ -52,8 +51,6 @@ export default function Home() {
 
   return (
     <>
-     
-
       <main className=" w-full">
         <FormRegister cvData={cvData} updateCVData={updateCVData}  />
 

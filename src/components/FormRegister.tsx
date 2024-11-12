@@ -521,7 +521,7 @@ function FormRegister({
                     Nombre del titulo
                   </label>
                 </div>
-                <div className="relative z-0 w-full md:col-span-2  group ">
+                <div className="relative z-0 w-full md:col-span-2  group">
                   <input
                     type="text"
                     name="zonaInstitucion"

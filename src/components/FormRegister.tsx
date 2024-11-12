@@ -11,7 +11,8 @@ type Section =
   | "experience"
   | "cursos"
   | "idiomas"
-  | "informacionA";
+  | "informacionA"
+  | "orientacionCV";
 
 function FormRegister({
   cvData,
@@ -76,6 +77,7 @@ function FormRegister({
     cursos: useRef<HTMLDivElement>(null),
     idiomas: useRef<HTMLDivElement>(null),
     informacionA: useRef<HTMLDivElement>(null),
+    orientacionCV: useRef<HTMLDivElement>(null),
   };
 
   const sectionVariants = {
@@ -106,6 +108,7 @@ function FormRegister({
     cursos: "",
     idiomas: "",
     informacionA: "",
+    orientacionCV:""
   });
 
   const handleEducationChange = (e: any) => {
@@ -333,6 +336,7 @@ function FormRegister({
                 <input
                   type="tel"
                   name="phone"
+                  id="floating_phone"
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   value={cvData.phone}
@@ -350,6 +354,7 @@ function FormRegister({
                 <input
                   type="email"
                   name="email"
+                  id="floating_email"
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   value={cvData.email}
@@ -367,14 +372,14 @@ function FormRegister({
                 <input
                   type="text"
                   name="provincia"
-                  id="floating_email"
+                  id="floating_provincia"
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   value={cvData.provincia}
                   onChange={handleInputChange}
                 />
                 <label
-                  htmlFor="floating_email"
+                  htmlFor="floating_provincia"
                   className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   Provincia
@@ -384,13 +389,14 @@ function FormRegister({
                 <input
                   type="text"
                   name="ciudad"
+                  id="floating_ciudad"
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   value={cvData.ciudad}
                   onChange={handleInputChange}
                 />
                 <label
-                  htmlFor="floating_email"
+                  htmlFor="floating_ciudad"
                   className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
                   Ciudad
@@ -484,13 +490,14 @@ function FormRegister({
                   <input
                     type="text"
                     name="institucion"
+                    id="institucion"
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
                     value={newEducation.institucion}
                     onChange={handleEducationChange}
                   />
                   <label
-                    htmlFor="floating_email"
+                    htmlFor="institucion"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
                     Nombre de la institución
@@ -500,14 +507,15 @@ function FormRegister({
                 <div className="relative z-0 w-full  group ">
                   <input
                     type="text"
-                    name="carrera"
+                    name="carrera_titulo"
+                    id="carrera"
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
                     value={newEducation.carrera}
                     onChange={handleEducationChange}
                   />
                   <label
-                    htmlFor="floating_email"
+                    htmlFor="carrera_titulo"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
                     Nombre del titulo
@@ -517,13 +525,14 @@ function FormRegister({
                   <input
                     type="text"
                     name="zonaInstitucion"
+                    id="zonaInstitucion"
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
                     value={newEducation.zonaInstitucion}
                     onChange={handleEducationChange}
                   />
                   <label
-                    htmlFor="floating_email"
+                    htmlFor="zonaInstitucion"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
                     Ubicación de la institución
@@ -531,13 +540,13 @@ function FormRegister({
                 </div>
                 <div className="">
                   <label
-                    htmlFor="countries"
+                    htmlFor="nivel_estudio"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
                   >
-                    Estudios:
+                    Nivel de Estudios:
                   </label>
                   <select
-                    id="countries"
+                    id="nivel_estudio"
                     name="estudios"
                     className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md"
                     onChange={handleEducationChange}
@@ -555,13 +564,13 @@ function FormRegister({
 
                 <div className="">
                   <label
-                    htmlFor="countries"
+                    htmlFor="estado_estudio"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
                   >
                     estado:
                   </label>
                   <select
-                    id="countries"
+                    id="estado_estudio"
                     name="estado"
                     className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md"
                     value={newEducation.estado}
@@ -578,7 +587,7 @@ function FormRegister({
 
                 <div className=" ">
                   <label
-                    htmlFor="countries"
+                    htmlFor="anioInicioEducacion"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
                     año inicio
@@ -605,7 +614,7 @@ function FormRegister({
 
                 <div className="">
                   <label
-                    htmlFor="countries"
+                    htmlFor="anioFinEducacion"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
                     año fin
@@ -696,7 +705,7 @@ function FormRegister({
                   exit="exit"
                   variants={sectionVariants}
                   key={index}
-                  className="max-w-sm mb-4 p-3 border rounded-lg text-black w-full "
+                  className="mb-4 p-3 border rounded-lg text-black w-full "
                 >
                   <div className="flex flex-col justify-center items-center">
                     <h3 className="font-bold">{edu.puesto}</h3>
@@ -740,14 +749,14 @@ function FormRegister({
                   <input
                     type="text"
                     name="puesto"
-                    id="floating_email"
+                    id="puesto"
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=""
                     value={newExperience.puesto}
                     onChange={handleExperienceChange}
                   />
                   <label
-                    htmlFor="floating_email"
+                    htmlFor="puesto"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
                     Nombre del puesto
@@ -758,14 +767,14 @@ function FormRegister({
                   <input
                     type="text"
                     name="nombreEmpresa"
-                    id="floating_email"
+                    id="nombre_empresa"
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=""
                     value={newExperience.nombreEmpresa}
                     onChange={handleExperienceChange}
                   />
                   <label
-                    htmlFor="floating_email"
+                    htmlFor="nombre_empresa"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
                     Nombre de la empresa
@@ -776,14 +785,14 @@ function FormRegister({
                   <input
                     type="text"
                     name="zonaEmpresa"
-                    id="floating_email"
+                    id="zona_empresa"
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=""
                     value={newExperience.zonaEmpresa}
                     onChange={handleExperienceChange}
                   />
                   <label
-                    htmlFor="floating_email"
+                    htmlFor="zona_empresa"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
                     Ubicación de la empresa
@@ -793,13 +802,13 @@ function FormRegister({
                 {/* cambiar nombres de name solo para el frnt */}
                 <div className="">
                   <label
-                    htmlFor="countries"
+                    htmlFor="anioInicioExperiencia"
                     className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
                     año inicio
                   </label>
                   <select
-                    id="countries"
+                    id="anioInicioExperiencia"
                     name="anioInicioExperiencia"
                     className="w-full px-3 text-sm py-2 border border-gray-300 rounded-md"
                     // defaultValue={""}
@@ -822,13 +831,13 @@ function FormRegister({
 
                 <div className="">
                   <label
-                    htmlFor="countries"
+                    htmlFor="anioFinExperiencia"
                     className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
                     año fin
                   </label>
                   <select
-                    id="countries"
+                    id="anioFinExperiencia"
                     name="anioFinExperiencia"
                     className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md"
                     onChange={handleExperienceChange}
@@ -855,13 +864,13 @@ function FormRegister({
 
                 <div className="md:col-span-2">
                   <label
-                    htmlFor="message"
+                    htmlFor="descripcionExperiencia"
                     className="block capitalize mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
                   >
                     Descripción
                   </label>
                   <textarea
-                    id="message"
+                    id="descripcionExperiencia"
                     rows={4}
                     name="descripcionExperiencia"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md"
@@ -970,14 +979,14 @@ function FormRegister({
                   <input
                     type="text"
                     name="curso"
-                    id="floating_email"
+                    id="nombre_curso"
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=""
                     value={newCursos.curso}
                     onChange={handleCursoChange}
                   />
                   <label
-                    htmlFor="floating_email"
+                    htmlFor="nombre_curso"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
                     Nombre del curso
@@ -988,14 +997,14 @@ function FormRegister({
                   <input
                     type="text"
                     name="institucion"
-                    id="floating_email"
+                    id="institucion_nombre_curso"
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=""
                     onChange={handleCursoChange}
                     value={newCursos.institucion}
                   />
                   <label
-                    htmlFor="floating_email"
+                    htmlFor="institucion_nombre_curso"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
                     Nombre de la institución
@@ -1005,13 +1014,13 @@ function FormRegister({
                 {/* cambiar nombres de name solo para el frnt */}
                 <div className="">
                   <label
-                    htmlFor="countries"
+                    htmlFor="anioInicioCurso"
                     className="block text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
                     año inicio
                   </label>
                   <select
-                    id="countries"
+                    id="anioInicioCurso"
                     name="anioInicioCurso"
                     className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md"
                     value={newCursos.anioInicioCurso}
@@ -1303,17 +1312,37 @@ function FormRegister({
                   </select>
                 </div>
               </div>
+
+              <div className="flex justify-end mt-4">
+              <button
+                  type="button"
+                  onClick={() => moveToNextSection("informacionA", "orientacionCV")}
+                  className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
+                >
+                  <span>Siguiente</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    >
+                    <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                  </svg>
+                </button>
+                    </div>
+
             </motion.section>
           )}
         </AnimatePresence>
 
-        {sectionRefsStatus.informacionA && (
+        {sectionRefsStatus.orientacionCV && (
           <motion.section
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={sectionVariants}
-            ref={sectionRefs.informacionA}
+            ref={sectionRefs.orientacionCV}
             className={`bg-white p-6 rounded-lg shadow-md  mt-8`}
           >
             <h2 className="text-2xl font-semibold mb-4 capitalize">
@@ -1358,7 +1387,8 @@ function FormRegister({
             sectionRefsStatus.cursos != "" &&
             sectionRefsStatus.education != "" &&
             sectionRefsStatus.idiomas != "" &&
-            sectionRefsStatus.informacionA != ""
+            sectionRefsStatus.informacionA != "" &&
+            sectionRefsStatus.orientacionCV != ""
               ? ""
               : "hidden"
           }`}

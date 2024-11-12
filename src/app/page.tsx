@@ -7,6 +7,7 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import IARegister from "@/components/IARegister";
 import TextZoom from "@/components/TextZoom";
+import Navigation from "@/components/Navigation";
 
 export default function Home() {
   const PDFViewer = dynamic(
@@ -51,6 +52,8 @@ export default function Home() {
 
   return (
     <>
+     
+
       <main className=" w-full">
         <FormRegister cvData={cvData} updateCVData={updateCVData}  />
 

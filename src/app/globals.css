@@ -15,6 +15,6 @@
     display: block;
 }
 
-/* body{
-    width: 100vw;
-} */
+body{
+    @apply dark:bg-gray-800 duration-500;
+}

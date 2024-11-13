@@ -108,7 +108,7 @@ function FormRegister({
     cursos: "",
     idiomas: "",
     informacionA: "",
-    orientacionCV:""
+    orientacionCV: "",
   });
 
   const handleEducationChange = (e: any) => {
@@ -144,11 +144,6 @@ function FormRegister({
   const handleCursoChange = (e: any) => {
     const { name, value } = e.target;
     setNewCursos((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleDisponibilidadChange = (e: any) => {
-    const { name, value } = e.target;
-    setNewDisponibilidad((prev) => ({ ...prev, [name]: value }));
   };
 
   const addExperience = () => {
@@ -269,7 +264,7 @@ function FormRegister({
             animate="visible"
             exit="exit"
             variants={sectionVariants}
-            className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-colors duration-200 mt-8"
+            className="bg-white dark:bg-gray-900 duration-500 p-6 rounded-lg shadow-md transition-colors mt-8"
           >
             <h2 className="text-3xl font-semibold mb-4 capitalize text-gray-900 dark:text-white">
               datos personales
@@ -431,9 +426,9 @@ function FormRegister({
               exit="exit"
               variants={sectionVariants}
               ref={sectionRefs.education}
-              className={`bg-white p-6 rounded-lg shadow-md mt-8 `}
+              className={`bg-white dark:bg-gray-900 duration-500 p-6 rounded-lg shadow-md mt-8 `}
             >
-              <h2 className="text-2xl font-semibold mb-4 capitalize">
+              <h2 className="text-2xl font-semibold mb-4 capitalize text-black dark:text-white">
                 educación
               </h2>
 
@@ -444,7 +439,7 @@ function FormRegister({
                   exit="exit"
                   variants={sectionVariants}
                   key={index}
-                  className=" mb-4 p-3 border rounded-lg text-black w-full"
+                  className=" mb-4 p-3 border rounded-lg text-black dark:text-white w-full"
                 >
                   <div className="flex flex-col justify-center items-center">
                     <h3 className="font-bold">{edu.institucion}</h3>
@@ -541,14 +536,14 @@ function FormRegister({
                 <div className="">
                   <label
                     htmlFor="nivel_estudio"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                    className="block mb-2 text-xs font-medium text-gray-900 dark:text-gray-400"
                   >
                     Nivel de Estudios:
                   </label>
                   <select
                     id="nivel_estudio"
                     name="estudios"
-                    className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md"
+                    className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
                     onChange={handleEducationChange}
                     value={newEducation.estudios}
                   >
@@ -565,14 +560,14 @@ function FormRegister({
                 <div className="">
                   <label
                     htmlFor="estado_estudio"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                    className="block mb-2 text-xs font-medium text-gray-900 dark:text-gray-400"
                   >
                     estado:
                   </label>
                   <select
                     id="estado_estudio"
                     name="estado"
-                    className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md"
+                    className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
                     value={newEducation.estado}
                     onChange={handleEducationChange}
                   >
@@ -588,13 +583,13 @@ function FormRegister({
                 <div className=" ">
                   <label
                     htmlFor="anioInicioEducacion"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
+                    className="block mb-2 text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
                     año inicio
                   </label>
                   <select
                     name="anioInicioEducacion"
-                    className="w-full px-3 py-2 border border-gray-300 text-sm rounded-md"
+                    className="w-full px-3 py-2 border border-gray-300 text-sm rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
                     value={newEducation.anioInicioEducacion}
                     onChange={handleEducationChange}
                   >
@@ -615,14 +610,14 @@ function FormRegister({
                 <div className="">
                   <label
                     htmlFor="anioFinEducacion"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
+                    className="block mb-2 text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
                     año fin
                   </label>
                   <select
                     disabled={newEducation.anioInicioEducacion == ""}
                     name="anioFinEducacion"
-                    className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md"
+                    className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
                     value={newEducation.anioFinEducacion}
                     onChange={handleEducationChange}
                   >
@@ -692,9 +687,9 @@ function FormRegister({
               exit="exit"
               variants={sectionVariants}
               ref={sectionRefs.experience}
-              className={`bg-white  p-6 rounded-lg shadow-md mt-8 `}
+              className={`bg-white dark:bg-gray-900 duration-500 p-6 rounded-lg shadow-md mt-8 `}
             >
-              <h2 className="text-2xl font-semibold mb-4 capitalize">
+              <h2 className="text-2xl font-semibold mb-4 capitalize text-black dark:text-white">
                 Experiencia Laboral
               </h2>
 
@@ -705,7 +700,7 @@ function FormRegister({
                   exit="exit"
                   variants={sectionVariants}
                   key={index}
-                  className="mb-4 p-3 border rounded-lg text-black w-full "
+                  className="mb-4 p-3 border rounded-lg text-black dark:text-white w-full "
                 >
                   <div className="flex flex-col justify-center items-center">
                     <h3 className="font-bold">{edu.puesto}</h3>
@@ -803,15 +798,14 @@ function FormRegister({
                 <div className="">
                   <label
                     htmlFor="anioInicioExperiencia"
-                    className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
+                    className="block mb-1 text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
                     año inicio
                   </label>
                   <select
                     id="anioInicioExperiencia"
                     name="anioInicioExperiencia"
-                    className="w-full px-3 text-sm py-2 border border-gray-300 rounded-md"
-                    // defaultValue={""}
+                    className="w-full px-3 text-sm py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
                     onChange={handleExperienceChange}
                     value={newExperience.anioInicioExperiencia}
                   >
@@ -832,14 +826,14 @@ function FormRegister({
                 <div className="">
                   <label
                     htmlFor="anioFinExperiencia"
-                    className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
+                    className="block mb-1 text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
                     año fin
                   </label>
                   <select
                     id="anioFinExperiencia"
                     name="anioFinExperiencia"
-                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
                     onChange={handleExperienceChange}
                     value={newExperience.anioFinExperiencia}
                     disabled={newExperience.anioInicioExperiencia === ""}
@@ -873,7 +867,7 @@ function FormRegister({
                     id="descripcionExperiencia"
                     rows={4}
                     name="descripcionExperiencia"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    className="w-full px-3 py-2 border border-gray-300 dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200 rounded-md"
                     placeholder="Descripción de tareas"
                     onChange={handleExperienceChange}
                     value={newExperience.descripcionExperiencia}
@@ -926,9 +920,9 @@ function FormRegister({
               exit="exit"
               variants={sectionVariants}
               ref={sectionRefs.cursos}
-              className={`bg-white p-6 rounded-lg shadow-md mt-8`}
+              className={`bg-white dark:bg-gray-900 duration-500 p-6 rounded-lg shadow-md mt-8`}
             >
-              <h2 className="capitalize text-2xl font-semibold mb-4">
+              <h2 className="capitalize text-2xl font-semibold mb-4 text-black dark:text-white">
                 Cursos/Certificaciones
               </h2>
 
@@ -939,12 +933,12 @@ function FormRegister({
                   exit="exit"
                   variants={sectionVariants}
                   key={index}
-                  className=" mb-4 p-3 border rounded-lg text-black w-full "
+                  className=" mb-4 p-3 border rounded-lg text-black dark:text-white w-full "
                 >
                   <div className="flex flex-col justify-center items-center">
                     <h3 className="font-bold">{edu.curso}</h3>
                     <p>{edu.institucion}</p>
-                    <p>{edu.anioInicioExperiencia}</p>
+                    <p>{edu.anioInicioCurso}</p>
                   </div>
                   <button
                     type="button"
@@ -987,7 +981,7 @@ function FormRegister({
                   />
                   <label
                     htmlFor="nombre_curso"
-                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
                   >
                     Nombre del curso
                   </label>
@@ -1015,14 +1009,14 @@ function FormRegister({
                 <div className="">
                   <label
                     htmlFor="anioInicioCurso"
-                    className="block text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
+                    className="block text-xs mb-1 font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
                     año inicio
                   </label>
                   <select
                     id="anioInicioCurso"
                     name="anioInicioCurso"
-                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
                     value={newCursos.anioInicioCurso}
                     onChange={handleCursoChange}
                   >
@@ -1084,9 +1078,9 @@ function FormRegister({
               exit="exit"
               variants={sectionVariants}
               ref={sectionRefs.idiomas}
-              className={`bg-white p-6 rounded-lg shadow-md mt-8`}
+              className={`bg-white dark:bg-gray-900  duration-500 p-6 rounded-lg shadow-md mt-8`}
             >
-              <h2 className="capitalize text-2xl font-semibold mb-4">
+              <h2 className="capitalize text-2xl font-semibold mb-4 text-black dark:text-white">
                 Idiomas
               </h2>
 
@@ -1097,7 +1091,7 @@ function FormRegister({
                   exit="exit"
                   variants={sectionVariants}
                   key={index}
-                  className=" mb-4 p-3 border rounded-lg text-black w-full "
+                  className=" mb-4 p-3 border rounded-lg text-black dark:text-white w-full "
                 >
                   <div className="flex flex-col justify-center items-center">
                     <h3 className="font-bold">{edu.idioma}</h3>
@@ -1153,14 +1147,14 @@ function FormRegister({
                 <div className="">
                   <label
                     htmlFor="idioma_nivel"
-                    className="block text-sm font-medium text-gray-900 dark:text-gray-400 capitalize"
+                    className="block text-xs mb-1 font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
                     nivel{" "}
                   </label>
                   <select
                     id="idioma_nivel"
                     name="nivel"
-                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
                     value={newIdioma.nivel}
                     onChange={handleIdiomaChange}
                   >
@@ -1220,9 +1214,9 @@ function FormRegister({
               exit="exit"
               variants={sectionVariants}
               ref={sectionRefs.informacionA}
-              className={`bg-white p-6 rounded-lg shadow-md  mt-8`}
+              className={`bg-white dark:bg-gray-900 duration-500 p-6 rounded-lg shadow-md  mt-8`}
             >
-              <h2 className="text-2xl font-semibold mb-4 capitalize">
+              <h2 className="text-2xl font-semibold mb-4 capitalize text-black dark:text-white">
                 Información adicional
               </h2>
 
@@ -1236,7 +1230,7 @@ function FormRegister({
                   />
                   <label
                     htmlFor="licencia"
-                    className="block  text-sm font-medium text-gray-900 
+                    className="block  text-sm font-medium text-gray-900 dark:text-gray-400 
                 capitalize"
                   >
                     Licencia de conducir.
@@ -1252,7 +1246,7 @@ function FormRegister({
                   />
                   <label
                     htmlFor="movilidad"
-                    className="block  text-sm font-medium text-gray-900 
+                    className="block  text-sm font-medium text-gray-900 dark:text-gray-400 
               "
                   >
                     Movilidad propia.
@@ -1268,7 +1262,7 @@ function FormRegister({
                   />
                   <label
                     htmlFor="incorporacion"
-                    className="block  text-sm font-medium text-gray-900 
+                    className="block  text-sm font-medium text-gray-900 dark:text-gray-400 
               "
                   >
                     Incorporación inmediata.
@@ -1284,7 +1278,7 @@ function FormRegister({
                   />
                   <label
                     htmlFor="office"
-                    className="block  text-sm font-medium text-gray-900 
+                    className="block  text-sm font-medium text-gray-900 dark:text-gray-400 
               "
                   >
                     Microsoft Office.
@@ -1294,14 +1288,14 @@ function FormRegister({
                 <div className="">
                   <label
                     htmlFor="disponibilidad"
-                    className="block mb-2 text-sm font-medium text-gray-900  capitalize"
+                    className="block mb-2 text-xs font-medium text-gray-900 dark:text-gray-400  capitalize"
                   >
                     disponibilidad horaria
                   </label>
                   <select
                     id="disponibilidad"
                     name="disponibilidad"
-                    className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md"
+                    className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
                     onChange={handleInputChange}
                   >
                     <option value={""} hidden>
@@ -1314,9 +1308,11 @@ function FormRegister({
               </div>
 
               <div className="flex justify-end mt-4">
-              <button
+                <button
                   type="button"
-                  onClick={() => moveToNextSection("informacionA", "orientacionCV")}
+                  onClick={() =>
+                    moveToNextSection("informacionA", "orientacionCV")
+                  }
                   className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
                 >
                   <span>Siguiente</span>
@@ -1326,12 +1322,11 @@ function FormRegister({
                     width="24"
                     height="24"
                     fill="currentColor"
-                    >
+                  >
                     <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
                   </svg>
                 </button>
-                    </div>
-
+              </div>
             </motion.section>
           )}
         </AnimatePresence>
@@ -1343,9 +1338,9 @@ function FormRegister({
             exit="exit"
             variants={sectionVariants}
             ref={sectionRefs.orientacionCV}
-            className={`bg-white p-6 rounded-lg shadow-md  mt-8`}
+            className={`bg-white dark:bg-gray-900 duration-500 p-6 rounded-lg shadow-md  mt-8`}
           >
-            <h2 className="text-2xl font-semibold mb-4 capitalize">
+            <h2 className="text-2xl font-semibold mb-4 capitalize text-black dark:text-white">
               CV Orientado a empleo
             </h2>
 
@@ -1353,7 +1348,7 @@ function FormRegister({
               <div className="relative z-0 w-full group">
                 <input
                   type="text"
-                  className="block py-2.5  px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  className="block py-2.5  px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer "
                   name="orientadoCV"
                   id="floating_orientado"
                   placeholder=" "
@@ -1368,12 +1363,11 @@ function FormRegister({
                   Orientado a empleo
                 </label>
                 <div className="mt-5">
-
-                <span className="text-xs text-gray-500 ">
-                  *Tipo de empleo que desea orientar el CV por ejemplo: <br />
-                  sin experiencia, trabajo el cual desenpeña o puesto de trabajo que
-                  deseen aspirar.
-                </span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                    *Tipo de empleo que desea orientar el CV por ejemplo: <br />
+                    sin experiencia, trabajo el cual desenpeña o puesto de
+                    trabajo que deseen aspirar.
+                  </span>
                 </div>
               </div>
             </div>

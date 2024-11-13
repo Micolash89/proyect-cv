@@ -9,7 +9,7 @@ export default function Navigation() {
 //   const { theme, setTheme } = useTheme();
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-white dark:bg-gray-800 shadow-sm">
+    <nav className="sticky top-0 z-50 w-full border-b dark:border-gray-600 bg-white dark:bg-gray-800 shadow-sm duration-500">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center space-x-8">
@@ -21,7 +21,7 @@ export default function Navigation() {
                 <line x1="16" y1="17" x2="8" y2="17"></line>
                 <polyline points="10 9 9 9 8 9"></polyline>
               </svg>
-              <span className="font-bold text-xl">Creador de CV</span>
+              <span className="font-bold text-xl dark:text-white duration-500">Creador de CV</span>
             </Link>
             <div className="hidden md:flex items-center space-x-6">
               <Link href="/" className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors">
@@ -33,7 +33,7 @@ export default function Navigation() {
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <Link href="/login" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
+            <Link href="/login" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
               Iniciar Sesión
             </Link>
           <ThemeToggle/>

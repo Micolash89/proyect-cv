@@ -1,12 +1,9 @@
 "use client";
 
-// import { useTheme } from "next-themes";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Navigation() {
-//   const { theme, setTheme } = useTheme();
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b dark:border-gray-600 bg-white dark:bg-gray-800 shadow-sm duration-500">

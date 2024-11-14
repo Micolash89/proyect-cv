@@ -56,10 +56,6 @@ function FormRegister({
     nivel: "",
   });
 
-  const [newDisponibilidad, setNewDisponibilidad] = useState({
-    disponibilidad: "",
-  });
-
   const [newExperience, setNewExperience] = useState({
     puesto: "",
     nombreEmpresa: "",

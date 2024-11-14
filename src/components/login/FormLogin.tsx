@@ -36,13 +36,10 @@ function FormLogin() {
 
     }
 
-
   }
-
-  const handleSubmit = async (e: FormData) => {
+ const handleSubmit = async (e: FormData) => {
     
     const postPromise = actionLogin(e); // Tu promesa original
-
   
      const data = toast.promise(postPromise, {
       loading: 'Loading...',
@@ -54,81 +51,89 @@ function FormLogin() {
 
   return (
     <>
-      <div className="bg-gray-100 p-4">
-        <div className="mx-auto max-w-sm">
-          <form action={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+     <div className="min-h-screen bg-gray-100 dark:bg-gray-800 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden">
+          <div className="px-6 py-8">
+            <h2 className="text-3xl font-semibold mb-6 text-center text-gray-900 dark:text-white">
+              Iniciar sesión
+            </h2>
+            <form action={handleSubmit} className="space-y-6">
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Email
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Correo electrónico
                 </label>
-                <div className="mt-1">
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    autoComplete="email"
-                    className="block w-full ring-0 border-0 border-b-2 border-gray-300 appearance-none bg-transparent py-1 px-2 focus:ring-0 focus:outline-none focus:border-blue-500 sm:text-sm"
-                  />
-                  <div
-                    id="customer-error"
-                    aria-live="polite"
-                    aria-atomic="true"
-                  >
-                    {dataResponse.errors?.email &&
-                      dataResponse.errors.email.map((error: string) => (
-                        <p className="mt-2 text-sm text-red-500" key={error}>
-                          {error}
-                        </p>
-                      ))}
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Correo electrónico"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Contraseña
+                </label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Contraseña"
+                />
+              </div>
+
+              {(dataResponse.errors?.email?.length > 0 || dataResponse.errors?.password?.length > 0) && (
+                <div className="rounded-md bg-red-50 dark:bg-red-900 p-4">
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div className="ml-3">
+                      <h3 className="text-sm font-medium text-red-800 dark:text-red-200">
+                        Se encontraron errores en su envío
+                      </h3>
+                      <div className="mt-2 text-sm text-red-700 dark:text-red-300">
+                        <ul className="list-disc pl-5 space-y-1">
+                          {dataResponse.errors?.email?.map((error, index) => (
+                            <li key={`email-error-${index}`}>{error}</li>
+                          ))}
+                          {dataResponse.errors?.password?.map((error, index) => (
+                            <li key={`password-error-${index}`}>{error}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
+
               <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Password
-                </label>
-                <div className="mt-1">
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    autoComplete="current-password"
-                    className="block w-full ring-0 border-0 border-b-2 border-gray-300 appearance-none bg-transparent py-1 px-2 focus:ring-0 focus:outline-none focus:border-blue-500 sm:text-sm"
-                  />
-                  <div
-                    id="customer-error"
-                    aria-live="polite"
-                    aria-atomic="true"
-                  >
-                    {dataResponse.errors?.password &&
-                      dataResponse.errors.password.map((error: string) => (
-                        <p className="mt-2 text-sm text-red-500" key={error}>
-                          {error}
-                        </p>
-                      ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
               <button
-                type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
-                Sign in
-              </button>
-            </div>
-          </form>
-          <button onClick={() => toast('This is a sonner toast')}>Render my toast</button>
+          type="submit"
+          className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+            <svg className="h-5 w-5 text-blue-500 group-hover:text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+            </svg>
+          </span>
+          Iniciar sesión
+        </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
+    </div>
     </>
   );
 }

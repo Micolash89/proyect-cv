@@ -68,13 +68,9 @@ export async function fetchFilteredUsers(query: string, currentPage: number) {
           { apellido: { contains: query } },
           { telefono: { contains: query } },
           { email: { contains: query } },
-          // { domicilio: { contains: query } },
-          { ciudad: { contains: query } },
-          { provincia: { contains: query } },
-          { linkedin: { contains: query } },
         ],
       },
-      orderBy: { fechaNacimiento: "desc" },
+      orderBy: { id: "desc" },
       take: ITEMS_PER_PAGE,
       skip: offset,
     });
@@ -86,21 +82,21 @@ export async function fetchFilteredUsers(query: string, currentPage: number) {
   }
 }
 
-export async function getUser() {
+/*falta ahcer el join con todas las tablas*/
+export async function getUserId(id:number) {
   
   try {
-    
     const user = await prisma.user.findUnique({
       where: {
-        id: 1 as number,
+        id: id as number,
   }})
 
-  console.log("base", user);
-
-  return user;
+  return user ;
 
   } catch (error) {
     console.error("Database Error:", error);
+    return null;
   }
 
 }
+

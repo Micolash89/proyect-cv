@@ -90,9 +90,10 @@ const CreateSchemaUsuario = z.object({
           4,
           "el año de fin de la experiencia debe de tener al menos 4 caracteres"
         ),
-      descripcionExperiencia: z
-        .string({message:"debe ingresar una descripción"})
-      })
+      descripcionExperiencia: z.string({
+        message: "debe ingresar una descripción",
+      }),
+    })
   ),
   cursos: z.array(
     z.object({
@@ -118,11 +119,11 @@ const CreateSchemaUsuario = z.object({
       })
       .optional()
   ),
-        licencia:z.string({message:"seleccione una opción"}).optional(),
-        movilidad:z.string({message:"seleccione una opción"}).optional(),
-        incorporacion:z.string({message:"seleccione una opción"}).optional(),
-        disponibilidad:z.string({message:"seleccione una opción"}).optional(),
-        office:z.string({message:"seleccione una opción"}).optional(),
+  licencia: z.string({ message: "seleccione una opción" }).optional(),
+  movilidad: z.string({ message: "seleccione una opción" }).optional(),
+  incorporacion: z.string({ message: "seleccione una opción" }).optional(),
+  disponibilidad: z.string({ message: "seleccione una opción" }).optional(),
+  office: z.string({ message: "seleccione una opción" }).optional(),
 });
 
 const CreateUsuario = CreateSchemaUsuario.omit({});
@@ -159,8 +160,6 @@ export interface Experiencia {
   descripcionExperiencia: string;
 }
 
-
-
 export async function postUsuarios(
   experience: Experiencia[],
   cursos1: any[],
@@ -179,7 +178,7 @@ export async function postUsuarios(
     education,
     cursos: cursos1,
     experience,
-    idiomas
+    idiomas,
   });
 
   if (!validatedFields.success) {
@@ -209,7 +208,7 @@ export async function postUsuarios(
       movilidad,
       incorporacion,
       disponibilidad,
-      office
+      office,
     },
   } = validatedFields;
 
@@ -231,8 +230,8 @@ export async function postUsuarios(
         await prisma.estudio.create({
           data: {
             carrera: educacion.carrera as string,
-            estado: educacion.estado  as EstudioEstadoEnum,
-            tipo: educacion.estudios  as EstudioTipoEnum,
+            estado: educacion.estado as EstudioEstadoEnum,
+            tipo: educacion.estudios as EstudioTipoEnum,
             ubicacion: educacion.zonaInstitucion as string,
             fechaIngreso: educacion.anioInicioEducacion as string,
             institucion: educacion.institucion as string, //falta agregar institucion frontend
@@ -284,19 +283,18 @@ export async function postUsuarios(
       });
     }
 
-   if(licencia || movilidad || incorporacion || disponibilidad || office){
-    await prisma.informacionAdiconal.create({
-      data:{
-        licencia:licencia?licencia as string: "",
-        movilidad:  movilidad? movilidad as string: "" ,
-        incorporacion:incorporacion? incorporacion as string : "",
-        office: office? office as string : "",
-        disponibilidad:disponibilidad as DisponibilidadEnum ,
-        idUsuario:user.id
-      }
-    })
-   }
-
+    if (licencia || movilidad || incorporacion || disponibilidad || office) {
+      await prisma.informacionAdiconal.create({
+        data: {
+          licencia: licencia ? (licencia as string) : "",
+          movilidad: movilidad ? (movilidad as string) : "",
+          incorporacion: incorporacion ? (incorporacion as string) : "",
+          office: office ? (office as string) : "",
+          disponibilidad: disponibilidad as DisponibilidadEnum,
+          idUsuario: user.id,
+        },
+      });
+    }
   } catch (error) {
     console.log(error);
   } finally {
@@ -489,13 +487,19 @@ export async function updateUser(formData: FormData, params: { id: string }) {
 
 export async function generatorProfileAI(
   experience: Experiencia[],
-  educacion:Educacion[],
-  idiomas:Idioma[],
-  cursos:Curso[],
-  orientadoCV:string,
+  educacion: Educacion[],
+  idiomas: Idioma[],
+  cursos: Curso[],
+  orientadoCV: string,
   formData: FormData
 ) {
-  const perfilDescripcion: string = await generarPerfilExperiencia(experience, educacion,  cursos,idiomas,orientadoCV);
+  const perfilDescripcion: string = await generarPerfilExperiencia(
+    experience,
+    educacion,
+    cursos,
+    idiomas,
+    orientadoCV
+  );
 
   return createResponse(
     true,
@@ -519,13 +523,18 @@ export async function generatorItemsWorkAI(
   );
 }
 export async function generatorSkillsAI(
-  experience:Experiencia[], educacion: Educacion[], cursos: Curso[], idiomas: Idioma[], orientadoCV:string,
+  experience: Experiencia[],
+  educacion: Educacion[],
+  cursos: Curso[],
+  idiomas: Idioma[],
+  orientadoCV: string,
   formData: FormData
 ) {
-
-  console.log(experience.length <= 4
-    ? ` $ ${Math.floor( (6 / experience.length))} de cada uno de los empleos`
-    : " 6 palabras clave en total")
+  console.log(
+    experience.length <= 4
+      ? ` $ ${Math.floor(6 / experience.length)} de cada uno de los empleos`
+      : " 6 palabras clave en total"
+  );
 
   const perfilDescripcion: string = await generarSkills(
     experience,
@@ -533,8 +542,8 @@ export async function generatorSkillsAI(
     cursos,
     idiomas,
     orientadoCV,
-   
-       " 6 palabras clave en total"
+
+    " 6 palabras clave en total"
   );
 
   return createResponse(
@@ -542,4 +551,31 @@ export async function generatorSkillsAI(
     { skills: perfilDescripcion },
     "creación de skills exitoso"
   );
+}
+
+const GetUserSchema = z.object({
+  id: z.coerce.number({
+    invalid_type_error: "El ID debe ser un número entero",
+    message: "El ID debe ser un número entero",
+  }),
+});
+
+export async function getOneUser(id: number) {
+  const validatedFields = GetUserSchema.safeParse({
+    id,
+  });
+
+  if (!validatedFields.success) {
+    return createResponse(
+      false,
+      [],
+      "Error En Algun Campo",
+      validatedFields.error?.flatten().fieldErrors
+    );
+  }
+
+  const { id: id_user } = validatedFields.data;
+
+  const user = await prisma.user.findUnique({ where: { id: id_user } });
+  return user;
 }

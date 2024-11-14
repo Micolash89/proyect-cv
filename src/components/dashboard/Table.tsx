@@ -3,6 +3,7 @@ import Image from "next/image";
 // import { formatDateToLocal, formatCurrency } from "@/app/lib/utils";
 import { fetchFilteredUsers } from "@/database/database";
 import { formatDateToLocal } from "@/lib/libs";
+import Update from "./Update";
 
 export default async function InvoicesTable({
   query,
@@ -60,10 +61,8 @@ export default async function InvoicesTable({
             <thead className="rounded-lg text-left text-sm font-normal">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
+                  apellido,
                   nombre
-                </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  apellido
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   email
@@ -96,10 +95,8 @@ export default async function InvoicesTable({
                       />
                       <p>{invoice.name}</p>
                     </div> */}
+                    {invoice.apellido}, {" "}
                     {invoice.nombre}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {invoice.apellido}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {invoice.email}
@@ -114,6 +111,7 @@ export default async function InvoicesTable({
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
+                       <Update id={invoice.id} />
                       {/* <UpdateInvoice id={invoice.id} />
                       <DeleteInvoice id={invoice.id} /> */}
                     </div>

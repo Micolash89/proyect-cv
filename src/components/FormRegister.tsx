@@ -434,7 +434,7 @@ function FormRegister({
                   animate="visible"
                   exit="exit"
                   variants={sectionVariants}
-                  key={index}
+                  key={`${index}-educacion`}
                   className=" mb-4 p-3 border rounded-lg text-black dark:text-white w-full"
                 >
                   <div className="flex flex-col justify-center items-center">
@@ -695,7 +695,7 @@ function FormRegister({
                   animate="visible"
                   exit="exit"
                   variants={sectionVariants}
-                  key={index}
+                  key={`${index}-experience`}
                   className="mb-4 p-3 border rounded-lg text-black dark:text-white w-full "
                 >
                   <div className="flex flex-col justify-center items-center">
@@ -928,7 +928,7 @@ function FormRegister({
                   animate="visible"
                   exit="exit"
                   variants={sectionVariants}
-                  key={index}
+                  key={`${index}-cursos`}
                   className=" mb-4 p-3 border rounded-lg text-black dark:text-white w-full "
                 >
                   <div className="flex flex-col justify-center items-center">
@@ -1086,7 +1086,7 @@ function FormRegister({
                   animate="visible"
                   exit="exit"
                   variants={sectionVariants}
-                  key={index}
+                  key={`${index}-idiomas`}
                   className=" mb-4 p-3 border rounded-lg text-black dark:text-white w-full "
                 >
                   <div className="flex flex-col justify-center items-center">
@@ -1222,6 +1222,7 @@ function FormRegister({
                     type="checkbox"
                     name="licencia"
                     id="licencia"
+                    checked={cvData.licencia.length>0}
                     onChange={handleInputChange}
                   />
                   <label
@@ -1238,6 +1239,7 @@ function FormRegister({
                     type="checkbox"
                     name="movilidad"
                     id="movilidad"
+                    checked={cvData.movilidad.length>0}
                     onChange={handleInputChange}
                   />
                   <label
@@ -1254,6 +1256,7 @@ function FormRegister({
                     type="checkbox"
                     name="incorporacion"
                     id="incorporacion"
+                    checked={cvData.incorporacion.length>0}
                     onChange={handleInputChange}
                   />
                   <label
@@ -1270,6 +1273,7 @@ function FormRegister({
                     type="checkbox"
                     name="office"
                     id="office"
+                    checked={cvData.office.length>0}
                     onChange={handleInputChange}
                   />
                   <label
@@ -1291,6 +1295,7 @@ function FormRegister({
                   <select
                     id="disponibilidad"
                     name="disponibilidad"
+                    value={cvData.disponibilidad}
                     className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
                     onChange={handleInputChange}
                   >

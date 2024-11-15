@@ -133,14 +133,16 @@ export default function Home({ user }: { user?: UserDataBase }) {
         education: estudios || [],
         experience: experiencias || [],
         cursos: cursos || [],
-        idiomas: user.idiomas || [],
-        licencia: user.licencia || "",
-        movilidad: user.movilidad || "",
-        incorporacion: user.incorporacion || "",
-        disponibilidad: user.disponibilidad || "",
-        office: user.office || "",
+        idiomas: idiomas || [],
+        licencia: user.informacionAdicional[0].licencia || "",
+        movilidad: user.informacionAdicional[0].movilidad || "",
+        incorporacion: user.informacionAdicional[0].incorporacion || "",
+        disponibilidad: user.informacionAdicional[0].disponibilidad || "",
+        office: user.informacionAdicional[0].office || "",
         orientadoCV: user.orientadoCV || ""
       });
+
+      console.log(user);
     }
   }, [user]);
 

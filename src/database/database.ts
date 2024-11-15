@@ -56,7 +56,6 @@ export async function fetchInvoicesPages(query: string) {
 }
 
 //export default prisma;
-
 export async function fetchFilteredUsers(query: string, currentPage: number) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 

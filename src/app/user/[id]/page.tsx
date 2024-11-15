@@ -36,6 +36,15 @@ export type CursoDataBase={
   fechaInicio: string;
 }
 
+export type InformacionAdicionalDataBase={
+  id: number;
+  licencia: string;
+  movilidad: string;
+  incorporacion: string;
+  disponibilidad: string;
+  office: string;
+}
+
 export type UserDataBase ={
     id:number;
     nombre:string;
@@ -51,11 +60,7 @@ export type UserDataBase ={
     experiencias: ExperienciaDataBase[];
     idiomas: IdiomaDataBase[];
     cursos: CursoDataBase[];
-    licencia: string;
-    movilidad: string;
-    incorporacion: string;
-    disponibilidad: string;
-    office: string;
+    informacionAdicional: InformacionAdicionalDataBase[];
     orientadoCV: string;
 }
 

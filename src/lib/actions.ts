@@ -275,7 +275,7 @@ export async function postUsuarios(
       idiomas1.forEach(async (idioma) => {
         await prisma.idiomas.create({
           data: {
-            idiomas: idioma?.idioma as string,
+            idioma: idioma?.idioma as string,
             nivel: idioma?.nivel as NivelIdiomaEnum,
             idUsuario: user.id,
           },
@@ -284,7 +284,7 @@ export async function postUsuarios(
     }
 
     if (licencia || movilidad || incorporacion || disponibilidad || office) {
-      await prisma.informacionAdiconal.create({
+      await prisma.informacionAdicional.create({
         data: {
           licencia: licencia ? (licencia as string) : "",
           movilidad: movilidad ? (movilidad as string) : "",

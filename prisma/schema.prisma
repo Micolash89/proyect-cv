@@ -15,70 +15,73 @@ datasource db {
 }
 
 model User {
-  id                  Int                   @id @default(autoincrement())
-  nombre              String
-  apellido            String
-  telefono            String
-  fechaNacimiento     DateTime
-  email               String
-  ciudad              String
-  provincia           String
-  linkedin            String?
-  estudios            Estudio[]             @relation("UserEstudios")
-  experiencias        Experiencia[]         @relation("UserExperiencias")
-  cursos              Curso[]               @relation("UserCursos")
-  idiomas             Idiomas[]             @relation("UserIdiomas")
-  informacionAdiciona InformacionAdiconal[] @relation("UserInformacionAdicional")
+  id                   Int                    @id @default(autoincrement())
+  nombre               String                 @default("")
+  apellido             String                 @default("")
+  telefono             String                 @default("")
+  fechaNacimiento      DateTime
+  email                String                 @default("")
+  ciudad               String                 @default("")
+  provincia            String                 @default("")
+  linkedin             String                 @default("")
+  dni                  String                 @default("")
+  visto                Boolean                @default(false)
+  orientacionCV        String                 @default("")
+  estudios             Estudio[]              @relation("UserEstudios")
+  experiencias         Experiencia[]          @relation("UserExperiencias")
+  cursos               Curso[]                @relation("UserCursos")
+  idiomas              Idiomas[]              @relation("UserIdiomas")
+  informacionAdicional InformacionAdicional[] @relation("UserInformacionAdicional")
 }
 
 model Estudio {
   id           Int               @id @default(autoincrement())
-  carrera      String //titulo
+  carrera      String            @default("")
   estado       EstudioEstadoEnum
   tipo         EstudioTipoEnum //estudios
-  institucion  String
+  institucion  String            @default("")
   ubicacion    String            @default("")
-  fechaIngreso String
-  fechaEgreso  String?
+  fechaIngreso String            @default("")
+  fechaEgreso  String            @default("")
   idUsuario    Int
   usuario      User              @relation(fields: [idUsuario], references: [id], name: "UserEstudios")
 }
 
 model Experiencia {
-  id          Int     @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   nombre      String //nombre empresa
-  puesto      String
-  ubicacion   String  @default("")
-  fechaInicio String
-  fechaFin    String?
-  descripcion String
+  puesto      String @default("")
+  ubicacion   String @default("")
+  fechaInicio String @default("")
+  fechaFin    String @default("")
+  descripcion String @default("")
   idUsuario   Int
-  usuario     User    @relation(fields: [idUsuario], references: [id], name: "UserExperiencias")
+  usuario     User   @relation(fields: [idUsuario], references: [id], name: "UserExperiencias")
 }
 
 model Curso {
   id          Int    @id @default(autoincrement())
-  nombre      String //curso
-  institucion String
-  fechaInicio String
+  nombre      String @default("")
+  institucion String @default("")
+  fechaInicio String @default("")
   idUsuario   Int
   usuario     User   @relation(fields: [idUsuario], references: [id], name: "UserCursos")
 }
 
 model Idiomas {
   id        Int             @id @default(autoincrement())
-  idiomas   String
+  idioma    String          @default("")
   nivel     NivelIdiomaEnum
   idUsuario Int
   usuario   User            @relation(fields: [idUsuario], references: [id], name: "UserIdiomas")
 }
 
-model InformacionAdiconal {
+model InformacionAdicional {
   id             Int                @id @default(autoincrement())
-  licencia       String
-  movilidad      String
-  incorporacion  String
-  office  String?
+  licencia       String             @default("")
+  movilidad      String             @default("")
+  incorporacion  String             @default("")
+  office         String             @default("")
   disponibilidad DisponibilidadEnum
   idUsuario      Int
   usuario        User               @relation(fields: [idUsuario], references: [id], name: "UserInformacionAdicional")

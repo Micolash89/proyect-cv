@@ -31,6 +31,7 @@ interface CVData {
   lastName: string;
   email: string;
   fechaNacimiento: string;
+  dni: string;
   phone: string;
   ciudad: string;
   provincia: string;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { CVData } from './Home';
 
 export type TypeIAData = {
   profile: string;
@@ -7,46 +8,46 @@ export type TypeIAData = {
   descriptionWork: string;
 }
 
-interface CVData {
-  name: string;
-  lastName: string;
-  email: string;
-  fechaNacimiento: string;
-  phone: string;
-  ciudad: string;
-  provincia: string;
-  education: Array<{
-    carrera: string;
-    estado: string;
-    estudios: string;
-    institucion: string;
-    zonaInstitucion: string;
-    anioInicioEducacion: string;
-    anioFinEducacion: string;
-  }>;
-  experience: Array<{
-    nombreEmpresa: string;
-    puesto: string;
-    zonaEmpresa: string;
-    anioInicioExperiencia: string;
-    anioFinExperiencia: string;
-    descripcionExperiencia: string;
-  }>;
-  cursos: Array<{
-    curso: string;
-    institucion: string;
-    anioInicioCurso: string;
-  }>;
-  idiomas: Array<{
-    idioma: string;
-    nivel: string;
-  }>;
-  licencia: string;
-  movilidad: string;
-  incorporacion: string;
-  disponibilidad: string;
-  office: string;
-}
+// interface CVData {
+//   name: string;
+//   lastName: string;
+//   email: string;
+//   fechaNacimiento: string;
+//   phone: string;
+//   ciudad: string;
+//   provincia: string;
+//   education: Array<{
+//     carrera: string;
+//     estado: string;
+//     estudios: string;
+//     institucion: string;
+//     zonaInstitucion: string;
+//     anioInicioEducacion: string;
+//     anioFinEducacion: string;
+//   }>;
+//   experience: Array<{
+//     nombreEmpresa: string;
+//     puesto: string;
+//     zonaEmpresa: string;
+//     anioInicioExperiencia: string;
+//     anioFinExperiencia: string;
+//     descripcionExperiencia: string;
+//   }>;
+//   cursos: Array<{
+//     curso: string;
+//     institucion: string;
+//     anioInicioCurso: string;
+//   }>;
+//   idiomas: Array<{
+//     idioma: string;
+//     nivel: string;
+//   }>;
+//   licencia: string;
+//   movilidad: string;
+//   incorporacion: string;
+//   disponibilidad: string;
+//   office: string;
+// }
 
 export default function PreviewCV({ cvData, iaData }: { cvData: CVData; iaData: TypeIAData }) {
   const [isHovered, setIsHovered] = useState(false);

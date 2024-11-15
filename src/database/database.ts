@@ -83,20 +83,79 @@ export async function fetchFilteredUsers(query: string, currentPage: number) {
 }
 
 /*falta ahcer el join con todas las tablas*/
-export async function getUserId(id:number) {
-  
+export async function getUserId(id: number) {
   try {
     const user = await prisma.user.findUnique({
       where: {
         id: id as number,
-  }})
+      },
+      select: {
+        id: true,
+        nombre: true,
+        apellido: true,
+        telefono: true,
+        email: true,
+        fechaNacimiento: true,
+        ciudad: true,
+        provincia: true,
+        linkedin: true,
+        orientacionCV: true,
+        dni:true,
+        visto: true,
+        estudios: {
+          select: {
+            id: true,
+            carrera: true,
+            estado: true,
+            tipo: true,
+            institucion: true,
+            ubicacion: true,
+            fechaIngreso: true,
+            fechaEgreso: true,
+          },
+        },
+        experiencias: {
+          select: {
+            id: true,
+            nombre: true,
+            puesto: true,
+            ubicacion: true,
+            fechaInicio: true,
+            fechaFin: true,
+            descripcion: true,
+          },
+        },
+        idiomas: {
+          select: {
+            id: true,
+            idioma: true,
+            nivel: true,
+          },
+        },
+        cursos: {
+          select: {
+            id: true,
+            nombre: true,
+            institucion: true,
+            fechaInicio: true,
+          },
+        },
+        informacionAdicional: {
+          select: {
+            licencia: true,
+            movilidad: true,
+            incorporacion: true,
+            disponibilidad: true,
+            office: true,
+          },
+        },
+      },
+    });
 
-  return user ;
-
+    return user;
   } catch (error) {
     console.error("Database Error:", error);
     return null;
   }
-
 }
 

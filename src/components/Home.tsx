@@ -7,18 +7,70 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import IARegister from "@/components/IARegister";
 import TextZoom from "@/components/TextZoom";
-import { User } from "@/app/user/[id]/page";
+import { CursoDataBase, EstudioDataBase, ExperienciaDataBase, IdiomaDataBase,  UserDataBase } from "@/app/user/[id]/page";
 
-export default function Home({ user }: { user?: User }) {
+interface Estudio{
+  estudios: string,
+  estado: string,
+  carrera: string,
+  institucion: string,
+  zonaInstitucion: string,
+  anioInicioEducacion: string,
+  anioFinEducacion: string,
+}
+
+export interface Experiencia{
+  puesto: string,
+  nombreEmpresa: string,
+  zonaEmpresa: string,
+  anioInicioExperiencia: string,
+  anioFinExperiencia: string,
+  descripcionExperiencia: string,
+}
+
+export interface Idioma{
+  idioma: string;
+  nivel: string;
+}
+
+export interface Curso{
+  curso: string,
+  institucion: string,
+  anioInicioCurso: string,
+}
+
+export interface CVData {
+  name: string;
+  lastName: string;
+  email: string;
+  dni: string;
+  fechaNacimiento: string;
+  phone: string;
+  ciudad: string;
+  provincia: string;
+  education: Estudio[];
+  experience: Experiencia[];
+  cursos: Curso[];
+  idiomas: Idioma[];
+  licencia: string;
+  movilidad: string;
+  incorporacion: string;
+  disponibilidad: string;
+  office: string;
+  orientadoCV: string;
+}
+
+export default function Home({ user }: { user?: UserDataBase }) {
   const PDFViewer = dynamic(
     () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
     { ssr: false }
   );
 
-  const [cvData, setCVData] = useState({
+  const [cvData, setCVData] = useState<CVData>({
     name: "",
     lastName: "",
     email: "",
+    dni:"",
     fechaNacimiento: "",
     phone: "",
     ciudad: "",
@@ -37,26 +89,57 @@ export default function Home({ user }: { user?: User }) {
 
   useEffect(() => {
     if (user) {
+
+      const estudios : Estudio[] = user.estudios.map((estudio: EstudioDataBase) => ({
+        estado: estudio.estado,
+        carrera: estudio.carrera,
+        estudios: estudio.tipo,
+        institucion: estudio.institucion,
+        zonaInstitucion: estudio.ubicacion,
+        anioInicioEducacion: estudio.fechaIngreso,
+        anioFinEducacion: estudio.fechaEgreso,
+      }));
+
+      const experiencias: Experiencia[] = user.experiencias.map((experiencia: ExperienciaDataBase) => ({
+        puesto: experiencia.puesto,
+        nombreEmpresa: experiencia.empresa,
+        zonaEmpresa: experiencia.ubicacion,
+        anioInicioExperiencia: experiencia.fechaInicio,
+        anioFinExperiencia: experiencia.fechaFin,
+        descripcionExperiencia: experiencia.descripcion,
+      }));
+
+      const cursos : Curso[] = user.cursos.map((curso: CursoDataBase) => ({
+        curso: curso.curso,
+        institucion: curso.institucion,
+        anioInicioCurso: curso.fechaInicio,
+      }));
+
+      const idiomas : Idioma[] = user.idiomas.map((idioma: IdiomaDataBase) =>
+        ({ nivel: idioma.nivel, idioma: idioma.idioma }));
+
+        
       setCVData(
           {
         ...cvData,
         name: user.nombre || "",
         lastName: user.apellido || "",
         email: user.email || "",
-        fechaNacimiento: user.fechaNacimiento || "",
+        dni: user.dni || "",
+        fechaNacimiento: user.fechaNacimiento.toString().split("T")[0] || "",
         phone: user.telefono || "",
         ciudad: user.ciudad || "",
         provincia: user.provincia || "",
-        // education: user.education || [],
-        // experience: user.experience || [],
-        // cursos: user.cursos || [],
-        // idiomas: user.idiomas || [],
-        // licencia: user.licencia || "",
-        // movilidad: user.movilidad || "",
-        // incorporacion: user.incorporacion || "",
-        // disponibilidad: user.disponibilidad || "",
-        // office: user.office || "",
-        // orientadoCV: user.orientadoCV || ""
+        education: estudios || [],
+        experience: experiencias || [],
+        cursos: cursos || [],
+        idiomas: user.idiomas || [],
+        licencia: user.licencia || "",
+        movilidad: user.movilidad || "",
+        incorporacion: user.incorporacion || "",
+        disponibilidad: user.disponibilidad || "",
+        office: user.office || "",
+        orientadoCV: user.orientadoCV || ""
       });
     }
   }, [user]);

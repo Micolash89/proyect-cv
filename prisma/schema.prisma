@@ -96,7 +96,7 @@ enum EstudioEstadoEnum {
 enum EstudioTipoEnum {
   PRIMARIO
   SECUNDARIO
-  TERCEARIO
+  TERCIARIO
   UNIVERSITARIO
 }
 

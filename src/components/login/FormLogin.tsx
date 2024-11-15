@@ -3,6 +3,7 @@
 import { postLogin } from "@/lib/actions";
 import { useState } from "react";
 import { toast } from "sonner";
+import { motion } from 'framer-motion';
 
 function FormLogin() {
   const [dataResponse, setDataResponse] = useState({
@@ -33,10 +34,9 @@ function FormLogin() {
     } catch (data) {
 
       throw data;
-
     }
-
   }
+  
  const handleSubmit = async (e: FormData) => {
     
     const postPromise = actionLogin(e); // Tu promesa original
@@ -51,9 +51,12 @@ function FormLogin() {
 
   return (
     <>
-     <div className="min-h-screen bg-gray-100 dark:bg-gray-800 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full">
-        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden">
+     <div className="min-h-screen bg-gray-100 dark:bg-gray-800 flex items-center justify-center px-4 sm:px-6 lg:px-8 duration-500">
+      <div className="max-w-md w-full ">
+        <motion.div 
+        initial={{ opacity: 0, y:20 }}
+        animate={{ opacity: 1, y:0 }}        
+        className="bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden duration-500">
           <div className="px-6 py-8">
             <h2 className="text-3xl font-semibold mb-6 text-center text-gray-900 dark:text-white">
               Iniciar sesión
@@ -69,7 +72,7 @@ function FormLogin() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 duration-500"
                   placeholder="Correo electrónico"
                 />
               </div>
@@ -84,7 +87,7 @@ function FormLogin() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 duration-500"
                   placeholder="Contraseña"
                 />
               </div>
@@ -131,7 +134,7 @@ function FormLogin() {
               </div>
             </form>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
     </>

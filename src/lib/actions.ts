@@ -128,30 +128,6 @@ const CreateSchemaUsuario = z.object({
 
 const CreateUsuario = CreateSchemaUsuario.omit({});
 
-// enum EstudioEstadoEnum {
-//   "COMPLETADO",
-//   "INCOMPLETO",
-//   "PROCESO"
-// }
-
-// enum EstudioTipoEnum {
-//   "PRIMARIO",
-//   "SECUNDARIO",
-//   "TERCEARIO",
-//   "UNIVERSITARIO",
-// }
-
-// enum NivelIdiomaEnum {
-//   "BASICO",
-//   "INTERMEDIO",
-//   "AVANZADO",
-// }
-
-// enum DisponibilidadEnum {
-//   "FULLTIME",
-//   "PARTTIME",
-// }
-
 export interface Experiencia {
   puesto: string;
   nombreEmpresa: string;

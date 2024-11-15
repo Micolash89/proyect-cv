@@ -548,7 +548,7 @@ function FormRegister({
                     </option>
                     <option value={"PRIMARIO"}>Primario</option>
                     <option value={"SECUNDARIO"}>Secundario</option>
-                    <option value={"TERCEARIO"}>Terceario</option>
+                    <option value={"TERCIARIO"}>Terciario</option>
                     <option value={"UNIVERSITARIO"}>Universitario</option>
                   </select>
                 </div>

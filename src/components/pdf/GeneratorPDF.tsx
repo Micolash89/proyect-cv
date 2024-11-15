@@ -148,7 +148,7 @@ const MyDocumentPDF: React.FC<{
       <Page size="A4" style={[styles.page,{ padding: 45 - (contador<=5? contador*5:25)}]}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={[styles.name, { fontSize: 18 + contador }]}>
+          <Text style={[styles.name, { fontSize: 20 + contador }]}>
             {cvData.name} {cvData.lastName}
           </Text>
           <Text style={[styles.contactInfo, { fontSize: 11 + contador }]}>

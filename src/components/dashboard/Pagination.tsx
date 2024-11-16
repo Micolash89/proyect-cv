@@ -9,7 +9,6 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
 export default function Pagination({ totalPages }: { totalPages: number }) {
-  // NOTE: Uncomment this code in Chapter 11
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -35,7 +34,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
         />
 
         <div className="flex -space-x-px">
-          {/* {allPages.map((page, index) => {
+          {allPages.map((page, index) => {
             let position: "first" | "last" | "single" | "middle" | undefined;
 
             if (index === 0) position = "first";
@@ -52,7 +51,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
                 isActive={currentPage === page}
               />
             );
-          })} */}
+          })}
         </div>
 
         <PaginationArrow
@@ -79,9 +78,9 @@ function PaginationNumber({
   const className = clsx(
     "flex h-10 w-10 items-center justify-center text-sm border",
     {
-      "rounded-l-md": position === "first" || position === "single",
-      "rounded-r-md": position === "last" || position === "single",
-      "z-10 bg-blue-600 border-blue-600 text-white": isActive,
+      "rounded-l": position === "first" || position === "single",
+      "rounded-r": position === "last" || position === "single",
+      "z-10 text-gray-400 dark:bg-gray-600 dark:border-white dark:text-white": isActive,
       "hover:bg-gray-100": !isActive && position !== "middle",
       "text-gray-300": position === "middle",
     }
@@ -106,7 +105,7 @@ function PaginationArrow({
   isDisabled?: boolean;
 }) {
     const className = clsx(
-      "flex h-10 w-10 items-center justify-center rounded-md border",
+      "flex h-10 w-10 items-center justify-center rounded border",
       {
         "pointer-events-none text-gray-300": isDisabled,
         "hover:bg-gray-100": !isDisabled,

@@ -37,26 +37,7 @@ export default function About() {
               <li>• Compatible con sistemas ATS</li>
             </ul>
           </motion.div>
-
-          {/* <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4 }}
-            className="relative h-[300px] rounded-lg overflow-hidden group"
-          >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Image
-                src="/cvejemplohardvard.png"
-                alt="Ejemplo de CV"
-                fill
-                className="object-cover rounded-lg"
-              />
-            </motion.div>
-          </motion.div> */}
-
+          
           <motion.div
             initial={{ opacity: 0, x:50 }}
             animate={{ opacity: 1, x:0 }}

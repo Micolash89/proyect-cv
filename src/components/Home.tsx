@@ -167,7 +167,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
         <FormRegister cvData={cvData} updateCVData={updateCVData} />
 
         <PreviewCV cvData={cvData} iaData={iaData} />
-      </main>
+      
       <IARegister
         cvData={cvData}
         updateIAData={updateIAData}
@@ -192,7 +192,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
 
       <TextZoom setContador={setContador} contador={contador} />
 
-      <div className="max-w-4xl mx-auto h-full">
+      <div className="max-w-4xl mx-auto h-[900px]">
         {
           <PDFViewer width="100%" height="100%">
             <MyDocumentPDF
@@ -204,6 +204,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
           </PDFViewer>
         }
       </div>
+      </main>
     </>
   );
 }

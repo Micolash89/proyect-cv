@@ -56,7 +56,7 @@ export default async function UserTable({
                   apellido, nombre
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  email
+                Correo Electrónico
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   DNI
@@ -66,6 +66,9 @@ export default async function UserTable({
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   telefono
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
+                  estado
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
                   <span className="sr-only">Edit</span>
@@ -100,6 +103,10 @@ export default async function UserTable({
                   <td className="whitespace-nowrap px-3 py-3">
                     {/* <userstatus status={user.status} /> */}
                     {user.telefono}
+                  </td>
+                  <td className="whitespace-nowrap px-3 py-3">
+                    {/* <userstatus status={user.status} /> */}
+                    {user.visto?"visto":"nuevo"}
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">

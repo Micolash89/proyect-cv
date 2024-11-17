@@ -191,8 +191,10 @@ export async function postUsuarios(
   try {
     const user = await prisma.user.create({
       data: {
-        nombre: nombre as string,
-        apellido: apellido as string,
+        nombre: (nombre.charAt(0).toUpperCase() +
+          nombre.slice(1).toLowerCase()) as string,
+        apellido: (apellido.charAt(0).toUpperCase() +
+          apellido.slice(1).toLowerCase()) as string,
         telefono: telefono as string,
         fechaNacimiento: fechaNacimiento as Date,
         email: email as string,

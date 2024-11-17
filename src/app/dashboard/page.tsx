@@ -1,6 +1,7 @@
 import Pagination from "@/components/dashboard/Pagination";
 import Search from "@/components/dashboard/Search";
 import Table from "@/components/dashboard/Table";
+import { TableUserSkeleton } from "@/components/skeletons";
 import { fetchRegistrosPages } from "@/database/database";
 import { Suspense } from "react";
 
@@ -27,7 +28,7 @@ export default async function Page({
         key={query + currentPage}
         fallback={
           <>
-            <p>...cargando</p>
+            <TableUserSkeleton/>
           </>
         }
         >

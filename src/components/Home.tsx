@@ -34,7 +34,7 @@ export interface Idioma{
 }
 
 export interface Curso{
-  curso: string,
+  nombre: string,
   institucion: string,
   anioInicioCurso: string,
 }
@@ -102,7 +102,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
 
       const experiencias: Experiencia[] = user.experiencias.map((experiencia: ExperienciaDataBase) => ({
         puesto: experiencia.puesto,
-        nombreEmpresa: experiencia.empresa,
+        nombreEmpresa: experiencia.nombre,
         zonaEmpresa: experiencia.ubicacion,
         anioInicioExperiencia: experiencia.fechaInicio,
         anioFinExperiencia: experiencia.fechaFin,
@@ -110,7 +110,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
       }));
 
       const cursos : Curso[] = user.cursos.map((curso: CursoDataBase) => ({
-        curso: curso.curso,
+        nombre: curso.nombre,
         institucion: curso.institucion,
         anioInicioCurso: curso.fechaInicio,
       }));

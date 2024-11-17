@@ -20,18 +20,18 @@ import {
 import { createResponse } from "./utils";
 import { Experiencia } from "./actions";
 
-export interface Curso {
+ interface Curso {
   curso: string;
   institucion: string;
   anioInicioCurso: string;
 }
 
-export interface Idioma {
+ interface Idioma {
   idioma: string;
   nivel: string;
 }
 
-export interface Educacion {
+ interface Educacion {
   carrera: string;
   estado: string;
   estudios: string;

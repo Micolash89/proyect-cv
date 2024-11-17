@@ -16,7 +16,7 @@ export type EstudioDataBase={
 export type ExperienciaDataBase={
   id: number;
   puesto: string;
-  empresa: string;
+  nombre: string;
   ubicacion: string;
   fechaInicio: string;
   fechaFin: string;
@@ -31,7 +31,7 @@ export type IdiomaDataBase={
 
 export type CursoDataBase={
   id: number;
-  curso: string;
+  nombre: string;
   institucion: string;
   fechaInicio: string;
 }
@@ -67,6 +67,8 @@ export type UserDataBase ={
 export default async function page({ params }: { params: { id: string } }) {
 
     const user: any = await getUserId(parseInt(params.id));
+
+  console.log(user);
 
     if ( !user) {
         return (

@@ -17,14 +17,29 @@ type Section =
 function FormRegister({
   cvData,
   updateCVData,
+  allInputs,
 }: {
   cvData: any;
   updateCVData: any;
+  allInputs: boolean;
 }) {
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     updateCVData({ [name]: value });
   };
+
+  useEffect(() => {
+    if (allInputs) {
+      setSectionRefsStatus({
+        education: "education",
+        cursos:"cursos",
+        experience: "experience",
+        idiomas: "idiomas",
+        informacionA: "informacionA",
+        orientacionCV: "orientacionCV",
+      });
+    }
+  }, [allInputs]);
 
   const max = new Date().getFullYear();
   const min = max - 50;

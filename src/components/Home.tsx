@@ -34,7 +34,7 @@ export interface Idioma{
 }
 
 export interface Curso{
-  nombre: string,
+  curso: string,
   institucion: string,
   anioInicioCurso: string,
 }
@@ -66,6 +66,8 @@ export default function Home({ user }: { user?: UserDataBase }) {
     { ssr: false }
   );
 
+  const [showCompleteInputs, setShowCompleteInputs] = useState(false);
+
   const [cvData, setCVData] = useState<CVData>({
     name: "",
     lastName: "",
@@ -90,6 +92,8 @@ export default function Home({ user }: { user?: UserDataBase }) {
   useEffect(() => {
     if (user) {
 
+      setShowCompleteInputs(true);
+
       const estudios : Estudio[] = user.estudios.map((estudio: EstudioDataBase) => ({
         estado: estudio.estado,
         carrera: estudio.carrera,
@@ -110,7 +114,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
       }));
 
       const cursos : Curso[] = user.cursos.map((curso: CursoDataBase) => ({
-        nombre: curso.nombre,
+        curso: curso.nombre,
         institucion: curso.institucion,
         anioInicioCurso: curso.fechaInicio,
       }));
@@ -164,7 +168,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
   return (
     <>
       <main className=" w-full">
-        <FormRegister cvData={cvData} updateCVData={updateCVData} />
+        <FormRegister cvData={cvData} updateCVData={updateCVData} allInputs={showCompleteInputs} />
 
         <PreviewCV cvData={cvData} iaData={iaData} />
       

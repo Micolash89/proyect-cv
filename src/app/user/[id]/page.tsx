@@ -68,7 +68,7 @@ export default async function page({ params }: { params: { id: string } }) {
 
     const user: any = await getUserId(parseInt(params.id));
 
-  console.log(user);
+  // console.log(user);
 
     if ( !user) {
         return (

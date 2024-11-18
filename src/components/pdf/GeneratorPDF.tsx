@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#333333",
     marginBottom: 2,
-    fontStyle: "italic",
     borderBottom: "1 solid #000",
   },
   sectionTitle: {
@@ -167,7 +166,7 @@ const MyDocumentPDF: React.FC<{
             {cvData.name} {cvData.lastName}
           </Text>
           <Text style={[styles.contactInfo, { fontSize: 11 + contador }]}>
-            {cvData.ciudad}, {cvData.provincia} • {cvData.phone}
+            {cvData.ciudad}, {cvData.provincia} {cvData.dni&&`• DNI:${cvData.dni}`} • {cvData.fechaNacimiento} • Tel.:{cvData.phone}
             {cvData.email && ` • ${cvData.email}`}
           </Text>
         </View>
@@ -175,7 +174,6 @@ const MyDocumentPDF: React.FC<{
         {/* Profile Summary */}
         {iaData.profile && (
           <View>
-            {/* <Text style={[styles.sectionTitle, { fontSize: 14 + contador }]}>PERFIL</Text> */}
             <Text
               style={[
                 styles.description,
@@ -260,10 +258,6 @@ const MyDocumentPDF: React.FC<{
             </Text>
             {cvData.cursos.map((curso, index) => (
               <View key={index} style={styles.entryContainer}>
-                {/* <Text style={[styles.description, { fontSize: 11 + contador }]}>
-                   {curso.nombre}, {curso.institucion} ({curso.anioInicioCurso}
-                  )
-                </Text> */}
                 <View style={styles.entryHeader}>
                   <Text
                     style={[styles.institution, { fontSize: 11 + contador }]}

@@ -350,6 +350,14 @@ export async function postLogin(formdata: FormData) {
       path: "/",
     });
 
+    cookies().set({
+      name: "adminUser",
+      value: administrador.email,
+      maxAge: 2147483647,
+      httpOnly: true,
+      path: "/",
+    });
+
     console.log(administrador);
   } catch (error) {
     console.log(error);

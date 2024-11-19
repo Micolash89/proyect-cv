@@ -1,15 +1,3 @@
-/*
- * Install the Generative AI SDK
- *
- * $ npm install @google/generative-ai
- */
-
-// const {
-//     GoogleGenerativeAI,
-//     HarmCategory,
-//     HarmBlockThreshold,
-//   } = require("@google/generative-ai");
-
 "use server";
 
 import {
@@ -20,18 +8,18 @@ import {
 import { createResponse } from "./utils";
 import { Experiencia } from "./actions";
 
- interface Curso {
+export interface Curso {
   curso: string;
   institucion: string;
   anioInicioCurso: string;
 }
 
- interface Idioma {
+export interface Idioma {
   idioma: string;
   nivel: string;
 }
 
- interface Educacion {
+export interface Educacion {
   carrera: string;
   estado: string;
   estudios: string;

@@ -11,7 +11,7 @@ export default function NavigationLinks({data}:{data:NavigationLinksProps}) {
     <>
       <Link
         href={data.url}
-        className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+        className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors capitalize"
       >
         {data.name}
       </Link>

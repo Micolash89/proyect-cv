@@ -417,11 +417,11 @@ function FormRegister({
                   value={image}
                   onChange={(url) => {
                     setImage(url);
-                    updateCVData({ imagenPerfil: url });
+                    updateCVData({...cvData, imagenPerfil: url });
                   }}
                   onRemove={() => {
                     setImage("");
-                    updateCVData({ imagenPerfil: "" });
+                    updateCVData({...cvData, imagenPerfil: "" });
                   }}
                 />
               </div>

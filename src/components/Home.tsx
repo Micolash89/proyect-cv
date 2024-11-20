@@ -48,6 +48,7 @@ export interface CVData {
   phone: string;
   ciudad: string;
   provincia: string;
+  imagenPerfil: string;
   education: Estudio[];
   experience: Experiencia[];
   cursos: Curso[];
@@ -75,6 +76,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
     dni:"",
     fechaNacimiento: "",
     phone: "",
+    imagenPerfil:"",
     ciudad: "",
     provincia: "",
     education: [],
@@ -134,6 +136,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
         phone: user.telefono || "",
         ciudad: user.ciudad || "",
         provincia: user.provincia || "",
+        imagenPerfil: user.imagenPerfil || "",
         education: estudios || [],
         experience: experiencias || [],
         cursos: cursos || [],

@@ -56,6 +56,7 @@ export type UserDataBase ={
     ciudad:string;
     provincia:string;
     linkedin:string;
+    imagenPerfil:string;
     estudios:   EstudioDataBase[];
     experiencias: ExperienciaDataBase[];
     idiomas: IdiomaDataBase[];

@@ -5,6 +5,7 @@ import {
   View,
   StyleSheet,
   Font,
+  Image,
 } from "@react-pdf/renderer";
 import { TypeIAData } from "../PreviewCV";
 import React from "react";
@@ -40,6 +41,7 @@ interface CVData {
   phone: string;
   ciudad: string;
   provincia: string;
+  imagenPerfil: string;
   education: Array<{
     carrera: string;
     estado: string;
@@ -77,7 +79,6 @@ const styles = StyleSheet.create({
   page: {
     fontFamily: "Times",
     fontSize: 12,
-    // lineHeight: 1.5,
     fontWeight: "normal",
   },
   header: {
@@ -88,6 +89,8 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     marginBottom: 8,
     textAlign: "center",
+    lineHeight: 1.5,
+    marginTop: 10,
   },
   contactInfo: {
     textAlign: "center",
@@ -162,10 +165,25 @@ const MyDocumentPDF: React.FC<{
             {cvData.name} {cvData.lastName}
           </Text>
           <Text style={[styles.contactInfo, { fontSize: 11 + contador }]}>
-            {cvData.ciudad}, {cvData.provincia} {cvData.dni&&`• DNI:${cvData.dni}`} • {cvData.fechaNacimiento} • Tel.:{cvData.phone}
+            {cvData.ciudad}, {cvData.provincia}{" "}
+            {cvData.dni && `• DNI:${cvData.dni}`} • {cvData.fechaNacimiento} •
+            Tel.:{cvData.phone}
             {cvData.email && ` • ${cvData.email}`}
           </Text>
         </View>
+        {cvData.imagenPerfil && (
+          <Image
+            src={cvData.imagenPerfil}
+            style={{
+              position: "absolute",
+              top: 10,
+              left: 10,
+              width: 90,
+              height: 90,
+              objectFit: "cover",
+            }}
+          />
+        )}
 
         {/* Profile Summary */}
         {iaData.profile && (

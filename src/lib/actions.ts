@@ -23,6 +23,7 @@ import {
   generarSkills,
   Idioma,
 } from "./actionsIA";
+import { v2 as cloudinary } from 'cloudinary';
 
 const CreateSchemaUsuario = z.object({
   name: z
@@ -564,4 +565,38 @@ export async function getOneUser(id: number) {
 
   const user = await prisma.user.findUnique({ where: { id: id_user } });
   return user;
+}
+
+
+
+
+cloudinary.config({
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+export async function uploadImage(formData: FormData) {
+  try {
+    const file = formData.get('file') as File;
+    
+    if (!file) {
+      return { error: 'No se seleccionó ningún archivo' };
+    }
+
+    // Convertir el archivo a Base64
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    const fileBase64 = `data:${file.type};base64,${buffer.toString('base64')}`;
+
+    // Subir a Cloudinary
+    const result = await cloudinary.uploader.upload(fileBase64, {
+      folder: 'cv-images',
+    });
+
+    return { url: result.secure_url };
+  } catch (error) {
+    console.error('Error al subir imagen:', error);
+    return { error: 'Error al subir la imagen' };
+  }
 }

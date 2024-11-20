@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import ThemeToggle from "./ThemeToggle";
-import NavigationLinks from "./NavigationLinks";
-import { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import NavigationLinks from "./NavigationLinks";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navigation() {
   let arrLinks = [
@@ -31,8 +31,7 @@ export default function Navigation() {
     const token = getCookie("token");
     const adminUser = getCookie("adminUser");
 
-    if (getCookie("token")) {
-
+    if (token) {
       arrLinks.push(
         {
           url: "/dashboard",
@@ -46,7 +45,6 @@ export default function Navigation() {
     }
 
   }, [])
-
 
   return (
     <motion.nav

@@ -4,6 +4,7 @@ import { postUsuarios } from "@/lib/actions";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
+import ImageUpload from "./ImageUpload";
 
 type Section =
   | "personal"
@@ -32,7 +33,7 @@ function FormRegister({
     if (allInputs) {
       setSectionRefsStatus({
         education: "education",
-        cursos:"cursos",
+        cursos: "cursos",
         experience: "experience",
         idiomas: "idiomas",
         informacionA: "informacionA",
@@ -65,6 +66,8 @@ function FormRegister({
     institucion: "",
     anioInicioCurso: "",
   });
+
+  const [image, setImage] = useState(cvData.imagenPerfil || "");
 
   const [newIdioma, setNewIdioma] = useState({
     idioma: "",
@@ -407,6 +410,20 @@ function FormRegister({
                 >
                   Ciudad
                 </label>
+              </div>
+
+              <div className="relative z-0 w-full group">
+                <ImageUpload
+                  value={image}
+                  onChange={(url) => {
+                    setImage(url);
+                    updateCVData({ imagenPerfil: url });
+                  }}
+                  onRemove={() => {
+                    setImage("");
+                    updateCVData({ imagenPerfil: "" });
+                  }}
+                />
               </div>
             </div>
 
@@ -1237,7 +1254,7 @@ function FormRegister({
                     type="checkbox"
                     name="licencia"
                     id="licencia"
-                    checked={cvData.licencia.length>0}
+                    checked={cvData.licencia.length > 0}
                     onChange={handleInputChange}
                   />
                   <label
@@ -1254,7 +1271,7 @@ function FormRegister({
                     type="checkbox"
                     name="movilidad"
                     id="movilidad"
-                    checked={cvData.movilidad.length>0}
+                    checked={cvData.movilidad.length > 0}
                     onChange={handleInputChange}
                   />
                   <label
@@ -1271,7 +1288,7 @@ function FormRegister({
                     type="checkbox"
                     name="incorporacion"
                     id="incorporacion"
-                    checked={cvData.incorporacion.length>0}
+                    checked={cvData.incorporacion.length > 0}
                     onChange={handleInputChange}
                   />
                   <label
@@ -1288,7 +1305,7 @@ function FormRegister({
                     type="checkbox"
                     name="office"
                     id="office"
-                    checked={cvData.office.length>0}
+                    checked={cvData.office.length > 0}
                     onChange={handleInputChange}
                   />
                   <label

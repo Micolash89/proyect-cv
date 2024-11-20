@@ -28,10 +28,6 @@ Font.register({
       src: "/fonts/TimesNewRomanItalic.ttf",
       fontStyle: "italic",
     },
-    {
-      src: "/fonts/TimesNewRoman.ttf",
-      fontStyle: "heavy",
-    },
   ],
 });
 

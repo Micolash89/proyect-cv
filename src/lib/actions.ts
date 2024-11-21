@@ -347,7 +347,6 @@ export async function postLogin(formdata: FormData) {
       name: "token",
       value: token,
       maxAge: 60 * 60 * 24 * 30,
-      httpOnly: true,
       path: "/",
     });
 
@@ -355,7 +354,6 @@ export async function postLogin(formdata: FormData) {
       name: "adminUser",
       value: administrador.email,
       maxAge: 2147483647,
-      httpOnly: true,
       path: "/",
     });
 

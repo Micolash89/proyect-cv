@@ -5,8 +5,16 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import NavigationLinks from "./NavigationLinks";
 import ThemeToggle from "./ThemeToggle";
+// import Cookies from 'js-cookie'
+
 
 export default function Navigation() {
+  function getCookie(name: string): string | null {
+    const value = `; ${document.cookie}`
+    const parts = value.split(`; ${name}=`)
+    if (parts.length === 2) return parts.pop()?.split(';').shift() ?? null;
+    return null;
+  }
   let arrLinks = [
     {
       url: "/",
@@ -20,18 +28,15 @@ export default function Navigation() {
 
   const [userLogin, setUserLogin] = useState(false);
   
-  function getCookie(name: string): string | null {
-    const value = `; ${document.cookie}`
-    const parts = value.split(`; ${name}=`)
-    if (parts.length === 2) return parts.pop()?.split(';').shift() ?? null
-    return null
-  }
+  const token = getCookie('token');
+  const adminUser = getCookie('adminUser');
 
   useEffect(() => {
-    const token = getCookie("token");
-    const adminUser = getCookie("adminUser");
+    
 
-    if (token) {
+    if (!token) {
+      return;
+    }else{
       arrLinks.push(
         {
           url: "/dashboard",
@@ -44,7 +49,7 @@ export default function Navigation() {
       setUserLogin(true);
     }
 
-  }, [])
+  }, [token, adminUser]);
 
   return (
     <motion.nav

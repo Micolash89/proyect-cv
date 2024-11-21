@@ -5,6 +5,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import clsx from "clsx";
+import { useRouter } from "next/navigation";
 
 interface FormDataError {
   message: string;
@@ -16,6 +17,9 @@ interface FormDataErrorErrors {
 }
 
 function FormLogin() {
+
+  const router = useRouter();
+
   const [dataResponse, setDataResponse] = useState<FormDataError>({
     message: "" as string,
     errors: {
@@ -61,8 +65,11 @@ function FormLogin() {
     const postPromise = actionLogin(e); // Tu promesa original
 
     const data = toast.promise(postPromise, {
-      loading: "Loading...",
-      success: (dato) => `${dato?.message}`, // Ajusta este mensaje según la respuesta que esperas
+      loading: "Iniciando sesión...",
+      success: (dato) => {
+        router.refresh();
+        router.push("/dashboard");
+        return `${dato?.message}`}, // Ajusta este mensaje según la respuesta que esperas
       error: (error) => `${error.message}`,
     });
   };

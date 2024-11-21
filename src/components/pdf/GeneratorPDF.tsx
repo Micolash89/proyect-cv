@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 8,
     lineHeight: 1,
-    // paddingBottom: 2,
   },
   entryContainer: {
     marginBottom: 8,

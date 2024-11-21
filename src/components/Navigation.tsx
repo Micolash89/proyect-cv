@@ -9,12 +9,12 @@ import ThemeToggle from "./ThemeToggle";
 
 
 export default function Navigation() {
-  function getCookie(name: string): string | null {
+  /* function getCookie(name: string): string | null {
     const value = `; ${document.cookie}`
     const parts = value.split(`; ${name}=`)
     if (parts.length === 2) return parts.pop()?.split(';').shift() ?? null;
     return null;
-  }
+  } */
   let arrLinks = [
     {
       url: "/",
@@ -28,7 +28,7 @@ export default function Navigation() {
 
   const [userLogin, setUserLogin] = useState(false);
   
-  const token = getCookie('token');
+  /* const token = getCookie('token');
   const adminUser = getCookie('adminUser');
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export default function Navigation() {
     }
 
   }, [token, adminUser]);
-
+ */
   return (
     <motion.nav
       initial={{ opacity: 0, y: -20 }}

@@ -51,7 +51,7 @@ export default function Home() {
 
   return (
     <>
-      <main className=" w-full">
+      <main className=" w-full bg-gradient-to-r from-indigo-300 dark:from-purple-950 via-sky-400 dark:via-sky-950 to-indigo-300 dark:to-purple-950">
         <FormRegister cvData={cvData} updateCVData={updateCVData}  />
 
         <PreviewCV cvData={cvData} iaData={iaData} />
@@ -80,7 +80,7 @@ export default function Home() {
 
       <TextZoom setContador={setContador} contador={contador}/>
 
-<div className="max-w-4xl mx-auto h-full">
+<div className="max-w-4xl mx-auto h-full ">
 
       {
         <PDFViewer width="100%" height="100%">

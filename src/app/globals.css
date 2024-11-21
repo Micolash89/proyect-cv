@@ -18,3 +18,16 @@
 body{
     @apply dark:bg-gray-800 duration-500;
 }
+
+  /* Modo claro (por defecto) */
+input:-webkit-autofill {
+    background-color: transparent !important;
+    -webkit-text-fill-color: black !important;
+    transition: background-color 5000s ease-in-out 0s, -webkit-text-fill-color 0s 0s !important;
+  }
+  
+  /* Modo oscuro */
+  .dark input:-webkit-autofill {
+    -webkit-text-fill-color: white !important;
+  }
+  

@@ -263,7 +263,7 @@ function FormRegister({
             className="bg-white dark:bg-gray-900 duration-500 p-6 rounded-lg shadow-md transition-colors mt-8"
           >
             <h2 className="text-3xl font-semibold mb-4 capitalize text-gray-900 dark:text-white">
-              datos personales
+              Datos personales
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -303,13 +303,14 @@ function FormRegister({
                   Apellido
                 </label>
               </div>
+              {/* Desde aca cambiar color fuente y icono del Date*/}
 
               <div className="relative z-0 w-full group">
                 <input
                   type="date"
                   name="fechaNacimiento"
                   id="floating_company"
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   required
                   value={cvData.fechaNacimiento}
@@ -328,7 +329,7 @@ function FormRegister({
                   type="tel"
                   name="phone"
                   id="floating_phone"
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   value={cvData.phone}
                   onChange={handleInputChange}
@@ -346,7 +347,7 @@ function FormRegister({
                   type="email"
                   name="email"
                   id="floating_email"
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   value={cvData.email}
                   onChange={handleInputChange}
@@ -355,7 +356,7 @@ function FormRegister({
                   htmlFor="floating_email"
                   className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 capitalize"
                 >
-                  correo electrónico
+                  Correo electrónico
                 </label>
               </div>
               {/* hacerlo con una appi que se despliegue la ciudad */}
@@ -364,7 +365,7 @@ function FormRegister({
                   type="text"
                   name="provincia"
                   id="floating_provincia"
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   value={cvData.provincia}
                   onChange={handleInputChange}
@@ -381,7 +382,7 @@ function FormRegister({
                   type="text"
                   name="ciudad"
                   id="floating_ciudad"
-                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   value={cvData.ciudad}
                   onChange={handleInputChange}
@@ -425,7 +426,7 @@ function FormRegister({
               className={`bg-white dark:bg-gray-900 duration-500 p-6 rounded-lg shadow-md mt-8 `}
             >
               <h2 className="text-2xl font-semibold mb-4 capitalize text-black dark:text-white">
-                educación
+                Educación
               </h2>
 
               {cvData.education.map((edu: any, index: any) => (
@@ -482,7 +483,7 @@ function FormRegister({
                     type="text"
                     name="institucion"
                     id="floating_institucion"
-                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
                     value={newEducation.institucion}
                     onChange={handleEducationChange}
@@ -500,7 +501,7 @@ function FormRegister({
                     type="text"
                     name="carrera"
                     id="carrera_titulo"
-                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
                     value={newEducation.carrera}
                     onChange={handleEducationChange}
@@ -517,7 +518,7 @@ function FormRegister({
                     type="text"
                     name="zonaInstitucion"
                     id="zonaInstitucion"
-                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-500 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
                     value={newEducation.zonaInstitucion}
                     onChange={handleEducationChange}
@@ -539,12 +540,12 @@ function FormRegister({
                   <select
                     id="nivel_estudio"
                     name="estudios"
-                    className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
+                    className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     onChange={handleEducationChange}
                     value={newEducation.estudios}
                   >
                     <option value={""} hidden>
-                      seleccione nivel
+                      Seleccione nivel
                     </option>
                     <option value={"PRIMARIO"}>Primario</option>
                     <option value={"SECUNDARIO"}>Secundario</option>
@@ -558,21 +559,21 @@ function FormRegister({
                     htmlFor="estado_estudio"
                     className="block mb-2 text-xs font-medium text-gray-900 dark:text-gray-400"
                   >
-                    estado:
+                    Estado:
                   </label>
                   <select
                     id="estado_estudio"
                     name="estado"
-                    className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
+                    className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     value={newEducation.estado}
                     onChange={handleEducationChange}
                   >
                     <option value={""} hidden>
-                      seleccione un estado
+                      Seleccione un estado
                     </option>
-                    <option value={"COMPLETO"}>completo</option>
-                    <option value={"PROCESO"}>en proceso</option>
-                    <option value={"INCOMPLETO"}>incompleto</option>
+                    <option value={"COMPLETO"}>Completo</option>
+                    <option value={"PROCESO"}>En proceso</option>
+                    <option value={"INCOMPLETO"}>Incompleto</option>
                   </select>
                 </div>
 
@@ -581,16 +582,16 @@ function FormRegister({
                     htmlFor="anioInicioEducacion"
                     className="block mb-2 text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
-                    año inicio
+                    Año de inicio
                   </label>
                   <select
                     name="anioInicioEducacion"
-                    className="w-full px-3 py-2 border border-gray-300 text-sm rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
+                    className="w-full px-3 py-2 border border-gray-300 text-sm rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     value={newEducation.anioInicioEducacion}
                     onChange={handleEducationChange}
                   >
                     <option value={""} hidden>
-                      seleccione año
+                      Seleccione año
                     </option>
 
                     {arr.map((e, i) => {
@@ -608,17 +609,17 @@ function FormRegister({
                     htmlFor="anioFinEducacion"
                     className="block mb-2 text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
-                    año fin
+                    Año de finalización o fecha prevista
                   </label>
                   <select
                     disabled={newEducation.anioInicioEducacion == ""}
                     name="anioFinEducacion"
-                    className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
+                    className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     value={newEducation.anioFinEducacion}
                     onChange={handleEducationChange}
                   >
                     <option value={""} hidden>
-                      seleccione año
+                      Seleccione año
                     </option>
 
                     {newEducation.estado == "PROCESO" && (
@@ -653,7 +654,7 @@ function FormRegister({
                   >
                     <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
                   </svg>
-                  <span>agregar</span>
+                  <span>Agregar</span>
                 </button>
 
                 <button
@@ -741,7 +742,7 @@ function FormRegister({
                     type="text"
                     name="puesto"
                     id="puesto"
-                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=""
                     value={newExperience.puesto}
                     onChange={handleExperienceChange}
@@ -750,7 +751,7 @@ function FormRegister({
                     htmlFor="puesto"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
-                    Nombre del puesto
+                    Nombre del cargo
                   </label>
                 </div>
 
@@ -777,7 +778,7 @@ function FormRegister({
                     type="text"
                     name="zonaEmpresa"
                     id="zona_empresa"
-                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=""
                     value={newExperience.zonaEmpresa}
                     onChange={handleExperienceChange}
@@ -796,17 +797,17 @@ function FormRegister({
                     htmlFor="anioInicioExperiencia"
                     className="block mb-1 text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
-                    año inicio
+                    Año de inicio
                   </label>
                   <select
                     id="anioInicioExperiencia"
                     name="anioInicioExperiencia"
-                    className="w-full px-3 text-sm py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
+                    className="w-full px-3 text-sm py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     onChange={handleExperienceChange}
                     value={newExperience.anioInicioExperiencia}
                   >
                     <option value={""} hidden>
-                      seleccione año
+                      Seleccione año
                     </option>
 
                     {arr.map((e, i) => {
@@ -824,18 +825,18 @@ function FormRegister({
                     htmlFor="anioFinExperiencia"
                     className="block mb-1 text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
-                    año fin
+                    Año de finalización*
                   </label>
                   <select
                     id="anioFinExperiencia"
                     name="anioFinExperiencia"
-                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     onChange={handleExperienceChange}
                     value={newExperience.anioFinExperiencia}
                     disabled={newExperience.anioInicioExperiencia === ""}
                   >
                     <option value={""} hidden>
-                      seleccione año
+                      Seleccione año
                     </option>
 
                     <option value={"Actualidad"}>Actualidad</option>
@@ -863,7 +864,7 @@ function FormRegister({
                     id="descripcionExperiencia"
                     rows={4}
                     name="descripcionExperiencia"
-                    className="w-full px-3 py-2 border border-gray-300 dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200 rounded-md"
+                    className="w-full px-3 py-2 border border-gray-300 dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white rounded-md"
                     placeholder="Descripción de tareas"
                     onChange={handleExperienceChange}
                     value={newExperience.descripcionExperiencia}
@@ -886,7 +887,7 @@ function FormRegister({
                   >
                     <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
                   </svg>
-                  <span>agregar</span>
+                  <span>Agregar</span>
                 </button>
 
                 <button
@@ -970,7 +971,7 @@ function FormRegister({
                     type="text"
                     name="curso"
                     id="nombre_curso"
-                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=""
                     value={newCursos.curso}
                     onChange={handleCursoChange}
@@ -988,7 +989,7 @@ function FormRegister({
                     type="text"
                     name="institucion"
                     id="institucion_nombre_curso"
-                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=""
                     onChange={handleCursoChange}
                     value={newCursos.institucion}
@@ -1007,17 +1008,17 @@ function FormRegister({
                     htmlFor="anioInicioCurso"
                     className="block text-xs mb-1 font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
-                    año inicio
+                    Año de inicio
                   </label>
                   <select
                     id="anioInicioCurso"
                     name="anioInicioCurso"
-                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     value={newCursos.anioInicioCurso}
                     onChange={handleCursoChange}
                   >
                     <option value={""} hidden>
-                      seleccione año
+                      Seleccione año
                     </option>
 
                     {arr.map((e, i) => {
@@ -1045,7 +1046,7 @@ function FormRegister({
                   >
                     <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
                   </svg>
-                  <span>agregar</span>
+                  <span>Agregar</span>
                 </button>
                 <button
                   type="button"
@@ -1127,7 +1128,7 @@ function FormRegister({
                     type="text"
                     name="idioma"
                     id="floating_idioma"
-                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=""
                     value={newIdioma.idioma}
                     onChange={handleIdiomaChange}
@@ -1136,7 +1137,7 @@ function FormRegister({
                     htmlFor="floating_idioma"
                     className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                   >
-                    Nombre de idioma
+                    ¿Qué idioma dominas?
                   </label>
                 </div>
 
@@ -1145,22 +1146,22 @@ function FormRegister({
                     htmlFor="idioma_nivel"
                     className="block text-xs mb-1 font-medium text-gray-900 dark:text-gray-400 capitalize"
                   >
-                    nivel{" "}
+                    Nivel{" "}
                   </label>
                   <select
                     id="idioma_nivel"
                     name="nivel"
-                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-200"
+                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     value={newIdioma.nivel}
                     onChange={handleIdiomaChange}
                   >
                     <option value={""} hidden>
-                      seleccione nivel
+                      Seleccione nivel
                     </option>
 
-                    <option value={"BASICO"}>básico</option>
-                    <option value={"INTERMEDIO"}>intermedio</option>
-                    <option value={"AVANZADO"}>avanzado</option>
+                    <option value={"BASICO"}>Básico</option>
+                    <option value={"INTERMEDIO"}>Intermedio</option>
+                    <option value={"AVANZADO"}>Avanzado</option>
                   </select>
                 </div>
               </div>
@@ -1180,7 +1181,7 @@ function FormRegister({
                   >
                     <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
                   </svg>
-                  <span>agregar</span>
+                  <span>Agregar</span>
                 </button>
 
                 <button
@@ -1213,7 +1214,7 @@ function FormRegister({
               className={`bg-white dark:bg-gray-900 duration-500 p-6 rounded-lg shadow-md  mt-8`}
             >
               <h2 className="text-2xl font-semibold mb-4 capitalize text-black dark:text-white">
-                Información adicional
+                Información Adicional
               </h2>
 
               <div className="grid grid-cols-1  gap-4">
@@ -1227,7 +1228,7 @@ function FormRegister({
                   />
                   <label
                     htmlFor="licencia"
-                    className="block  text-sm font-medium text-gray-900 dark:text-gray-400 
+                    className="block  text-sm font-medium text-gray-900 dark:text-white 
                 capitalize"
                   >
                     Licencia de conducir.
@@ -1244,7 +1245,7 @@ function FormRegister({
                   />
                   <label
                     htmlFor="movilidad"
-                    className="block  text-sm font-medium text-gray-900 dark:text-gray-400 
+                    className="block  text-sm font-medium text-gray-900 dark:text-white 
               "
                   >
                     Movilidad propia.
@@ -1261,7 +1262,7 @@ function FormRegister({
                   />
                   <label
                     htmlFor="incorporacion"
-                    className="block  text-sm font-medium text-gray-900 dark:text-gray-400 
+                    className="block  text-sm font-medium text-gray-900 dark:text-white 
               "
                   >
                     Incorporación inmediata.
@@ -1278,7 +1279,7 @@ function FormRegister({
                   />
                   <label
                     htmlFor="office"
-                    className="block  text-sm font-medium text-gray-900 dark:text-gray-400 
+                    className="block  text-sm font-medium text-gray-900 dark:text-white 
               "
                   >
                     Microsoft Office.
@@ -1288,9 +1289,9 @@ function FormRegister({
                 <div className="">
                   <label
                     htmlFor="disponibilidad"
-                    className="block mb-2 text-xs font-medium text-gray-900 dark:text-gray-400  capitalize"
+                    className="block mb-2 text-xs font-medium text-gray-900 dark:text-white  capitalize"
                   >
-                    disponibilidad horaria
+                    Disponibilidad Horaria
                   </label>
                   <select
                     id="disponibilidad"
@@ -1300,10 +1301,10 @@ function FormRegister({
                     onChange={handleInputChange}
                   >
                     <option value={""} hidden>
-                      seleccione disponibilidad
+                      Seleccione disponibilidad
                     </option>
-                    <option value={"FULLTIME"}>full time</option>
-                    <option value={"PARTTIME"}>part time</option>
+                    <option value={"FULLTIME"}>Full Time</option>
+                    <option value={"PARTTIME"}>Part Time</option>
                   </select>
                 </div>
               </div>
@@ -1349,7 +1350,7 @@ function FormRegister({
               <div className="relative z-0 w-full group">
                 <input
                   type="text"
-                  className="block py-2.5  px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer "
+                  className="block py-2.5  px-0 w-full text-sm text-gray-900 dark:text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer "
                   name="orientadoCV"
                   id="floating_orientado"
                   placeholder=" "

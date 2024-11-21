@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <footer className="bg-white dark:bg-gray-800 mt-12 border-t dark:border-gray-700">
+    <footer className="bg-white dark:bg-gray-800 mt-12 border-t dark:border-gray-700 duration-500">
       <div className="container mx-auto px-4 py-8">
         <div className="grid md:grid-cols-3 gap-8">
           {/* Sección del CV Builder */}

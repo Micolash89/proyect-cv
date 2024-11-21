@@ -48,6 +48,7 @@ export interface CVData {
   phone: string;
   ciudad: string;
   provincia: string;
+  imagenPerfil: string;
   education: Estudio[];
   experience: Experiencia[];
   cursos: Curso[];
@@ -66,6 +67,8 @@ export default function Home({ user }: { user?: UserDataBase }) {
     { ssr: false }
   );
 
+  const [showCompleteInputs, setShowCompleteInputs] = useState(false);
+
   const [cvData, setCVData] = useState<CVData>({
     name: "",
     lastName: "",
@@ -73,6 +76,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
     dni:"",
     fechaNacimiento: "",
     phone: "",
+    imagenPerfil:"",
     ciudad: "",
     provincia: "",
     education: [],
@@ -90,6 +94,8 @@ export default function Home({ user }: { user?: UserDataBase }) {
   useEffect(() => {
     if (user) {
 
+      setShowCompleteInputs(true);
+
       const estudios : Estudio[] = user.estudios.map((estudio: EstudioDataBase) => ({
         estado: estudio.estado,
         carrera: estudio.carrera,
@@ -102,7 +108,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
 
       const experiencias: Experiencia[] = user.experiencias.map((experiencia: ExperienciaDataBase) => ({
         puesto: experiencia.puesto,
-        nombreEmpresa: experiencia.empresa,
+        nombreEmpresa: experiencia.nombre,
         zonaEmpresa: experiencia.ubicacion,
         anioInicioExperiencia: experiencia.fechaInicio,
         anioFinExperiencia: experiencia.fechaFin,
@@ -110,7 +116,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
       }));
 
       const cursos : Curso[] = user.cursos.map((curso: CursoDataBase) => ({
-        curso: curso.curso,
+        curso: curso.nombre,
         institucion: curso.institucion,
         anioInicioCurso: curso.fechaInicio,
       }));
@@ -130,6 +136,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
         phone: user.telefono || "",
         ciudad: user.ciudad || "",
         provincia: user.provincia || "",
+        imagenPerfil: user.imagenPerfil || "",
         education: estudios || [],
         experience: experiencias || [],
         cursos: cursos || [],
@@ -164,10 +171,10 @@ export default function Home({ user }: { user?: UserDataBase }) {
   return (
     <>
       <main className=" w-full">
-        <FormRegister cvData={cvData} updateCVData={updateCVData} />
+        <FormRegister cvData={cvData} updateCVData={updateCVData} allInputs={showCompleteInputs} />
 
         <PreviewCV cvData={cvData} iaData={iaData} />
-      </main>
+      
       <IARegister
         cvData={cvData}
         updateIAData={updateIAData}
@@ -192,7 +199,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
 
       <TextZoom setContador={setContador} contador={contador} />
 
-      <div className="max-w-4xl mx-auto h-full">
+      <div className="max-w-4xl mx-auto h-[900px]">
         {
           <PDFViewer width="100%" height="100%">
             <MyDocumentPDF
@@ -204,6 +211,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
           </PDFViewer>
         }
       </div>
+      </main>
     </>
   );
 }

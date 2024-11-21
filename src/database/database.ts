@@ -1,15 +1,14 @@
 //ejecutar una query usando prima en una funcion en postgre
-"use server"
+"use server";
 
 import { PrismaClient } from "@prisma/client";
 
- const prisma = new PrismaClient();
-const ITEMS_PER_PAGE = 6;
+const prisma = new PrismaClient();
+const ITEMS_PER_PAGE = 7;
 
 export async function getAllUsers() {
   try {
     prisma.$connect();
-
     const users = await prisma.user.findMany();
     return users;
   } catch (error) {
@@ -19,7 +18,7 @@ export async function getAllUsers() {
   }
 }
 
-export async function fetchInvoicesPages(query: string) {
+export async function fetchRegistrosPages(query: string) {
   try {
     const users = await prisma.user.findMany({
       where: {
@@ -59,14 +58,47 @@ export async function fetchInvoicesPages(query: string) {
 export async function fetchFilteredUsers(query: string, currentPage: number) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
+  const filter: string = query.replaceAll(" ", "");
+
   try {
     const users = await prisma.user.findMany({
       where: {
         OR: [
-          { nombre: { contains: query } },
-          { apellido: { contains: query } },
-          { telefono: { contains: query } },
-          { email: { contains: query } },
+          { nombre: { contains: query.trim(), mode: "insensitive" } },
+          { apellido: { contains: query.trim(), mode: "insensitive" } },
+          { telefono: { contains: query.trim(), mode: "insensitive" } },
+          { email: { contains: query.trim(), mode: "insensitive" } },
+          { dni: { contains: query.trim(), mode: "insensitive" } },
+          { nombre: { contains: filter, mode: "insensitive" } },
+          { apellido: { contains: filter, mode: "insensitive" } },
+          {
+            AND: [
+              { nombre: { contains: filter, mode: "insensitive" } },
+              { apellido: { contains: filter, mode: "insensitive" } },
+            ],
+          },
+          {
+            AND: [
+              { apellido: { contains: filter, mode: "insensitive" } },
+              { nombre: { contains: filter, mode: "insensitive" } },
+            ],
+          },
+          {
+            AND: [
+              { nombre: { contains: filter, mode: "insensitive" } },
+              { apellido: { contains: filter, mode: "insensitive" } },
+              { nombre: { startsWith: filter, mode: "insensitive" } },
+              { apellido: { startsWith: filter, mode: "insensitive" } },
+            ],
+          },
+          {
+            AND: [
+              { apellido: { contains: filter, mode: "insensitive" } },
+              { nombre: { contains: filter, mode: "insensitive" } },
+              { apellido: { startsWith: filter, mode: "insensitive" } },
+              { nombre: { startsWith: filter, mode: "insensitive" } },
+            ],
+          },
         ],
       },
       orderBy: { id: "desc" },
@@ -77,7 +109,7 @@ export async function fetchFilteredUsers(query: string, currentPage: number) {
     return users;
   } catch (error) {
     console.error("Database Error:", error);
-    // throw new Error("Failed to fetch users.");
+    throw new Error("Failed to fetch users.");
   }
 }
 
@@ -99,7 +131,7 @@ export async function getUserId(id: number) {
         provincia: true,
         linkedin: true,
         orientacionCV: true,
-        dni:true,
+        dni: true,
         visto: true,
         estudios: {
           select: {
@@ -157,4 +189,3 @@ export async function getUserId(id: number) {
     return null;
   }
 }
-

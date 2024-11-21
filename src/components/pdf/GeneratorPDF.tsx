@@ -5,25 +5,31 @@ import {
   View,
   StyleSheet,
   Font,
+  Image,
 } from "@react-pdf/renderer";
 import { TypeIAData } from "../PreviewCV";
+import React from "react";
 
 // Registramos las fuentes que vamos a usar
 Font.register({
-  family: 'Times',
+  family: "Times",
   fonts: [
     {
       src: "/fonts/TimesNewRoman.ttf",
     },
     {
       src: "/fonts/TimesNewRoman.ttf",
-      fontWeight: 'bold',
+      fontWeight: "normal",
     },
     {
-      src: "/fonts/TimesNewRoman.ttf",
-      fontStyle: 'italic',
-    }
-  ]
+      src: "/fonts/TimesNewRomanBold.ttf",
+      fontWeight: "bold",
+    },
+    {
+      src: "/fonts/TimesNewRomanItalic.ttf",
+      fontStyle: "italic",
+    },
+  ],
 });
 
 interface CVData {
@@ -35,6 +41,7 @@ interface CVData {
   phone: string;
   ciudad: string;
   provincia: string;
+  imagenPerfil: string;
   education: Array<{
     carrera: string;
     estado: string;
@@ -70,25 +77,24 @@ interface CVData {
 
 const styles = StyleSheet.create({
   page: {
-   
     fontFamily: "Times",
     fontSize: 12,
-    lineHeight: 1.5,
+    fontWeight: "normal",
   },
   header: {
-    marginBottom: 20,
+    marginBottom: 10,
   },
   name: {
     fontWeight: "bold",
     textTransform: "uppercase",
-    marginBottom: 8,
     textAlign: "center",
+    lineHeight: 1.5,
   },
   contactInfo: {
     textAlign: "center",
     color: "#333333",
-    marginBottom: 4,
-    fontStyle: "italic",
+    marginBottom: 2,
+    borderBottom: "1 solid #000",
   },
   sectionTitle: {
     fontWeight: "bold",
@@ -96,7 +102,7 @@ const styles = StyleSheet.create({
     borderBottom: "1 solid #000",
     marginTop: 12,
     marginBottom: 8,
-    paddingBottom: 4,
+    lineHeight: 1,
   },
   entryContainer: {
     marginBottom: 8,
@@ -110,7 +116,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   location: {
-    fontStyle: "italic",
+    fontStyle: "normal",
     color: "#666666",
   },
   degree: {
@@ -120,9 +126,8 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
   },
   description: {
-    
     marginLeft: 12,
-    marginTop: 2,
+    marginRight: 12,
   },
   skills: {
     marginTop: 4,
@@ -135,7 +140,7 @@ const styles = StyleSheet.create({
     width: 3,
     height: 3,
     marginRight: 6,
-  }
+  },
 });
 
 const MyDocumentPDF: React.FC<{
@@ -145,41 +150,89 @@ const MyDocumentPDF: React.FC<{
 }> = ({ cvData, iaData, contador }) => {
   return (
     <Document>
-      <Page size="A4" style={[styles.page,{ padding: 45 - (contador<=5? contador*5:25)}]}>
+      <Page
+        size="A4"
+        style={[
+          styles.page,
+          { padding: 45 - (contador <= 5 ? contador * 5 : 25) },
+        ]}
+      >
         {/* Header */}
         <View style={styles.header}>
-          <Text style={[styles.name, { fontSize: 20 + contador }]}>
+          <Text
+            style={[
+              styles.name,
+              {
+                fontSize: 24 + contador,
+                marginTop: 20 ,
+                marginBottom: contador <= 2 ? contador*5 : 15,
+              },
+            ]}
+          >
             {cvData.name} {cvData.lastName}
           </Text>
           <Text style={[styles.contactInfo, { fontSize: 11 + contador }]}>
-            {cvData.ciudad}, {cvData.provincia} • {cvData.phone}
+            {cvData.ciudad}, {cvData.provincia}{" "}
+            {cvData.dni && `• DNI:${cvData.dni}`} • {cvData.fechaNacimiento} •
+            Tel.:{cvData.phone}
             {cvData.email && ` • ${cvData.email}`}
           </Text>
         </View>
+        {cvData.imagenPerfil && (
+          <Image
+            src={cvData.imagenPerfil}
+            style={{
+              position: "absolute",
+              top: 10,
+              left: 10,
+              width: 90,
+              height: 90,
+              objectFit: "cover",
+            }}
+          />
+        )}
 
         {/* Profile Summary */}
         {iaData.profile && (
           <View>
-            <Text style={[styles.sectionTitle, { fontSize: 14 + contador }]}>PERFIL</Text>
-            <Text style={[styles.description, { fontSize: 11 + contador, fontStyle: "italic" }]}>{iaData.profile}</Text>
+            <Text
+              style={[
+                styles.description,
+                {
+                  fontSize: 10.5 + contador,
+                  fontStyle: "italic",
+                  textAlign: "justify",
+                },
+              ]}
+            >
+              {iaData.profile}
+            </Text>
           </View>
         )}
 
         {/* Education */}
         {cvData.education.length > 0 && (
           <View>
-            <Text style={[styles.sectionTitle, { fontSize: 14 + contador }]}>EDUCACIÓN</Text>
+            <Text style={[styles.sectionTitle, { fontSize: 14 + contador }]}>
+              EDUCACIÓN
+            </Text>
             {cvData.education.map((edu, index) => (
               <View key={index} style={styles.entryContainer}>
                 <View style={styles.entryHeader}>
-                  <Text style={[styles.institution, { fontSize: 12 + contador }]}>{edu.institucion}</Text>
-                  <Text style={[styles.location, { fontSize: 12 + contador }]}>{edu.zonaInstitucion}</Text>
+                  <Text
+                    style={[styles.institution, { fontSize: 11 + contador }]}
+                  >
+                    {edu.institucion}
+                  </Text>
+                  <Text style={[styles.location, { fontSize: 11 + contador }]}>
+                    {edu.zonaInstitucion}
+                  </Text>
                 </View>
                 <View style={styles.entryHeader}>
-                  <Text style={[styles.degree, { fontSize: 12 + contador }]}>
+                  <Text style={[styles.degree, { fontSize: 11 + contador }]}>
                     {edu.carrera} ({edu.estado.toLowerCase()})
                   </Text>
-                  <Text style={[styles.dates, { fontSize: 12 + contador }]}>
+                  <Text style={[styles.dates, { fontSize: 11 + contador }]}>
                     {edu.anioInicioEducacion} - {edu.anioFinEducacion}
                   </Text>
                 </View>
@@ -191,22 +244,66 @@ const MyDocumentPDF: React.FC<{
         {/* Experience */}
         {cvData.experience.length > 0 && (
           <View>
-            <Text style={[styles.sectionTitle, { fontSize: 14 + contador }]}>EXPERIENCIA PROFESIONAL</Text>
+            <Text style={[styles.sectionTitle, { fontSize: 14 + contador }]}>
+              EXPERIENCIA PROFESIONAL
+            </Text>
             {cvData.experience.map((exp, index) => (
               <View key={index} style={styles.entryContainer}>
                 <View style={styles.entryHeader}>
-                  <Text style={[styles.institution, { fontSize: 12 + contador }]}>{exp.nombreEmpresa}</Text>
-                  <Text style={[styles.location, { fontSize: 12 + contador }]}>{exp.zonaEmpresa}</Text>
+                  <Text
+                    style={[styles.institution, { fontSize: 11 + contador }]}
+                  >
+                    {exp.nombreEmpresa}
+                  </Text>
+                  <Text style={[styles.location, { fontSize: 11 + contador }]}>
+                    {exp.zonaEmpresa}
+                  </Text>
                 </View>
                 <View style={styles.entryHeader}>
-                  <Text style={[styles.degree, { fontSize: 12 + contador }]}>{exp.puesto}</Text>
-                  <Text style={[styles.dates, { fontSize: 12 + contador }]}>
+                  <Text style={[styles.degree, { fontSize: 11 + contador }]}>
+                    {exp.puesto}
+                  </Text>
+                  <Text style={[styles.dates, { fontSize: 11 + contador }]}>
                     {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
                   </Text>
                 </View>
                 <Text style={[styles.description, { fontSize: 11 + contador }]}>
-                  {iaData.descriptionWork.split("\n")[index]}
+                  • {iaData.descriptionWork.split("\n")[index]}
                 </Text>
+              </View>
+            ))}
+          </View>
+        )}
+
+        {/* Certifications */}
+        {cvData.cursos.length > 0 && (
+          <View>
+            <Text style={[styles.sectionTitle, { fontSize: 14 + contador }]}>
+              CERTIFICACIONES
+            </Text>
+            {cvData.cursos.map((curso, index) => (
+              <View key={index} style={styles.entryContainer}>
+                <View style={styles.entryHeader}>
+                  <Text
+                    style={[styles.institution, { fontSize: 11 + contador }]}
+                  >
+                    • {curso.curso}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.location,
+                      { fontSize: 11 + contador, fontStyle: "italic" },
+                    ]}
+                  >
+                    {curso.anioInicioCurso}
+                  </Text>
+                </View>
+
+                <View style={styles.entryHeader}>
+                  <Text style={[styles.degree, { fontSize: 11 + contador }]}>
+                    {curso.institucion}
+                  </Text>
+                </View>
               </View>
             ))}
           </View>
@@ -215,8 +312,16 @@ const MyDocumentPDF: React.FC<{
         {/* Skills */}
         {iaData.skills && (
           <View>
-            <Text style={[styles.sectionTitle, { fontSize: 14 + contador }]}>HABILIDADES</Text>
-            <Text style={[styles.skills, { fontSize: 11 + contador }]}>{iaData.skills}</Text>
+            <Text style={[styles.sectionTitle, { fontSize: 14 + contador }]}>
+              HABILIDADES
+            </Text>
+            <View style={[styles.description, { textAlign: "center" }]}>
+              <Text wrap={true} style={{ fontSize: 11 + contador }}>
+                {iaData.skills.split(" •").map((skill, index) => (
+                  <React.Fragment key={index}>• {skill} </React.Fragment>
+                ))}
+              </Text>
+            </View>
           </View>
         )}
 
@@ -228,8 +333,15 @@ const MyDocumentPDF: React.FC<{
           cvData.office ||
           cvData.idiomas.length > 0) && (
           <View>
-            <Text style={[styles.sectionTitle, { fontSize: 14 + contador }]}>INFORMACIÓN ADICIONAL</Text>
-            <Text style={[styles.additionalInfo, { fontSize: 11 + contador }]}>
+            <Text style={[styles.sectionTitle, { fontSize: 14 + contador }]}>
+              INFORMACIÓN ADICIONAL
+            </Text>
+            <Text
+              style={[
+                styles.description,
+                { fontSize: 11 + contador, textAlign: "center" },
+              ]}
+            >
               {[
                 cvData.licencia && "Licencia de conducir",
                 cvData.movilidad && "Vehículo propio",
@@ -237,27 +349,12 @@ const MyDocumentPDF: React.FC<{
                 cvData.disponibilidad && `Jornada: ${cvData.disponibilidad}`,
                 cvData.office && "Microsoft Office",
                 ...cvData.idiomas.map(
-                  (idioma) =>
-                    `${idioma.idioma} - ${idioma.nivel.toLowerCase()}`
+                  (idioma) => `${idioma.idioma} - ${idioma.nivel.toLowerCase()}`
                 ),
               ]
                 .filter(Boolean)
                 .join(" • ")}
             </Text>
-          </View>
-        )}
-
-        {/* Certifications */}
-        {cvData.cursos.length > 0 && (
-          <View>
-            <Text style={[styles.sectionTitle, { fontSize: 14 + contador }]}>CERTIFICACIONES</Text>
-            {cvData.cursos.map((curso, index) => (
-              <View key={index} style={styles.entryContainer}>
-                <Text style={[styles.description, { fontSize: 11 + contador }]}>
-                  • {curso.curso}, {curso.institucion} ({curso.anioInicioCurso})
-                </Text>
-              </View>
-            ))}
           </View>
         )}
       </Page>

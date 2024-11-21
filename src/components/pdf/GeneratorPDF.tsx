@@ -87,10 +87,8 @@ const styles = StyleSheet.create({
   name: {
     fontWeight: "bold",
     textTransform: "uppercase",
-    marginBottom: 8,
     textAlign: "center",
     lineHeight: 1.5,
-    marginTop: 10,
   },
   contactInfo: {
     textAlign: "center",
@@ -130,6 +128,7 @@ const styles = StyleSheet.create({
   },
   description: {
     marginLeft: 12,
+    marginRight: 12,
   },
   skills: {
     marginTop: 4,
@@ -161,7 +160,16 @@ const MyDocumentPDF: React.FC<{
       >
         {/* Header */}
         <View style={styles.header}>
-          <Text style={[styles.name, { fontSize: 24 + contador }]}>
+          <Text
+            style={[
+              styles.name,
+              {
+                fontSize: 24 + contador,
+                marginTop: 20 ,
+                marginBottom: contador <= 2 ? contador*5 : 15,
+              },
+            ]}
+          >
             {cvData.name} {cvData.lastName}
           </Text>
           <Text style={[styles.contactInfo, { fontSize: 11 + contador }]}>
@@ -191,7 +199,11 @@ const MyDocumentPDF: React.FC<{
             <Text
               style={[
                 styles.description,
-                { fontSize: 10.5 + contador, fontStyle: "italic" },
+                {
+                  fontSize: 10.5 + contador,
+                  fontStyle: "italic",
+                  textAlign: "justify",
+                },
               ]}
             >
               {iaData.profile}
@@ -327,7 +339,7 @@ const MyDocumentPDF: React.FC<{
             </Text>
             <Text
               style={[
-                styles.additionalInfo,
+                styles.description,
                 { fontSize: 11 + contador, textAlign: "center" },
               ]}
             >

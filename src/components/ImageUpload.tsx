@@ -126,12 +126,12 @@ export default function ImageUpload({
               onDrop={handleDrop}
               className={`
               cursor-pointer
-              p-4 border-2 ${
+              p-4 border-2 w-[200px] h-[200px]  ${ 
                 isDragOver ? "border-blue-500" : "border-dashed border-gray-300"
               }
               flex flex-col justify-center items-center gap-2
               hover:border-gray-400 transition rounded-lg
-              ${isUploading ? "opacity-50 cursor-not-allowed" : ""}
+              ${isUploading ? "opacity-50 cursor-not-allowed pulse" : ""}
             `}
             >
               <svg

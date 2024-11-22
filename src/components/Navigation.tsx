@@ -1,55 +1,36 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import NavigationLinks from "./NavigationLinks";
 import ThemeToggle from "./ThemeToggle";
-// import Cookies from 'js-cookie'
-
+import { getCookie } from "@/lib/serverFuntions";
 
 export default function Navigation() {
-  function getCookie(name: string): string | null {
-    const value = `; ${document.cookie}`
-    const parts = value.split(`; ${name}=`)
-    if (parts.length === 2) return parts.pop()?.split(';').shift() ?? null;
-    return null;
-  }
-  let arrLinks = [
-    {
-      url: "/",
-      name: "inicio",
-    },
-    {
-      url: "/about",
-      name: "Acerca de",
-    },
-  ];
+  const [links, setLinks] = useState([
+    { url: "/", name: "inicio" },
+    { url: "/about", name: "Acerca de" }
+  ]);
 
   const [userLogin, setUserLogin] = useState(false);
-  
-  const token = getCookie('token');
-  const adminUser = getCookie('adminUser');
 
   useEffect(() => {
-    
-
-    if (!token) {
-      return;
-    }else{
-      arrLinks.push(
-        {
+    getCookie("token").then((token) => {
+      if (token) {
+        setLinks(prevLinks => [...prevLinks, {
           url: "/dashboard",
-          name: "Dashboard",
-        },
-      )
-    }
+          name: "Dashboard"
+        }]);
+      }
+    });
 
-    if (adminUser){
-      setUserLogin(true);
-    }
-
-  }, [token, adminUser]);
+    getCookie("adminUser").then((adminUser) => {
+      if(adminUser) {
+        setUserLogin(true);
+      }
+    });
+  }, []);
 
   return (
     <motion.nav
@@ -79,7 +60,7 @@ export default function Navigation() {
                 strokeLinejoin="round"
                 className="text-blue-500"
                 whileHover={{ scale: 1.1 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                 <polyline points="14 2 14 8 20 8"></polyline>
@@ -90,14 +71,14 @@ export default function Navigation() {
               <motion.span
                 className="font-bold text-xl dark:text-white duration-500"
                 whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 Creador de CV
               </motion.span>
             </Link>
 
             <div className="hidden md:flex items-center space-x-6">
-              {arrLinks.map((link, index) => {
+              {links.map((link, index) => {
                 return (
                   <motion.div
                     key={`${index}-navigation`}

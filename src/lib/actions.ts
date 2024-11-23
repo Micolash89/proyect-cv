@@ -39,6 +39,7 @@ const CreateSchemaUsuario = z.object({
   fechaNacimiento: z.coerce.date({
     message: "seleccione una fecha de nacimiento",
   }),
+  imagePerfil: z.string().optional(),
   phone: z.string().min(6, "el telefono debe tener al menos 6 caracteres"),
   ciudad: z.string().min(4, "la ciudad debe de tener al menos 4 caracteres"),
   provincia: z
@@ -125,6 +126,7 @@ const CreateSchemaUsuario = z.object({
   incorporacion: z.string({ message: "seleccione una opción" }).optional(),
   disponibilidad: z.string({ message: "seleccione una opción" }).optional(),
   office: z.string({ message: "seleccione una opción" }).optional(),
+  orientadoCV: z.string({ message: "Ingrese una orientación" }).optional(),
 });
 
 const CreateUsuario = CreateSchemaUsuario.omit({});
@@ -142,7 +144,8 @@ export async function postUsuarios(
   cursos1: any[],
   education: any[],
   idiomas: any[],
-  formData: FormData
+  imagenPerfil:string,
+  formData: FormData,
 ) {
   console.log("backend");
   console.log("experiencia", experience);
@@ -186,8 +189,13 @@ export async function postUsuarios(
       incorporacion,
       disponibilidad,
       office,
+      orientadoCV,
+      imagePerfil
     },
   } = validatedFields;
+
+  
+
 
   try {
     const user = await prisma.user.create({
@@ -201,6 +209,9 @@ export async function postUsuarios(
         email: email as string,
         ciudad: ciudad as string,
         provincia: provincia as string,
+        imagenPerfil: imagePerfil as string,
+        orientacionCV: orientadoCV as string
+        
       },
     });
 
@@ -594,4 +605,28 @@ export async function uploadImage(formData: FormData) {
     console.error('Error al subir imagen:', error);
     return { error: 'Error al subir la imagen' };
   }
+}
+
+export async function uploadImageBack(file: File) {
+  try {
+        
+    if (!file) {
+      return  'No se seleccionó ningún archivo';
+    }
+
+    // Convertir el archivo a Base64
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    const fileBase64 = `data:${file.type};base64,${buffer.toString('base64')}`;
+
+    // Subir a Cloudinary
+    const result = await cloudinary.uploader.upload(fileBase64, {
+      folder: 'cv-images',
+    });
+
+    return result.secure_url ;
+  } catch (error) {
+    console.error('Error al subir imagen:', error);
+  }
+  return 'Error al subir la imagen' ;
 }

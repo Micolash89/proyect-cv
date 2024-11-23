@@ -5,47 +5,51 @@ import Image from "next/image";
 import { uploadImage } from "@/lib/actions";
 
 interface ImageUploadProps {
-  onChange: (value: string) => void;
-  onRemove: (value: string) => void;
-  value: string;
+  onChange: (value: File | null) => void;
+  onRemove: () => void;
+  value: File | null;
+  previewUrl: string | null;
 }
 
 export default function ImageUpload({
   onChange,
   onRemove,
   value,
+  previewUrl,
 }: ImageUploadProps) {
-  const [isUploading, setIsUploading] = useState(false);
+  // const [isUploading, setIsUploading] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  async function handleFileUpload(file: File) {
-    setIsUploading(true);
-    const formData = new FormData();
-    formData.append("file", file);
+  // async function handleFileUpload(file: File) {
+  //   setIsUploading(true);
+  //   const formData = new FormData();
+  //   formData.append("file", file);
 
-    try {
-      const result = await uploadImage(formData);
-      if (result.url) {
-        onChange(result.url);
-        console.log(result.url);
-      } else if (result.error) {
-        alert(result.error);
-      }
-    } catch (error) {
-      alert("Error al subir la imagen");
-    } finally {
-      setIsUploading(false);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
-      setIsDragOver(false);
+  //   try {
+  //     const result = await uploadImage(formData);
+  //     if (result.url) {
+  //       onChange(result.url);
+  //       console.log(result.url);
+  //     } else if (result.error) {
+  //       alert(result.error);
+  //     }
+  //   } catch (error) {
+  //     alert("Error al subir la imagen");
+  //   } finally {
+  //     setIsUploading(false);
+  //     if (fileInputRef.current) {
+  //       fileInputRef.current.value = "";
+  //     }
+  //     setIsDragOver(false);
+  //   }
+  // }
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) {
+      onChange(file);
     }
-  }
-
-  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    if (!e.target.files?.[0]) return;
-    await handleFileUpload(e.target.files[0]);
   }
 
   function handleDragOver(e: DragEvent<HTMLLabelElement>) {
@@ -65,21 +69,21 @@ export default function ImageUpload({
     e.stopPropagation();
     setIsDragOver(false);
 
-    const files = e.dataTransfer?.files;
-    if (files && files[0]) {
-      await handleFileUpload(files[0]);
+    const file = e.dataTransfer?.files[0];
+    if (file) {
+      onChange(file);
     }
   }
 
   return (
-    <div className="space-y-4 w-full">
-      <div className="flex items-center gap-4">
-        {value && (
+    <div className=" w-full">
+      <div className="flex items-center justify-center gap-4">
+        {previewUrl && (
           <div className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
             <div className="absolute z-10 top-2 right-2">
               <button
                 type="button"
-                onClick={() => onRemove(value)}
+                onClick={onRemove}
                 className="p-1 bg-red-500 rounded-full hover:bg-red-600 transition"
               >
                 <svg
@@ -104,13 +108,13 @@ export default function ImageUpload({
               fill
               className="object-cover"
               alt="Imagen de perfil"
-              src={value}
+              src={previewUrl}
             />
           </div>
         )}
 
-        {!value && (
-          <div className="flex flex-col items-center">
+        {!previewUrl && (
+          <div className="w-full flex flex-col items-center ">
             <input
               ref={fileInputRef}
               type="file"
@@ -125,14 +129,16 @@ export default function ImageUpload({
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               className={`
-              cursor-pointer
-              p-4 border-2 w-[200px] h-[200px]  ${ 
-                isDragOver ? "border-blue-500" : "border-dashed border-gray-300"
-              }
-              flex flex-col justify-center items-center gap-2
-              hover:border-gray-400 transition rounded-lg
-              ${isUploading ? "opacity-50 cursor-not-allowed pulse" : ""}
-            `}
+                cursor-pointer
+                p-4 border-2 w-full h-[200px]
+                ${
+                  isDragOver
+                    ? "border-blue-500"
+                    : "border-dashed border-gray-300"
+                }
+                flex flex-col justify-center items-center gap-2
+                hover:border-gray-400 transition rounded-lg
+              `}
             >
               <svg
                 width="40"
@@ -151,7 +157,7 @@ export default function ImageUpload({
                 />
               </svg>
               <span className="text-sm text-gray-500">
-                {isUploading ? "Subiendo..." : "Subir foto de perfil"}
+                Subir foto de perfil
               </span>
             </label>
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { postUsuarios } from "@/lib/actions";
+import { postUsuarios, uploadImageBack } from "@/lib/actions";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
@@ -28,6 +28,11 @@ function FormRegister({
     const { name, value } = e.target;
     updateCVData({ [name]: value });
   };
+
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    cvData.imagenPerfil || null
+  );
 
   useEffect(() => {
     if (allInputs) {
@@ -66,8 +71,6 @@ function FormRegister({
     institucion: "",
     anioInicioCurso: "",
   });
-
-  const [image, setImage] = useState(cvData.imagenPerfil || "");
 
   const [newIdioma, setNewIdioma] = useState({
     idioma: "",
@@ -229,11 +232,16 @@ function FormRegister({
   });
 
   const handleSubmit = async (e: FormData) => {
+    if (imageFile) {
+      const url = await uploadImageBack(imageFile);
+      updateCVData({ ...cvData, imagenPerfil: url });
+    }
     const newpost = postUsuarios
       .bind(null, cvData.experience)
       .bind(null, cvData.cursos)
       .bind(null, cvData.education)
-      .bind(null, cvData.idiomas);
+      .bind(null, cvData.idiomas)
+      .bind(null, cvData.imagenPerfil);
 
     const postPromise = newpost(e); // Tu promesa original
 
@@ -344,6 +352,24 @@ function FormRegister({
 
               <div className="relative z-0 w-full group">
                 <input
+                  type="string"
+                  name="dni"
+                  id="floating_dni"
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  value={cvData.dni}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label
+                  htmlFor="floating_dni"
+                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  DNI
+                </label>
+              </div>
+              <div className="relative z-0 w-full group">
+                <input
                   type="tel"
                   name="phone"
                   id="floating_phone"
@@ -413,16 +439,25 @@ function FormRegister({
                 </label>
               </div>
 
-              <div className="relative z-0 w-full group">
+              <div className="relative z-0 w-full group row-span-2">
                 <ImageUpload
-                  value={image}
-                  onChange={(url) => {
-                    setImage(url);
-                    updateCVData({...cvData, imagenPerfil: url });
+                  value={imageFile}
+                  previewUrl={imagePreview}
+                  onChange={(file) => {
+                    setImageFile(file);
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setImagePreview(reader.result as string);
+                        updateCVData({ ...cvData, imagenPerfil: reader.result });
+                      };
+                      reader.readAsDataURL(file);
+                    }
                   }}
                   onRemove={() => {
-                    setImage("");
-                    updateCVData({...cvData, imagenPerfil: "" });
+                    setImageFile(null);
+                    setImagePreview(null);
+                    updateCVData({ ...cvData, imagenPerfil: null });
                   }}
                 />
               </div>

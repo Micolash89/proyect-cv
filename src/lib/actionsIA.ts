@@ -39,7 +39,7 @@ const model = genAI.getGenerativeModel({
 const generationConfig = {
   temperature: 1,
   topP: 0.95,
-  topK: 64,
+  topK: 40,
   maxOutputTokens: 8192,
   responseMimeType: "text/plain",
 };
@@ -147,7 +147,35 @@ export async function generarItemsExperiencia(
           {
             text: `creame las tareas que desempeñaria en un trabajo en un renglón máximo en solo ${max} renglon${
               max < 1 ? "nes" : ""
-            } de la tarea que con la descripcion de las tareas que te voy a indicar.solo quiero los renglones de las tareas desarrolladas por ti nada mas, es para copiar y pegar asi como esta, no quiero titulo ni que me lo marques de cual es cada una , yo me guio por el orden en que te lo fui dando, no quiero que me lo des con codigo markdown solo texto, solo separamelo con saltos de linea.escribilo para un curriculum asi que sea de manera formal`,
+            } de la tarea que con la descripción de las tareas que te voy a indicar.solo quiero los párrafos de las tareas desarrolladas por ti nada más, es para copiar y pegar asi como esta, no quiero titulo ni que me lo marques de cual es cada una , yo me guio por el orden en que te lo fui dando, no quiero que me lo des con codigo markdown solo texto. escribelo para un curriculum asi que sea de manera formal, los verbos de acción que se recomiendan para un currículum
+            
+Liderazgo
+Logré, alcancé, contraté, coordiné, manejé, lideré, organicé, supervisé, regulé, reorganicé, administré, delegé, impacté, planifiqué, revisé, analicé, desarrollé, mejoré, predije, programé, asigné, dirigí, incrementé, prioricé, encabezé, obtuve, gané, lideré, produje, fortalezcí, presidí, evalué, dominé, comprobé, supervisé, consolidé, ejecuté, orquesté, recomendé y superé.
+
+Comunicación
+Dirigí, arbitré, desarrollé, dirigí, influí, interpreté, presenté, promocioné, sugerí, sinteticé, arreglé, documenté, dicté, publiqué, traduje, autoricé, redacté, coordiné, reconcilié, verbalicé, colaboré, edité, medié, recuté, escribí, convencí, energicé, moderé, reporté, correspondí, alisté, negocié, reescribí, entregué, formulé, persuadí y hablé.
+
+Investigación
+Aclaré, diagnosticé, interpreté, encuesté, recopilé, descubrí, entrevisté, sistematicé, concluí, evalué, investigué, probé, realicé, examiné, modelé, construí, extraje, organicé, critiqué, formé, resolví, derivé, identifiqué, revisé, determiné, inspeccioné y resumí.
+
+Técnico
+Armé, instalé, resolví, construí, mantuve, estandaricé, calculé, operé, optimice, computé, optimice, actualicé, diseñé, reacondicioné, ideé, programé, diseñé, remodelé, fabriqué y reparé.
+
+Enseñanza
+Adapté, habilité, persuadí, aconsejé, animé, establecí metas, aclaré, evalué, estimulé, entrené, expliqué, estudié, comuniqué, facilité, enseñé, coordiné, guíe, entrené, desmitifiqué, informé, desarrollé e instruí.
+
+Cuantitativo
+Administré, asigné, computé, desarrollé, proyecté, investigué, analicé, pronostiqué, evalué, manejé, audité, mercadeé, balanceé, maximicé, presupuesté, minimicé, calculé y planifiqué.
+
+Creativo
+Actué, dirigí, introduje, revitalicé, compuse, establecí, inventé, moldeé, concebí, formé, originé, visualicé, conceptualicé, fundé, realicé, creé, ilustré, planifiqué, personalicé, inicié, publiqué, diseñé, instituí, rediseñé, desarrollé, integré y revisé.
+
+Ayuda
+Evalué, mejoré, provee, asistí, aceleré, referí, aclaré, facilité, rehabilité, entrené, familiaricé, representé, aconsejé, guíe, serví, demostré, motivé, apoyé, diagnosticé, participé, eduqué y propuse.
+
+Organizacional
+Aprobé, aceleré, clasifiqué, recopilé, expandió, gané, operé, organicé, recuperé, filtré, sistematicé, tabulé, añadí, compilé, recopilé, preparé, seleccioné, unifiqué, arranqué, completé, generé, procesé, simplifiqué, actualicé, amplié, controlé, implementé, compré, vendí, utilicé, catalogué, definí, inspeccioné, registré, especifiqué, validé, centralicé, despaché, lancé, reduje, dirigí y verifiqué.
+            `,
           },
         ],
       },

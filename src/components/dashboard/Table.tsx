@@ -26,6 +26,15 @@ export default async function UserTable({
               >
                 <div className="flex items-center justify-between border-b pb-4">
                   <div>
+                  <div className="mb-2 flex items-center">
+                      <Image
+                        src={user.imagenPerfil}
+                        className="mr-2 rounded-full"
+                        width={28}
+                        height={28}
+                        alt={`${user.nombre}'s profile picture`}
+                      />
+                    </div>
                     <div className="mb-2 flex items-center">
                       <p>
                         {user.apellido}, {user.nombre}
@@ -53,6 +62,9 @@ export default async function UserTable({
             <thead className="rounded-lg text-left text-sm font-normal ">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
+                  Imagen
+                </th>
+                <th scope="col" className="px-3 py-5 font-medium">
                   apellido, nombre
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
@@ -81,17 +93,20 @@ export default async function UserTable({
                   key={`${user.id}-${index}`}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg odd:bg-white even:bg-gray-100 dark:odd:bg-gray-500 dark:even:md:bg-gray-600"
                 >
-                  <td className="whitespace-nowrap py-3 pl-6 ">
-                    {/* <div className="flex items-center gap-3">
-                      <Image
-                        src={user.image_url}
+                   <td className="whitespace-nowrap  ">
+                    <div className="flex items-center justify-center ">
+                      { user.imagenPerfil && <Image
+                        src={user.imagenPerfil}
                         className="rounded-full"
-                        width={28}
-                        height={28}
-                        alt={`${user.name}'s profile picture`}
-                      />
-                      <p>{user.name}</p>
-                    </div> */}
+                        width={40}
+                        height={45}
+                        alt={`${user.nombre}'s profile picture`}
+                      />}
+                    </div>
+                  </td>
+
+                  <td className="whitespace-nowrap px-3 py-3 ">
+                 
                     {user.apellido}, {user.nombre}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">{user.email}</td>

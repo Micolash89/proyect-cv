@@ -39,9 +39,10 @@ const CreateSchemaUsuario = z.object({
   fechaNacimiento: z.coerce.date({
     message: "seleccione una fecha de nacimiento",
   }),
-  imagePerfil: z.string().optional(),
+  imagenPerfil: z.string().optional(),
   phone: z.string().min(6, "el telefono debe tener al menos 6 caracteres"),
   ciudad: z.string().min(4, "la ciudad debe de tener al menos 4 caracteres"),
+  dni:z.string().optional(),
   provincia: z
     .string()
     .min(4, "la provincia debe de tener al menos 4 caracteres"),
@@ -152,6 +153,7 @@ export async function postUsuarios(
   console.log("cursos", cursos1);
   console.log("educacion", education);
   console.log("idiomas", idiomas);
+  console.log("formData", formData.get("file"));
 
   const validatedFields = CreateUsuario.safeParse({
     ...Object.fromEntries(formData),
@@ -159,6 +161,7 @@ export async function postUsuarios(
     cursos: cursos1,
     experience,
     idiomas,
+    imagenPerfil,
   });
 
   if (!validatedFields.success) {
@@ -184,19 +187,18 @@ export async function postUsuarios(
       experience: experiencia,
       cursos,
       idiomas: idiomas1,
+      dni,
       licencia,
       movilidad,
       incorporacion,
       disponibilidad,
       office,
       orientadoCV,
-      imagePerfil
+      imagenPerfil: file
     },
   } = validatedFields;
 
   
-
-
   try {
     const user = await prisma.user.create({
       data: {
@@ -209,9 +211,9 @@ export async function postUsuarios(
         email: email as string,
         ciudad: ciudad as string,
         provincia: provincia as string,
-        imagenPerfil: imagePerfil as string,
-        orientacionCV: orientadoCV as string
-        
+        imagenPerfil: file as string,
+        orientacionCV: orientadoCV as string,
+        dni: dni as string,
       },
     });
 

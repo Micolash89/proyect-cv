@@ -60,27 +60,27 @@ export function TableUserSkeleton() {
     return (
       <tr className="w-full  odd:bg-white even:bg-gray-100 dark:odd:bg-gray-500 dark:even:md:bg-gray-600 last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg animate-pulse">
         {/*Apellido, Nombre */}
-        <td className="whitespace-nowrap px-3 py-3">
+        <td className="whitespace-nowrap px-3 py-5">
           <div className="h-6 w-32 rounded bg-gray-100 dark:bg-gray-400"></div>
         </td>
         {/* Correo Electrónico */}
-        <td className="whitespace-nowrap px-3 py-3">
+        <td className="whitespace-nowrap px-3 py-5">
           <div className="h-6 w-32 rounded bg-gray-100 dark:bg-gray-400"></div>
         </td>
         {/* DNI */}
-        <td className="whitespace-nowrap px-3 py-3">
+        <td className="whitespace-nowrap px-3 py-5">
           <div className="h-6 w-16 rounded bg-gray-100 dark:bg-gray-400"></div>
         </td>
         {/* Fecha de nacimiento */}
-        <td className="whitespace-nowrap px-3 py-3">
+        <td className="whitespace-nowrap px-3 py-5">
           <div className="h-6 w-16 rounded bg-gray-100 dark:bg-gray-400"></div>
         </td>
         {/* Telefono */}
-        <td className="whitespace-nowrap px-3 py-3">
+        <td className="whitespace-nowrap px-3 py-5">
           <div className="h-6 w-16 rounded bg-gray-100 dark:bg-gray-400"></div>
         </td>
         {/* estado */}
-        <td className="whitespace-nowrap px-3 py-3">
+        <td className="whitespace-nowrap px-3 py-5">
           <div className="h-6 w-6 rounded-full bg-gray-100 dark:bg-gray-400"></div>
         </td>
         {/* actions */}

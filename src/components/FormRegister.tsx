@@ -1,6 +1,6 @@
 "use client";
 
-import { postUsuarios, uploadImageBack } from "@/lib/actions";
+import { postUsuarios, uploadImage, uploadImageBack } from "@/lib/actions";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
@@ -44,6 +44,7 @@ function FormRegister({
         informacionA: "informacionA",
         orientacionCV: "orientacionCV",
       });
+      setImagePreview(cvData.imagenPerfil);
     }
   }, [allInputs]);
 
@@ -232,16 +233,22 @@ function FormRegister({
   });
 
   const handleSubmit = async (e: FormData) => {
-    if (imageFile) {
-      const url = await uploadImageBack(imageFile);
-      updateCVData({ ...cvData, imagenPerfil: url });
+
+    if (imageFile) {      
+      const formData = new FormData();
+      formData.append("file", imageFile);
+      const result = await uploadImage(formData);
+      updateCVData({ ...cvData, imagenPerfil: result.url });
+
+
     }
+
     const newpost = postUsuarios
       .bind(null, cvData.experience)
       .bind(null, cvData.cursos)
       .bind(null, cvData.education)
       .bind(null, cvData.idiomas)
-      .bind(null, cvData.imagenPerfil);
+      .bind(null,cvData.imagenPerfil);
 
     const postPromise = newpost(e); // Tu promesa original
 
@@ -1421,7 +1428,7 @@ function FormRegister({
                   name="orientadoCV"
                   id="floating_orientado"
                   placeholder=" "
-                  value={cvData.orientacion}
+                  value={cvData.orientadoCV}
                   required
                   onChange={handleInputChange}
                 />

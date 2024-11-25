@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useRef, DragEvent } from "react";
+import { useState, useRef, DragEvent, useEffect } from "react";
 import Image from "next/image";
-import { uploadImage } from "@/lib/actions";
 
 interface ImageUploadProps {
   onChange: (value: File | null) => void;
@@ -17,33 +16,8 @@ export default function ImageUpload({
   value,
   previewUrl,
 }: ImageUploadProps) {
-  // const [isUploading, setIsUploading] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // async function handleFileUpload(file: File) {
-  //   setIsUploading(true);
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-
-  //   try {
-  //     const result = await uploadImage(formData);
-  //     if (result.url) {
-  //       onChange(result.url);
-  //       console.log(result.url);
-  //     } else if (result.error) {
-  //       alert(result.error);
-  //     }
-  //   } catch (error) {
-  //     alert("Error al subir la imagen");
-  //   } finally {
-  //     setIsUploading(false);
-  //     if (fileInputRef.current) {
-  //       fileInputRef.current.value = "";
-  //     }
-  //     setIsDragOver(false);
-  //   }
-  // }
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -122,6 +96,7 @@ export default function ImageUpload({
               onChange={handleFileChange}
               className="hidden"
               id="imageUpload"
+              name="file"
             />
             <label
               htmlFor="imageUpload"

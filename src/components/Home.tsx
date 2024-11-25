@@ -137,6 +137,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
         ciudad: user.ciudad || "",
         provincia: user.provincia || "",
         imagenPerfil: user.imagenPerfil || "",
+
         education: estudios || [],
         experience: experiencias || [],
         cursos: cursos || [],
@@ -146,7 +147,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
         incorporacion: user.informacionAdicional[0].incorporacion || "",
         disponibilidad: user.informacionAdicional[0].disponibilidad || "",
         office: user.informacionAdicional[0].office || "",
-        orientadoCV: user.orientadoCV || ""
+        orientadoCV: user.orientacionCV || ""
       });
 
       console.log(user);

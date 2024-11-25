@@ -62,14 +62,12 @@ export type UserDataBase ={
     idiomas: IdiomaDataBase[];
     cursos: CursoDataBase[];
     informacionAdicional: InformacionAdicionalDataBase[];
-    orientadoCV: string;
+    orientacionCV: string;
 }
 
 export default async function page({ params }: { params: { id: string } }) {
 
     const user: any = await getUserId(parseInt(params.id));
-
-  // console.log(user);
 
     if ( !user) {
         return (

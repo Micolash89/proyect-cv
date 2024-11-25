@@ -132,6 +132,7 @@ export async function getUserId(id: number) {
         linkedin: true,
         orientacionCV: true,
         dni: true,
+        imagenPerfil:true,
         visto: true,
         estudios: {
           select: {

@@ -451,7 +451,6 @@ export async function updateUser(formData: FormData, params: { id: string }) {
     apellido,
     telefono,
     email,
-    domicilio,
     ciudad,
     provincia,
     linkedin,
@@ -482,7 +481,6 @@ export async function updateUser(formData: FormData, params: { id: string }) {
 }
 
 /*IA*/
-
 export async function generatorProfileAI(
   experience: Experiencia[],
   educacion: Educacion[],
@@ -589,7 +587,7 @@ export async function uploadImage(formData: FormData) {
     const file = formData.get('file') as File;
     
     if (!file) {
-      return { error: 'No se seleccionó ningún archivo' };
+      return { url:"", error: 'No se seleccionó ningún archivo' };
     }
 
     // Convertir el archivo a Base64
@@ -605,7 +603,7 @@ export async function uploadImage(formData: FormData) {
     return { url: result.secure_url };
   } catch (error) {
     console.error('Error al subir imagen:', error);
-    return { error: 'Error al subir la imagen' };
+    return { url:"", error: 'Error al subir la imagen' };
   }
 }
 
@@ -613,7 +611,7 @@ export async function uploadImageBack(file: File) {
   try {
         
     if (!file) {
-      return  'No se seleccionó ningún archivo';
+      return { url:"", error: 'No se seleccionó ningún archivo' };
     }
 
     // Convertir el archivo a Base64
@@ -630,5 +628,17 @@ export async function uploadImageBack(file: File) {
   } catch (error) {
     console.error('Error al subir imagen:', error);
   }
-  return 'Error al subir la imagen' ;
+  return {url:"", error: 'Error al subir la imagen'} ;
 }
+
+ export async function logoutAction(){
+   
+   cookies().delete("token");
+   cookies().delete("adminUser");
+  }
+  
+  export async function revalidateFunction(url:string){
+    revalidatePath(url);
+    return "Cache Borrado" ;
+  }
+

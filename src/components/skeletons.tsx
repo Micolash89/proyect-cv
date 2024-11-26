@@ -98,6 +98,7 @@ export function TableUserSkeleton() {
       <div className="mb-2 w-full rounded-md odd:bg-white even:bg-gray-100 dark:odd:bg-gray-500 dark:even:md:bg-gray-600  p-4 animate-pulse">
         <div className="flex items-center justify-between  border-gray-100 pb-2">
           <div className="flex items-center">
+          <div className="mr-2 h-8 w-8 rounded-full bg-gray-100 dark:bg-gray-600"></div>
             <div className="h-5 w-32 rounded bg-gray-100 dark:bg-gray-600"></div>
           </div>
           <div className="h-5 w-32 rounded bg-gray-100 dark:bg-gray-600"></div>

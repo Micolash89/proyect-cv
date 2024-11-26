@@ -239,8 +239,6 @@ function FormRegister({
       formData.append("file", imageFile);
       const result = await uploadImage(formData);
       updateCVData({ ...cvData, imagenPerfil: result.url });
-
-
     }
 
     const newpost = postUsuarios

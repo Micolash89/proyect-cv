@@ -27,13 +27,13 @@ export default async function UserTable({
                 <div className="flex items-center justify-between border-b pb-4">
                   <div>
                   <div className="mb-2 flex items-center">
-                      <Image
+                     {user.imagenPerfil &&  <Image
                         src={user.imagenPerfil}
                         className="mr-2 rounded-full"
                         width={28}
                         height={28}
                         alt={`${user.nombre}'s profile picture`}
-                      />
+                      />}
                     </div>
                     <div className="mb-2 flex items-center">
                       <p>

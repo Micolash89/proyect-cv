@@ -51,7 +51,7 @@ export default function ImageUpload({
 
   return (
     <div className=" w-full">
-      <div className="flex items-center justify-center gap-4">
+      <div className="flex items-center justify-left gap-4">
         {previewUrl && (
           <div className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
             <div className="absolute z-10 top-2 right-2">
@@ -105,14 +105,14 @@ export default function ImageUpload({
               onDrop={handleDrop}
               className={`
                 cursor-pointer
-                p-4 border-2 w-full h-[200px]
+                p-4 border-2 w-[200px] h-[200px]
                 ${
                   isDragOver
                     ? "border-blue-500"
                     : "border-dashed border-gray-300"
                 }
                 flex flex-col justify-center items-center gap-2
-                hover:border-gray-400 transition rounded-lg
+                hover:border-gray-400 transition rounded-lg mr-auto
               `}
             >
               <svg

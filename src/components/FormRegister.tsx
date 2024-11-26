@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
 import ImageUpload from "./ImageUpload";
+import YearSelect from "./YearSelect";
 
 type Section =
   | "personal"
@@ -656,6 +657,7 @@ function FormRegister({
                   >
                     Año de inicio
                   </label>
+
                   <select
                     name="anioInicioEducacion"
                     className="w-full px-3 py-2 border border-gray-300 text-sm rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"

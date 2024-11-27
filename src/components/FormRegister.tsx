@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
 import ImageUpload from "./ImageUpload";
-import YearSelect from "./YearSelect";
+import { InfoCard } from "./InfoCard";
 
 type Section =
   | "personal"
@@ -234,8 +234,7 @@ function FormRegister({
   });
 
   const handleSubmit = async (e: FormData) => {
-
-    if (imageFile) {      
+    if (imageFile) {
       const formData = new FormData();
       formData.append("file", imageFile);
       const result = await uploadImage(formData);
@@ -247,7 +246,7 @@ function FormRegister({
       .bind(null, cvData.cursos)
       .bind(null, cvData.education)
       .bind(null, cvData.idiomas)
-      .bind(null,cvData.imagenPerfil);
+      .bind(null, cvData.imagenPerfil);
 
     const postPromise = newpost(e); // Tu promesa original
 
@@ -455,7 +454,10 @@ function FormRegister({
                       const reader = new FileReader();
                       reader.onloadend = () => {
                         setImagePreview(reader.result as string);
-                        updateCVData({ ...cvData, imagenPerfil: reader.result });
+                        updateCVData({
+                          ...cvData,
+                          imagenPerfil: reader.result,
+                        });
                       };
                       reader.readAsDataURL(file);
                     }
@@ -502,7 +504,7 @@ function FormRegister({
                 Educación
               </h2>
 
-              {cvData.education.map((edu: any, index: any) => (
+              {/* {cvData.education.map((edu: any, index: any) => (
                 <motion.div
                   initial="hidden"
                   animate="visible"
@@ -548,6 +550,20 @@ function FormRegister({
                     Eliminar
                   </button>
                 </motion.div>
+              ))} */}
+
+              {cvData.education.map((edu: any, index: number) => (
+                <InfoCard
+                  key={`${index}-educacion`}
+                  title={edu.institucion}
+                  subtitle={edu.estudios}
+                  details={[
+                    edu.zonaInstitucion,
+                    `${edu.carrera}, ${edu.estado}`,
+                    `${edu.anioInicioEducacion} - ${edu.anioFinEducacion}`,
+                  ]}
+                  onDelete={() => removeEducation(index)}
+                />
               ))}
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -764,50 +780,18 @@ function FormRegister({
                 Experiencia Laboral
               </h2>
 
-              {cvData.experience.map((edu: any, index: any) => (
-                <motion.div
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  variants={sectionVariants}
+              {cvData.experience.map((exp: any, index: number) => (
+                <InfoCard
                   key={`${index}-experience`}
-                  className="mb-4 p-3 border rounded-lg text-black dark:text-white w-full "
-                >
-                  <div className="flex flex-col justify-center items-center">
-                    <h3 className="font-bold">{edu.puesto}</h3>
-                    <h3 className="font-bold">{edu.nombreEmpresa}</h3>
-                    <h3 className="font-bold">{edu.zonaEmpresa}</h3>
-                    <p className="">{edu.descripcionExperiencia}</p>
-                    <p>
-                      {edu.anioInicioExperiencia}, {edu.anioFinExperiencia}
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    className="mt-2 flex flex-row gap-2 items-center justify-center text-red-500 hover:bg-red-50 transition-colors duration-700 hover:border-red-500 border-2 p-2 rounded-lg  deleteButton"
-                    onClick={() => removeExperience(index)}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                    >
-                      <path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"></path>
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM13.4142 13.9997L15.182 15.7675L13.7678 17.1817L12 15.4139L10.2322 17.1817L8.81802 15.7675L10.5858 13.9997L8.81802 12.232L10.2322 10.8178L12 12.5855L13.7678 10.8178L15.182 12.232L13.4142 13.9997ZM9 4V6H15V4H9Z"></path>
-                    </svg>
-                    Eliminar
-                  </button>
-                </motion.div>
+                  title={exp.puesto}
+                  subtitle={exp.nombreEmpresa}
+                  details={[
+                    exp.zonaEmpresa,
+                    exp.descripcionExperiencia,
+                    `${exp.anioInicioExperiencia} - ${exp.anioFinExperiencia}`,
+                  ]}
+                  onDelete={() => removeExperience(index)}
+                />
               ))}
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -997,7 +981,7 @@ function FormRegister({
                 Cursos/Certificaciones
               </h2>
 
-              {cvData.cursos.map((edu: any, index: any) => (
+              {/* {cvData.cursos.map((edu: any, index: any) => (
                 <motion.div
                   initial="hidden"
                   animate="visible"
@@ -1037,6 +1021,15 @@ function FormRegister({
                     Eliminar
                   </button>
                 </motion.div>
+              ))} */}
+
+              {cvData.cursos.map((curso: any, index: number) => (
+                <InfoCard
+                  key={`${index}-cursos`}
+                  title={curso.curso}
+                  details={[curso.institucion, curso.anioInicioCurso]}
+                  onDelete={() => removeCursos(index)}
+                />
               ))}
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -1155,7 +1148,7 @@ function FormRegister({
                 Idiomas
               </h2>
 
-              {cvData.idiomas.map((edu: any, index: any) => (
+              {/* {cvData.idiomas.map((edu: any, index: any) => (
                 <motion.div
                   initial="hidden"
                   animate="visible"
@@ -1194,6 +1187,15 @@ function FormRegister({
                     Eliminar
                   </button>
                 </motion.div>
+              ))} */}
+
+              {cvData.idiomas.map((idioma: any, index: number) => (
+                <InfoCard
+                  key={`${index}-idiomas`}
+                  title={idioma.idioma}
+                  details={[idioma.nivel]}
+                  onDelete={() => removeIdiomas(index)}
+                />
               ))}
 
               <div className="grid grid-cols-1 gap-4 mb-4">

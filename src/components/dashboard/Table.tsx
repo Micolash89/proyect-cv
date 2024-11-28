@@ -4,6 +4,7 @@ import Image from "next/image";
 import { fetchFilteredUsers } from "@/database/database";
 import { formatDateToLocal } from "@/lib/libs";
 import Update from "./Update";
+import AnimationDot from "../AnimationDot";
 
 export default async function UserTable({
   query,
@@ -18,29 +19,36 @@ export default async function UserTable({
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 dark:bg-gray-800 text-black dark:text-white  md:pt-0 duration-500">
-          <div className="md:hidden">
+          <div className="lg:hidden">
             {users?.map((user, index) => (
               <div
                 key={`${user.id}-${index}`}
-                className="mb-2 w-full rounded-lg  odd:bg-white even:bg-gray-100 dark:odd:bg-gray-500 dark:even:md:bg-gray-600 p-4"
+                className="mb-2 w-full rounded-lg  odd:bg-white even:bg-gray-100 dark:odd:bg-gray-500 dark:even:bg-gray-600 p-4"
               >
-                <div className="flex items-center justify-between border-b pb-4">
+                <div className="flex items-center justify-between border-b pb-4 relative">
+                  <div className="absolute top-0 right-0">
+                  <AnimationDot state={user.visto}/>
+                  </div>
                   <div>
                   <div className="mb-2 flex items-center">
-                     {user.imagenPerfil &&  <Image
+                     {user.imagenPerfil? <Image
                         src={user.imagenPerfil}
                         className="mr-2 rounded-full"
                         width={28}
                         height={28}
                         alt={`${user.nombre}'s profile picture`}
-                      />}
-                    </div>
-                    <div className="mb-2 flex items-center">
+                      />:<>
+                      <div className="mr-2 rounded-full w-7 h-7 bg-gray-300">
+
+                      </div>
+                      </>}
+                    <div className="flex items-center">
                       <p>
                         {user.apellido}, {user.nombre}
                       </p>
                     </div>
-                    <p className="text-sm text-gray-500">{user.email}</p>
+                    </div>
+                    <p className="text-sm">{user.email}</p>
                   </div>
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
@@ -58,29 +66,29 @@ export default async function UserTable({
               </div>
             ))}
           </div>
-          <table className="hidden min-w-full text-gray-900 dark:text-white  md:table">
+          <table className="hidden min-w-full text-gray-900 dark:text-white  lg:table">
             <thead className="rounded-lg text-left text-sm font-normal ">
               <tr>
-                <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
+                <th scope="col" className="px-4 py-5 font-medium capitalize sm:pl-6">
                   Imagen
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="px-3 py-5 font-medium capitalize">
                   apellido, nombre
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="px-3 py-5 font-medium capitalize">
                 Correo Electrónico
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="px-3 py-5 font-medium ">
                   DNI
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
+                <th scope="col" className="px-3 py-5 font-medium capitalize">
                   fecha de nacimiento
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  telefono
+                <th scope="col" className="px-3 py-5 font-medium capitalize">
+                  teléfono
                 </th>
-                <th scope="col" className="px-3 py-5 font-medium">
-                  estado
+                <th scope="col" className="px-3 py-5 font-medium capitalize">
+                  visto
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
                   <span className="sr-only">Edit</span>
@@ -95,18 +103,20 @@ export default async function UserTable({
                 >
                    <td className="whitespace-nowrap  ">
                     <div className="flex items-center justify-center ">
-                      { user.imagenPerfil && <Image
+                      { user.imagenPerfil ? <Image
                         src={user.imagenPerfil}
                         className="rounded-full"
                         width={40}
                         height={45}
                         alt={`${user.nombre}'s profile picture`}
-                      />}
+                      />:<>
+                        <div className="mr-2 rounded-full w-10 h-10 bg-gray-300">
+
+                        </div>
+                      </>}
                     </div>
                   </td>
-
                   <td className="whitespace-nowrap px-3 py-3 ">
-                 
                     {user.apellido}, {user.nombre}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">{user.email}</td>
@@ -119,9 +129,9 @@ export default async function UserTable({
                     {/* <userstatus status={user.status} /> */}
                     {user.telefono}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3">
+                  <td className="whitespace-nowrap px-3 py-3 relative">
                     {/* <userstatus status={user.status} /> */}
-                    {user.visto?"visto":"nuevo"}
+                    {user.visto?"visto":<AnimationDot state={user.visto}/>}
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">

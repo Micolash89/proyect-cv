@@ -114,7 +114,7 @@ export default function Navigation() {
                 <polyline points="10 9 9 9 8 9"></polyline>
               </motion.svg>
               <motion.span
-                className="font-bold text-xl dark:text-white duration-500"
+                className="font-bold text-xl dark:text-white duration-500 "
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
@@ -206,7 +206,7 @@ export default function Navigation() {
                 >
                   <path d="M5 22C4.44772 22 4 21.5523 4 21V3C4 2.44772 4.44772 2 5 2H19C19.5523 2 20 2.44772 20 3V6H18V4H6V20H18V18H20V21C20 21.5523 19.5523 22 19 22H5ZM18 16V13H11V11H18V8L23 12L18 16Z"></path>
                 </svg>
-                <span>Cerrar sesión</span>
+                <span className="text-nowrap">Cerrar sesión</span>
               </button>
             </form>
           )}

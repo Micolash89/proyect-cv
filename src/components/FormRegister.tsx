@@ -504,54 +504,6 @@ function FormRegister({
                 Educación
               </h2>
 
-              {/* {cvData.education.map((edu: any, index: any) => (
-                <motion.div
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  variants={sectionVariants}
-                  key={`${index}-educacion`}
-                  className=" mb-4 p-3 border rounded-lg text-black dark:text-white w-full"
-                >
-                  <div className="flex flex-col justify-center items-center">
-                    <h3 className="font-bold">{edu.institucion}</h3>
-                    <h3 className="font-bold">{edu.estudios}</h3>
-                    <h4 className="font-bold">{edu.zonaInstitucion}</h4>
-                    <p>
-                      {edu.carrera}, {edu.estado}
-                    </p>
-                    <p>
-                      {edu.anioInicioEducacion}, {edu.anioFinEducacion}
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    className="mt-2 flex flex-row gap-2 items-center justify-center text-red-500 hover:bg-red-50 transition-colors duration-700 hover:border-red-500 border-2 p-2 rounded-lg  deleteButton"
-                    onClick={() => removeEducation(index)}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                    >
-                      <path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"></path>
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM13.4142 13.9997L15.182 15.7675L13.7678 17.1817L12 15.4139L10.2322 17.1817L8.81802 15.7675L10.5858 13.9997L8.81802 12.232L10.2322 10.8178L12 12.5855L13.7678 10.8178L15.182 12.232L13.4142 13.9997ZM9 4V6H15V4H9Z"></path>
-                    </svg>
-                    Eliminar
-                  </button>
-                </motion.div>
-              ))} */}
-
               {cvData.education.map((edu: any, index: number) => (
                 <InfoCard
                   key={`${index}-educacion`}

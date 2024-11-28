@@ -39,7 +39,7 @@ export default function NavigationLinks({
     >
       <div
         className={clsx({
-          "text-blue-500dark:text-blue-400": data.url === pathname,
+          "text-blue-500 dark:text-blue-400": data.url === pathname,
         })}
         dangerouslySetInnerHTML={{
           __html: data.url === pathname ? data.icon2 : data.icon1,

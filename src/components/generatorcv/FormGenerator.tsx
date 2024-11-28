@@ -32,7 +32,7 @@ function FormGenerator() {
   return (
     <>
       <form
-        className="flex flex-col w-full max-w-md mx-auto px-4 py-8 md:p-6 lg:p-8"
+        className="flex flex-col w-full max-w-md mx-auto px-4 py-8 md:p-6 lg:p-8 "
         action={handleSubmit}
       >
         <label className="block mb-2" htmlFor="nombre">

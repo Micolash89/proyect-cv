@@ -22,7 +22,8 @@ body {
 }
 
 body{
-    @apply dark:bg-gray-800 duration-500;
+    @apply   bg-gradient-to-r from-indigo-300 dark:from-purple-950 via-sky-400 dark:via-sky-950 to-indigo-300 dark:to-purple-950 duration-500;
+
 }
 
   /* Modo claro (por defecto) */

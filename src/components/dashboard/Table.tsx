@@ -27,26 +27,32 @@ export default async function UserTable({
               >
                 <div className="flex items-center justify-between border-b pb-4 relative">
                   <div className="absolute top-0 right-0">
-                  <AnimationDot state={user.visto}/>
+                    {user.visto ? (
+                      <AnimationDot state={user.visto} />
+                    ) : (
+                      <AnimationDot state={user.visto} />
+                    )}
                   </div>
                   <div>
-                  <div className="mb-2 flex items-center">
-                     {user.imagenPerfil? <Image
-                        src={user.imagenPerfil}
-                        className="mr-2 rounded-full"
-                        width={28}
-                        height={28}
-                        alt={`${user.nombre}'s profile picture`}
-                      />:<>
-                      <div className="mr-2 rounded-full w-7 h-7 bg-gray-300">
-
+                    <div className="mb-2 flex items-center">
+                      {user.imagenPerfil ? (
+                        <Image
+                          src={user.imagenPerfil}
+                          className="mr-2 rounded-full"
+                          width={28}
+                          height={28}
+                          alt={`${user.nombre}'s profile picture`}
+                        />
+                      ) : (
+                        <>
+                          <div className="mr-2 rounded-full w-7 h-7 bg-gray-300"></div>
+                        </>
+                      )}
+                      <div className="flex items-center">
+                        <p>
+                          {user.apellido}, {user.nombre}
+                        </p>
                       </div>
-                      </>}
-                    <div className="flex items-center">
-                      <p>
-                        {user.apellido}, {user.nombre}
-                      </p>
-                    </div>
                     </div>
                     <p className="text-sm">{user.email}</p>
                   </div>
@@ -69,14 +75,17 @@ export default async function UserTable({
           <table className="hidden min-w-full text-gray-900 dark:text-white  lg:table">
             <thead className="rounded-lg text-left text-sm font-normal ">
               <tr>
-                <th scope="col" className="px-4 py-5 font-medium capitalize sm:pl-6">
+                <th
+                  scope="col"
+                  className="px-4 py-5 font-medium capitalize sm:pl-6"
+                >
                   Imagen
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium capitalize">
                   apellido, nombre
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium capitalize">
-                Correo Electrónico
+                  Correo Electrónico
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium ">
                   DNI
@@ -95,25 +104,27 @@ export default async function UserTable({
                 </th>
               </tr>
             </thead>
-            <tbody >
+            <tbody>
               {users?.map((user, index) => (
                 <tr
                   key={`${user.id}-${index}`}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg odd:bg-white even:bg-gray-100 dark:odd:bg-gray-500 dark:even:md:bg-gray-600"
                 >
-                   <td className="whitespace-nowrap  ">
+                  <td className="whitespace-nowrap  ">
                     <div className="flex items-center justify-center ">
-                      { user.imagenPerfil ? <Image
-                        src={user.imagenPerfil}
-                        className="rounded-full"
-                        width={40}
-                        height={45}
-                        alt={`${user.nombre}'s profile picture`}
-                      />:<>
-                        <div className="mr-2 rounded-full w-10 h-10 bg-gray-300">
-
-                        </div>
-                      </>}
+                      {user.imagenPerfil ? (
+                        <Image
+                          src={user.imagenPerfil}
+                          className="rounded-full"
+                          width={40}
+                          height={45}
+                          alt={`${user.nombre}'s profile picture`}
+                        />
+                      ) : (
+                        <>
+                          <div className="mr-2 rounded-full w-10 h-10 bg-gray-300"></div>
+                        </>
+                      )}
                     </div>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3 ">
@@ -131,7 +142,11 @@ export default async function UserTable({
                   </td>
                   <td className="whitespace-nowrap px-3 py-3 relative">
                     {/* <userstatus status={user.status} /> */}
-                    {user.visto?"visto":<AnimationDot state={user.visto}/>}
+                    {user.visto ? (
+                      <AnimationDot state={user.visto} />
+                    ) : (
+                      <AnimationDot state={user.visto} />
+                    )}
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">

@@ -1,5 +1,5 @@
 import Home from "@/components/Home";
-import { getUserId } from "@/database/database";
+import { changeStateUser, getUserId } from "@/database/database";
 
 
 export type EstudioDataBase={
@@ -75,6 +75,10 @@ export default async function page({ params }: { params: { id: string } }) {
               <h2>Usuario: {params.id} no existe</h2>
             </>
           );
+    }
+
+    if(user?.visto === false){
+        changeStateUser(user.id);
     }
 
   return (

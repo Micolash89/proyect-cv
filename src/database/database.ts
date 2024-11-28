@@ -2,6 +2,7 @@
 "use server";
 
 import { PrismaClient } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 const prisma = new PrismaClient();
 const ITEMS_PER_PAGE = 7;
@@ -190,3 +191,20 @@ export async function getUserId(id: number) {
     return null;
   }
 }
+
+export const  changeStateUser = async (id: number) => {
+  try {
+    await prisma.user.update({
+      where: {
+        id: id as number,
+      },
+      data: {
+        visto: true,
+      },
+    });
+
+    revalidatePath("/dashboard");
+  } catch (error) {
+    console.error("Database Error:", error);
+  }
+};

@@ -67,7 +67,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
     { ssr: false }
   );
 
-  const [showCompleteInputs, setShowCompleteInputs] = useState(false);
+  const [showCompleteInputs, setShowCompleteInputs] = useState(0);
 
   const [cvData, setCVData] = useState<CVData>({
     name: "",
@@ -94,7 +94,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
   useEffect(() => {
     if (user) {
 
-      setShowCompleteInputs(true);
+      setShowCompleteInputs(user.id);
 
       const estudios : Estudio[] = user.estudios.map((estudio: EstudioDataBase) => ({
         estado: estudio.estado,
@@ -124,7 +124,6 @@ export default function Home({ user }: { user?: UserDataBase }) {
       const idiomas : Idioma[] = user.idiomas.map((idioma: IdiomaDataBase) =>
         ({ nivel: idioma.nivel, idioma: idioma.idioma }));
 
-        
       setCVData(
           {
         ...cvData,
@@ -137,7 +136,6 @@ export default function Home({ user }: { user?: UserDataBase }) {
         ciudad: user.ciudad || "",
         provincia: user.provincia || "",
         imagenPerfil: user.imagenPerfil || "",
-
         education: estudios || [],
         experience: experiencias || [],
         cursos: cursos || [],
@@ -172,7 +170,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
   return (
     <>
       <main className=" w-full">
-        <FormRegister cvData={cvData} updateCVData={updateCVData} allInputs={showCompleteInputs} />
+        <FormRegister cvData={cvData} updateCVData={updateCVData} idUser={showCompleteInputs} />
 
         <PreviewCV cvData={cvData} iaData={iaData} />
       

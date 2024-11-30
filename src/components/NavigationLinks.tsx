@@ -46,6 +46,7 @@ export default function NavigationLinks({
         }}
       />
       <span>{data.name}</span>
+      
     </button>
   );
 }

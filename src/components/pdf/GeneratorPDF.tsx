@@ -173,7 +173,7 @@ const MyDocumentPDF: React.FC<{
           </Text>
           <Text style={[styles.contactInfo, { fontSize: 11 + contador }]}>
             {cvData.ciudad}, {cvData.provincia}{" "}
-            {cvData.dni && `• DNI:${cvData.dni}`} • {cvData.fechaNacimiento} •
+            {cvData.dni && `• DNI:${cvData.dni}`} • {cvData?.fechaNacimiento.split("-").reverse().join("/")} •
             Tel.:{cvData.phone}
             {cvData.email && ` • ${cvData.email}`}
           </Text>

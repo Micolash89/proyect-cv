@@ -124,6 +124,10 @@ export default function Home({ user }: { user?: UserDataBase }) {
       const idiomas : Idioma[] = user.idiomas.map((idioma: IdiomaDataBase) =>
         ({ nivel: idioma.nivel, idioma: idioma.idioma }));
 
+      const fechaFormateada=   `${user.fechaNacimiento.getFullYear()}-${String(
+          user.fechaNacimiento.getMonth() + 1
+        ).padStart(2, "0")}-${String(user.fechaNacimiento.getDate()).padStart(2, "0")}`;
+
       setCVData(
           {
         ...cvData,
@@ -131,7 +135,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
         lastName: user.apellido || "",
         email: user.email || "",
         dni: user.dni || "",
-        fechaNacimiento: user.fechaNacimiento.toString().split("T")[0] || "",
+        fechaNacimiento: fechaFormateada || "",
         phone: user.telefono || "",
         ciudad: user.ciudad || "",
         provincia: user.provincia || "",

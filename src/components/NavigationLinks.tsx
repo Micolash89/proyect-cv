@@ -45,7 +45,9 @@ export default function NavigationLinks({
           __html: data.url === pathname ? data.icon2 : data.icon1,
         }}
       />
-      <span>{data.name}</span>
+      <span   className={clsx({
+          "text-blue-500 dark:text-blue-400": data.url === pathname,
+        })}>{data.name}</span>
       
     </button>
   );

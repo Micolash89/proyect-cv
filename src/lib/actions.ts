@@ -26,6 +26,7 @@ import {
 import { v2 as cloudinary } from 'cloudinary';
 
 const CreateSchemaUsuario = z.object({
+  id:z.coerce.number(),
   name: z
     .string({ message: "ingrese un nombre" })
     .min(4, "el nombre debe de tener al menos 4 caracteres"),
@@ -130,7 +131,8 @@ const CreateSchemaUsuario = z.object({
   orientadoCV: z.string({ message: "Ingrese una orientación" }).optional(),
 });
 
-const CreateUsuario = CreateSchemaUsuario.omit({});
+const CreateUsuario = CreateSchemaUsuario.omit({id:true});
+const UpdateUsuario = CreateSchemaUsuario.omit({});
 
 export interface Experiencia {
   puesto: string;
@@ -293,7 +295,7 @@ export async function postUsuarios(
     prisma.$disconnect();
   }
 
-  return createResponse(true, [], "Registro Satisfactorio");
+  return createResponse(true, [], `Registro de ${apellido} ${nombre} exitoso`);
 }
 
 const createSchemaLogin = z.object({
@@ -422,18 +424,22 @@ const UpdateUserSchema = z.object({
   linkedin: z.string().optional(),
 });
 
-export async function updateUser(formData: FormData, params: { id: string }) {
-  const UpdateUserData = UpdateUserSchema.safeParse({
-    id: params.id,
-    nombre: formData.get("nombre"),
-    apellido: formData.get("apellido"),
-    telefono: formData.get("telefono"),
-    // fechaNacimiento: z.date().safeParse(formData.get("fechaNacimiento")),
-    email: formData.get("email"),
-    domicilio: formData.get("domicilio"),
-    ciudad: formData.get("ciudad"),
-    provincia: formData.get("provincia"),
-    linkedin: formData.get("linkedin"),
+export async function updateUser(  experience: Experiencia[],
+  cursos1: any[],
+  education: any[],
+  idiomas: any[],
+  imagenPerfil:string,
+  idUser: number,
+  formData: FormData,) {
+
+  const UpdateUserData = UpdateUsuario.safeParse({
+    id: idUser,
+    ...Object.fromEntries(formData),
+    education,
+    cursos: cursos1,
+    experience,
+    idiomas,
+    imagenPerfil,
   });
 
   if (!UpdateUserData.success) {
@@ -445,39 +451,169 @@ export async function updateUser(formData: FormData, params: { id: string }) {
     );
   }
 
-  const {
-    id,
-    nombre,
-    apellido,
-    telefono,
-    email,
-    ciudad,
-    provincia,
-    linkedin,
-  } = UpdateUserData.data;
-
-  try {
-    await prisma.user.update({
-      where: { id },
-      data: {
-        nombre,
-        apellido,
-        telefono,
+    const {
+      id,
+        name: nombre,
+        lastName: apellido,
         email,
-
+        fechaNacimiento,
+        phone: telefono,
         ciudad,
         provincia,
-        linkedin,
-      },
-    });
-  } catch (error) {
-    return {
-      message: "Database Error: Failed to Update User.",
-    };
-  }
+        education: educacion,
+        experience: experiencia,
+        cursos,
+        idiomas: idiomas1,
+        dni,
+        licencia,
+        movilidad,
+        incorporacion,
+        disponibilidad,
+        office,
+        orientadoCV,
+        imagenPerfil: file
+      
+    } = UpdateUserData.data;
+  
+    
+    try {
+      const user = await prisma.user.update({
+            where: { id },
+        data: {
+          nombre: (nombre.charAt(0).toUpperCase() +
+            nombre.slice(1).toLowerCase()) as string,
+          apellido: (apellido.charAt(0).toUpperCase() +
+            apellido.slice(1).toLowerCase()) as string,
+          telefono: telefono as string,
+          fechaNacimiento: fechaNacimiento as Date,
+          email: email as string,
+          ciudad: ciudad as string,
+          provincia: provincia as string,
+          imagenPerfil: file as string,
+          orientacionCV: orientadoCV as string,
+          dni: dni as string,
+        },
+      });
+  
+      if (educacion.length > 0) {
 
-  revalidatePath("/dashboard/users");
-  redirect("/dashboard/users");
+        await prisma.estudio.deleteMany({
+          where: {
+            idUsuario: user.id,
+            },
+        });
+
+        educacion.forEach(async (educacion) => {
+          await prisma.estudio.create({
+            data: {
+              carrera: educacion.carrera as string,
+              estado: educacion.estado as EstudioEstadoEnum,
+              tipo: educacion.estudios as EstudioTipoEnum,
+              ubicacion: educacion.zonaInstitucion as string,
+              fechaIngreso: educacion.anioInicioEducacion as string,
+              institucion: educacion.institucion as string, //falta agregar institucion frontend
+              fechaEgreso: educacion.anioFinEducacion as string,
+              idUsuario: user.id,
+            },
+          });
+        });
+      }
+  
+      if (experiencia.length > 0) {
+
+        await prisma.experiencia.deleteMany({
+          where: {
+            idUsuario: user.id,
+            },
+        });
+
+        experiencia.forEach(async (experiencia) => {
+          await prisma.experiencia.create({
+            data: {
+              nombre: experiencia.nombreEmpresa as string,
+              puesto: experiencia.puesto as string,
+              ubicacion: experiencia.zonaEmpresa as string,
+              fechaInicio: experiencia.anioInicioExperiencia as string,
+              fechaFin: experiencia.anioFinExperiencia as string,
+              descripcion: experiencia.descripcionExperiencia as string,
+              idUsuario: user.id,
+            },
+          });
+        });
+      }
+  
+      if (cursos.length > 0) {
+
+        await prisma.curso.deleteMany({
+          where: {
+            idUsuario: user.id,
+            },
+        });
+
+        cursos.forEach(async (cursos) => {
+          await prisma.curso.create({
+            data: {
+              nombre: cursos.curso as string,
+              institucion: cursos.institucion as string,
+              fechaInicio: cursos.anioInicioCurso as string,
+              idUsuario: user.id,
+            },
+          });
+        });
+      }
+  
+      if (idiomas1.length > 0) {
+
+        await prisma.idiomas.deleteMany({
+          where: {
+            idUsuario: user.id,
+            },
+        });
+
+        idiomas1.forEach(async (idioma) => {
+          await prisma.idiomas.create({
+            data: {
+              idioma: idioma?.idioma as string,
+              nivel: idioma?.nivel as NivelIdiomaEnum,
+              idUsuario: user.id,
+            },
+          });
+        });
+      }
+  
+      if (licencia || movilidad || incorporacion || disponibilidad || office) {
+        
+        await prisma.informacionAdicional.deleteMany({
+          where: {
+            idUsuario: user.id,
+            },
+        });
+
+        await prisma.informacionAdicional.create({
+          data: {
+            licencia: licencia ? (licencia as string) : "",
+            movilidad: movilidad ? (movilidad as string) : "",
+            incorporacion: incorporacion ? (incorporacion as string) : "",
+            office: office ? (office as string) : "",
+            disponibilidad: disponibilidad as DisponibilidadEnum,
+            idUsuario: user.id,
+          },
+        });
+      }
+      revalidatePath(`/dashboard/user/${user.id}`);
+      revalidatePath(`/dashboard`);
+
+    } catch (error) {
+      return {
+        message: "Database Error: Failed to Update User.",
+      };
+    }
+    finally {
+      prisma.$disconnect();
+    }
+    
+    return createResponse(true, [], `Usuario ${apellido} ${nombre} Actualizado`);
+
 }
 
 /*IA*/

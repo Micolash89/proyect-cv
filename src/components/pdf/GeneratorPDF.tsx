@@ -113,13 +113,16 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   institution: {
+    textTransform:"capitalize",
     fontWeight: "bold",
   },
   location: {
+    textTransform:"capitalize",
     fontStyle: "normal",
     color: "#666666",
   },
   degree: {
+    textTransform:"capitalize",
     fontStyle: "italic",
   },
   dates: {
@@ -158,26 +161,27 @@ const MyDocumentPDF: React.FC<{
         ]}
       >
         {/* Header */}
-        <View style={styles.header}>
+      {cvData.name &&  <View style={styles.header}>
           <Text
             style={[
               styles.name,
               {
                 fontSize: 24 + contador,
-                marginTop: 20 ,
-                marginBottom: contador <= 2 ? contador*5 : 15,
+                marginTop: 20,
+                marginBottom: contador <= 2 ? contador * 5 : 15,
               },
             ]}
           >
-            {cvData.name} {cvData.lastName}
+            {cvData?.name} {cvData?.lastName}
           </Text>
           <Text style={[styles.contactInfo, { fontSize: 11 + contador }]}>
-            {cvData.ciudad}, {cvData.provincia}{" "}
-            {cvData.dni && `• DNI:${cvData.dni}`} • {cvData.fechaNacimiento} •
-            Tel.:{cvData.phone}
-            {cvData.email && ` • ${cvData.email}`}
+            {cvData?.ciudad}, {cvData?.provincia}{" "}
+            {cvData?.dni && `• DNI:${cvData?.dni}`} •{" "}
+            {cvData?.fechaNacimiento.split("-").reverse().join("/")} • Tel.:
+            {cvData?.phone}
+            {cvData?.email && ` • ${cvData?.email}`}
           </Text>
-        </View>
+        </View>}
         {cvData.imagenPerfil && (
           <Image
             src={cvData.imagenPerfil}
@@ -317,8 +321,10 @@ const MyDocumentPDF: React.FC<{
             </Text>
             <View style={[styles.description, { textAlign: "center" }]}>
               <Text wrap={true} style={{ fontSize: 11 + contador }}>
-                {iaData.skills.split(" •").map((skill, index) => (
-                  <React.Fragment key={index}>• {skill} </React.Fragment>
+                {iaData.skills.split("•").map((skill, index) => (
+                  <React.Fragment key={index}>
+                    {" • "} {skill}{" "}
+                  </React.Fragment>
                 ))}
               </Text>
             </View>

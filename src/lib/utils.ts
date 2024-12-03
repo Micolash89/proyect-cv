@@ -8,8 +8,7 @@ export async function JWTCreate(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    // .setExpirationTime("7d")
-    .setExpirationTime("30s")
+    .setExpirationTime("7d")
     .sign(encodedKey);
 }
 
@@ -41,7 +40,6 @@ export async function verifyJwtToken(
 ): Promise<JWTPayload | null> {
   try {
     const { payload } = await jwtVerify(token, getJwtSecretKey());
-
     return payload;
   } catch (error) {
     console.log(error);

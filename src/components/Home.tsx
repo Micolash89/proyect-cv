@@ -67,7 +67,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
     { ssr: false }
   );
 
-  const [showCompleteInputs, setShowCompleteInputs] = useState(false);
+  const [showCompleteInputs, setShowCompleteInputs] = useState(0);
 
   const [cvData, setCVData] = useState<CVData>({
     name: "",
@@ -94,7 +94,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
   useEffect(() => {
     if (user) {
 
-      setShowCompleteInputs(true);
+      setShowCompleteInputs(user.id);
 
       const estudios : Estudio[] = user.estudios.map((estudio: EstudioDataBase) => ({
         estado: estudio.estado,
@@ -124,7 +124,10 @@ export default function Home({ user }: { user?: UserDataBase }) {
       const idiomas : Idioma[] = user.idiomas.map((idioma: IdiomaDataBase) =>
         ({ nivel: idioma.nivel, idioma: idioma.idioma }));
 
-        
+      const fechaFormateada=   `${user.fechaNacimiento.getFullYear()}-${String(
+          user.fechaNacimiento.getMonth() + 1
+        ).padStart(2, "0")}-${String(user.fechaNacimiento.getDate()).padStart(2, "0")}`;
+
       setCVData(
           {
         ...cvData,
@@ -132,12 +135,11 @@ export default function Home({ user }: { user?: UserDataBase }) {
         lastName: user.apellido || "",
         email: user.email || "",
         dni: user.dni || "",
-        fechaNacimiento: user.fechaNacimiento.toString().split("T")[0] || "",
+        fechaNacimiento: fechaFormateada || "",
         phone: user.telefono || "",
         ciudad: user.ciudad || "",
         provincia: user.provincia || "",
         imagenPerfil: user.imagenPerfil || "",
-
         education: estudios || [],
         experience: experiencias || [],
         cursos: cursos || [],
@@ -172,7 +174,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
   return (
     <>
       <main className=" w-full">
-        <FormRegister cvData={cvData} updateCVData={updateCVData} allInputs={showCompleteInputs} />
+        <FormRegister cvData={cvData} updateCVData={updateCVData} idUser={showCompleteInputs} />
 
         <PreviewCV cvData={cvData} iaData={iaData} />
       

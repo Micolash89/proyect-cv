@@ -1,11 +1,11 @@
 "use client";
 
-import { postLogin } from "@/lib/actions";
-import { useState } from "react";
+import { postLogin, revalidateFunction } from "@/lib/actions";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import clsx from "clsx";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface FormDataError {
   message: string;
@@ -19,6 +19,20 @@ interface FormDataErrorErrors {
 function FormLogin() {
 
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+  
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    const error = params.get("error");
+    const url = params.get("url");
+    if (error === "auth_required") {
+      toast.error("Inicie sesión para acceder a esta página");
+      revalidateFunction(url?.replace("%2","/") || "/");
+    } else if (error === "session_expired") {
+      toast.error("Su sesión ha expirado. Por favor, inicie sesión nuevamente");
+    }
+  }, [searchParams]);
 
   const [dataResponse, setDataResponse] = useState<FormDataError>({
     message: "" as string,

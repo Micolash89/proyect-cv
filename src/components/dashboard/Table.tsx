@@ -115,15 +115,13 @@ export default async function UserTable({
                       {user.imagenPerfil ? (
                         <Image
                           src={user.imagenPerfil}
-                          className="rounded-full"
+                          className="rounded-full overflow-hidden"
                           width={40}
                           height={45}
                           alt={`${user.nombre}'s profile picture`}
                         />
                       ) : (
-                        <>
-                          <div className="mr-2 rounded-full w-10 h-10 bg-gray-300"></div>
-                        </>
+                        <div className="mr-2 rounded-full w-10 h-10 bg-gray-300"/>
                       )}
                     </div>
                   </td>

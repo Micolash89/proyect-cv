@@ -1,11 +1,12 @@
 "use client";
 
-import { postUsuarios, uploadImage, uploadImageBack } from "@/lib/actions";
+import { postUsuarios, updateUser, uploadImage, uploadImageBack } from "@/lib/actions";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
 import ImageUpload from "./ImageUpload";
 import { InfoCard } from "./InfoCard";
+import { useRouter } from "next/navigation";
 
 type Section =
   | "personal"
@@ -19,12 +20,15 @@ type Section =
 function FormRegister({
   cvData,
   updateCVData,
-  allInputs,
+  idUser,
 }: {
   cvData: any;
   updateCVData: any;
-  allInputs: boolean;
+  idUser: number;
 }) {
+
+  const router = useRouter();
+
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     updateCVData({ [name]: value });
@@ -36,7 +40,7 @@ function FormRegister({
   );
 
   useEffect(() => {
-    if (allInputs) {
+    if (idUser) {
       setSectionRefsStatus({
         education: "education",
         cursos: "cursos",
@@ -47,7 +51,7 @@ function FormRegister({
       });
       setImagePreview(cvData.imagenPerfil);
     }
-  }, [allInputs]);
+  }, [idUser]);
 
   const max = new Date().getFullYear();
   const min = max - 50;
@@ -178,6 +182,7 @@ function FormRegister({
       });
     }
   };
+
   const addCursos = () => {
     if (newCursos.curso && newCursos.institucion) {
       updateCVData({ cursos: [...cvData.cursos, newCursos] });
@@ -241,19 +246,33 @@ function FormRegister({
       updateCVData({ ...cvData, imagenPerfil: result.url });
     }
 
-    const newpost = postUsuarios
+    let newPost;
+
+    if (idUser) {
+      
+      newPost = updateUser
+      .bind(null, cvData.experience)
+      .bind(null, cvData.cursos)
+      .bind(null, cvData.education)
+      .bind(null, cvData.idiomas)
+      .bind(null, cvData.imagenPerfil)
+      .bind(null, idUser);
+    }else{
+      
+      newPost = postUsuarios
       .bind(null, cvData.experience)
       .bind(null, cvData.cursos)
       .bind(null, cvData.education)
       .bind(null, cvData.idiomas)
       .bind(null, cvData.imagenPerfil);
+    }
 
-    const postPromise = newpost(e); // Tu promesa original
+    const postPromise = newPost(e); // Tu promesa original
 
     toast.promise(postPromise, {
-      loading: "Loading...",
+      loading: `${idUser ? "Actualizando " : "Registrando"} a ${cvData.name} ${cvData.lastName}`,
       success: (dato: any) => {
-        console.log(dato);
+        router.push(idUser ? "/dashboard" : "/");
         return `${dato.message}`;
       },
       error: (error) => {
@@ -265,6 +284,7 @@ function FormRegister({
         return `${error.message}`;
       },
     });
+    
   };
 
   const moveToNextSection = (currentSection: Section, nextSection: Section) => {
@@ -273,12 +293,17 @@ function FormRegister({
       ...prev,
       [nextSection]: currentSection,
     }));
-    sectionRefs[nextSection].current?.scrollIntoView({ behavior: "smooth" });
+    sectionRefs[nextSection].current?.scrollIntoView({ behavior: "smooth",
+      block: "center", 
+      
+    });
   };
 
   useEffect(() => {
     if (activeSection && sectionRefs[activeSection].current) {
-      sectionRefs[activeSection].current.scrollIntoView({ behavior: "smooth" });
+      sectionRefs[activeSection].current.scrollIntoView({ behavior: "smooth",
+        block: "center",
+       });
     }
   }, [activeSection]);
 
@@ -293,11 +318,12 @@ function FormRegister({
             variants={sectionVariants}
             className="bg-white dark:bg-gray-900 duration-500 p-6 rounded-lg shadow-md transition-colors mt-8"
           >
-            <h2 className="text-3xl font-semibold mb-4 capitalize text-gray-900 dark:text-white">
+            <h2 className="text-3xl font-semibold  capitalize text-gray-900 dark:text-white">
               Datos personales
             </h2>
+              <span className="text-xs  text-gray-600 dark:text-gray-400"> * El asterisco indica que es obligatorio</span>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
               <div className="relative z-0 w-full group">
                 <input
                   type="text"
@@ -313,7 +339,7 @@ function FormRegister({
                   htmlFor="floating_first_name"
                   className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                  Nombres
+                  Nombres<sup>*</sup>
                 </label>
               </div>
               <div className="relative z-0 w-full group">
@@ -331,7 +357,7 @@ function FormRegister({
                   htmlFor="floating_last_name"
                   className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                  Apellido
+                  Apellido<sup>*</sup>
                 </label>
               </div>
               {/* Desde aca cambiar color fuente y icono del Date*/}
@@ -351,7 +377,7 @@ function FormRegister({
                   htmlFor="floating_company"
                   className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                  Fecha de nacimiento
+                  Fecha de nacimiento<sup>*</sup>
                 </label>
               </div>
 
@@ -364,7 +390,7 @@ function FormRegister({
                   placeholder=" "
                   value={cvData.dni}
                   onChange={handleInputChange}
-                  required
+                  
                 />
                 <label
                   htmlFor="floating_dni"
@@ -388,7 +414,7 @@ function FormRegister({
                   htmlFor="floating_phone"
                   className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                  Teléfono
+                  Teléfono<sup>*</sup>
                 </label>
               </div>
               <div className="relative z-0 w-full group">
@@ -933,48 +959,6 @@ function FormRegister({
                 Cursos/Certificaciones
               </h2>
 
-              {/* {cvData.cursos.map((edu: any, index: any) => (
-                <motion.div
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  variants={sectionVariants}
-                  key={`${index}-cursos`}
-                  className=" mb-4 p-3 border rounded-lg text-black dark:text-white w-full "
-                >
-                  <div className="flex flex-col justify-center items-center">
-                    <h3 className="font-bold">{edu.curso}</h3>
-                    <p>{edu.institucion}</p>
-                    <p>{edu.anioInicioCurso}</p>
-                  </div>
-                  <button
-                    type="button"
-                    className="mt-2 flex flex-row gap-2 items-center justify-center text-red-500 hover:bg-red-50 transition-colors duration-700 hover:border-red-500 border-2 p-2 rounded-lg  deleteButton"
-                    onClick={() => removeCursos(index)}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                    >
-                      <path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"></path>
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM13.4142 13.9997L15.182 15.7675L13.7678 17.1817L12 15.4139L10.2322 17.1817L8.81802 15.7675L10.5858 13.9997L8.81802 12.232L10.2322 10.8178L12 12.5855L13.7678 10.8178L15.182 12.232L13.4142 13.9997ZM9 4V6H15V4H9Z"></path>
-                    </svg>
-                    Eliminar
-                  </button>
-                </motion.div>
-              ))} */}
-
               {cvData.cursos.map((curso: any, index: number) => (
                 <InfoCard
                   key={`${index}-cursos`}
@@ -1099,47 +1083,6 @@ function FormRegister({
               <h2 className="capitalize text-2xl font-semibold mb-4 text-black dark:text-white">
                 Idiomas
               </h2>
-
-              {/* {cvData.idiomas.map((edu: any, index: any) => (
-                <motion.div
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  variants={sectionVariants}
-                  key={`${index}-idiomas`}
-                  className=" mb-4 p-3 border rounded-lg text-black dark:text-white w-full "
-                >
-                  <div className="flex flex-col justify-center items-center">
-                    <h3 className="font-bold">{edu.idioma}</h3>
-                    <p>{edu.nivel}</p>
-                  </div>
-                  <button
-                    type="button"
-                    className="mt-2 flex flex-row gap-2 items-center justify-center text-red-500 hover:bg-red-50 transition-colors duration-700 hover:border-red-500 border-2 p-2 rounded-lg  deleteButton"
-                    onClick={() => removeIdiomas(index)}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                    >
-                      <path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"></path>
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM13.4142 13.9997L15.182 15.7675L13.7678 17.1817L12 15.4139L10.2322 17.1817L8.81802 15.7675L10.5858 13.9997L8.81802 12.232L10.2322 10.8178L12 12.5855L13.7678 10.8178L15.182 12.232L13.4142 13.9997ZM9 4V6H15V4H9Z"></path>
-                    </svg>
-                    Eliminar
-                  </button>
-                </motion.div>
-              ))} */}
 
               {cvData.idiomas.map((idioma: any, index: number) => (
                 <InfoCard
@@ -1417,7 +1360,11 @@ function FormRegister({
               : "hidden"
           }`}
         >
-          Registrar Datos
+          {
+            idUser
+              ? "Actualizar Datos"
+              : "Registrar Datos"
+          }
         </button>
       </form>
     </div>

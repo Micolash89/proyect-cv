@@ -15,7 +15,9 @@ export default async function UserTable({
 }) {
   const users = await fetchFilteredUsers(query, currentPage);
 
-  return (
+  console.log(users);
+
+    return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 dark:bg-gray-800 text-black dark:text-white  md:pt-0 duration-500">
@@ -131,15 +133,15 @@ export default async function UserTable({
                   <td className="whitespace-nowrap px-3 py-3">{user.email}</td>
                   <td className="whitespace-nowrap px-3 py-3">{user.dni}</td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {/* {formatDateToLocal(user.fechaNacimiento)} */}
-                    {formatDateToLocal(user.fechaNacimiento.toDateString())}
+                    {  formatDate(user.fechaNacimiento,"es",{weekday:"short", day:"numeric", month:"short"})}
+                    
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {/* <userstatus status={user.status} /> */}
+                  
                     {user.telefono}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3 relative">
-                    {/* <userstatus status={user.status} /> */}
+                   
                     {user.visto ? (
                       <AnimationDot state={user.visto} />
                     ) : (
@@ -149,8 +151,6 @@ export default async function UserTable({
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
                       <Update id={user.id} />
-                      {/* <Updateuser id={user.id} />
-                      <Deleteuser id={user.id} /> */}
                     </div>
                   </td>
                 </tr>
@@ -162,3 +162,13 @@ export default async function UserTable({
     </div>
   );
 }
+
+export const formatDate = (
+  date: Date,
+  locale: string,
+  options?:any 
+) => {
+
+  return Intl.DateTimeFormat(locale, { ...options, timeZone: 'UTC' }).format(date);
+
+};

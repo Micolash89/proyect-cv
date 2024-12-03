@@ -390,7 +390,7 @@ function FormRegister({
                   placeholder=" "
                   value={cvData.dni}
                   onChange={handleInputChange}
-                  required
+                  
                 />
                 <label
                   htmlFor="floating_dni"

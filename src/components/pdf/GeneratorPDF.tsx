@@ -161,7 +161,7 @@ const MyDocumentPDF: React.FC<{
         ]}
       >
         {/* Header */}
-        <View style={styles.header}>
+      {cvData.name &&  <View style={styles.header}>
           <Text
             style={[
               styles.name,
@@ -181,7 +181,7 @@ const MyDocumentPDF: React.FC<{
             {cvData?.phone}
             {cvData?.email && ` • ${cvData?.email}`}
           </Text>
-        </View>
+        </View>}
         {cvData.imagenPerfil && (
           <Image
             src={cvData.imagenPerfil}

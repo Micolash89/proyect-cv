@@ -285,7 +285,6 @@ function FormRegister({
       },
     });
     
-    
   };
 
   const moveToNextSection = (currentSection: Section, nextSection: Section) => {
@@ -294,12 +293,17 @@ function FormRegister({
       ...prev,
       [nextSection]: currentSection,
     }));
-    sectionRefs[nextSection].current?.scrollIntoView({ behavior: "smooth" });
+    sectionRefs[nextSection].current?.scrollIntoView({ behavior: "smooth",
+      block: "center", 
+      
+    });
   };
 
   useEffect(() => {
     if (activeSection && sectionRefs[activeSection].current) {
-      sectionRefs[activeSection].current.scrollIntoView({ behavior: "smooth" });
+      sectionRefs[activeSection].current.scrollIntoView({ behavior: "smooth",
+        block: "center",
+       });
     }
   }, [activeSection]);
 
@@ -314,11 +318,12 @@ function FormRegister({
             variants={sectionVariants}
             className="bg-white dark:bg-gray-900 duration-500 p-6 rounded-lg shadow-md transition-colors mt-8"
           >
-            <h2 className="text-3xl font-semibold mb-4 capitalize text-gray-900 dark:text-white">
+            <h2 className="text-3xl font-semibold  capitalize text-gray-900 dark:text-white">
               Datos personales
             </h2>
+              <span className="text-xs  text-gray-600 dark:text-gray-400"> * El asterisco indica que es obligatorio</span>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
               <div className="relative z-0 w-full group">
                 <input
                   type="text"
@@ -334,7 +339,7 @@ function FormRegister({
                   htmlFor="floating_first_name"
                   className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                  Nombres
+                  Nombres<sup>*</sup>
                 </label>
               </div>
               <div className="relative z-0 w-full group">
@@ -352,7 +357,7 @@ function FormRegister({
                   htmlFor="floating_last_name"
                   className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                  Apellido
+                  Apellido<sup>*</sup>
                 </label>
               </div>
               {/* Desde aca cambiar color fuente y icono del Date*/}
@@ -372,7 +377,7 @@ function FormRegister({
                   htmlFor="floating_company"
                   className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                  Fecha de nacimiento
+                  Fecha de nacimiento<sup>*</sup>
                 </label>
               </div>
 
@@ -409,7 +414,7 @@ function FormRegister({
                   htmlFor="floating_phone"
                   className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                  Teléfono
+                  Teléfono<sup>*</sup>
                 </label>
               </div>
               <div className="relative z-0 w-full group">

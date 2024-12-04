@@ -239,23 +239,31 @@ function FormRegister({
   });
 
   const handleSubmit = async (e: FormData) => {
+
+    let result:any;
+
     if (imageFile) {
+
       const formData = new FormData();
       formData.append("file", imageFile);
-      const result = await uploadImage(formData);
+      result = await uploadImage(formData);
+
       updateCVData({ ...cvData, imagenPerfil: result.url });
+
     }
-
+    
     let newPost;
-
+    
     if (idUser) {
-      
+      console.log("antes de desntrar");
+      // console.log(result?.url);
+
       newPost = updateUser
       .bind(null, cvData.experience)
       .bind(null, cvData.cursos)
       .bind(null, cvData.education)
       .bind(null, cvData.idiomas)
-      .bind(null, cvData.imagenPerfil)
+      .bind(null, result?.url || "")
       .bind(null, idUser);
     }else{
       

@@ -23,10 +23,10 @@ import {
   generarSkills,
   Idioma,
 } from "./actionsIA";
-import { v2 as cloudinary } from 'cloudinary';
+import { v2 as cloudinary } from "cloudinary";
 
 const CreateSchemaUsuario = z.object({
-  id:z.coerce.number(),
+  id: z.coerce.number(),
   name: z
     .string({ message: "ingrese un nombre" })
     .min(4, "el nombre debe de tener al menos 4 caracteres"),
@@ -43,7 +43,7 @@ const CreateSchemaUsuario = z.object({
   imagenPerfil: z.string().optional(),
   phone: z.string().min(6, "el telefono debe tener al menos 6 caracteres"),
   ciudad: z.string().min(4, "la ciudad debe de tener al menos 4 caracteres"),
-  dni:z.string().optional(),
+  dni: z.string().optional(),
   provincia: z
     .string()
     .min(4, "la provincia debe de tener al menos 4 caracteres"),
@@ -131,7 +131,7 @@ const CreateSchemaUsuario = z.object({
   orientadoCV: z.string({ message: "Ingrese una orientación" }).optional(),
 });
 
-const CreateUsuario = CreateSchemaUsuario.omit({id:true});
+const CreateUsuario = CreateSchemaUsuario.omit({ id: true });
 const UpdateUsuario = CreateSchemaUsuario.omit({});
 
 export interface Experiencia {
@@ -147,8 +147,8 @@ export async function postUsuarios(
   cursos1: any[],
   education: any[],
   idiomas: any[],
-  imagenPerfil:string,
-  formData: FormData,
+  imagenPerfil: string,
+  formData: FormData
 ) {
   console.log("backend");
   console.log("experiencia", experience);
@@ -196,11 +196,10 @@ export async function postUsuarios(
       disponibilidad,
       office,
       orientadoCV,
-      imagenPerfil: file
+      imagenPerfil: file,
     },
   } = validatedFields;
 
-  
   try {
     const user = await prisma.user.create({
       data: {
@@ -405,32 +404,19 @@ export async function deleteUser(id: number) {
   }
 }
 
-const UpdateUserSchema = z.object({
-  id: z.coerce.number({
-    invalid_type_error: "El ID debe ser un número entero",
-    message: "El ID debe ser un número entero",
-  }),
-  nombre: z.string().min(4, "El nombre debe tener al menos 4 caracteres"),
-  apellido: z.string().min(3, "El apellido debe tener al menos 3 caracteres"),
-  telefono: z.string().min(6, "El teléfono debe tener al menos 6 caracteres"),
-  // fechaNacimiento: z.date("La fecha de nacimiento debe ser una fecha válida"),
-  email: z
-    .string()
-    .email("Debe ser un email válido")
-    .min(6, "El email debe tener al menos 6 caracteres"),
-  domicilio: z.string().min(1, "El domicilio no puede estar vacío"),
-  ciudad: z.string().min(1, "La ciudad no puede estar vacía"),
-  provincia: z.string().min(1, "La provincia no puede estar vacía"),
-  linkedin: z.string().optional(),
-});
 
-export async function updateUser(  experience: Experiencia[],
+export async function updateUser(
+  experience: Experiencia[],
   cursos1: any[],
   education: any[],
   idiomas: any[],
-  imagenPerfil:string,
+  imagenPerfil: string,
   idUser: number,
-  formData: FormData,) {
+  formData: FormData
+) {
+
+  console.log("backend");
+  console.log(imagenPerfil);
 
   const UpdateUserData = UpdateUsuario.safeParse({
     id: idUser,
@@ -451,169 +437,159 @@ export async function updateUser(  experience: Experiencia[],
     );
   }
 
-    const {
-      id,
-        name: nombre,
-        lastName: apellido,
-        email,
-        fechaNacimiento,
-        phone: telefono,
-        ciudad,
-        provincia,
-        education: educacion,
-        experience: experiencia,
-        cursos,
-        idiomas: idiomas1,
-        dni,
-        licencia,
-        movilidad,
-        incorporacion,
-        disponibilidad,
-        office,
-        orientadoCV,
-        imagenPerfil: file
-      
-    } = UpdateUserData.data;
-  
-    
-    try {
-      const user = await prisma.user.update({
-            where: { id },
-        data: {
-          nombre: (nombre.charAt(0).toUpperCase() +
-            nombre.slice(1).toLowerCase()) as string,
-          apellido: (apellido.charAt(0).toUpperCase() +
-            apellido.slice(1).toLowerCase()) as string,
-          telefono: telefono as string,
-          fechaNacimiento: fechaNacimiento as Date,
-          email: email as string,
-          ciudad: ciudad as string,
-          provincia: provincia as string,
-          imagenPerfil: file as string,
-          orientacionCV: orientadoCV as string,
-          dni: dni as string,
+  const {
+    id,
+    name: nombre,
+    lastName: apellido,
+    email,
+    fechaNacimiento,
+    phone: telefono,
+    ciudad,
+    provincia,
+    education: educacion,
+    experience: experiencia,
+    cursos,
+    idiomas: idiomas1,
+    dni,
+    licencia,
+    movilidad,
+    incorporacion,
+    disponibilidad,
+    office,
+    orientadoCV,
+    imagenPerfil: file,
+  } = UpdateUserData.data;
+
+  try {
+    const user = await prisma.user.update({
+      where: { id },
+      data: {
+        nombre: (nombre.charAt(0).toUpperCase() +
+          nombre.slice(1).toLowerCase()) as string,
+        apellido: (apellido.charAt(0).toUpperCase() +
+          apellido.slice(1).toLowerCase()) as string,
+        telefono: telefono as string,
+        fechaNacimiento: fechaNacimiento as Date,
+        email: email as string,
+        ciudad: ciudad as string,
+        provincia: provincia as string,
+        imagenPerfil: file as string,
+        orientacionCV: orientadoCV as string,
+        dni: dni as string,
+      },
+    });
+
+    if (educacion.length > 0) {
+      await prisma.estudio.deleteMany({
+        where: {
+          idUsuario: user.id,
         },
       });
-  
-      if (educacion.length > 0) {
 
-        await prisma.estudio.deleteMany({
-          where: {
-            idUsuario: user.id,
-            },
-        });
-
-        educacion.forEach(async (educacion) => {
-          await prisma.estudio.create({
-            data: {
-              carrera: educacion.carrera as string,
-              estado: educacion.estado as EstudioEstadoEnum,
-              tipo: educacion.estudios as EstudioTipoEnum,
-              ubicacion: educacion.zonaInstitucion as string,
-              fechaIngreso: educacion.anioInicioEducacion as string,
-              institucion: educacion.institucion as string, //falta agregar institucion frontend
-              fechaEgreso: educacion.anioFinEducacion as string,
-              idUsuario: user.id,
-            },
-          });
-        });
-      }
-  
-      if (experiencia.length > 0) {
-
-        await prisma.experiencia.deleteMany({
-          where: {
-            idUsuario: user.id,
-            },
-        });
-
-        experiencia.forEach(async (experiencia) => {
-          await prisma.experiencia.create({
-            data: {
-              nombre: experiencia.nombreEmpresa as string,
-              puesto: experiencia.puesto as string,
-              ubicacion: experiencia.zonaEmpresa as string,
-              fechaInicio: experiencia.anioInicioExperiencia as string,
-              fechaFin: experiencia.anioFinExperiencia as string,
-              descripcion: experiencia.descripcionExperiencia as string,
-              idUsuario: user.id,
-            },
-          });
-        });
-      }
-  
-      if (cursos.length > 0) {
-
-        await prisma.curso.deleteMany({
-          where: {
-            idUsuario: user.id,
-            },
-        });
-
-        cursos.forEach(async (cursos) => {
-          await prisma.curso.create({
-            data: {
-              nombre: cursos.curso as string,
-              institucion: cursos.institucion as string,
-              fechaInicio: cursos.anioInicioCurso as string,
-              idUsuario: user.id,
-            },
-          });
-        });
-      }
-  
-      if (idiomas1.length > 0) {
-
-        await prisma.idiomas.deleteMany({
-          where: {
-            idUsuario: user.id,
-            },
-        });
-
-        idiomas1.forEach(async (idioma) => {
-          await prisma.idiomas.create({
-            data: {
-              idioma: idioma?.idioma as string,
-              nivel: idioma?.nivel as NivelIdiomaEnum,
-              idUsuario: user.id,
-            },
-          });
-        });
-      }
-  
-      if (licencia || movilidad || incorporacion || disponibilidad || office) {
-        
-        await prisma.informacionAdicional.deleteMany({
-          where: {
-            idUsuario: user.id,
-            },
-        });
-
-        await prisma.informacionAdicional.create({
+      educacion.forEach(async (educacion) => {
+        await prisma.estudio.create({
           data: {
-            licencia: licencia ? (licencia as string) : "",
-            movilidad: movilidad ? (movilidad as string) : "",
-            incorporacion: incorporacion ? (incorporacion as string) : "",
-            office: office ? (office as string) : "",
-            disponibilidad: disponibilidad as DisponibilidadEnum,
+            carrera: educacion.carrera as string,
+            estado: educacion.estado as EstudioEstadoEnum,
+            tipo: educacion.estudios as EstudioTipoEnum,
+            ubicacion: educacion.zonaInstitucion as string,
+            fechaIngreso: educacion.anioInicioEducacion as string,
+            institucion: educacion.institucion as string, //falta agregar institucion frontend
+            fechaEgreso: educacion.anioFinEducacion as string,
             idUsuario: user.id,
           },
         });
-      }
-      revalidatePath(`/dashboard/user/${user.id}`);
-      revalidatePath(`/dashboard`);
-
-    } catch (error) {
-      return {
-        message: "Database Error: Failed to Update User.",
-      };
+      });
     }
-    finally {
-      prisma.$disconnect();
-    }
-    
-    return createResponse(true, [], `Usuario ${apellido} ${nombre} Actualizado`);
 
+    if (experiencia.length > 0) {
+      await prisma.experiencia.deleteMany({
+        where: {
+          idUsuario: user.id,
+        },
+      });
+
+      experiencia.forEach(async (experiencia) => {
+        await prisma.experiencia.create({
+          data: {
+            nombre: experiencia.nombreEmpresa as string,
+            puesto: experiencia.puesto as string,
+            ubicacion: experiencia.zonaEmpresa as string,
+            fechaInicio: experiencia.anioInicioExperiencia as string,
+            fechaFin: experiencia.anioFinExperiencia as string,
+            descripcion: experiencia.descripcionExperiencia as string,
+            idUsuario: user.id,
+          },
+        });
+      });
+    }
+
+    if (cursos.length > 0) {
+      await prisma.curso.deleteMany({
+        where: {
+          idUsuario: user.id,
+        },
+      });
+
+      cursos.forEach(async (cursos) => {
+        await prisma.curso.create({
+          data: {
+            nombre: cursos.curso as string,
+            institucion: cursos.institucion as string,
+            fechaInicio: cursos.anioInicioCurso as string,
+            idUsuario: user.id,
+          },
+        });
+      });
+    }
+
+    if (idiomas1.length > 0) {
+      await prisma.idiomas.deleteMany({
+        where: {
+          idUsuario: user.id,
+        },
+      });
+
+      idiomas1.forEach(async (idioma) => {
+        await prisma.idiomas.create({
+          data: {
+            idioma: idioma?.idioma as string,
+            nivel: idioma?.nivel as NivelIdiomaEnum,
+            idUsuario: user.id,
+          },
+        });
+      });
+    }
+
+    if (licencia || movilidad || incorporacion || disponibilidad || office) {
+      await prisma.informacionAdicional.deleteMany({
+        where: {
+          idUsuario: user.id,
+        },
+      });
+
+      await prisma.informacionAdicional.create({
+        data: {
+          licencia: licencia ? (licencia as string) : "",
+          movilidad: movilidad ? (movilidad as string) : "",
+          incorporacion: incorporacion ? (incorporacion as string) : "",
+          office: office ? (office as string) : "",
+          disponibilidad: disponibilidad as DisponibilidadEnum,
+          idUsuario: user.id,
+        },
+      });
+    }
+    revalidatePath(`/dashboard/user/${user.id}`);
+    revalidatePath(`/dashboard`);
+  } catch (error) {
+    return {
+      message: "Database Error: Failed to Update User.",
+    };
+  } finally {
+    prisma.$disconnect();
+  }
+
+  return createResponse(true, [], `Usuario ${apellido} ${nombre} Actualizado`);
 }
 
 /*IA*/
@@ -720,61 +696,58 @@ cloudinary.config({
 
 export async function uploadImage(formData: FormData) {
   try {
-    const file = formData.get('file') as File;
-    
+    const file = formData.get("file") as File;
+
     if (!file) {
-      return { url:"", error: 'No se seleccionó ningún archivo' };
+      return { url: "", error: "No se seleccionó ningún archivo" };
     }
 
     // Convertir el archivo a Base64
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const fileBase64 = `data:${file.type};base64,${buffer.toString('base64')}`;
+    const fileBase64 = `data:${file.type};base64,${buffer.toString("base64")}`;
 
     // Subir a Cloudinary
     const result = await cloudinary.uploader.upload(fileBase64, {
-      folder: 'cv-images',
+      folder: "cv-images",
     });
 
     return { url: result.secure_url };
   } catch (error) {
-    console.error('Error al subir imagen:', error);
-    return { url:"", error: 'Error al subir la imagen' };
+    console.error("Error al subir imagen:", error);
+    return { url: "", error: "Error al subir la imagen" };
   }
 }
 
 export async function uploadImageBack(file: File) {
   try {
-        
     if (!file) {
-      return { url:"", error: 'No se seleccionó ningún archivo' };
+      return { url: "", error: "No se seleccionó ningún archivo" };
     }
 
     // Convertir el archivo a Base64
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const fileBase64 = `data:${file.type};base64,${buffer.toString('base64')}`;
+    const fileBase64 = `data:${file.type};base64,${buffer.toString("base64")}`;
 
     // Subir a Cloudinary
     const result = await cloudinary.uploader.upload(fileBase64, {
-      folder: 'cv-images',
+      folder: "cv-images",
     });
 
-    return result.secure_url ;
+    return result.secure_url;
   } catch (error) {
-    console.error('Error al subir imagen:', error);
+    console.error("Error al subir imagen:", error);
   }
-  return {url:"", error: 'Error al subir la imagen'} ;
+  return { url: "", error: "Error al subir la imagen" };
 }
 
- export async function logoutAction(){
-   
-   cookies().delete("token");
-   cookies().delete("adminUser");
-  }
-  
-  export async function revalidateFunction(url:string){
-    revalidatePath(url);
-    return "Cache Borrado" ;
-  }
+export async function logoutAction() {
+  cookies().delete("token");
+  cookies().delete("adminUser");
+}
 
+export async function revalidateFunction(url: string) {
+  revalidatePath(url);
+  return "Cache Borrado";
+}

@@ -5,6 +5,9 @@ import { styles as stylesDefault } from "@/lib/stylePdf/styleDefault";
 import { CVDataPdf as CVData } from "@/lib/definitions";
 import { styles2 } from "@/lib/stylePdf/style2";
 import { styles1 } from "@/lib/stylePdf/style1";
+import { styles3 } from "@/lib/stylePdf/style3";
+import { styles4 } from "@/lib/stylePdf/style4";
+import { componentStyles } from "@/lib/stylePdf/component4";
 
 const MyDocumentPDF: React.FC<{
   cvData: CVData;
@@ -588,6 +591,279 @@ const MyDocumentPDF: React.FC<{
         </Document>
       );
       break;
+
+      case 3:
+        return (
+          <Document>
+            <Page size="A4" style={styles3.page}>
+              {/* Header Section */}
+              <View style={styles3.header}>
+                {cvData.imagenPerfil && (
+                  <Image src={cvData.imagenPerfil} style={styles3.profileImage} />
+                )}
+                <View style={styles3.headerContent}>
+                  <Text style={styles3.name}>
+                    {cvData.name} {cvData.lastName}
+                  </Text>
+                  <Text style={styles3.title}>{cvData.experience[0]?.puesto || "Professional"}</Text>
+                </View>
+              </View>
+      
+              {/* Main Content Container */}
+              <View style={styles3.container}>
+                {/* Left Column */}
+                <View style={styles3.leftColumn}>
+                  {/* Contact Information */}
+                  <View style={styles3.section}>
+                    <Text style={styles3.sectionTitle}>CONTACT</Text>
+                    <View style={styles3.contactItem}>
+                      <Text style={styles3.contactText}>{cvData.email}</Text>
+                      <Text style={styles3.contactText}>{cvData.phone}</Text>
+                      <Text style={styles3.contactText}>
+                        {cvData.ciudad}, {cvData.provincia}
+                      </Text>
+                    </View>
+                  </View>
+      
+                  {/* Skills Section */}
+                  {iaData.skills && (
+                    <View style={styles3.section}>
+                      <Text style={styles3.sectionTitle}>SKILLS</Text>
+                      {iaData.skills.split("•").map((skill, index) => (
+                        <Text key={index} style={styles3.skillItem}>
+                          • {skill.trim()}
+                        </Text>
+                      ))}
+                    </View>
+                  )}
+      
+                  {/* Languages Section */}
+                  {cvData.idiomas.length > 0 && (
+                    <View style={styles3.section}>
+                      <Text style={styles3.sectionTitle}>LANGUAGES</Text>
+                      {cvData.idiomas.map((idioma, index) => (
+                        <View key={index} style={styles3.languageItem}>
+                          <Text style={styles3.languageName}>{idioma.idioma}</Text>
+                          <Text style={styles3.languageLevel}>{idioma.nivel}</Text>
+                        </View>
+                      ))}
+                    </View>
+                  )}
+                </View>
+      
+                {/* Right Column */}
+                <View style={styles3.rightColumn}>
+                  {/* Profile Summary */}
+                  {iaData.profile && (
+                    <View style={styles3.section}>
+                      <Text style={styles3.sectionTitle}>PROFILE</Text>
+                      <Text style={styles3.profileText}>{iaData.profile}</Text>
+                    </View>
+                  )}
+      
+                  {/* Experience Section */}
+                  {cvData.experience.length > 0 && (
+                    <View style={styles3.section}>
+                      <Text style={styles3.sectionTitle}>EXPERIENCE</Text>
+                      {cvData.experience.map((exp, index) => (
+                        <View key={index} style={styles3.experienceItem}>
+                          <View style={styles3.experienceHeader}>
+                            <Text style={styles3.companyName}>{exp.nombreEmpresa}</Text>
+                            <Text style={styles3.dateLocation}>
+                              {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
+                            </Text>
+                          </View>
+                          <Text style={styles3.jobTitle}>{exp.puesto}</Text>
+                          <Text style={styles3.locationText}>{exp.zonaEmpresa}</Text>
+                          <Text style={styles3.description}>
+                            • {iaData.descriptionWork.split("\n")[index]}
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
+                  )}
+      
+                  {/* Education Section */}
+                  {cvData.education.length > 0 && (
+                    <View style={styles3.section}>
+                      <Text style={styles3.sectionTitle}>EDUCATION</Text>
+                      {cvData.education.map((edu, index) => (
+                        <View key={index} style={styles3.educationItem}>
+                          <View style={styles3.educationHeader}>
+                            <Text style={styles3.institutionName}>{edu.institucion}</Text>
+                            <Text style={styles3.dateLocation}>
+                              {edu.anioInicioEducacion} - {edu.anioFinEducacion}
+                            </Text>
+                          </View>
+                          <Text style={styles3.degree}>
+                            {edu.carrera} ({edu.estado})
+                          </Text>
+                          <Text style={styles3.locationText}>{edu.zonaInstitucion}</Text>
+                        </View>
+                      ))}
+                    </View>
+                  )}
+      
+                  {/* Certifications Section */}
+                  {cvData.cursos.length > 0 && (
+                    <View style={styles3.section}>
+                      <Text style={styles3.sectionTitle}>CERTIFICATIONS</Text>
+                      {cvData.cursos.map((curso, index) => (
+                        <View key={index} style={styles3.certificationItem}>
+                          <Text style={styles3.certificationName}>{curso.curso}</Text>
+                          <Text style={styles3.certificationInstitution}>
+                            {curso.institucion} | {curso.anioInicioCurso}
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
+                  )}
+                </View>
+              </View>
+            </Page>
+          </Document>
+        );
+        break;
+        case 4:
+          return (
+            <Document>
+              <Page size="A4" style={styles4.page}>
+                {/* Header Background with Accent */}
+                <View style={componentStyles.headerBackground} />
+                <View style={componentStyles.headerAccent} />
+        
+                {/* Profile Section */}
+                <View style={componentStyles.profileContainer}>
+                  {cvData.imagenPerfil && (
+                    <Image src={cvData.imagenPerfil} style={componentStyles.profileImage} />
+                  )}
+                  <View style={componentStyles.nameContainer}>
+                    <Text style={componentStyles.name}>
+                      {cvData.name} {cvData.lastName}
+                    </Text>
+                    <Text style={componentStyles.title}>{cvData.experience[0]?.puesto || "Profesional"}</Text>
+                  </View>
+                </View>
+        
+                {/* Main Content */}
+                <View style={componentStyles.mainContent}>
+                  {/* Left Column */}
+                  <View style={componentStyles.leftColumn}>
+                    {/* Contacto */}
+                    <View style={styles4.section}>
+                      <Text style={componentStyles.sectionTitle}>Contacto</Text>
+                      <View style={componentStyles.contactItem}>
+                        <Text style={componentStyles.contactText}>{cvData.email}</Text>
+                      </View>
+                      <View style={componentStyles.contactItem}>
+                        <Text style={componentStyles.contactText}>{cvData.phone}</Text>
+                      </View>
+                      <View style={componentStyles.contactItem}>
+                        <Text style={componentStyles.contactText}>
+                          {cvData.ciudad}, {cvData.provincia}
+                        </Text>
+                      </View>
+                    </View>
+        
+                    {/* Habilidades */}
+                    {iaData.skills && (
+                      <View style={styles4.section}>
+                        <Text style={componentStyles.sectionTitle}>Habilidades</Text>
+                        <View style={componentStyles.skillContainer}>
+                          {iaData.skills.split("•").map((skill, index) => (
+                            skill.trim() && (
+                              <Text key={index} style={componentStyles.skillItem}>
+                                {skill.trim()}
+                              </Text>
+                            )
+                          ))}
+                        </View>
+                      </View>
+                    )}
+        
+                    {/* Idiomas */}
+                    {cvData.idiomas.length > 0 && (
+                      <View style={styles4.section}>
+                        <Text style={componentStyles.sectionTitle}>Idiomas</Text>
+                        {cvData.idiomas.map((idioma, index) => (
+                          <View key={index} style={componentStyles.languageItem}>
+                            <Text style={componentStyles.languageName}>{idioma.idioma}</Text>
+                            <Text style={componentStyles.languageLevel}>{idioma.nivel}</Text>
+                          </View>
+                        ))}
+                      </View>
+                    )}
+                  </View>
+        
+                  {/* Right Column */}
+                  <View style={componentStyles.rightColumn}>
+                    {/* Perfil */}
+                    {iaData.profile && (
+                      <View style={styles4.section}>
+                        <Text style={componentStyles.sectionTitle}>Perfil Profesional</Text>
+                        <Text style={componentStyles.profileText}>{iaData.profile}</Text>
+                      </View>
+                    )}
+        
+                    {/* Experiencia */}
+                    {cvData.experience.length > 0 && (
+                      <View style={styles4.section}>
+                        <Text style={componentStyles.sectionTitle}>Experiencia Profesional</Text>
+                        {cvData.experience.map((exp, index) => (
+                          <View key={index} style={componentStyles.experienceItem}>
+                            <View style={componentStyles.experienceHeader}>
+                              <Text style={componentStyles.companyName}>{exp.nombreEmpresa}</Text>
+                              <Text style={componentStyles.jobTitle}>{exp.puesto}</Text>
+                              <Text style={componentStyles.dateLocation}>
+                                {exp.anioInicioExperiencia} - {exp.anioFinExperiencia} | {exp.zonaEmpresa}
+                              </Text>
+                            </View>
+                            <Text style={componentStyles.description}>
+                              {iaData.descriptionWork.split("\n")[index]}
+                            </Text>
+                          </View>
+                        ))}
+                      </View>
+                    )}
+        
+                    {/* Educación */}
+                    {cvData.education.length > 0 && (
+                      <View style={styles4.section}>
+                        <Text style={componentStyles.sectionTitle}>Formación Académica</Text>
+                        {cvData.education.map((edu, index) => (
+                          <View key={index} style={componentStyles.educationItem}>
+                            <Text style={componentStyles.institutionName}>{edu.institucion}</Text>
+                            <Text style={componentStyles.degree}>
+                              {edu.carrera} ({edu.estado})
+                            </Text>
+                            <Text style={componentStyles.dateLocation}>
+                              {edu.anioInicioEducacion} - {edu.anioFinEducacion} | {edu.zonaInstitucion}
+                            </Text>
+                          </View>
+                        ))}
+                      </View>
+                    )}
+        
+                    {/* Certificaciones */}
+                    {cvData.cursos.length > 0 && (
+                      <View style={styles4.section}>
+                        <Text style={componentStyles.sectionTitle}>Certificaciones</Text>
+                        {cvData.cursos.map((curso, index) => (
+                          <View key={index} style={componentStyles.certificationItem}>
+                            <Text style={componentStyles.certificationName}>{curso.curso}</Text>
+                            <Text style={componentStyles.certificationInstitution}>
+                              {curso.institucion} | {curso.anioInicioCurso}
+                            </Text>
+                          </View>
+                        ))}
+                      </View>
+                    )}
+                  </View>
+                </View>
+              </Page>
+            </Document>
+          );
+          break;
   }
 
   //style1

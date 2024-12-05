@@ -87,7 +87,7 @@ export default function IARegister({
 
   return (
     <>
-      <div className="w-full max-w-3xl mx-auto mb-8 bg-white dark:bg-gray-900 rounded-lg shadow-md p-6">
+      <div className="w-full max-w-4xl mx-auto mb-8 bg-white dark:bg-gray-900 rounded-lg shadow-md p-6">
       <form
         action={handleProfile}
         className="flex w-full items-center justify-center"

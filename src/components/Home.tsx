@@ -137,9 +137,10 @@ export default function Home({ user }: { user?: UserDataBase }) {
 
       const fechaFormateada = `${user.fechaNacimiento.getFullYear()}-${String(
         user.fechaNacimiento.getMonth() + 1
-      ).padStart(2, "0")}-${
-        String(user.fechaNacimiento.getDate()+1).padStart(2, "0") 
-      }`;
+      ).padStart(2, "0")}-${String(user.fechaNacimiento.getDate() + 1).padStart(
+        2,
+        "0"
+      )}`;
 
       setCVData({
         ...cvData,
@@ -175,6 +176,11 @@ export default function Home({ user }: { user?: UserDataBase }) {
   });
 
   const [contador, setContador] = useState(0);
+  const [optionsPDF, setOptionsPDF] = useState({
+    color: "#000000",
+    spaceBetween: false,
+    tipoPdf: 0,
+  });
 
   const updateCVData = (newData: any) => {
     setCVData((prevData) => ({ ...prevData, ...newData }));
@@ -192,44 +198,53 @@ export default function Home({ user }: { user?: UserDataBase }) {
           idUser={showCompleteInputs}
         />
 
-        <PreviewCV cvData={cvData} iaData={iaData} />
+        {showCompleteInputs ? (
+          <div>
+            <PreviewCV cvData={cvData} iaData={iaData} />
 
-        <IARegister
-          cvData={cvData}
-          updateIAData={updateIAData}
-          title={"generar perfil IA"}
-          tipo={1}
-          iaData={iaData.profile}
-        />
-        <IARegister
-          cvData={cvData}
-          updateIAData={updateIAData}
-          title={"generar tareas IA"}
-          tipo={2}
-          iaData={iaData.descriptionWork}
-        />
-        <IARegister
-          cvData={cvData}
-          updateIAData={updateIAData}
-          title={"generar skills IA"}
-          tipo={3}
-          iaData={iaData.skills}
-        />
+            <IARegister
+              cvData={cvData}
+              updateIAData={updateIAData}
+              title={"generar perfil IA"}
+              tipo={1}
+              iaData={iaData.profile}
+            />
+            <IARegister
+              cvData={cvData}
+              updateIAData={updateIAData}
+              title={"generar tareas IA"}
+              tipo={2}
+              iaData={iaData.descriptionWork}
+            />
+            <IARegister
+              cvData={cvData}
+              updateIAData={updateIAData}
+              title={"generar skills IA"}
+              tipo={3}
+              iaData={iaData.skills}
+            />
 
-        <TextZoom setContador={setContador} contador={contador} />
+            <TextZoom
+              setContador={setContador}
+              contador={contador}
+              optionsPDF={optionsPDF}
+              setOptionsPDF={setOptionsPDF}
+            />
 
-        <div className="max-w-4xl mx-auto h-[900px]">
-          {
-            <PDFViewer width="100%" height="100%">
-              <MyDocumentPDF
-                cvData={cvData}
-                iaData={iaData}
-                contador={contador}
-              />
-              {/* <MyDocumentPDF data ={responseBack}/> */}
-            </PDFViewer>
-          }
-        </div>
+            <div className="max-w-4xl mx-auto h-[900px]">
+              <PDFViewer width="100%" height="100%">
+                <MyDocumentPDF
+                  cvData={cvData}
+                  iaData={iaData}
+                  contador={contador}
+                  optionsPDF={optionsPDF}
+                />
+              </PDFViewer>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
       </main>
     </>
   );

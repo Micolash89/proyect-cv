@@ -1,6 +1,11 @@
 "use client";
 
-import { postUsuarios, updateUser, uploadImage, uploadImageBack } from "@/lib/actions";
+import {
+  postUsuarios,
+  updateUser,
+  uploadImage,
+  uploadImageBack,
+} from "@/lib/actions";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
@@ -26,7 +31,6 @@ function FormRegister({
   updateCVData: any;
   idUser: number;
 }) {
-
   const router = useRouter();
 
   const handleInputChange = (e: any) => {
@@ -239,60 +243,54 @@ function FormRegister({
   });
 
   const handleSubmit = async (e: FormData) => {
-
-    let result:any;
+    let result: any;
 
     if (imageFile) {
-
       const formData = new FormData();
       formData.append("file", imageFile);
       result = await uploadImage(formData);
 
       updateCVData({ ...cvData, imagenPerfil: result.url });
-
     }
-    
-    let newPost;
-    
-    if (idUser) {
-      console.log("antes de desntrar");
-      // console.log(result?.url);
 
+    let newPost;
+
+    if (idUser) {
       newPost = updateUser
-      .bind(null, cvData.experience)
-      .bind(null, cvData.cursos)
-      .bind(null, cvData.education)
-      .bind(null, cvData.idiomas)
-      .bind(null, result?.url || "")
-      .bind(null, idUser);
-    }else{
-      
+        .bind(null, cvData.experience)
+        .bind(null, cvData.cursos)
+        .bind(null, cvData.education)
+        .bind(null, cvData.idiomas)
+        .bind(null, result?.url || "")
+        .bind(null, idUser);
+    } else {
       newPost = postUsuarios
-      .bind(null, cvData.experience)
-      .bind(null, cvData.cursos)
-      .bind(null, cvData.education)
-      .bind(null, cvData.idiomas)
-      .bind(null, cvData.imagenPerfil);
+        .bind(null, cvData.experience)
+        .bind(null, cvData.cursos)
+        .bind(null, cvData.education)
+        .bind(null, cvData.idiomas)
+        .bind(null, cvData.imagenPerfil);
     }
 
     const postPromise = newPost(e); // Tu promesa original
 
     toast.promise(postPromise, {
-      loading: `${idUser ? "Actualizando " : "Registrando"} a ${cvData.name} ${cvData.lastName}`,
+      loading: `${idUser ? "Actualizando " : "Registrando"} a ${cvData.name} ${
+        cvData.lastName
+      }`,
       success: (dato: any) => {
-        router.push(idUser ? "/dashboard" : "/");
+        router.push(idUser ? "/dashboard" : "/success");
         return `${dato.message}`;
       },
       error: (error) => {
         const newErrors = { ...dataResponse.errors, ...error.errors };
         setDataResponse({
           message: error.message,
-          errors: newErrors, // Usamos los nuevos errores si existen, si no mantenemos los antiguos
+          errors: newErrors,
         });
         return `${error.message}`;
       },
     });
-    
   };
 
   const moveToNextSection = (currentSection: Section, nextSection: Section) => {
@@ -301,22 +299,23 @@ function FormRegister({
       ...prev,
       [nextSection]: currentSection,
     }));
-    sectionRefs[nextSection].current?.scrollIntoView({ behavior: "smooth",
-      block: "center", 
-      
+    sectionRefs[nextSection].current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
     });
   };
 
   useEffect(() => {
     if (activeSection && sectionRefs[activeSection].current) {
-      sectionRefs[activeSection].current.scrollIntoView({ behavior: "smooth",
+      sectionRefs[activeSection].current.scrollIntoView({
+        behavior: "smooth",
         block: "center",
-       });
+      });
     }
   }, [activeSection]);
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8">
       <form action={handleSubmit} className="flex flex-col">
         <AnimatePresence mode="sync">
           <motion.section
@@ -329,7 +328,10 @@ function FormRegister({
             <h2 className="text-3xl font-semibold  capitalize text-gray-900 dark:text-white">
               Datos personales
             </h2>
-              <span className="text-xs  text-gray-600 dark:text-gray-400"> * El asterisco indica que es obligatorio</span>
+            <span className="text-xs  text-gray-600 dark:text-gray-400">
+              {" "}
+              * El asterisco indica que es obligatorio
+            </span>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
               <div className="relative z-0 w-full group">
@@ -398,7 +400,6 @@ function FormRegister({
                   placeholder=" "
                   value={cvData.dni}
                   onChange={handleInputChange}
-                  
                 />
                 <label
                   htmlFor="floating_dni"
@@ -505,24 +506,28 @@ function FormRegister({
               </div>
             </div>
 
-            <div className="flex justify-end ">
-              <button
-                type="button"
-                onClick={() => moveToNextSection("personal", "education")}
-                className="mt-4 px-4 py-2 bg-green-400 text-white rounded hover:bg-green-500 flex items-center gap-1"
-              >
-                <span>Siguiente</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  height="24"
-                  fill="currentColor"
+            {idUser ? (
+              ""
+            ) : (
+              <div className="flex justify-end ">
+                <button
+                  type="button"
+                  onClick={() => moveToNextSection("personal", "education")}
+                  className="mt-4 px-4 py-2 bg-green-400 text-white rounded hover:bg-green-500 flex items-center gap-1"
                 >
-                  <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-                </svg>
-              </button>
-            </div>
+                  <span>Siguiente</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                  >
+                    <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                  </svg>
+                </button>
+              </div>
+            )}
           </motion.section>
 
           {sectionRefsStatus.education && (
@@ -733,22 +738,26 @@ function FormRegister({
                   <span>Agregar</span>
                 </button>
 
-                <button
-                  type="button"
-                  onClick={() => moveToNextSection("education", "experience")}
-                  className="ml-4 px-4 py-2 bg-green-400 text-white rounded hover:bg-green-500 justify-self-end flex items-center gap-1"
-                >
-                  <span>Siguiente</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                    fill="currentColor"
+                {idUser ? (
+                  ""
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => moveToNextSection("education", "experience")}
+                    className="ml-4 px-4 py-2 bg-green-400 text-white rounded hover:bg-green-500 justify-self-end flex items-center gap-1"
                   >
-                    <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-                  </svg>
-                </button>
+                    <span>Siguiente</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                    >
+                      <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                    </svg>
+                  </button>
+                )}
               </div>
             </motion.section>
           )}
@@ -934,22 +943,26 @@ function FormRegister({
                   <span>Agregar</span>
                 </button>
 
-                <button
-                  type="button"
-                  onClick={() => moveToNextSection("experience", "cursos")}
-                  className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
-                >
-                  <span>Siguiente</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                    fill="currentColor"
+                {idUser ? (
+                  ""
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => moveToNextSection("experience", "cursos")}
+                    className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
                   >
-                    <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-                  </svg>
-                </button>
+                    <span>Siguiente</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                    >
+                      <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                    </svg>
+                  </button>
+                )}
               </div>
             </motion.section>
           )}
@@ -1059,22 +1072,26 @@ function FormRegister({
                   </svg>
                   <span>Agregar</span>
                 </button>
-                <button
-                  type="button"
-                  onClick={() => moveToNextSection("cursos", "idiomas")}
-                  className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
-                >
-                  <span>Siguiente</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                    fill="currentColor"
+                {idUser ? (
+                  ""
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => moveToNextSection("cursos", "idiomas")}
+                    className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
                   >
-                    <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-                  </svg>
-                </button>
+                    <span>Siguiente</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                    >
+                      <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                    </svg>
+                  </button>
+                )}
               </div>
             </motion.section>
           )}
@@ -1163,22 +1180,26 @@ function FormRegister({
                   <span>Agregar</span>
                 </button>
 
-                <button
-                  type="button"
-                  onClick={() => moveToNextSection("idiomas", "informacionA")}
-                  className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
-                >
-                  <span>Siguiente</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                    fill="currentColor"
+                {idUser ? (
+                  ""
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => moveToNextSection("idiomas", "informacionA")}
+                    className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
                   >
-                    <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-                  </svg>
-                </button>
+                    <span>Siguiente</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                    >
+                      <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                    </svg>
+                  </button>
+                )}
               </div>
             </motion.section>
           )}
@@ -1287,27 +1308,30 @@ function FormRegister({
                   </select>
                 </div>
               </div>
-
-              <div className="flex justify-end mt-4">
-                <button
-                  type="button"
-                  onClick={() =>
-                    moveToNextSection("informacionA", "orientacionCV")
-                  }
-                  className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
-                >
-                  <span>Siguiente</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                    fill="currentColor"
+              {idUser ? (
+                ""
+              ) : (
+                <div className="flex justify-end mt-4">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      moveToNextSection("informacionA", "orientacionCV")
+                    }
+                    className="ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
                   >
-                    <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
-                  </svg>
-                </button>
-              </div>
+                    <span>Siguiente</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                      fill="currentColor"
+                    >
+                      <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                    </svg>
+                  </button>
+                </div>
+              )}
             </motion.section>
           )}
         </AnimatePresence>
@@ -1357,7 +1381,7 @@ function FormRegister({
 
         <button
           type="submit"
-          className={`w-full capitalize px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 mt-8 ${
+          className={`w-full capitalize mb-5 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 mt-8 ${
             sectionRefsStatus.experience != "" &&
             sectionRefsStatus.cursos != "" &&
             sectionRefsStatus.education != "" &&
@@ -1368,11 +1392,7 @@ function FormRegister({
               : "hidden"
           }`}
         >
-          {
-            idUser
-              ? "Actualizar Datos"
-              : "Registrar Datos"
-          }
+          {idUser ? "Actualizar Datos" : "Registrar Datos"}
         </button>
       </form>
     </div>

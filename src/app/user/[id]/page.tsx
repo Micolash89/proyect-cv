@@ -1,4 +1,5 @@
 import Home from "@/components/Home";
+import UserNotFound from "@/components/user/[id]/NotRegisteredUser";
 import { changeStateUser, getUserId } from "@/database/database";
 
 
@@ -71,9 +72,7 @@ export default async function page({ params }: { params: { id: string } }) {
 
     if ( !user) {
         return (
-            <>
-              <h2>Usuario: {params.id} no existe</h2>
-            </>
+          <UserNotFound />
           );
     }
 

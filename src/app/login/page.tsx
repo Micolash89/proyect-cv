@@ -1,9 +1,12 @@
 import FormLogin from "@/components/login/FormLogin";
+import { Suspense } from "react";
 
 function page() {
   return (
     <>
-      <FormLogin />
+      <Suspense fallback={<div>Loading...</div>}>
+        <FormLogin />
+      </Suspense>
     </>
   );
 }

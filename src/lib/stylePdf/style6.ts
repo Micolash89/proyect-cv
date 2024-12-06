@@ -14,25 +14,28 @@ Font.register({
       fontFamily: 'Inter',
       fontSize: 11,
       paddingVertical: 10,
-      paddingHorizontal: 40,
+      paddingHorizontal: 30,
       lineHeight: 1.5,
     },
     header: {
       flexDirection: 'row',
-      marginBottom: 5,
+      // marginBottom: 5,
       paddingBottom: 10,
       
     },
     headerLeft: {
       width: '25%',
+      alignSelf: 'center',
+      
     },
     headerCenter: {
       width: '45%',
-      paddingLeft: 20,
+      paddingLeft: 10,
     },
     headerRight: {
       width: '30%',
-      paddingLeft: 20,
+      paddingLeft: 10,
+      paddingTop: 53,
     },
     profileImage: {
       width: 120,
@@ -41,9 +44,9 @@ Font.register({
       border: '1 solid #EAEAEA',
     },
     name: {
-      fontSize: 24,
+      fontSize: 30,
       fontWeight: 'bold',
-      marginBottom: 15,
+      marginBottom: 10,
     },
     contactLabel: {
       fontSize: 10,
@@ -52,7 +55,7 @@ Font.register({
     },
     contactValue: {
       fontSize: 10,
-      marginBottom: 8,
+      marginBottom: 5,
     },
     sectionTitle: {
       fontSize: 16,
@@ -68,7 +71,7 @@ Font.register({
       textAlign: 'justify',
     },
     timelineContainer: {
-      marginLeft: 15,
+      // marginLeft: 15,
     },
     timelineEntry: {
       flexDirection: 'row',
@@ -89,7 +92,7 @@ Font.register({
       borderLeft: '1 solid #EAEAEA',
       paddingLeft: 15,
       marginLeft: -19,
-      paddingBottom: 15,
+      paddingBottom: 5,
       zIndex: 1,
     },
     timelineTitle: {

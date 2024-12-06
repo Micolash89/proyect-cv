@@ -1,4 +1,4 @@
-import { Document, Page, Text, View, Image } from "@react-pdf/renderer";
+import { Document, Page, Text, View, Image, Svg, Circle } from "@react-pdf/renderer";
 import { TypeIAData } from "../PreviewCV";
 import React from "react";
 import { styles as stylesDefault } from "@/lib/stylePdf/styleDefault";
@@ -8,6 +8,8 @@ import { styles1 } from "@/lib/stylePdf/style1";
 import { styles3 } from "@/lib/stylePdf/style3";
 import { styles4 } from "@/lib/stylePdf/style4";
 import { componentStyles } from "@/lib/stylePdf/component4";
+import { styles5 } from "@/lib/stylePdf/style5";
+import { styles6 } from "@/lib/stylePdf/style6";
 
 const MyDocumentPDF: React.FC<{
   cvData: CVData;
@@ -864,6 +866,270 @@ const MyDocumentPDF: React.FC<{
             </Document>
           );
           break;
+          case 5:
+            return (
+              <Document>
+                <Page size="A4" style={styles5.page}>
+                  {/* Header */}
+                  <View style={styles5.header}>
+                    <View style={styles5.headerLeft}>
+                      <Text style={styles5.name}>{cvData.name} {cvData.lastName}</Text>
+                      <Text style={styles5.title}>{cvData.experience[0]?.puesto || "Profesional"}</Text>
+                    </View>
+                    <View style={styles5.headerRight}>
+                      {cvData.imagenPerfil && (
+                        <Image src={cvData.imagenPerfil} style={styles5.profileImage} />
+                      )}
+                    </View>
+                  </View>
+          
+                  {/* Contact Information */}
+                  <View style={styles5.contactInfo}>
+                    <View style={styles5.contactItem}>
+                      <Svg style={styles5.contactIcon}>
+                        <Circle cx="7.5" cy="7.5" r="7.5" fill="#6C5CE7" />
+                      </Svg>
+                      <Text style={styles5.contactText}>{cvData.email}</Text>
+                    </View>
+                    <View style={styles5.contactItem}>
+                      <Svg style={styles5.contactIcon}>
+                        <Circle cx="7.5" cy="7.5" r="7.5" fill="#6C5CE7" />
+                      </Svg>
+                      <Text style={styles5.contactText}>{cvData.phone}</Text>
+                    </View>
+                    <View style={styles5.contactItem}>
+                      <Svg style={styles5.contactIcon}>
+                        <Circle cx="7.5" cy="7.5" r="7.5" fill="#6C5CE7" />
+                      </Svg>
+                      <Text style={styles5.contactText}>{cvData.ciudad}, {cvData.provincia}</Text>
+                    </View>
+                  </View>
+          
+                  {/* Profile */}
+                  {iaData.profile && (
+                    <View style={styles5.section}>
+                      <Text style={styles5.sectionTitle}>Perfil</Text>
+                      <Text style={styles5.description}>{iaData.profile}</Text>
+                    </View>
+                  )}
+          
+                  {/* Experience */}
+                  <View style={styles5.section}>
+                    <Text style={styles5.sectionTitle}>Experiencia Profesional</Text>
+                    {cvData.experience.map((exp, index) => (
+                      <View key={index} style={styles5.entryContainer}>
+                        <View style={styles5.entryHeader}>
+                          <Text style={styles5.institution}>{exp.nombreEmpresa}</Text>
+                          <Text style={styles5.location}>{exp.zonaEmpresa}</Text>
+                        </View>
+                        <View style={styles5.entryHeader}>
+                          <Text style={styles5.degree}>{exp.puesto}</Text>
+                          <Text style={styles5.dates}>
+                            {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
+                          </Text>
+                        </View>
+                        <Text style={styles5.description}>
+                          • {iaData.descriptionWork.split("\n")[index]}
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
+          
+                  {/* Education */}
+                  <View style={styles5.section}>
+                    <Text style={styles5.sectionTitle}>Educación</Text>
+                    {cvData.education.map((edu, index) => (
+                      <View key={index} style={styles5.entryContainer}>
+                        <View style={styles5.entryHeader}>
+                          <Text style={styles5.institution}>{edu.institucion}</Text>
+                          <Text style={styles5.location}>{edu.zonaInstitucion}</Text>
+                        </View>
+                        <View style={styles5.entryHeader}>
+                          <Text style={styles5.degree}>
+                            {edu.carrera} ({edu.estado.toLowerCase()})
+                          </Text>
+                          <Text style={styles5.dates}>
+                            {edu.anioInicioEducacion} - {edu.anioFinEducacion}
+                          </Text>
+                        </View>
+                      </View>
+                    ))}
+                  </View>
+          
+                  {/* Skills */}
+                  <View style={styles5.section}>
+                    <Text style={styles5.sectionTitle}>Habilidades</Text>
+                    <View style={styles5.skills}>
+                      {iaData.skills.split("•").map((skill, index) => (
+                        <Text key={index} style={styles5.skill}>
+                          {skill.trim()}
+                        </Text>
+                      ))}
+                    </View>
+                  </View>
+          
+                  {/* Certifications */}
+                  <View style={styles5.section}>
+                    <Text style={styles5.sectionTitle}>Certificaciones</Text>
+                    {cvData.cursos.map((curso, index) => (
+                      <View key={index} style={styles5.entryContainer}>
+                        <View style={styles5.entryHeader}>
+                          <Text style={styles5.institution}>{curso.curso}</Text>
+                          <Text style={styles5.dates}>{curso.anioInicioCurso}</Text>
+                        </View>
+                        <Text style={styles5.degree}>{curso.institucion}</Text>
+                      </View>
+                    ))}
+                  </View>
+          
+                  {/* Languages */}
+                  <View style={styles5.section}>
+                    <Text style={styles5.sectionTitle}>Idiomas</Text>
+                    <View style={styles5.skills}>
+                      {cvData.idiomas.map((idioma, index) => (
+                        <Text key={index} style={styles5.skill}>
+                          {idioma.idioma} - {idioma.nivel}
+                        </Text>
+                      ))}
+                    </View>
+                  </View>
+          
+                  {/* Additional Information */}
+                  <View style={styles5.section}>
+                    <Text style={styles5.sectionTitle}>Información Adicional</Text>
+                    <View style={styles5.additionalInfo}>
+                      {cvData.licencia && <Text style={styles5.additionalInfoItem}>Licencia de conducir</Text>}
+                      {cvData.movilidad && <Text style={styles5.additionalInfoItem}>Vehículo propio</Text>}
+                      {cvData.incorporacion && <Text style={styles5.additionalInfoItem}>Disponibilidad inmediata</Text>}
+                      {cvData.disponibilidad && <Text style={styles5.additionalInfoItem}>Jornada: {cvData.disponibilidad}</Text>}
+                      {cvData.office && <Text style={styles5.additionalInfoItem}>Microsoft Office</Text>}
+                    </View>
+                  </View>
+                </Page>
+              </Document>
+            );
+            break;
+
+            case 6:
+              return (
+                <Document>
+                  <Page size="A4" style={styles6.page}>
+                    {/* Header */}
+                    <View style={styles6.header}>
+                      <View style={styles6.headerLeft}>
+                        {cvData.imagenPerfil && (
+                          <Image src={cvData.imagenPerfil} style={styles6.profileImage} />
+                        )}
+                      </View>
+                      <View style={styles6.headerCenter}>
+                        <Text style={styles6.name}>{cvData.name} {cvData.lastName}</Text>
+                        <View>
+                          <Text style={styles6.contactLabel}>Correo:</Text>
+                          <Text style={styles6.contactValue}>{cvData.email}</Text>
+                          
+                          <Text style={styles6.contactLabel}>Teléfono:</Text>
+                          <Text style={styles6.contactValue}>{cvData.phone}</Text>
+                          
+                          <Text style={styles6.contactLabel}>Dirección:</Text>
+                          <Text style={styles6.contactValue}>{cvData.ciudad}, {cvData.provincia}</Text>
+                        </View>
+                      </View>
+                      <View style={styles6.headerRight}>
+                        <Text style={styles6.profileText}>{iaData.profile}</Text>
+                      </View>
+                    </View>
+            
+                    {/* Professional Profile */}
+                    <View>
+                      <Text style={styles6.sectionTitle}>Perfil profesional</Text>
+                      <Text style={styles6.profileText}>{iaData.profile}</Text>
+                    </View>
+            
+                    {/* Experience */}
+                    <View>
+                      <Text style={styles6.sectionTitle}>Experiencia de trabajo</Text>
+                      <View style={styles6.timelineContainer}>
+                        {cvData.experience.map((exp, index) => (
+                          <View key={index} style={styles6.timelineEntry}>
+                            <View style={styles6.timelineDot} />
+                            <View style={styles6.timelineContent}>
+                              <Text style={styles6.timelineTitle}>{exp.puesto}</Text>
+                              <Text style={styles6.timelineSubtitle}>
+                                {exp.nombreEmpresa} | {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
+                              </Text>
+                              <Text style={styles6.timelineDescription}>
+                                {iaData.descriptionWork.split("\n")[index]}
+                              </Text>
+                            </View>
+                          </View>
+                        ))}
+                      </View>
+                    </View>
+            
+                    {/* Education */}
+                    <View>
+                      <Text style={styles6.sectionTitle}>Educación</Text>
+                      <View style={styles6.timelineContainer}>
+                        {cvData.education.map((edu, index) => (
+                          <View key={index} style={styles6.timelineEntry}>
+                            <View style={styles6.timelineDot} />
+                            <View style={styles6.timelineContent}>
+                              <Text style={styles6.timelineTitle}>{edu.carrera}</Text>
+                              <Text style={styles6.timelineSubtitle}>
+                                {edu.institucion}
+                              </Text>
+                              <Text style={styles6.timelineDate}>
+                                {edu.anioInicioEducacion} - {edu.anioFinEducacion}
+                              </Text>
+                            </View>
+                          </View>
+                        ))}
+                        {cvData.cursos.map((curso, index) => (
+                          <View key={`curso-${index}`} style={styles6.timelineEntry}>
+                            <View style={styles6.timelineDot} />
+                            <View style={styles6.timelineContent}>
+                              <Text style={styles6.timelineTitle}>{curso.curso}</Text>
+                              <Text style={styles6.timelineSubtitle}>
+                                {curso.institucion}
+                              </Text>
+                              <Text style={styles6.timelineDate}>{curso.anioInicioCurso}</Text>
+                            </View>
+                          </View>
+                        ))}
+                      </View>
+                    </View>
+            
+                    {/* Additional Info and Languages */}
+                    <View style={styles6.twoColumnSection}>
+                      <View style={styles6.column}>
+                        <Text style={styles6.sectionTitle}>Información adicional</Text>
+                        <Text style={styles6.profileText}>
+                          {[
+                            cvData.licencia && "Licencia de conducir",
+                            cvData.movilidad && "Vehículo propio",
+                            cvData.incorporacion && "Disponibilidad inmediata",
+                            cvData.disponibilidad && `Jornada: ${cvData.disponibilidad}`,
+                            cvData.office && "Microsoft Office",
+                          ]
+                            .filter(Boolean)
+                            .join("\n")}
+                        </Text>
+                      </View>
+                      <View style={[styles6.column,{borderLeft: '1 solid #EAEAEA', paddingLeft: 15}]}>
+                        <Text style={styles6.sectionTitle}>Idiomas</Text>
+                        {cvData.idiomas.map((idioma, index) => (
+                          <View key={index} style={styles6.languageItem}>
+                            <Text style={styles6.languageName}>{idioma.idioma}:</Text>
+                            <Text style={styles6.languageLevel}>{idioma.nivel}</Text>
+                          </View>
+                        ))}
+                      </View>
+                    </View>
+                  </Page>
+                </Document>
+              );
+              break;
+
   }
 
   //style1

@@ -44,7 +44,7 @@ const TextZoom: React.FC<PdfOptionsProps> = ({
   };
 
   const handlePdfTypeChange = () => {
-    const newType = optionsPDF.tipoPdf !== 4 ? optionsPDF.tipoPdf + 1 : 0;
+    const newType = optionsPDF.tipoPdf !== 6 ? optionsPDF.tipoPdf + 1 : 0;
     setOptionsPDF((prev) => ({
       ...prev,
       tipoPdf: newType,

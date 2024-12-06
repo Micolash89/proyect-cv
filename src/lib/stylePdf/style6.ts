@@ -19,9 +19,9 @@ Font.register({
     },
     header: {
       flexDirection: 'row',
-      marginBottom: 30,
-      paddingBottom: 20,
-      borderBottom: '1 solid #EAEAEA',
+      marginBottom: 5,
+      paddingBottom: 10,
+      
     },
     headerLeft: {
       width: '25%',
@@ -58,7 +58,9 @@ Font.register({
       fontSize: 16,
       fontWeight: 'bold',
       marginBottom: 10,
-      marginTop: 20,
+      marginTop: 10,
+      paddingTop: 10,
+      borderTop: '1 solid #EAEAEA',
     },
     profileText: {
       fontSize: 10,
@@ -70,15 +72,17 @@ Font.register({
     },
     timelineEntry: {
       flexDirection: 'row',
-      marginBottom: 15,
+    //   marginBottom: 15,
     },
     timelineDot: {
       width: 8,
       height: 8,
       borderRadius: 4,
-      backgroundColor: '#000000',
+      backgroundColor: '#EAEAEA',
+      border: '1 solid #EAEAEA',
       marginRight: 15,
-      marginTop: 6,
+      marginTop: 0,
+      zIndex: 1,
     },
     timelineContent: {
       flex: 1,
@@ -86,6 +90,7 @@ Font.register({
       paddingLeft: 15,
       marginLeft: -19,
       paddingBottom: 15,
+      zIndex: 1,
     },
     timelineTitle: {
       fontSize: 11,
@@ -108,7 +113,7 @@ Font.register({
       flexDirection: 'row',
       marginTop: 20,
       borderTop: '1 solid #EAEAEA',
-      paddingTop: 20,
+    //   paddingTop: 20,
     },
     column: {
       flex: 1,

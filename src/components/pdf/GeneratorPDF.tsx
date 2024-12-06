@@ -1034,9 +1034,9 @@ const MyDocumentPDF: React.FC<{
                           <Text style={styles6.contactValue}>{cvData.ciudad}, {cvData.provincia}</Text>
                         </View>
                       </View>
-                      <View style={styles6.headerRight}>
+                      {/* <View style={styles6.headerRight}>
                         <Text style={styles6.profileText}>{iaData.profile}</Text>
-                      </View>
+                      </View> */}
                     </View>
             
                     {/* Professional Profile */}
@@ -1102,7 +1102,7 @@ const MyDocumentPDF: React.FC<{
                     {/* Additional Info and Languages */}
                     <View style={styles6.twoColumnSection}>
                       <View style={styles6.column}>
-                        <Text style={styles6.sectionTitle}>Información adicional</Text>
+                        <Text style={[styles6.sectionTitle,{borderTop:"none"}]}>Información adicional</Text>
                         <Text style={styles6.profileText}>
                           {[
                             cvData.licencia && "Licencia de conducir",
@@ -1116,7 +1116,7 @@ const MyDocumentPDF: React.FC<{
                         </Text>
                       </View>
                       <View style={[styles6.column,{borderLeft: '1 solid #EAEAEA', paddingLeft: 15}]}>
-                        <Text style={styles6.sectionTitle}>Idiomas</Text>
+                        <Text style={[styles6.sectionTitle,{borderTop:"none"}]}>Idiomas</Text>
                         {cvData.idiomas.map((idioma, index) => (
                           <View key={index} style={styles6.languageItem}>
                             <Text style={styles6.languageName}>{idioma.idioma}:</Text>

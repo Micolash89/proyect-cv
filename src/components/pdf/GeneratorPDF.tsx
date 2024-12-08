@@ -344,7 +344,7 @@ const MyDocumentPDF: React.FC<{
 
                 {/* Contact Information */}
                 <View style={{ marginTop: 20 }}>
-                  <Text style={styles1.contactInfo}>{cvData.email}</Text>
+                  <Text style={styles1.contactInfo} wrap={true}>{cvData.email}</Text>
                   <Text style={styles1.contactInfo}>{cvData.phone}</Text>
                   <Text style={styles1.contactInfo}>
                     {cvData.ciudad}, {cvData.provincia}
@@ -378,7 +378,7 @@ const MyDocumentPDF: React.FC<{
                 {/* Additional Information */}
                 <View>
                   <Text style={styles1.sidebarSectionTitle}>
-                    INFORMACIÓN ADICIONAL
+                    INFORMACIÓN {"\n"} ADICIONAL
                   </Text>
                   {cvData.licencia && (
                     <Text style={styles1.additionalInfo}>
@@ -493,17 +493,17 @@ const MyDocumentPDF: React.FC<{
                 {cvData.name} {cvData.lastName}
               </Text>
               <View style={styles2.contactInfo}>
-                <Text style={styles2.contactItem}>{cvData.email}</Text>
-                <Text style={styles2.contactItem}>{cvData.phone}</Text>
-                <Text style={styles2.contactItem}>
-                  {cvData.ciudad}, {cvData.provincia}
-                </Text>
                 <Text style={styles2.contactItem}>
                   {cvData.fechaNacimiento.split("-").reverse().join("/")}
                 </Text>
                 {cvData.dni && (
                   <Text style={styles2.contactItem}>DNI: {cvData.dni}</Text>
                 )}
+                <Text style={styles2.contactItem}>Tel: {cvData.phone}</Text>
+                <Text style={styles2.contactItem}>{cvData.email}</Text>
+                <Text style={styles2.contactItem}>
+                  {cvData.ciudad}, {cvData.provincia}
+                </Text>
               </View>
               <Text style={styles2.sectionTitle}>Habilidades</Text>
               <View style={styles2.skills}>
@@ -630,10 +630,16 @@ const MyDocumentPDF: React.FC<{
               <View style={styles3.leftColumn}>
                 {/* Contact Information */}
                 <View style={styles3.section}>
-                  <Text style={styles3.sectionTitle}>CONTACT</Text>
+                  <Text style={styles3.sectionTitle}>INFORMACIÓN</Text>
                   <View style={styles3.contactItem}>
+                    <Text style={styles3.contactText}>
+                      {cvData.fechaNacimiento.split("-").reverse().join("/")}
+                    </Text>
+                    {cvData.dni && (
+                      <Text style={styles3.contactText}>DNI: {cvData.dni}</Text>
+                    )}
+                    <Text style={styles3.contactText}>Tel: {cvData.phone}</Text>
                     <Text style={styles3.contactText}>{cvData.email}</Text>
-                    <Text style={styles3.contactText}>{cvData.phone}</Text>
                     <Text style={styles3.contactText}>
                       {cvData.ciudad}, {cvData.provincia}
                     </Text>
@@ -643,7 +649,7 @@ const MyDocumentPDF: React.FC<{
                 {/* Skills Section */}
                 {iaData.skills && (
                   <View style={styles3.section}>
-                    <Text style={styles3.sectionTitle}>SKILLS</Text>
+                    <Text style={styles3.sectionTitle}>HABILIDADES</Text>
                     {iaData.skills.split("•").map((skill, index) => (
                       <Text key={index} style={styles3.skillItem}>
                         • {skill.trim()}
@@ -655,7 +661,7 @@ const MyDocumentPDF: React.FC<{
                 {/* Languages Section */}
                 {cvData.idiomas.length > 0 && (
                   <View style={styles3.section}>
-                    <Text style={styles3.sectionTitle}>LANGUAGES</Text>
+                    <Text style={styles3.sectionTitle}>LENGUAJES</Text>
                     {cvData.idiomas.map((idioma, index) => (
                       <View key={index} style={styles3.languageItem}>
                         <Text style={styles3.languageName}>
@@ -675,7 +681,7 @@ const MyDocumentPDF: React.FC<{
                 {/* Profile Summary */}
                 {iaData.profile && (
                   <View style={styles3.section}>
-                    <Text style={styles3.sectionTitle}>PROFILE</Text>
+                    <Text style={styles3.sectionTitle}>PERFIL</Text>
                     <Text style={styles3.profileText}>{iaData.profile}</Text>
                   </View>
                 )}
@@ -683,7 +689,7 @@ const MyDocumentPDF: React.FC<{
                 {/* Experience Section */}
                 {cvData.experience.length > 0 && (
                   <View style={styles3.section}>
-                    <Text style={styles3.sectionTitle}>EXPERIENCE</Text>
+                    <Text style={styles3.sectionTitle}>EXPERIENCIA</Text>
                     {cvData.experience.map((exp, index) => (
                       <View key={index} style={styles3.experienceItem}>
                         <View style={styles3.experienceHeader}>
@@ -710,7 +716,7 @@ const MyDocumentPDF: React.FC<{
                 {/* Education Section */}
                 {cvData.education.length > 0 && (
                   <View style={styles3.section}>
-                    <Text style={styles3.sectionTitle}>EDUCATION</Text>
+                    <Text style={styles3.sectionTitle}>EDUCACIÓN</Text>
                     {cvData.education.map((edu, index) => (
                       <View key={index} style={styles3.educationItem}>
                         <View style={styles3.educationHeader}>
@@ -735,7 +741,7 @@ const MyDocumentPDF: React.FC<{
                 {/* Certifications Section */}
                 {cvData.cursos.length > 0 && (
                   <View style={styles3.section}>
-                    <Text style={styles3.sectionTitle}>CERTIFICATIONS</Text>
+                    <Text style={styles3.sectionTitle}>CURSOS</Text>
                     {cvData.cursos.map((curso, index) => (
                       <View key={index} style={styles3.certificationItem}>
                         <Text style={styles3.certificationName}>
@@ -1140,12 +1146,12 @@ const MyDocumentPDF: React.FC<{
                 {/* <Text style={styles6.profileText}>{iaData.profile}</Text> */}
 
                 <Text style={styles6.contactLabel}>Correo:</Text>
-                <Text style={styles6.contactValue} wrap={false}>
+                <Text style={styles6.contactValue} wrap={true}>
                   {cvData.email}
                 </Text>
 
                 <Text style={styles6.contactLabel}>Dirección:</Text>
-                <Text style={styles6.contactValue} wrap={false}>
+                <Text style={styles6.contactValue} wrap={true}>
                   {cvData.ciudad}, {cvData.provincia}
                 </Text>
               </View>

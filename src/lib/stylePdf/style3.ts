@@ -29,14 +29,14 @@ export const styles3 = StyleSheet.create({
   },
   container: {
     flexDirection: "row",
-    padding: "0 30",
+    padding: 20,
   },
   leftColumn: {
-    width: "30%",
-    paddingRight: 20,
+    width: "35%",
+    paddingRight: 10,
   },
   rightColumn: {
-    width: "70%",
+    width: "65%",
     borderLeft: "1 solid #E2E8F0",
     paddingLeft: 20,
   },

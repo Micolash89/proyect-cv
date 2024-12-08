@@ -30,11 +30,11 @@ Font.register({
     },
     headerCenter: {
       width: '45%',
-      paddingLeft: 10,
+      // paddingLeft: 10,
     },
     headerRight: {
       width: '30%',
-      paddingLeft: 10,
+      // paddingLeft: 10,
       paddingTop: 53,
     },
     profileImage: {

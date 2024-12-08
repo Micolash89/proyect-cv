@@ -13,14 +13,14 @@ Font.register({
     page: {
       fontFamily: 'Roboto',
       fontSize: 12,
-      padding: 30,
       flexDirection: 'row',
     },
     leftColumn: {
       width: '30%',
       backgroundColor: '#34495E',
       color: 'white',
-      padding: 20,
+      paddingVertical: 20,
+      paddingHorizontal: 10,
     },
     rightColumn: {
       width: '70%',
@@ -43,12 +43,13 @@ Font.register({
       marginBottom: 20,
     },
     contactItem: {
-      marginBottom: 5,
+
       fontSize: 10,
     },
     sectionTitle: {
       fontSize: 16,
       fontWeight: 'bold',
+      marginTop: 10,
       marginBottom: 10,
       color: '#3498DB',
       borderBottom: '1 solid #3498DB',

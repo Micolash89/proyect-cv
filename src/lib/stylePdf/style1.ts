@@ -24,7 +24,8 @@ export const styles1 = StyleSheet.create({
   sidebar: {
     width: "30%",
     backgroundColor: "#1a365d",
-    padding: 20,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
     color: "#FFFFFF",
   },
   mainContent: {

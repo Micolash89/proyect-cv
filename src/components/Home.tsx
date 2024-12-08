@@ -6,7 +6,6 @@ import PreviewCV from "@/components/PreviewCV";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import IARegister from "@/components/IARegister";
-import TextZoom from "@/components/TextZoom";
 import {
   CursoDataBase,
   EstudioDataBase,
@@ -14,6 +13,7 @@ import {
   IdiomaDataBase,
   UserDataBase,
 } from "@/app/user/[id]/page";
+import { TextZoom } from "./TextZoom";
 
 interface Estudio {
   estudios: string;

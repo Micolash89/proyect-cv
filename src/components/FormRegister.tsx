@@ -1158,6 +1158,7 @@ function FormRegister({
                     <option value={"BASICO"}>Básico</option>
                     <option value={"INTERMEDIO"}>Intermedio</option>
                     <option value={"AVANZADO"}>Avanzado</option>
+                    <option value={"NATIVO"}>Nativo</option>
                   </select>
                 </div>
               </div>

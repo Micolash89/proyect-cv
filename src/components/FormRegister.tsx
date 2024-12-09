@@ -1347,7 +1347,7 @@ function FormRegister({
             className={`bg-white dark:bg-gray-900 duration-500 p-6 rounded-lg shadow-md  mt-8`}
           >
             <h2 className="text-2xl font-semibold mb-4 capitalize text-black dark:text-white">
-              CV Orientado a empleo
+            Orientación Laboral del Curriculum Vitae
             </h2>
 
             <div className="grid grid-cols-1  gap-4">
@@ -1370,9 +1370,7 @@ function FormRegister({
                 </label>
                 <div className="mt-5">
                   <span className="text-xs text-gray-500 dark:text-gray-400">
-                    *Tipo de empleo que desea orientar el CV por ejemplo: <br />
-                    sin experiencia, trabajo el cual desenpeña o puesto de
-                    trabajo que deseen aspirar.
+                    *(opcional) Indica el propósito del CV: ¿Buscas tu primer empleo, quieres resaltar experiencia en un sector específico, o aspiras a un puesto en particular?
                   </span>
                 </div>
               </div>

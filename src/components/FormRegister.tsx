@@ -1385,21 +1385,51 @@ function FormRegister({
           </motion.section>
         )}
 
-        <button
-          type="submit"
-          className={`w-full capitalize mb-5 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 mt-8 ${
-            sectionRefsStatus.experience != "" &&
-            sectionRefsStatus.cursos != "" &&
-            sectionRefsStatus.education != "" &&
-            sectionRefsStatus.idiomas != "" &&
-            sectionRefsStatus.informacionA != "" &&
-            sectionRefsStatus.orientacionCV != ""
-              ? ""
-              : "hidden"
-          }`}
-        >
-          {idUser ? "Actualizar Datos" : "Registrar Datos"}
-        </button>
+        <div className="flex w-full  justify-center">
+          <button
+            type="submit"
+            className={` mt-5 inline-flex items-center gap-2 px-6 py-3 bg-green-500 hover:bg-green-600 
+            active:bg-green-700 text-white font-medium rounded-lg transition-all duration-200
+                      focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 capitalize ${
+                        sectionRefsStatus.experience != "" &&
+                        sectionRefsStatus.cursos != "" &&
+                        sectionRefsStatus.education != "" &&
+                        sectionRefsStatus.idiomas != "" &&
+                        sectionRefsStatus.informacionA != "" &&
+                        sectionRefsStatus.orientacionCV != ""
+                          ? ""
+                          : "hidden"
+                      }`}
+          >
+            {idUser ? (
+              <>
+                {"Actualizar Datos"}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                >
+                  <path d="M21 15.2426V21.0082C21 21.556 20.5551 22 20.0066 22H3.9934C3.44476 22 3 21.5511 3 20.9925V9H9C9.55228 9 10 8.55228 10 8V2H20.0017C20.5531 2 21 2.45531 21 2.9918V6.75736L12.0012 15.7562L11.995 19.995L16.2414 20.0012L21 15.2426ZM21.7782 8.80761L23.1924 10.2218L15.4142 18L13.9979 17.9979L14 16.5858L21.7782 8.80761ZM3 7L8 2.00318V7H3Z"></path>
+                </svg>
+              </>
+            ) : (
+              <>
+                {"Registrar Datos"}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                >
+                  <path d="M1.94607 9.31543C1.42353 9.14125 1.4194 8.86022 1.95682 8.68108L21.043 2.31901C21.5715 2.14285 21.8746 2.43866 21.7265 2.95694L16.2733 22.0432C16.1223 22.5716 15.8177 22.59 15.5944 22.0876L11.9999 14L17.9999 6.00005L9.99992 12L1.94607 9.31543Z"></path>
+                </svg>
+              </>
+            )}
+          </button>
+        </div>
       </form>
     </div>
   );

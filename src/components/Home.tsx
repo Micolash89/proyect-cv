@@ -202,13 +202,16 @@ export default function Home({ user }: { user?: UserDataBase }) {
           <div>
             <PreviewCV cvData={cvData} iaData={iaData} />
 
+            <div className="mt-7">
+
+
             <IARegister
               cvData={cvData}
               updateIAData={updateIAData}
               title={"generar perfil IA"}
               tipo={1}
               iaData={iaData.profile}
-            />
+              />
             <IARegister
               cvData={cvData}
               updateIAData={updateIAData}
@@ -223,6 +226,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
               tipo={3}
               iaData={iaData.skills}
             />
+              </div>
 
             <TextZoom
               setContador={setContador}
@@ -231,7 +235,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
               setOptionsPDF={setOptionsPDF}
             />
 
-            <div className="max-w-4xl mx-auto h-[900px]">
+            <div className="max-w-4xl mx-auto h-[900px] mt-5">
               <PDFViewer width="100%" height="100%">
                 <MyDocumentPDF
                   cvData={cvData}

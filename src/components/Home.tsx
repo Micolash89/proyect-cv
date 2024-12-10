@@ -92,8 +92,8 @@ export default function Home({ user }: { user?: UserDataBase }) {
     licencia: "",
     movilidad: "",
     incorporacion: "",
-    disponibilidad: "",
     office: "",
+    disponibilidad: "",
     orientadoCV: "",
   });
 

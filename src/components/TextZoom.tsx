@@ -53,7 +53,7 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4">
+    <div className="w-full max-w-4xl mx-auto py-4">
       <div className="bg-white dark:bg-gray-900 shadow-lg rounded-xl p-6 space-y-8 transition-all duration-200">
         <div className="flex items-center justify-between border-b dark:border-gray-700 pb-4">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">

@@ -47,8 +47,8 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
     setOptionsPDF((prev) => ({
       ...prev,
       tipoPdf: direction === 'next' 
-        ? (prev.tipoPdf !== 6 ? prev.tipoPdf + 1 : 0)
-        : (prev.tipoPdf !== 0 ? prev.tipoPdf - 1 : 6)
+        ? (prev.tipoPdf !== 7 ? prev.tipoPdf + 1 : 0)
+        : (prev.tipoPdf !== 0 ? prev.tipoPdf - 1 : 7)
     }));
   };
 

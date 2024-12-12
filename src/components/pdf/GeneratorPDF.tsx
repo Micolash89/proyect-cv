@@ -12,12 +12,13 @@ import React from "react";
 import { styles as stylesDefault } from "@/lib/stylePdf/styleDefault";
 import { CVDataPdf as CVData } from "@/lib/definitions";
 import { styles2 } from "@/lib/stylePdf/style2";
-import { styles1 } from "@/lib/stylePdf/style1";
 import { styles3 } from "@/lib/stylePdf/style3";
 import { styles4 } from "@/lib/stylePdf/style4";
 import { componentStyles } from "@/lib/stylePdf/component4";
 import { styles5 } from "@/lib/stylePdf/style5";
 import { styles6 } from "@/lib/stylePdf/style6";
+import { styles7 } from "@/lib/stylePdf/style7";
+import { Layout1 } from "./Layout1";
 
 const MyDocumentPDF: React.FC<{
   cvData: CVData;
@@ -323,161 +324,9 @@ const MyDocumentPDF: React.FC<{
         </Document>
       );
       break;
-
-    case 1:
-      return (
-        <Document>
-          <Page size="A4" style={styles1.page}>
-            <View style={styles1.container}>
-              {/* Sidebar */}
-              <View style={styles1.sidebar}>
-                {cvData.imagenPerfil && (
-                  <Image
-                    src={cvData.imagenPerfil}
-                    style={styles1.profileImage}
-                  />
-                )}
-
-                <Text style={styles1.name}>
-                  {cvData.name} {cvData.lastName}
-                </Text>
-
-                {/* Contact Information */}
-                <View style={{ marginTop: 20 }}>
-                  <Text style={styles1.contactInfo} wrap={true}>{cvData.email}</Text>
-                  <Text style={styles1.contactInfo}>{cvData.phone}</Text>
-                  <Text style={styles1.contactInfo}>
-                    {cvData.ciudad}, {cvData.provincia}
-                  </Text>
-                </View>
-
-                {/* Skills Section */}
-                {iaData.skills && (
-                  <View>
-                    <Text style={styles1.sidebarSectionTitle}>HABILIDADES</Text>
-                    {iaData.skills.split("•").map((skill, index) => (
-                      <Text key={index} style={styles1.skillItem}>
-                        • {skill.trim()}
-                      </Text>
-                    ))}
-                  </View>
-                )}
-
-                {/* Languages */}
-                {cvData.idiomas.length > 0 && (
-                  <View>
-                    <Text style={styles1.sidebarSectionTitle}>IDIOMAS</Text>
-                    {cvData.idiomas.map((idioma, index) => (
-                      <Text key={index} style={styles1.skillItem}>
-                        • {idioma.idioma} - {idioma.nivel}
-                      </Text>
-                    ))}
-                  </View>
-                )}
-
-                {/* Additional Information */}
-                <View>
-                  <Text style={styles1.sidebarSectionTitle}>
-                    INFORMACIÓN {"\n"} ADICIONAL
-                  </Text>
-                  {cvData.licencia && (
-                    <Text style={styles1.additionalInfo}>
-                      • Licencia de conducir
-                    </Text>
-                  )}
-                  {cvData.movilidad && (
-                    <Text style={styles1.additionalInfo}>
-                      • Vehículo propio
-                    </Text>
-                  )}
-                  {cvData.incorporacion && (
-                    <Text style={styles1.additionalInfo}>
-                      • Disponibilidad inmediata
-                    </Text>
-                  )}
-                  {cvData.disponibilidad && (
-                    <Text style={styles1.additionalInfo}>
-                      • Jornada: {cvData.disponibilidad}
-                    </Text>
-                  )}
-                </View>
-              </View>
-
-              {/* Main Content */}
-              <View style={styles1.mainContent}>
-                {/* Profile Summary */}
-                {iaData.profile && (
-                  <View style={{ marginBottom: 20 }}>
-                    <Text style={styles1.sectionTitle}>PERFIL PROFESIONAL</Text>
-                    <Text style={styles1.description}>{iaData.profile}</Text>
-                  </View>
-                )}
-
-                {/* Experience */}
-                {cvData.experience.length > 0 && (
-                  <View style={{ marginBottom: 20 }}>
-                    <Text style={styles1.sectionTitle}>
-                      EXPERIENCIA PROFESIONAL
-                    </Text>
-                    {cvData.experience.map((exp, index) => (
-                      <View key={index} style={styles1.experienceEntry}>
-                        <Text style={styles1.companyName}>
-                          {exp.nombreEmpresa}
-                        </Text>
-                        <Text style={styles1.jobTitle}>{exp.puesto}</Text>
-                        <Text style={styles1.dateLocation}>
-                          {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}{" "}
-                          | {exp.zonaEmpresa}
-                        </Text>
-                        <Text style={styles1.description}>
-                          • {iaData.descriptionWork.split("\n")[index]}
-                        </Text>
-                      </View>
-                    ))}
-                  </View>
-                )}
-
-                {/* Education */}
-                {cvData.education.length > 0 && (
-                  <View style={{ marginBottom: 20 }}>
-                    <Text style={styles1.sectionTitle}>EDUCACIÓN</Text>
-                    {cvData.education.map((edu, index) => (
-                      <View key={index} style={styles1.educationEntry}>
-                        <Text style={styles1.institution}>
-                          {edu.institucion}
-                        </Text>
-                        <Text style={styles1.degree}>
-                          {edu.carrera} ({edu.estado})
-                        </Text>
-                        <Text style={styles1.dateLocation}>
-                          {edu.anioInicioEducacion} - {edu.anioFinEducacion} |{" "}
-                          {edu.zonaInstitucion}
-                        </Text>
-                      </View>
-                    ))}
-                  </View>
-                )}
-
-                {/* Certifications */}
-                {cvData.cursos.length > 0 && (
-                  <View>
-                    <Text style={styles1.sectionTitle}>CERTIFICACIONES</Text>
-                    {cvData.cursos.map((curso, index) => (
-                      <View key={index} style={styles1.educationEntry}>
-                        <Text style={styles1.institution}>{curso.curso}</Text>
-                        <Text style={styles1.degree}>{curso.institucion}</Text>
-                        <Text style={styles1.dateLocation}>
-                          {curso.anioInicioCurso}
-                        </Text>
-                      </View>
-                    ))}
-                  </View>
-                )}
-              </View>
-            </View>
-          </Page>
-        </Document>
-      );
+      
+      case 1:
+      return <Layout1 cvData={cvData} iaData={iaData} optionsPDF={optionsPDF} contador={contador} />
       break;
 
     case 2:
@@ -1266,6 +1115,112 @@ const MyDocumentPDF: React.FC<{
         </Document>
       );
       break;
+
+      case 7:
+        return (
+          <Document>
+            <Page
+              size="A4"
+              style={[
+                styles7.page,
+                { padding: contador <= 5 ? 45 - contador * 5 : 20 },
+              ]}
+            >
+              {/* Header */}
+              {cvData.name && (
+                <View style={styles7.header}>
+                  <Text style={styles7.name}>{cvData.name} {cvData.lastName}</Text>
+                </View>
+              )}
+              {/* Left Column */}
+              <View style={styles7.leftColumn}>
+                {cvData.imagenPerfil && (
+                  <Image src={cvData.imagenPerfil} style={styles7.profileImage} />
+                )}
+                <View style={styles7.contactInfo}>
+                  <Text>{cvData.email}</Text>
+                  <Text>{cvData.phone}</Text>
+                  <Text>{cvData.ciudad}, {cvData.provincia}</Text>
+                </View>
+      
+                <Text style={styles7.sectionTitle}>Habilidades</Text>
+                {iaData.skills &&
+                  iaData.skills.split("•").map((skill, index) => (
+                    <Text key={index} style={styles7.skillItem}>
+                      • {skill.trim()}
+                    </Text>
+                  ))}
+      
+                <Text style={styles7.sectionTitle}>Idiomas</Text>
+                {cvData.idiomas.map((idioma, index) => (
+                  <Text key={index} style={styles7.skillItem}>
+                    • {idioma.idioma}: {idioma.nivel}
+                  </Text>
+                ))}
+      
+                <Text style={styles7.sectionTitle}>Información Adicional</Text>
+                {cvData.licencia && (
+                  <Text style={styles7.skillItem}>• Licencia de conducir</Text>
+                )}
+                {cvData.movilidad && (
+                  <Text style={styles7.skillItem}>• Vehículo propio</Text>
+                )}
+                {cvData.incorporacion && (
+                  <Text style={styles7.skillItem}>• Disponibilidad inmediata</Text>
+                )}
+                {cvData.disponibilidad && (
+                  <Text style={styles7.skillItem}>• Jornada: {cvData.disponibilidad}</Text>
+                )}
+                {cvData.office && <Text style={styles7.skillItem}>• Microsoft Office</Text>}
+              </View>
+      
+              {/* Right Column */}
+              <View style={styles7.rightColumn}>
+                <Text style={styles7.sectionTitle}>Perfil</Text>
+                <Text>{iaData.profile}</Text>
+      
+                <Text style={styles7.sectionTitle}>Experiencia Profesional</Text>
+                {cvData.experience.map((exp, index) => (
+                  <View key={index} style={styles7.entryContainer}>
+                    <Text style={styles7.entryTitle}>{exp.puesto}</Text>
+                    <Text style={styles7.entrySubtitle}>
+                      {exp.nombreEmpresa}, {exp.zonaEmpresa}
+                    </Text>
+                    <Text style={styles7.entryDates}>
+                      {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
+                    </Text>
+                    <Text>• {iaData.descriptionWork.split("\n")[index]}</Text>
+                  </View>
+                ))}
+      
+                <Text style={styles7.sectionTitle}>Educación</Text>
+                {cvData.education.map((edu, index) => (
+                  <View key={index} style={styles7.entryContainer}>
+                    <Text style={styles7.entryTitle}>{edu.carrera}</Text>
+                    <Text style={styles7.entrySubtitle}>
+                      {edu.institucion}, {edu.zonaInstitucion}
+                    </Text>
+                    <Text style={styles7.entryDates}>
+                      {edu.anioInicioEducacion} - {edu.anioFinEducacion}
+                    </Text>
+                    <Text>Estado: {edu.estado}</Text>
+                  </View>
+                ))}
+      
+                <Text style={styles7.sectionTitle}>Certificaciones</Text>
+                {cvData.cursos.map((curso, index) => (
+                  <View key={index} style={styles7.entryContainer}>
+                    <Text style={styles7.entryTitle}>{curso.curso}</Text>
+                    <Text style={styles7.entrySubtitle}>{curso.institucion}</Text>
+                    <Text style={styles7.entryDates}>{curso.anioInicioCurso}</Text>
+                  </View>
+                ))}
+              </View>
+            </Page>
+          </Document>
+        );
+        break;
+
   }
 
   //style1

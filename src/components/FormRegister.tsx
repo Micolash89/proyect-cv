@@ -16,6 +16,7 @@ import WrapperH2Section from "./user/[id]/WrapperH2Section";
 import WrapperButton from "./user/[id]/WrapperButton";
 import WrapperSectionInput from "./user/[id]/WrapperSectionInput";
 import WrapperSection from "./user/[id]/WrapperSection";
+import CVTemplateSelector from "./CVTemplateSelector";
 
 type Section =
   | "personal"
@@ -24,7 +25,8 @@ type Section =
   | "cursos"
   | "idiomas"
   | "informacionA"
-  | "orientacionCV";
+  | "orientacionCV"
+  | "CVTemplateSelector";
 
 function FormRegister({
   cvData,
@@ -71,6 +73,7 @@ function FormRegister({
         idiomas: "idiomas",
         informacionA: "informacionA",
         orientacionCV: "orientacionCV",
+        CVTemplateSelector: "CVTemplateSelector",
       });
       setImagePreview(cvData.imagenPerfil);
     }
@@ -124,6 +127,7 @@ function FormRegister({
     idiomas: useRef<HTMLDivElement>(null),
     informacionA: useRef<HTMLDivElement>(null),
     orientacionCV: useRef<HTMLDivElement>(null),
+    CVTemplateSelector: useRef<HTMLDivElement>(null),
   };
 
   const sectionVariants = {
@@ -155,6 +159,7 @@ function FormRegister({
     idiomas: "",
     informacionA: "",
     orientacionCV: "",
+    CVTemplateSelector: "",
   });
 
   const handleEducationChange = (e: any) => {
@@ -1338,52 +1343,74 @@ function FormRegister({
               </WrapperSection>
             </motion.section>
           )}
-        </AnimatePresence>
 
-        {sectionRefsStatus.orientacionCV && (
-          <motion.section
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={sectionVariants}
-            ref={sectionRefs.orientacionCV}
-            className={`w-full max-w-4xl mx-auto p-4`}
-          >
-            <WrapperSection>
-              <WrapperSectionInput>
-                <WrapperH2Section title="Orientación Laboral del Currículum Vitae" />
+          {sectionRefsStatus.orientacionCV && (
+            <motion.section
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={sectionVariants}
+              ref={sectionRefs.orientacionCV}
+              className={`w-full max-w-4xl mx-auto p-4`}
+            >
+              <WrapperSection>
+                <WrapperSectionInput>
+                  <WrapperH2Section title="Orientación Laboral del Currículum Vitae" />
 
-                <div className="grid grid-cols-1  gap-4">
-                  <div className="relative z-0 w-full group">
-                    <input
-                      type="text"
-                      className="block py-2.5  px-0 w-full text-sm text-gray-900 dark:text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer "
-                      name="orientadoCV"
-                      id="floating_orientado"
-                      placeholder=" "
-                      value={cvData.orientadoCV}
-                      required
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      htmlFor="floating_orientado"
-                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    >
-                      Orientado a empleo
-                    </label>
-                    <div className="mt-5">
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
-                        *(opcional) Indica el propósito del CV: ¿Buscas tu
-                        primer empleo, quieres resaltar experiencia en un sector
-                        específico, o aspiras a un puesto en particular?
-                      </span>
+                  <div className="grid grid-cols-1 ">
+                    <div className="relative z-0 w-full group">
+                      <input
+                        type="text"
+                        className="block py-2.5  px-0 w-full text-sm text-gray-900 dark:text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer "
+                        name="orientadoCV"
+                        id="floating_orientado"
+                        placeholder=" "
+                        value={cvData.orientadoCV}
+                        required
+                        onChange={handleInputChange}
+                      />
+                      <label
+                        htmlFor="floating_orientado"
+                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                      >
+                        Orientado a empleo
+                      </label>
+                      <div className="mt-5">
+                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                          *(opcional) Indica el propósito del CV: ¿Buscas tu
+                          primer empleo, quieres resaltar experiencia en un
+                          sector específico, o aspiras a un puesto en
+                          particular?
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </WrapperSectionInput>
-            </WrapperSection>
-          </motion.section>
-        )}
+
+                </WrapperSectionInput>
+                  {!idUser && moveToNextSection && (
+                    <div className="flex flex-row justify-end p-6 bg-gray-50 dark:bg-gray-800/50">
+                      <WrapperButton
+                        title="siguiente"
+                        moveToNextSection={() =>
+                          moveToNextSection(
+                            "orientacionCV",
+                            "CVTemplateSelector"
+                          )
+                        }
+                        color="green"
+                      />
+                    </div>
+                  )}
+              </WrapperSection>
+            </motion.section>
+          )}
+
+          {sectionRefsStatus.CVTemplateSelector && (
+            <div ref={sectionRefs.CVTemplateSelector}>
+              <CVTemplateSelector />
+            </div>
+          )}
+        </AnimatePresence>
 
         <div className="flex w-full  justify-center">
           <button
@@ -1396,7 +1423,8 @@ function FormRegister({
                         sectionRefsStatus.education != "" &&
                         sectionRefsStatus.idiomas != "" &&
                         sectionRefsStatus.informacionA != "" &&
-                        sectionRefsStatus.orientacionCV != ""
+                        sectionRefsStatus.orientacionCV != "" &&
+                        sectionRefsStatus.CVTemplateSelector != ""
                           ? ""
                           : "hidden"
                       }`}

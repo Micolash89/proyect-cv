@@ -182,6 +182,12 @@ export async function getUserId(id: number) {
             office: true,
           },
         },
+        cvTemplate: {
+          select: {
+            color: true,
+            template: true,
+          },
+        },
       },
     });
 

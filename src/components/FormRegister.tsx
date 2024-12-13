@@ -1407,7 +1407,7 @@ function FormRegister({
 
           {sectionRefsStatus.CVTemplateSelector && (
             <div ref={sectionRefs.CVTemplateSelector}>
-              <CVTemplateSelector />
+              <CVTemplateSelector cvData={cvData} updateCVData={updateCVData} />
             </div>
           )}
         </AnimatePresence>

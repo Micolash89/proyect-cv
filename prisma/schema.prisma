@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -22,7 +16,7 @@ model User {
   fechaNacimiento      DateTime
   email                String                 @default("")
   ciudad               String                 @default("")
-  imagenPerfil         String                @default("")
+  imagenPerfil         String                 @default("")
   provincia            String                 @default("")
   linkedin             String                 @default("")
   dni                  String                 @default("")
@@ -33,6 +27,8 @@ model User {
   cursos               Curso[]                @relation("UserCursos")
   idiomas              Idiomas[]              @relation("UserIdiomas")
   informacionAdicional InformacionAdicional[] @relation("UserInformacionAdicional")
+  cvTemplate           CVTemplate?            @relation("UserCVTemplate", fields: [cvTemplateId], references: [id])
+  cvTemplateId         Int?                   @unique // Clave foránea única
 }
 
 model Estudio {
@@ -86,6 +82,13 @@ model InformacionAdicional {
   disponibilidad DisponibilidadEnum
   idUsuario      Int
   usuario        User               @relation(fields: [idUsuario], references: [id], name: "UserInformacionAdicional")
+}
+
+model CVTemplate {
+  id       Int    @id @default(autoincrement())
+  template Int
+  color    String
+  user User? @relation("UserCVTemplate")
 }
 
 enum EstudioEstadoEnum {

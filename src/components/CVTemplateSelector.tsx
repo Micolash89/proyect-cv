@@ -7,43 +7,43 @@ import { motion } from "framer-motion";
 import WrapperH2Section from "./user/[id]/WrapperH2Section";
 
 interface Template {
-  id: string;
+  id:   number;
   image: string;
   colors: string[];
 }
 
 const templates: Template[] = [
   {
-    id: "template1",
-    image: "/placeholder.svg?height=200&width=150",
+    id: 0,
+    image: "/images/cvTemplate1.PNG",
     colors: ["#3B82F6"],
   },
   {
-    id: "template2",
+    id: 1,
     image: "/placeholder.svg?height=200&width=150",
     colors: ["#10B981", "#3B82F6", "#EC4899"],
   },
   {
-    id: "template3",
+    id: 2,
     image: "/placeholder.svg?height=200&width=150",
     colors: ["#F59E0B", "#6366F1"],
   },
 ];
 
-export default function CVTemplateSelector() {
-  const [selectedTemplate, setSelectedTemplate] = useState<string>(
-    templates[0].id
-  );
-  const [selectedColor, setSelectedColor] = useState<string>(
-    templates[0].colors[0]
-  );
+export default function CVTemplateSelector({cvData, updateCVData}:{cvData:any, updateCVData:any}) {
+  // const [selectedTemplate, setSelectedTemplate] = useState<string>(
+  //   templates[0].id
+  // );
+  // const [selectedColor, setSelectedColor] = useState<string>(
+  //   templates[0].colors[0]
+  // );
 
-  const handleTemplateChange = (templateId: string) => {
-    setSelectedTemplate(templateId);
-    const template = templates.find((t) => t.id === templateId);
-    if (template) {
-      setSelectedColor(template.colors[0]);
-    }
+  const handleTemplateChange = (templateId: number) => {
+    updateCVData({...cvData, template:templateId});
+    // const template = templates.find((t) => t.id === templateId);
+    // if (template) {
+    //   updateCVData({...cvData, color:template.colors[0]});
+    // }
   };
 
   const sectionVariants = {
@@ -86,17 +86,17 @@ export default function CVTemplateSelector() {
                 <div key={template.id} className="relative">
                   <input
                     type="radio"
-                    id={template.id}
+                    id={`${template.id}`}
                     name="cvTemplate"
                     value={template.id}
-                    checked={selectedTemplate === template.id}
+                    checked={cvData.template === template.id}
                     onChange={() => handleTemplateChange(template.id)}
                     className="sr-only"
                   />
                   <label
-                    htmlFor={template.id}
+                    htmlFor={`${template.id}`}
                     className={`block cursor-pointer border-2 rounded-lg overflow-hidden transition-all ${
-                      selectedTemplate === template.id
+                      cvData.template === template.id
                         ? "border-blue-500 ring-2 ring-blue-500"
                         : "border-gray-200 hover:border-blue-300"
                     }`}
@@ -116,24 +116,25 @@ export default function CVTemplateSelector() {
             </h3>
             <div className="flex flex-wrap gap-2">
               {templates
-                .find((t) => t.id === selectedTemplate)
+                .find((t) => t.id === cvData.template)
                 ?.colors.map((color) => (
-                  <div key={color} className="relative">
+                  <div key={color} className="relative p-2">
                     <input
                       type="radio"
                       id={color}
                       name="cvColor"
+                      // defaultChecked={selectedColor === color}
                       value={color}
-                      checked={selectedColor === color}
-                      onChange={() => setSelectedColor(color)}
+                      checked={cvData.color === color}
+                      onChange={() => updateCVData({...cvData, color:color})} //setSelectedColor(color)}
                       className="sr-only"
                     />
                     <label
                       htmlFor={color}
-                      className={`block w-8 h-8 rounded-full cursor-pointer border-2 transition-all ${
-                        selectedColor === color
-                          ? "ring-2 ring-offset-2 ring-blue-500"
-                          : "hover:ring-2 hover:ring-offset-2 hover:ring-blue-300"
+                      className={`block w-8 h-8 rounded-full cursor-pointer  transition-all ${
+                        cvData.color === color
+                          ? "ring-4 border-0 ring-offset-2 ring-blue-500 "
+                          : "border-2 hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 "
                       }`}
                       style={{ backgroundColor: color }}
                     >

@@ -64,6 +64,8 @@ export type UserDataBase ={
     cursos: CursoDataBase[];
     informacionAdicional: InformacionAdicionalDataBase[];
     orientacionCV: string;
+    // color: string;
+    // template:number;
 }
 
 export default async function page({ params }: { params: { id: string } }) {

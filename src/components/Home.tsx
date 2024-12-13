@@ -65,6 +65,8 @@ export interface CVData {
   disponibilidad: string;
   office: string;
   orientadoCV: string;
+  color: string;
+  template: number
 }
 
 export default function Home({ user }: { user?: UserDataBase }) {
@@ -95,6 +97,8 @@ export default function Home({ user }: { user?: UserDataBase }) {
     office: "",
     disponibilidad: "",
     orientadoCV: "",
+    color:"",
+    template:0
   });
 
   useEffect(() => {
@@ -165,7 +169,6 @@ export default function Home({ user }: { user?: UserDataBase }) {
         orientadoCV: user.orientacionCV || "",
       });
 
-      console.log(user);
     }
   }, [user]);
 

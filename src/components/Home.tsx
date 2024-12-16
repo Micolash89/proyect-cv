@@ -45,6 +45,12 @@ export interface Curso {
   anioInicioCurso: string;
 }
 
+export interface cvTemplate {
+  id: number;
+  color: string;
+  template: number;
+}
+
 export interface CVData {
   name: string;
   lastName: string;
@@ -65,8 +71,9 @@ export interface CVData {
   disponibilidad: string;
   office: string;
   orientadoCV: string;
+  idCVTemplate:number;
   color: string;
-  template: number
+  template: number;
 }
 
 export default function Home({ user }: { user?: UserDataBase }) {
@@ -97,7 +104,8 @@ export default function Home({ user }: { user?: UserDataBase }) {
     office: "",
     disponibilidad: "",
     orientadoCV: "",
-    color:"",
+    idCVTemplate:0,
+    color:"#000000",
     template:0
   });
 
@@ -167,6 +175,9 @@ export default function Home({ user }: { user?: UserDataBase }) {
         disponibilidad: user.informacionAdicional[0].disponibilidad || "",
         office: user.informacionAdicional[0].office || "",
         orientadoCV: user.orientacionCV || "",
+        idCVTemplate:user.cvTemplate?.id || 0 ,
+        template:user.cvTemplate?.template || 0,
+        color :user.cvTemplate?.color || "#000000"
       });
 
     }

@@ -184,12 +184,15 @@ export async function getUserId(id: number) {
         },
         cvTemplate: {
           select: {
+            id: true,
             color: true,
             template: true,
           },
         },
       },
     });
+
+    console.log(user);
 
     return user;
   } catch (error) {

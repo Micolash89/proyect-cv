@@ -129,9 +129,14 @@ const CreateSchemaUsuario = z.object({
   disponibilidad: z.string({ message: "seleccione una opción" }).optional(),
   office: z.string({ message: "seleccione una opción" }).optional(),
   orientadoCV: z.string({ message: "Ingrese una orientación" }).optional(),
+  idCVTemplate:z.coerce.number({message:"falta id del Template del CV"}),
+  color: z.string({ message: "seleccione un color" }),
+  template: z.coerce.number({
+    message: "seleccione un template",
+  }),
 });
 
-const CreateUsuario = CreateSchemaUsuario.omit({ id: true });
+const CreateUsuario = CreateSchemaUsuario.omit({ id: true, idCVTemplate:true });
 const UpdateUsuario = CreateSchemaUsuario.omit({});
 
 export interface Experiencia {
@@ -156,6 +161,9 @@ export async function postUsuarios(
   console.log("educacion", education);
   console.log("idiomas", idiomas);
   console.log("formData", formData.get("file"));
+  console.log("formData", formData.get("template"));
+  console.log("formData", formData.get("color"));
+
 
   const validatedFields = CreateUsuario.safeParse({
     ...Object.fromEntries(formData),
@@ -197,10 +205,19 @@ export async function postUsuarios(
       office,
       orientadoCV,
       imagenPerfil: file,
+      color,
+      template,
     },
   } = validatedFields;
 
   try {
+    const cvTemplate = await prisma.cVTemplate.create({
+      data: {
+        color: color as string,
+        template: template as number,
+      },
+    });
+
     const user = await prisma.user.create({
       data: {
         nombre: (nombre.charAt(0).toUpperCase() +
@@ -215,6 +232,7 @@ export async function postUsuarios(
         imagenPerfil: file as string,
         orientacionCV: orientadoCV as string,
         dni: dni as string,
+        cvTemplateId: cvTemplate.id,
       },
     });
 
@@ -404,7 +422,6 @@ export async function deleteUser(id: number) {
   }
 }
 
-
 export async function updateUser(
   experience: Experiencia[],
   cursos1: any[],
@@ -412,9 +429,9 @@ export async function updateUser(
   idiomas: any[],
   imagenPerfil: string,
   idUser: number,
+  idCVTemplate:number,
   formData: FormData
 ) {
-
   console.log("backend");
   console.log(imagenPerfil);
 
@@ -426,9 +443,13 @@ export async function updateUser(
     experience,
     idiomas,
     imagenPerfil,
+    idCVTemplate
   });
 
   if (!UpdateUserData.success) {
+
+    console.log(UpdateUserData.error?.flatten().fieldErrors);
+
     return createResponse(
       false,
       [],
@@ -458,9 +479,28 @@ export async function updateUser(
     office,
     orientadoCV,
     imagenPerfil: file,
+    idCVTemplate:idTemplate,
+    color,
+    template,
   } = UpdateUserData.data;
 
+console.log("color",color);
+console.log("template", template);
+console.log("file", file);
+console.log("imagen Perfil", imagenPerfil);
+
+
   try {
+    prisma.cVTemplate.update({
+      where: {
+        id: idTemplate,
+      },
+      data: {
+        color: color as string,
+        template: template as number,
+      },
+    })
+
     const user = await prisma.user.update({
       where: { id },
       data: {
@@ -582,6 +622,7 @@ export async function updateUser(
     revalidatePath(`/dashboard/user/${user.id}`);
     revalidatePath(`/dashboard`);
   } catch (error) {
+    console.error(error);
     return {
       message: "Database Error: Failed to Update User.",
     };

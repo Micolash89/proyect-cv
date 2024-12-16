@@ -16,7 +16,7 @@ const templates: Template[] = [
   {
     id: 0,
     image: "/images/cvTemplate1.PNG",
-    colors: ["#3B82F6"],
+    colors: ["#000000"],
   },
   {
     id: 1,
@@ -31,20 +31,14 @@ const templates: Template[] = [
 ];
 
 export default function CVTemplateSelector({cvData, updateCVData}:{cvData:any, updateCVData:any}) {
-  // const [selectedTemplate, setSelectedTemplate] = useState<string>(
-  //   templates[0].id
-  // );
-  // const [selectedColor, setSelectedColor] = useState<string>(
-  //   templates[0].colors[0]
-  // );
 
-  const handleTemplateChange = (templateId: number) => {
-    updateCVData({...cvData, template:templateId});
-    // const template = templates.find((t) => t.id === templateId);
-    // if (template) {
-    //   updateCVData({...cvData, color:template.colors[0]});
-    // }
-  };
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  )=>{
+    const { name, value } = event.target;
+    updateCVData({...cvData, [name]:value});
+  }
 
   const sectionVariants = {
     hidden: {
@@ -87,10 +81,10 @@ export default function CVTemplateSelector({cvData, updateCVData}:{cvData:any, u
                   <input
                     type="radio"
                     id={`${template.id}`}
-                    name="cvTemplate"
+                    name="template"
                     value={template.id}
                     checked={cvData.template === template.id}
-                    onChange={() => handleTemplateChange(template.id)}
+                    onChange={handleChange}
                     className="sr-only"
                   />
                   <label
@@ -122,11 +116,11 @@ export default function CVTemplateSelector({cvData, updateCVData}:{cvData:any, u
                     <input
                       type="radio"
                       id={color}
-                      name="cvColor"
+                      name="color"
                       // defaultChecked={selectedColor === color}
                       value={color}
                       checked={cvData.color === color}
-                      onChange={() => updateCVData({...cvData, color:color})} //setSelectedColor(color)}
+                      onChange={handleChange} //setSelectedColor(color)}
                       className="sr-only"
                     />
                     <label

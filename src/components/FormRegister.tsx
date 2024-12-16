@@ -273,7 +273,6 @@ function FormRegister({
       const formData = new FormData();
       formData.append("file", imageFile);
       result = await uploadImage(formData);
-
       updateCVData({ ...cvData, imagenPerfil: result.url });
     }
 
@@ -285,7 +284,8 @@ function FormRegister({
         .bind(null, cvData.cursos)
         .bind(null, cvData.education)
         .bind(null, cvData.idiomas)
-        .bind(null, result?.url || "")
+        .bind(null, result?.url || cvData.imagenPerfil)
+        .bind(null, cvData.idCVTemplate)
         .bind(null, idUser);
     } else {
       newPost = postUsuarios

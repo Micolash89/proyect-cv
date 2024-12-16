@@ -46,6 +46,12 @@ export type InformacionAdicionalDataBase={
   office: string;
 }
 
+export type cvTemplate={
+  id:number;
+  color: string;
+  template:number;
+}
+
 export type UserDataBase ={
     id:number;
     nombre:string;
@@ -64,8 +70,7 @@ export type UserDataBase ={
     cursos: CursoDataBase[];
     informacionAdicional: InformacionAdicionalDataBase[];
     orientacionCV: string;
-    // color: string;
-    // template:number;
+    cvTemplate:cvTemplate;
 }
 
 export default async function page({ params }: { params: { id: string } }) {

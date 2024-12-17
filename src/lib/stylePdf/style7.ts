@@ -1,71 +1,111 @@
-import { Font, StyleSheet } from "@react-pdf/renderer";
 
-Font.register({
-    family: "Roboto",
-    fonts: [
-      { src: "/fonts/Roboto-Regular.ttf" },
-      { src: "/fonts/Roboto-Bold.ttf", fontWeight: "bold" },
-      { src: "/fonts/Roboto-Italic.ttf", fontStyle: "italic" },
-    ],
-  });
+import { StyleSheet } from "@react-pdf/renderer";
 
-  export const styles7 = StyleSheet.create({
-    page: {
-      fontFamily: "Roboto",
-      fontSize: 10,
-      padding: 30,
-      flexDirection: "row",
-    },
-    leftColumn: {
-      width: "30%",
-      paddingRight: 15,
-      borderRight: "1 solid #cccccc",
-    },
-    rightColumn: {
-      width: "70%",
-      paddingLeft: 15,
-    },
-    profileImage: {
-      width: 100,
-      height: 100,
-      borderRadius: 50,
-      marginBottom: 10,
-    },
-    name: {
-      fontSize: 24,
-      fontWeight: "bold",
-      marginBottom: 10,
-    },
-    contactInfo: {
-      marginBottom: 10,
-    },
-    sectionTitle: {
-      fontSize: 14,
-      fontWeight: "bold",
-      marginBottom: 5,
-      marginTop: 10,
-      color: "#333333",
-      textTransform: "uppercase",
-    },
-    entryContainer: {
-      marginBottom: 5,
-    },
-    entryTitle: {
-      fontWeight: "bold",
-    },
-    entrySubtitle: {
-      fontStyle: "italic",
-    },
-    entryDates: {
-      fontSize: 9,
-    },
-    skillItem: {
-      marginBottom: 3,
-    },
-    header: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: 20,
-    },
-  });
+export const styles7 = StyleSheet.create({
+  page: {
+    backgroundColor: "#FFFFFF",
+    fontFamily: "Helvetica",
+  },
+  headerContainer: {
+    flexDirection: "row",
+    marginBottom: 20,
+    backgroundColor: "#2C3E50",
+    padding: 20,
+    alignItems: "center",
+  },
+  headerContent: {
+    flex: 1,
+    marginLeft: 15,
+  },
+  profileImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    border: "3 solid #FFFFFF",
+  },
+  name: {
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  contactInfo: {
+    color: "#ECF0F1",
+  },
+  mainContent: {
+    flexDirection: "row",
+    paddingTop: 20,
+  },
+  leftColumn: {
+    width: "40%",
+    paddingRight: 15,
+  },
+  rightColumn: {
+    width: "60%",
+    paddingLeft: 15,
+    borderLeft: "1 solid #BDC3C7",
+  },
+  section: {
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    color: "#2C3E50",
+    fontWeight: "bold",
+    borderBottom: "1 solid #BDC3C7",
+    paddingBottom: 5,
+    marginBottom: 10,
+  },
+  entryContainer: {
+    marginBottom: 12,
+  },
+  entryHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 3,
+  },
+  institution: {
+    fontWeight: "bold",
+    color: "#2C3E50",
+  },
+  dates: {
+    color: "#7F8C8D",
+  },
+  location: {
+    color: "#7F8C8D",
+    fontStyle: "italic",
+  },
+  degree: {
+    color: "#34495E",
+  },
+  jobTitle: {
+    color: "#2980B9",
+    fontWeight: "bold",
+  },
+  description: {
+    color: "#34495E",
+    marginTop: 5,
+  },
+  skillsGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  skillItem: {
+    color: "#34495E",
+    marginRight: 10,
+    marginBottom: 5,
+  },
+  profileText: {
+    color: "#34495E",
+    fontStyle: "italic",
+    textAlign: "justify",
+    marginBottom: 20,
+  },
+  footer: {
+    marginTop: 20,
+    borderTop: "1 solid #BDC3C7",
+    paddingTop: 15,
+  },
+  additionalInfo: {
+    color: "#34495E",
+    textAlign: "center",
+  },
+});

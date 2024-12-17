@@ -8,9 +8,6 @@ import {
   PrismaClient,
 } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-const prisma = new PrismaClient();
-
 import { z } from "zod";
 import { createResponse, JWTCreate } from "./utils";
 import { cookies } from "next/headers";
@@ -24,6 +21,8 @@ import {
   Idioma,
 } from "./actionsIA";
 import { v2 as cloudinary } from "cloudinary";
+
+const prisma = new PrismaClient();
 
 const CreateSchemaUsuario = z.object({
   id: z.coerce.number(),
@@ -673,6 +672,7 @@ export async function generatorItemsWorkAI(
     "creación de descripciones exitoso"
   );
 }
+
 export async function generatorSkillsAI(
   experience: Experiencia[],
   educacion: Educacion[],

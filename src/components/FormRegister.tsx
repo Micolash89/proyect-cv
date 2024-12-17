@@ -44,20 +44,20 @@ function FormRegister({
     updateCVData({ [name]: value });
   };
 
-  // const handleInputChangeCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, checked } = e.target;
+  const handleInputChangeCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked, value } = e.target;
+  
+      console.log("name", name)
+      console.log("checked", checked)
+      console.log("value", value)
 
-  //   console.log("name", name)
-  //   console.log("checked", checked)
-
-  //   updateCVData((prevData:any) => ({
-  //     ...prevData,
-  //     [name]: checked ? name : '' // Guarda el nombre del campo si está checked, sino string vacío
-  //   }));
-
-  //   // e.target.checked = checked?false:true;
-
-  // };
+      updateCVData((prevData:any) => ({
+        ...prevData,
+        [name]: checked ? name : ""  // Store the name if checked, empty string if unchecked
+      }));
+      
+    console.log("cvData", cvData.incorporacion);
+  };
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(
@@ -119,6 +119,7 @@ function FormRegister({
   });
 
   const [activeSection, setActiveSection] = useState<Section>("personal");
+
   const sectionRefs = {
     personal: useRef<HTMLDivElement>(null),
     education: useRef<HTMLDivElement>(null),
@@ -295,7 +296,7 @@ function FormRegister({
         .bind(null, cvData.cursos)
         .bind(null, cvData.education)
         .bind(null, cvData.idiomas)
-        .bind(null, cvData.imagenPerfil);
+        .bind(null, result?.url || cvData.imagenPerfil);
     }
 
     const postPromise = newPost(e); // Tu promesa original
@@ -1269,11 +1270,10 @@ function FormRegister({
                                 type="checkbox"
                                 name={item.id}
                                 id={item.id}
-                                checked={
-                                  cvData[item.id as keyof typeof cvData]
-                                    .length > 0
+                                defaultChecked={
+                                  cvData[item.id as keyof typeof cvData].length > 0
                                 }
-                                onChange={handleInputChange}
+                                onChange={handleInputChangeCheck}
                                 className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
                               />
                             </div>

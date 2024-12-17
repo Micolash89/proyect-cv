@@ -224,7 +224,6 @@ export default function Home({ user }: { user?: UserDataBase }) {
 
             <div className="mt-7">
 
-
             <IARegister
               cvData={cvData}
               updateIAData={updateIAData}

@@ -278,6 +278,8 @@ function FormRegister({
 
     let newPost;
 
+    console.log("cvData", cvData);
+
     if (idUser) {
       newPost = updateUser
         .bind(null, cvData.experience)
@@ -285,8 +287,8 @@ function FormRegister({
         .bind(null, cvData.education)
         .bind(null, cvData.idiomas)
         .bind(null, result?.url || cvData.imagenPerfil)
-        .bind(null, cvData.idCVTemplate)
-        .bind(null, idUser);
+        .bind(null, idUser)
+        .bind(null, cvData.idCVTemplate);
     } else {
       newPost = postUsuarios
         .bind(null, cvData.experience)

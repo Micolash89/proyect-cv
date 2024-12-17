@@ -180,6 +180,12 @@ export default function Home({ user }: { user?: UserDataBase }) {
         color :user.cvTemplate?.color || "#000000"
       });
 
+      setOptionsPDF((prev) => ({
+        ...prev,
+        color: user.cvTemplate?.color || "#000000",
+        tipoPdf: user.cvTemplate?.template || 0,
+      }));
+      
     }
   }, [user]);
 

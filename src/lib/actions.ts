@@ -129,14 +129,17 @@ const CreateSchemaUsuario = z.object({
   disponibilidad: z.string({ message: "seleccione una opción" }).optional(),
   office: z.string({ message: "seleccione una opción" }).optional(),
   orientadoCV: z.string({ message: "Ingrese una orientación" }).optional(),
-  idCVTemplate:z.coerce.number({message:"falta id del Template del CV"}),
+  idCVTemplate: z.number({ message: "falta id del Template del CV" }),
   color: z.string({ message: "seleccione un color" }),
   template: z.coerce.number({
     message: "seleccione un template",
   }),
 });
 
-const CreateUsuario = CreateSchemaUsuario.omit({ id: true, idCVTemplate:true });
+const CreateUsuario = CreateSchemaUsuario.omit({
+  id: true,
+  idCVTemplate: true,
+});
 const UpdateUsuario = CreateSchemaUsuario.omit({});
 
 export interface Experiencia {
@@ -163,7 +166,6 @@ export async function postUsuarios(
   console.log("formData", formData.get("file"));
   console.log("formData", formData.get("template"));
   console.log("formData", formData.get("color"));
-
 
   const validatedFields = CreateUsuario.safeParse({
     ...Object.fromEntries(formData),
@@ -429,11 +431,12 @@ export async function updateUser(
   idiomas: any[],
   imagenPerfil: string,
   idUser: number,
-  idCVTemplate:number,
+  idCVTemplate: number,
   formData: FormData
 ) {
   console.log("backend");
   console.log(imagenPerfil);
+  console.log("idCVTemplate", idCVTemplate);
 
   const UpdateUserData = UpdateUsuario.safeParse({
     id: idUser,
@@ -443,11 +446,10 @@ export async function updateUser(
     experience,
     idiomas,
     imagenPerfil,
-    idCVTemplate
+    idCVTemplate,
   });
 
   if (!UpdateUserData.success) {
-
     console.log(UpdateUserData.error?.flatten().fieldErrors);
 
     return createResponse(
@@ -479,19 +481,19 @@ export async function updateUser(
     office,
     orientadoCV,
     imagenPerfil: file,
-    idCVTemplate:idTemplate,
+    idCVTemplate: idTemplate,
     color,
     template,
   } = UpdateUserData.data;
 
-console.log("color",color);
-console.log("template", template);
-console.log("file", file);
-console.log("imagen Perfil", imagenPerfil);
-
+  console.log("id", idTemplate);
+  console.log("color", color);
+  console.log("template", template);
+  console.log("file", file);
+  console.log("imagen Perfil", imagenPerfil);
 
   try {
-    prisma.cVTemplate.update({
+    await prisma.cVTemplate.update({
       where: {
         id: idTemplate,
       },
@@ -499,7 +501,7 @@ console.log("imagen Perfil", imagenPerfil);
         color: color as string,
         template: template as number,
       },
-    })
+    });
 
     const user = await prisma.user.update({
       where: { id },

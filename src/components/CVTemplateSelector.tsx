@@ -40,6 +40,15 @@ export default function CVTemplateSelector({cvData, updateCVData}:{cvData:any, u
     updateCVData({...cvData, [name]:value});
   }
 
+  const handleTemplateChange = (templateId: number) => {
+    updateCVData({...cvData, template:templateId});
+    // const template = templates.find((t) => t.id === templateId);
+    // if (template) {
+    //   updateCVData({...cvData, color:template.colors[0]});
+    // }
+  };
+
+
   const sectionVariants = {
     hidden: {
       opacity: 0,
@@ -84,7 +93,7 @@ export default function CVTemplateSelector({cvData, updateCVData}:{cvData:any, u
                     name="template"
                     value={template.id}
                     checked={cvData.template === template.id}
-                    onChange={handleChange}
+                    onChange={()=>{handleTemplateChange(template.id)}}
                     className="sr-only"
                   />
                   <label
@@ -120,7 +129,7 @@ export default function CVTemplateSelector({cvData, updateCVData}:{cvData:any, u
                       // defaultChecked={selectedColor === color}
                       value={color}
                       checked={cvData.color === color}
-                      onChange={handleChange} //setSelectedColor(color)}
+                      onChange={() => updateCVData({...cvData, color:color})} //setSelectedColor(color)}
                       className="sr-only"
                     />
                     <label

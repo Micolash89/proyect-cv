@@ -116,10 +116,10 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
                 type="color"
                 value={optionsPDF.color}
                 onChange={handleColorChange}
-                className="w-12 h-12 rounded-lg cursor-pointer border-2 border-gray-200 dark:border-gray-700"
+                className="w-12 h-12 rounded-lg cursor-pointer border-2 border-gray-200 dark:border-gray-700 "
                 aria-label="Seleccionar color"
               />
-              <span className="text-sm font-mono bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded">
+              <span className="text-sm font-mono bg-gray-100 dark:bg-gray-800 px-3 py-1 text-gray-700 dark:text-gray-300 rounded">
                 {optionsPDF.color.toUpperCase()}
               </span>
             </div>

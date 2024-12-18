@@ -21,12 +21,37 @@ const templates: Template[] = [
   {
     id: 1,
     image: "/placeholder.svg?height=200&width=150",
-    colors: ["#10B981", "#3B82F6", "#EC4899"],
+    colors: ["#1a365d", "#3B82F6", "#EC4899"],
   },
   {
     id: 2,
     image: "/placeholder.svg?height=200&width=150",
-    colors: ["#F59E0B", "#6366F1"],
+    colors: ["#34495E", "#6366F1"],
+  },
+  {
+    id: 3,
+    image: "/placeholder.svg?height=200&width=150",
+    colors: ["#2A4365", "#F3F2E3","#181D2B","#AF815E","#6F7072"],
+  },
+  {
+    id: 4,
+    image: "/placeholder.svg?height=200&width=150",
+    colors: ["#F59E0B", "#F3F2E3","#181D2B","#AF815E","#6F7072"],
+  },
+  {
+    id: 5,
+    image: "/placeholder.svg?height=200&width=150",
+    colors: ["#F59E0B", "#F3F2E3","#181D2B","#AF815E","#6F7072"],
+  },
+  {
+    id: 6,
+    image: "/placeholder.svg?height=200&width=150",
+    colors: ["#F59E0B", "#F3F2E3","#181D2B","#AF815E","#6F7072"],
+  },
+  {
+    id: 7,
+    image: "/placeholder.svg?height=200&width=150",
+    colors: ["#2C3E50", "#F3F2E3","#181D2B","#AF815E","#6F7072"],
   },
 ];
 

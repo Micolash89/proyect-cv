@@ -1,5 +1,17 @@
+import { Font, StyleSheet } from "@react-pdf/renderer";
 
-import { StyleSheet } from "@react-pdf/renderer";
+Font.register({
+  family: "Helvetica",
+  fonts: [
+    { src: "/fonts/Helvetica-S-Regular.ttf" },
+    { src: "/fonts/Helvetica-S-Regular.ttf", fontWeight: "normal" },
+    { src: "/fonts/Helvetica-Bold.ttf", fontWeight: "bold" },
+    {
+      src: "/fonts/AG_Helvetica-Italic.ttf",
+      fontStyle: "italic",
+    },
+  ],
+});
 
 export const styles7 = StyleSheet.create({
   page: {

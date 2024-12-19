@@ -23,38 +23,39 @@ Font.register({
       paddingBottom: 10,
       
     },
+    headerColumn: {
+      display: 'flex',
+      width: "75%",
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+    },
     headerLeft: {
       width: '25%',
       alignSelf: 'center',
       
     },
     headerCenter: {
-      width: '45%',
+      width: '50%',
       // paddingLeft: 10,
     },
     headerRight: {
-      width: '30%',
+      width: '50%',
       // paddingLeft: 10,
-      paddingTop: 53,
     },
     profileImage: {
-      width: 120,
-      height: 150,
+      width: 100,
+      height: 130,
       objectFit: 'cover',
       border: '1 solid #EAEAEA',
     },
     name: {
-      fontSize: 30,
       fontWeight: 'bold',
-      marginBottom: 10,
     },
     contactLabel: {
-      fontSize: 10,
       fontWeight: 'medium',
       color: '#666666',
     },
     contactValue: {
-      fontSize: 10,
       marginBottom: 5,
     },
     sectionTitle: {
@@ -64,6 +65,11 @@ Font.register({
       marginTop: 10,
       paddingTop: 10,
       borderTop: '1 solid #EAEAEA',
+    },
+    content:{
+      display: 'flex',
+      flexDirection: 'column',
+  
     },
     profileText: {
       fontSize: 10,

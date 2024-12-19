@@ -1,26 +1,16 @@
-import { CVDataPdf } from "@/lib/definitions";
+import { CVDataPdf, OptionsPDF } from "@/lib/definitions";
 import { TypeIAData } from "../PreviewCV";
 import { Document, Page, Text, View, Image } from "@react-pdf/renderer";
-// import { styles } from "./styles";
-// import { CVData, TypeIAData } from "@/lib/definitions";
 import { styles7 } from "@/lib/stylePdf/style7";
+import { getFontSize, getPadding } from "@/lib/utils";
 
 export const Layout7: React.FC<{
   cvData: CVDataPdf;
   iaData: TypeIAData;
   contador: number;
-  optionsPDF: { color: string; spaceBetween: boolean; tipoPdf: number };
+  optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
-  // Dynamic padding calculation based on content length
-  const getPadding = () => {
-    const baseSize = 45;
-    const reduction = contador <= 5 ? contador * 5 : 25;
-    return baseSize - reduction;
-  };
-
-  // Dynamic font size calculation
-  const getFontSize = (baseSize: number) => baseSize + contador;
-
+  
   return (
     <Document>
       <Page size="A4" style={[styles7.page]}>
@@ -30,10 +20,10 @@ export const Layout7: React.FC<{
             <Image src={cvData.imagenPerfil} style={styles7.profileImage} />
           )}
           <View style={styles7.headerContent}>
-            <Text style={[styles7.name, { fontSize: getFontSize(24) }]}>
+            <Text style={[styles7.name, { fontSize: getFontSize(24,contador) }]}>
               {cvData.name} {cvData.lastName}
             </Text>
-            <Text style={[styles7.contactInfo, { fontSize: getFontSize(11) }]}>
+            <Text style={[styles7.contactInfo, { fontSize: getFontSize(11,contador) }]}>
               {cvData.ciudad}, {cvData.provincia}
               {cvData.dni && ` • DNI: ${cvData.dni}`} •{" "}
               {cvData.fechaNacimiento.split("-").reverse().join("/")} • Tel.:{" "}
@@ -44,12 +34,12 @@ export const Layout7: React.FC<{
         </View>
 
         {/* Profile Summary */}
-        <View style={{paddingHorizontal: getPadding(), paddingBottom: getPadding()}}>
+        <View style={{paddingHorizontal: getPadding(contador,45), paddingBottom: getPadding(contador,45)}}>
         
         {iaData.profile && (
           <View style={styles7.section}>
             <Text
-              style={[styles7.profileText, { fontSize: getFontSize(10.5) }]}
+              style={[styles7.profileText, { fontSize: getFontSize(10.5,contador) }]}
             >
               {iaData.profile}
             </Text>
@@ -64,7 +54,7 @@ export const Layout7: React.FC<{
             {cvData.education.length > 0 && (
               <View style={styles7.section}>
                 <Text
-                  style={[styles7.sectionTitle, { fontSize: getFontSize(14) }]}
+                  style={[styles7.sectionTitle, { fontSize: getFontSize(14,contador) }]}
                 >
                   EDUCACIÓN
                 </Text>
@@ -74,24 +64,24 @@ export const Layout7: React.FC<{
                       <Text
                         style={[
                           styles7.institution,
-                          { fontSize: getFontSize(11) },
+                          { fontSize: getFontSize(11,contador) },
                         ]}
                       >
                         {edu.institucion}
                       </Text>
                       <Text
-                        style={[styles7.dates, { fontSize: getFontSize(11) }]}
+                        style={[styles7.dates, { fontSize: getFontSize(11,contador) }]}
                       >
                         {edu.anioInicioEducacion} - {edu.anioFinEducacion}
                       </Text>
                     </View>
                     <Text
-                      style={[styles7.degree, { fontSize: getFontSize(11) }]}
+                      style={[styles7.degree, { fontSize: getFontSize(11,contador) }]}
                     >
                       {edu.carrera} ({edu.estado.toLowerCase()})
                     </Text>
                     <Text
-                      style={[styles7.location, { fontSize: getFontSize(11) }]}
+                      style={[styles7.location, { fontSize: getFontSize(11,contador) }]}
                     >
                       {edu.zonaInstitucion}
                     </Text>
@@ -104,7 +94,7 @@ export const Layout7: React.FC<{
             {iaData.skills && (
               <View style={styles7.section}>
                 <Text
-                  style={[styles7.sectionTitle, { fontSize: getFontSize(14) }]}
+                  style={[styles7.sectionTitle, { fontSize: getFontSize(14,contador) }]}
                 >
                   HABILIDADES
                 </Text>
@@ -116,7 +106,7 @@ export const Layout7: React.FC<{
                           key={index}
                           style={[
                             styles7.skillItem,
-                            { fontSize: getFontSize(11) },
+                            { fontSize: getFontSize(11,contador) },
                           ]}
                         >
                           • {skill.trim()}
@@ -134,7 +124,7 @@ export const Layout7: React.FC<{
             {cvData.experience.length > 0 && (
               <View style={styles7.section}>
                 <Text
-                  style={[styles7.sectionTitle, { fontSize: getFontSize(14) }]}
+                  style={[styles7.sectionTitle, { fontSize: getFontSize(14,contador) }]}
                 >
                   EXPERIENCIA PROFESIONAL
                 </Text>
@@ -144,31 +134,31 @@ export const Layout7: React.FC<{
                       <Text
                         style={[
                           styles7.institution,
-                          { fontSize: getFontSize(11) },
+                          { fontSize: getFontSize(11,contador) },
                         ]}
                       >
                         {exp.nombreEmpresa}
                       </Text>
                       <Text
-                        style={[styles7.dates, { fontSize: getFontSize(11) }]}
+                        style={[styles7.dates, { fontSize: getFontSize(11,contador) }]}
                       >
                         {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
                       </Text>
                     </View>
                     <Text
-                      style={[styles7.jobTitle, { fontSize: getFontSize(11) }]}
+                      style={[styles7.jobTitle, { fontSize: getFontSize(11,contador) }]}
                     >
                       {exp.puesto}
                     </Text>
                     <Text
-                      style={[styles7.location, { fontSize: getFontSize(11) }]}
+                      style={[styles7.location, { fontSize: getFontSize(11,contador) }]}
                     >
                       {exp.zonaEmpresa}
                     </Text>
                     <Text
                       style={[
                         styles7.description,
-                        { fontSize: getFontSize(11) },
+                        { fontSize: getFontSize(11,contador) },
                       ]}
                     >
                       • {iaData.descriptionWork.split("\n")[index]}
@@ -190,12 +180,12 @@ export const Layout7: React.FC<{
             cvData.idiomas.length > 0) && (
             <View style={styles7.section}>
               <Text
-                style={[styles7.sectionTitle, { fontSize: getFontSize(14) }]}
+                style={[styles7.sectionTitle, { fontSize: getFontSize(14,contador) }]}
               >
                 INFORMACIÓN ADICIONAL
               </Text>
               <Text
-                style={[styles7.additionalInfo, { fontSize: getFontSize(11) }]}
+                style={[styles7.additionalInfo, { fontSize: getFontSize(11,contador) }]}
               >
                 {[
                   cvData.licencia && "Licencia de conducir",

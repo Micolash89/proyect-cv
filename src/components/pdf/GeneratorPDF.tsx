@@ -1,6 +1,6 @@
 import { TypeIAData } from "../PreviewCV";
 import React from "react";
-import { CVDataPdf as CVData } from "@/lib/definitions";
+import { CVDataPdf as CVData, OptionsPDF } from "@/lib/definitions";
 import { Layout1 } from "./Layout1";
 import { Layout0 } from "./Layout0";
 import { Layout2 } from "./Layout2";
@@ -14,7 +14,7 @@ const MyDocumentPDF: React.FC<{
   cvData: CVData;
   iaData: TypeIAData;
   contador: number;
-  optionsPDF: { color: string; spaceBetween: boolean; tipoPdf: number };
+  optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
   switch (optionsPDF.tipoPdf) {
     case 0:

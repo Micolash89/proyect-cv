@@ -61,4 +61,9 @@ export function createResponse(
   };
 }
 
+export const getPadding = (contador:number,baseSize:number = 45) => {
+    const reduction = contador <= 5 ? contador * 5 : 25;
+    return baseSize - reduction;
+  };
 
+export const getFontSize = (baseSize: number, contador: number) => baseSize + contador;

@@ -1,4 +1,4 @@
-import { CVDataPdf } from '@/lib/definitions';
+import { CVDataPdf, OptionsPDF } from '@/lib/definitions';
 import { Document, Image, Page, Text, View } from '@react-pdf/renderer';
 import React from 'react'
 import { TypeIAData } from '../PreviewCV';
@@ -8,7 +8,7 @@ export const Layout2: React.FC<{
     cvData: CVDataPdf;
     iaData: TypeIAData;
     contador: number;
-    optionsPDF: { color: string; spaceBetween: boolean; tipoPdf: number };
+    optionsPDF: OptionsPDF;
   }> = ({ cvData, iaData, contador, optionsPDF }) => {
     return (
             <Document>

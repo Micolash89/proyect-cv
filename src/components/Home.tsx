@@ -200,6 +200,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
     color: "#000000",
     spaceBetween: false,
     tipoPdf: 0,
+    contadorContent:0
   });
 
   const updateCVData = (newData: any) => {
@@ -220,7 +221,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
 
         {showCompleteInputs ? (
           <div>
-            <PreviewCV cvData={cvData} iaData={iaData} />
+            {/* <PreviewCV cvData={cvData} iaData={iaData} /> */}
 
             <div className="mt-7">
 

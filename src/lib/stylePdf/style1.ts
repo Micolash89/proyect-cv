@@ -22,15 +22,14 @@ export const styles1 = StyleSheet.create({
     flexDirection: "row",
   },
   sidebar: {
-    width: "30%",
-    backgroundColor: "#1a365d",
-    paddingVertical: 20,
-    paddingHorizontal: 10,
+    width: "30%",    
     color: "#FFFFFF",
   },
   mainContent: {
     width: "70%",
     padding: 30,
+    display: "flex",
+    flexDirection: "column",
   },
   profileImage: {
     width: 120,
@@ -51,14 +50,13 @@ export const styles1 = StyleSheet.create({
   contactInfo: {
     fontSize: 10,
     marginBottom: 3,
-    color: "#E2E8F0",
+    color: "#FFFFFF",
   },
   sectionTitle: {
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#1a365d",
-    borderBottom: "2 solid #E2E8F0",
+    borderBottom: "2 solid #dbdbdb",
     paddingBottom: 5,
   },
   sidebarSectionTitle: {
@@ -96,7 +94,7 @@ export const styles1 = StyleSheet.create({
   },
   skillItem: {
     fontSize: 10,
-    color: "#E2E8F0",
+    color: "#FFFFFF",
     marginBottom: 5,
   },
   educationEntry: {
@@ -105,7 +103,7 @@ export const styles1 = StyleSheet.create({
   institution: {
     fontSize: 11,
     fontWeight: "bold",
-    color: "#2D3748",
+    color: "#323a47",
   },
   degree: {
     fontSize: 10,
@@ -113,7 +111,7 @@ export const styles1 = StyleSheet.create({
   },
   additionalInfo: {
     fontSize: 10,
-    color: "#E2E8F0",
+    color: "#FFFFFF",
     marginBottom: 3,
   },
 });

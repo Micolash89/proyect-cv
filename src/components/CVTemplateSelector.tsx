@@ -1,78 +1,26 @@
 "use client";
 
-import { useState } from "react";
 import WrapperSectionInput from "./user/[id]/WrapperSectionInput";
 import WrapperSection from "./user/[id]/WrapperSection";
 import { motion } from "framer-motion";
 import WrapperH2Section from "./user/[id]/WrapperH2Section";
+import { templates } from "@/lib/constTemplate";
 
-interface Template {
-  id:   number;
-  image: string;
-  colors: string[];
-}
-
-const templates: Template[] = [
-  {
-    id: 0,
-    image: "/images/cvTemplate1.PNG",
-    colors: ["#000000"],
-  },
-  {
-    id: 1,
-    image: "/placeholder.svg?height=200&width=150",
-    colors: ["#1a365d", "#3B82F6", "#EC4899"],
-  },
-  {
-    id: 2,
-    image: "/placeholder.svg?height=200&width=150",
-    colors: ["#34495E", "#6366F1"],
-  },
-  {
-    id: 3,
-    image: "/placeholder.svg?height=200&width=150",
-    colors: ["#2A4365", "#F3F2E3","#181D2B","#AF815E","#6F7072"],
-  },
-  {
-    id: 4,
-    image: "/placeholder.svg?height=200&width=150",
-    colors: ["#F59E0B", "#F3F2E3","#181D2B","#AF815E","#6F7072"],
-  },
-  {
-    id: 5,
-    image: "/placeholder.svg?height=200&width=150",
-    colors: ["#F59E0B", "#F3F2E3","#181D2B","#AF815E","#6F7072"],
-  },
-  {
-    id: 6,
-    image: "/placeholder.svg?height=200&width=150",
-    colors: ["#F59E0B", "#F3F2E3","#181D2B","#AF815E","#6F7072"],
-  },
-  {
-    id: 7,
-    image: "/placeholder.svg?height=200&width=150",
-    colors: ["#2C3E50", "#F3F2E3","#181D2B","#AF815E","#6F7072"],
-  },
-];
-
-export default function CVTemplateSelector({cvData, updateCVData}:{cvData:any, updateCVData:any}) {
-
-
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  )=>{
+export default function CVTemplateSelector({
+  cvData,
+  updateCVData,
+}: {
+  cvData: any;
+  updateCVData: any;
+}) {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    updateCVData({...cvData, [name]:value});
-  }
-
-  const handleTemplateChange = (templateId: number) => {
-    updateCVData({...cvData, template:templateId});
-    // const template = templates.find((t) => t.id === templateId);
-    // if (template) {
-    //   updateCVData({...cvData, color:template.colors[0]});
-    // }
+    updateCVData({ ...cvData, [name]: value });
   };
 
+  const handleTemplateChange = (templateId: number) => {
+    updateCVData({ ...cvData, template: templateId });
+  };
 
   const sectionVariants = {
     hidden: {
@@ -118,7 +66,9 @@ export default function CVTemplateSelector({cvData, updateCVData}:{cvData:any, u
                     name="template"
                     value={template.id}
                     checked={cvData.template === template.id}
-                    onChange={()=>{handleTemplateChange(template.id)}}
+                    onChange={() => {
+                      handleTemplateChange(template.id);
+                    }}
                     className="sr-only"
                   />
                   <label
@@ -151,10 +101,9 @@ export default function CVTemplateSelector({cvData, updateCVData}:{cvData:any, u
                       type="radio"
                       id={color}
                       name="color"
-                      // defaultChecked={selectedColor === color}
                       value={color}
                       checked={cvData.color === color}
-                      onChange={() => updateCVData({...cvData, color:color})} //setSelectedColor(color)}
+                      onChange={() => updateCVData({ ...cvData, color: color })}
                       className="sr-only"
                     />
                     <label

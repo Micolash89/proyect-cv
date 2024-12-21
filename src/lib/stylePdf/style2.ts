@@ -12,12 +12,12 @@ Font.register({
   export const styles2 = StyleSheet.create({
     page: {
       fontFamily: 'Roboto',
-      fontSize: 12,
+      // fontSize: 12,
       flexDirection: 'row',
     },
     leftColumn: {
       width: '30%',
-      backgroundColor: '#34495E',
+      // backgroundColor: '#34495E',
       color: 'white',
       paddingVertical: 20,
       paddingHorizontal: 10,
@@ -34,7 +34,7 @@ Font.register({
       alignSelf: 'center',
     },
     name: {
-      fontSize: 24,
+      // fontSize: 24,
       fontWeight: 'bold',
       marginBottom: 10,
       textAlign: 'center',
@@ -43,16 +43,17 @@ Font.register({
       marginBottom: 20,
     },
     contactItem: {
-
-      fontSize: 10,
+      // fontSize: 10,
     },
     sectionTitle: {
       fontSize: 16,
       fontWeight: 'bold',
       marginTop: 10,
       marginBottom: 10,
-      color: '#3498DB',
-      borderBottom: '1 solid #3498DB',
+      color: '#a3a3a3',
+      // color: '#3498DB',
+      borderBottom: '1 solid #a3a3a3',
+      // borderBottom: '1 solid #3498DB',
       paddingBottom: 5,
     },
     entryContainer: {
@@ -89,7 +90,7 @@ Font.register({
       marginTop: 5,
     },
     skill: {
-      backgroundColor: '#3498DB',
+      backgroundColor: '#a3a3a3',
       color: 'white',
       padding: '3 6',
       borderRadius: 10,

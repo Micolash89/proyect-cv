@@ -12,14 +12,12 @@ Font.register({
   export const styles6 = StyleSheet.create({
     page: {
       fontFamily: 'Inter',
-      fontSize: 11,
       paddingVertical: 10,
       paddingHorizontal: 30,
       lineHeight: 1.5,
     },
     header: {
       flexDirection: 'row',
-      // marginBottom: 5,
       paddingBottom: 10,
       
     },
@@ -36,11 +34,9 @@ Font.register({
     },
     headerCenter: {
       width: '50%',
-      // paddingLeft: 10,
     },
     headerRight: {
       width: '50%',
-      // paddingLeft: 10,
     },
     profileImage: {
       width: 100,
@@ -59,7 +55,6 @@ Font.register({
       marginBottom: 5,
     },
     sectionTitle: {
-      fontSize: 16,
       fontWeight: 'bold',
       marginBottom: 10,
       marginTop: 10,
@@ -72,7 +67,6 @@ Font.register({
   
     },
     profileText: {
-      fontSize: 10,
       color: '#333333',
       textAlign: 'justify',
     },
@@ -81,7 +75,6 @@ Font.register({
     },
     timelineEntry: {
       flexDirection: 'row',
-    //   marginBottom: 15,
     },
     timelineDot: {
       width: 8,
@@ -102,19 +95,15 @@ Font.register({
       zIndex: 1,
     },
     timelineTitle: {
-      fontSize: 11,
       fontWeight: 'bold',
     },
     timelineSubtitle: {
-      fontSize: 10,
       color: '#666666',
     },
     timelineDate: {
-      fontSize: 10,
       color: '#666666',
     },
     timelineDescription: {
-      fontSize: 10,
       marginTop: 5,
       color: '#333333',
     },
@@ -122,7 +111,6 @@ Font.register({
       flexDirection: 'row',
       marginTop: 20,
       borderTop: '1 solid #EAEAEA',
-    //   paddingTop: 20,
     },
     column: {
       flex: 1,
@@ -134,10 +122,8 @@ Font.register({
       marginBottom: 5,
     },
     languageName: {
-      fontSize: 10,
     },
     languageLevel: {
-      fontSize: 10,
       color: '#666666',
     },
   });

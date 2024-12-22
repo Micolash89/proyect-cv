@@ -39,7 +39,7 @@ input:-webkit-autofill {
   }
 
   ::-webkit-scrollbar {
-    width: 0.6rem;
+    width: 0.8rem;
     @apply bg-gray-100 dark:bg-gray-400;
   }
   

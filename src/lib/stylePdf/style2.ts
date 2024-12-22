@@ -12,12 +12,10 @@ Font.register({
   export const styles2 = StyleSheet.create({
     page: {
       fontFamily: 'Roboto',
-      // fontSize: 12,
       flexDirection: 'row',
     },
     leftColumn: {
       width: '30%',
-      // backgroundColor: '#34495E',
       color: 'white',
       paddingVertical: 20,
       paddingHorizontal: 10,
@@ -25,16 +23,15 @@ Font.register({
     rightColumn: {
       width: '70%',
       padding: 20,
+      flexDirection: 'column',
+      display: 'flex',
     },
     profileImage: {
-      width: 100,
-      height: 100,
       borderRadius: 50,
       marginBottom: 20,
       alignSelf: 'center',
     },
     name: {
-      // fontSize: 24,
       fontWeight: 'bold',
       marginBottom: 10,
       textAlign: 'center',
@@ -43,17 +40,11 @@ Font.register({
       marginBottom: 20,
     },
     contactItem: {
-      // fontSize: 10,
     },
     sectionTitle: {
-      fontSize: 16,
       fontWeight: 'bold',
       marginTop: 10,
       marginBottom: 10,
-      color: '#a3a3a3',
-      // color: '#3498DB',
-      borderBottom: '1 solid #a3a3a3',
-      // borderBottom: '1 solid #3498DB',
       paddingBottom: 5,
     },
     entryContainer: {
@@ -66,22 +57,17 @@ Font.register({
     },
     institution: {
       fontWeight: 'bold',
-      fontSize: 11,
     },
     location: {
-      fontSize: 10,
       color: '#7F8C8D',
     },
     degree: {
       fontStyle: 'italic',
-      fontSize: 11,
     },
     dates: {
-      fontSize: 10,
       color: '#7F8C8D',
     },
     description: {
-      fontSize: 10,
       marginLeft: 10,
     },
     skills: {
@@ -95,6 +81,5 @@ Font.register({
       padding: '3 6',
       borderRadius: 10,
       margin: 2,
-      fontSize: 8,
     },
   });

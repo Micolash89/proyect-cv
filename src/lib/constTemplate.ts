@@ -14,7 +14,7 @@ export const templates: Template[] = [
     {
       id: 2,
       image: "/placeholder.svg?height=200&width=150",
-      colors: ["#3B82F6", "#34495E"],
+      colors: ["#3B82F6", "#34495E", "#2A4365", "#6F7072", "#181D2B", "#AF815E", "#F3F2E3"],
     },
     {
       id: 3,

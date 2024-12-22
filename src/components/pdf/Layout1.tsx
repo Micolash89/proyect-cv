@@ -111,7 +111,7 @@ export const Layout1: React.FC<{
                   { fontSize: getFontSize(14, contador) },
                 ]}
               >
-                INFORMACIÓN {"\n"} ADICIONAL
+                INFORMACIÓN{"\n"}ADICIONAL
               </Text>
               {cvData.licencia && (
                 <Text

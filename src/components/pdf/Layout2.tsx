@@ -18,19 +18,28 @@ export const Layout2: React.FC<{
         style={[
           styles2.page,
           {
-            fontSize: getFontSize(
-              11,
-              getFontSize(12, optionsPDF.contadorContent)
-            ),
+            fontSize: getFontSize(12, optionsPDF.contadorContent),
           },
         ]}
       >
         {/* Left Column */}
         <View
-          style={[styles2.leftColumn, { backgroundColor: optionsPDF.color }]}
+          style={[
+            styles2.leftColumn,
+            {
+              backgroundColor: optionsPDF.color,
+              color: optionsPDF.color === "#F3F2E3" ? "#a3a3a3" : "white",
+            },
+          ]}
         >
           {cvData.imagenPerfil && (
-            <Image src={cvData.imagenPerfil} style={styles2.profileImage} />
+            <Image
+              src={cvData.imagenPerfil}
+              style={[
+                styles2.profileImage,
+                { width: 100 + contador * 4, height: 100 + contador * 4 },
+              ]}
+            />
           )}
           {(cvData.name || cvData.lastName) && (
             <Text
@@ -84,7 +93,7 @@ export const Layout2: React.FC<{
               <Text
                 style={[
                   styles2.contactItem,
-                  { fontSize: getFontSize(10, contador) },
+                  { fontSize: getFontSize(10, contador),marginBottom: 0 },
                 ]}
               >
                 {cvData.ciudad}, {cvData.provincia}
@@ -96,11 +105,17 @@ export const Layout2: React.FC<{
               style={[
                 styles2.sectionTitle,
                 {
-                  color: optionsPDF.color == "#34495E" ? "#a3a3a3" : "#FFFFFF",
-                  borderBottom:
-                    `1 solid ${optionsPDF.color == "#34495E"
+                  color:
+                    optionsPDF.color == "#34495E" ||
+                    optionsPDF.color == "#F3F2E3"
+                      ? "#a3a3a3"
+                      : "#FFFFFF",
+                  borderBottom: `1 solid ${
+                    optionsPDF.color == "#34495E" ||
+                    optionsPDF.color == "#F3F2E3"
                       ? "#A3A3A3"
-                      : "#FFFFFF"}`,
+                      : "#FFFFFF"
+                  }`,
                   fontSize: getFontSize(16, contador),
                 },
               ]}
@@ -111,7 +126,17 @@ export const Layout2: React.FC<{
           {iaData.skills && (
             <View style={styles2.skills}>
               {iaData.skills.split("•").map((skill, index) => (
-                <Text key={index} style={[styles2.skill,{backgroundColor: optionsPDF.color == "#34495E" ? "#a3a3a3" : "#808080"}]}>
+                <Text
+                  key={index}
+                  style={[
+                    styles2.skill,
+                    {
+                      backgroundColor:
+                        optionsPDF.color == "#34495E" ? "#a3a3a3" : "#808080",
+                      fontSize: getFontSize(8, contador),
+                    },
+                  ]}
+                >
                   {skill.trim()}
                 </Text>
               ))}
@@ -122,12 +147,19 @@ export const Layout2: React.FC<{
               style={[
                 styles2.sectionTitle,
                 {
-                  color: optionsPDF.color == "#34495E" ? "#a3a3a3" : "#FFFFFF",
-                  borderBottom:
-                    `1 solid ${optionsPDF.color == "#34495E"
+                  color:
+                    optionsPDF.color == "#34495E" ||
+                    optionsPDF.color == "#F3F2E3"
+                      ? "#a3a3a3"
+                      : "#FFFFFF",
+                  borderBottom: `1 solid ${
+                    optionsPDF.color == "#34495E" ||
+                    optionsPDF.color == "#F3F2E3"
                       ? "#A3A3A3"
-                      : "#FFFFFF"}`,
+                      : "#FFFFFF"
+                  }`,
                   fontSize: getFontSize(16, contador),
+                  marginTop: 20,
                 },
               ]}
             >
@@ -160,16 +192,25 @@ export const Layout2: React.FC<{
               style={[
                 styles2.sectionTitle,
                 {
-                  color: optionsPDF.color == "#34495E" ? "#a3a3a3" : "#FFFFFF",
-                  borderBottom:
-                    `1 solid ${optionsPDF.color == "#34495E"
+                  color:
+                    optionsPDF.color == "#34495E" ||
+                    optionsPDF.color == "#F3F2E3"
+                      ? "#a3a3a3"
+                      : "#FFFFFF",
+                  borderBottom: `1 solid ${
+                    optionsPDF.color == "#34495E" ||
+                    optionsPDF.color == "#F3F2E3"
                       ? "#A3A3A3"
-                      : "#FFFFFF"}`,
+                      : "#FFFFFF"
+                  }`,
                   fontSize: getFontSize(16, contador),
+                  marginTop: 20,
                 },
               ]}
             >
-              Información Adicional
+              {contador > 0
+                ? "Información Adicional".split(" ").join("\n")
+                : "Información Adicional"}
             </Text>
           )}
           {cvData.licencia && (
@@ -225,7 +266,16 @@ export const Layout2: React.FC<{
         </View>
 
         {/* Right Column */}
-        <View style={styles2.rightColumn}>
+        <View
+          style={[
+            styles2.rightColumn,
+            {
+              justifyContent: optionsPDF.spaceBetween
+                ? "space-between"
+                : "flex-start",
+            },
+          ]}
+        >
           {iaData.profile && (
             <View>
               <Text
@@ -234,115 +284,209 @@ export const Layout2: React.FC<{
                   {
                     color:
                       optionsPDF.color == "#34495E" ? "#a3a3a3" : "#808080",
-                    borderBottom:
-                      `1 solid ${optionsPDF.color == "#34495E"
-                        ? "#A3A3A3"
-                        : "#808080"}`,
+                    borderBottom: `1 solid ${
+                      optionsPDF.color == "#34495E" ? "#A3A3A3" : "#808080"
+                    }`,
                     fontSize: getFontSize(16, optionsPDF.contadorContent),
                   },
                 ]}
               >
                 Perfil
               </Text>
-              <Text style={[styles2.description, { textAlign: "justify" }]}>
+              <Text
+                style={[
+                  styles2.description,
+                  {
+                    textAlign: "justify",
+                    fontSize: getFontSize(10, optionsPDF.contadorContent),
+                  },
+                ]}
+              >
                 {iaData.profile}
               </Text>
             </View>
           )}
-          {cvData.experience.length > 0 && (
-            <Text
-              style={[
-                styles2.sectionTitle,
-                {
-                  color: optionsPDF.color == "#34495E" ? "#a3a3a3" : "#808080",
-                  borderBottom:
-                    `1 solid ${optionsPDF.color == "#34495E"
-                      ? "#A3A3A3"
-                      : "#808080"}`,
-                  fontSize: getFontSize(16, optionsPDF.contadorContent),
-                },
-              ]}
-            >
-              Experiencia Profesional
-            </Text>
-          )}
-          {cvData.experience.map((exp, index) => (
-            <View key={index} style={styles2.entryContainer}>
-              <View style={styles2.entryHeader}>
-                <Text style={styles2.institution}>{exp.nombreEmpresa}</Text>
-                <Text style={styles2.location}>{exp.zonaEmpresa}</Text>
-              </View>
-              <View style={styles2.entryHeader}>
-                <Text style={styles2.degree}>{exp.puesto}</Text>
-                <Text style={styles2.dates}>
-                  {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
-                </Text>
-              </View>
-              <Text style={styles2.description}>
-                • {iaData.descriptionWork.split("\n")[index]}
+          <View>
+            {cvData.experience.length > 0 && (
+              <Text
+                style={[
+                  styles2.sectionTitle,
+                  {
+                    color:
+                      optionsPDF.color == "#34495E" ? "#a3a3a3" : "#808080",
+                    borderBottom: `1 solid ${
+                      optionsPDF.color == "#34495E" ? "#A3A3A3" : "#808080"
+                    }`,
+                    fontSize: getFontSize(16, optionsPDF.contadorContent),
+                  },
+                ]}
+              >
+                Experiencia Profesional
               </Text>
-            </View>
-          ))}
-          {cvData.education.length > 0 && (
-            <Text
-              style={[
-                styles2.sectionTitle,
-                {
-                  color: optionsPDF.color == "#34495E" ? "#a3a3a3" : "#808080",
-                  borderBottom:
-                    `1 solid ${optionsPDF.color == "#34495E"
-                      ? "#A3A3A3"
-                      : "#808080"}`,
-                  fontSize: getFontSize(16, optionsPDF.contadorContent),
-                },
-              ]}
-            >
-              Educación
-            </Text>
-          )}
-          {cvData.education.map((edu, index) => (
-            <View key={index} style={styles2.entryContainer}>
-              <View style={styles2.entryHeader}>
-                <Text style={styles2.institution}>{edu.institucion}</Text>
-                <Text style={styles2.location}>{edu.zonaInstitucion}</Text>
-              </View>
-              <View style={styles2.entryHeader}>
-                <Text style={styles2.degree}>
-                  {edu.carrera} ({edu.estado.toLowerCase()})
+            )}
+            {cvData.experience.map((exp, index) => (
+              <View key={index} style={styles2.entryContainer}>
+                <View style={styles2.entryHeader}>
+                  <Text
+                    style={[
+                      styles2.institution,
+                      { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+                    ]}
+                  >
+                    {exp.nombreEmpresa}
+                  </Text>
+                  <Text
+                    style={[
+                      styles2.location,
+                      { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                    ]}
+                  >
+                    {exp.zonaEmpresa}
+                  </Text>
+                </View>
+                <View style={styles2.entryHeader}>
+                  <Text
+                    style={[
+                      styles2.degree,
+                      { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+                    ]}
+                  >
+                    {exp.puesto}
+                  </Text>
+                  <Text
+                    style={[
+                      styles2.dates,
+                      { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                    ]}
+                  >
+                    {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
+                  </Text>
+                </View>
+                <Text
+                  style={[
+                    styles2.description,
+                    { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                  ]}
+                >
+                  • {iaData.descriptionWork.split("\n")[index]}
                 </Text>
-                <Text style={styles2.dates}>
-                  {edu.anioInicioEducacion} - {edu.anioFinEducacion}
-                </Text>
               </View>
-            </View>
-          ))}
+            ))}
+          </View>
 
-          {cvData.cursos.length > 0 && (
-            <Text
-              style={[
-                styles2.sectionTitle,
-                {
-                  color: optionsPDF.color == "#34495E" ? "#a3a3a3" : "#808080",
-                  borderBottom:
-                    `1 solid ${optionsPDF.color == "#34495E"
-                      ? "#A3A3A3"
-                      : "#808080"}`,
-                  fontSize: getFontSize(16, optionsPDF.contadorContent),
-                },
-              ]}
-            >
-              Certificaciones
-            </Text>
-          )}
-          {cvData.cursos.map((curso, index) => (
-            <View key={index} style={styles2.entryContainer}>
-              <View style={styles2.entryHeader}>
-                <Text style={styles2.institution}>{curso.curso}</Text>
-                <Text style={styles2.dates}>{curso.anioInicioCurso}</Text>
+          <View>
+            {cvData.education.length > 0 && (
+              <Text
+                style={[
+                  styles2.sectionTitle,
+                  {
+                    color:
+                      optionsPDF.color == "#34495E" ? "#a3a3a3" : "#808080",
+                    borderBottom: `1 solid ${
+                      optionsPDF.color == "#34495E" ? "#A3A3A3" : "#808080"
+                    }`,
+                    fontSize: getFontSize(16, optionsPDF.contadorContent),
+                  },
+                ]}
+              >
+                Educación
+              </Text>
+            )}
+            {cvData.education.map((edu, index) => (
+              <View key={index} style={styles2.entryContainer}>
+                <View style={styles2.entryHeader}>
+                  <Text
+                    style={[
+                      styles2.institution,
+                      { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+                    ]}
+                  >
+                    {edu.institucion}
+                  </Text>
+                  <Text
+                    style={[
+                      styles2.location,
+                      { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                    ]}
+                  >
+                    {edu.zonaInstitucion}{" "}
+                    {optionsPDF.contadorContent > 2
+                      ? `${edu.anioInicioEducacion} - ${edu.anioFinEducacion}`
+                      : ""}
+                  </Text>
+                </View>
+                <View style={styles2.entryHeader}>
+                  <Text
+                    style={[
+                      styles2.degree,
+                      { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+                    ]}
+                  >
+                    {edu.carrera} ({edu.estado.toLowerCase()})
+                  </Text>
+                  <Text
+                    style={[
+                      styles2.dates,
+                      { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                    ]}
+                  >
+                    {optionsPDF.contadorContent < 3
+                      ? `${edu.anioInicioEducacion} - ${edu.anioFinEducacion}`
+                      : ""}
+                  </Text>
+                </View>
               </View>
-              <Text style={styles2.degree}>{curso.institucion}</Text>
-            </View>
-          ))}
+            ))}
+          </View>
+          <View>
+            {cvData.cursos.length > 0 && (
+              <Text
+                style={[
+                  styles2.sectionTitle,
+                  {
+                    color:
+                      optionsPDF.color == "#34495E" ? "#a3a3a3" : "#808080",
+                    borderBottom: `1 solid ${
+                      optionsPDF.color == "#34495E" ? "#A3A3A3" : "#808080"
+                    }`,
+                    fontSize: getFontSize(16, optionsPDF.contadorContent),
+                  },
+                ]}
+              >
+                Certificaciones
+              </Text>
+            )}
+            {cvData.cursos.map((curso, index) => (
+              <View key={index} style={styles2.entryContainer}>
+                <View style={styles2.entryHeader}>
+                  <Text
+                    style={[
+                      styles2.institution,
+                      { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+                    ]}
+                  >
+                    {curso.curso}
+                  </Text>
+                  <Text
+                    style={[
+                      styles2.dates,
+                      { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                    ]}
+                  >
+                    {curso.anioInicioCurso}
+                  </Text>
+                </View>
+                <Text
+                  style={[
+                    styles2.degree,
+                    { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+                  ]}
+                >
+                  {curso.institucion}
+                </Text>
+              </View>
+            ))}
+          </View>
         </View>
       </Page>
     </Document>

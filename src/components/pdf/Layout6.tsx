@@ -305,7 +305,9 @@ export const Layout6: React.FC<{
                 <Text
                   style={[
                     styles6.sectionTitle,
-                    { fontSize: getFontSize(16, optionsPDF.contadorContent) },
+                    { fontSize: getFontSize(16, optionsPDF.contadorContent),
+                     },
+                    
                   ]}
                 >
                   Cursos
@@ -366,6 +368,7 @@ export const Layout6: React.FC<{
                     {
                       borderTop: "none",
                       fontSize: getFontSize(16, optionsPDF.contadorContent),
+                      marginTop: 0
                     },
                   ]}
                 >
@@ -420,6 +423,7 @@ export const Layout6: React.FC<{
                     {
                       borderTop: "none",
                       fontSize: getFontSize(16, optionsPDF.contadorContent),
+                      marginTop: 0
                     },
                   ]}
                 >

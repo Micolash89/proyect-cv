@@ -18,8 +18,6 @@ Font.register({
     },
     header: {
       flexDirection: 'row',
-      paddingBottom: 10,
-      
     },
     headerColumn: {
       display: 'flex',
@@ -56,7 +54,6 @@ Font.register({
     },
     sectionTitle: {
       fontWeight: 'bold',
-      marginBottom: 10,
       marginTop: 10,
       paddingTop: 10,
       borderTop: '1 solid #EAEAEA',
@@ -71,7 +68,6 @@ Font.register({
       textAlign: 'justify',
     },
     timelineContainer: {
-      // marginLeft: 15,
     },
     timelineEntry: {
       flexDirection: 'row',
@@ -109,7 +105,7 @@ Font.register({
     },
     twoColumnSection: {
       flexDirection: 'row',
-      marginTop: 20,
+      marginTop: 10,
       borderTop: '1 solid #EAEAEA',
     },
     column: {

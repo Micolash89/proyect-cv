@@ -173,6 +173,7 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
                     disabled={optionsPDF.contadorContent === 0}
                     className=" capitalize px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label="Disminuir tamaño"
+                    type="button"
                   >
                     <svg
                       className="w-5 h-5 text-gray-600 dark:text-gray-300"
@@ -195,6 +196,7 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
                     onClick={() => handleTextZoomClickContent(1)}
                     className=" capitalize px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-all duration-200"
                     aria-label="Aumentar tamaño"
+                    type="button"
                   >
                     <svg
                       className="w-5 h-5 text-gray-600 dark:text-gray-300"
@@ -234,14 +236,6 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
               Color del CV
             </label>
             <div className="flex items-center space-x-4">
-              {/* <input
-                type="color"
-                value={optionsPDF.color}
-                onChange={handleColorChange}
-                className="w-12 h-12 rounded-lg cursor-pointer border-2 border-gray-200 dark:border-gray-700 "
-                aria-label="Seleccionar color"
-              /> */}
-
               <div className="flex flex-wrap gap-2">
                 {templates
                   .find((t) => t.id === optionsPDF.tipoPdf)
@@ -268,10 +262,12 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
                     </div>
                   ))}
               </div>
-
-              <span className="text-sm font-mono bg-gray-100 dark:bg-gray-800 px-3 py-1 text-gray-700 dark:text-gray-300 rounded">
-                {optionsPDF.color.toUpperCase()}
-              </span>
+              <input
+                type="text"
+                value={optionsPDF.color}
+                onChange={handleColorChange}
+                className=" text-sm font-mono bg-gray-100 dark:bg-gray-800 px-3 py-1 text-gray-700 dark:text-gray-300 rounded"
+              />
             </div>
           </div>
 

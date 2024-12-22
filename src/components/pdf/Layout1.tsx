@@ -21,8 +21,8 @@ export const Layout1: React.FC<{
               styles1.sidebar,
               {
                 backgroundColor: optionsPDF.color,
-                paddingHorizontal: getPadding(contador, 10),
-                paddingVertical: getPadding(contador, 10),
+                // paddingHorizontal: getPadding(contador, 10),
+                // paddingVertical: getPadding(contador, 10),
               },
             ]}
           >
@@ -31,7 +31,7 @@ export const Layout1: React.FC<{
             )}
 
             <Text
-              style={[styles1.name, { fontSize: getFontSize(24, contador) }]}
+              style={[styles1.name, { fontSize: getFontSize(20, contador) }]}
             >
               {cvData.name.split(" ").join("\n")}{cvData.lastName}
             </Text>

@@ -1,11 +1,13 @@
 "use client";
 import { templates } from "@/lib/constTemplate";
 import React from "react";
+import ButtonToggleOptionPDF from "./ButtonToggleOptionPDF";
 
 interface PdfOptionsProps {
   optionsPDF: {
     color: string;
     spaceBetween: boolean;
+    orientacionCVTitle: boolean;
     tipoPdf: number;
     contadorContent: number;
   };
@@ -13,6 +15,7 @@ interface PdfOptionsProps {
     React.SetStateAction<{
       color: string;
       spaceBetween: boolean;
+      orientacionCVTitle: boolean;
       tipoPdf: number;
       contadorContent: number;
     }>
@@ -51,6 +54,13 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
     setOptionsPDF((prev) => ({
       ...prev,
       spaceBetween: !prev.spaceBetween,
+    }));
+  };
+
+  const orientacionCVTitleToggle = () => {
+    setOptionsPDF((prev) => ({
+      ...prev,
+      orientacionCVTitle: !prev.orientacionCVTitle,
     }));
   };
 
@@ -287,28 +297,35 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
                   d="M4 6h16M4 12h16m-7 6h7"
                 />
               </svg>
-              Espaciado entre Párrafos
+              Ajustes de diseño
             </label>
-            <div className="flex items-center">
-              <button
-                onClick={handleSpaceBetweenToggle}
-                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                  optionsPDF.spaceBetween
-                    ? "bg-blue-600"
-                    : "bg-gray-200 dark:bg-gray-700"
-                }`}
-              >
-                <span
-                  className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform duration-200 ${
-                    optionsPDF.spaceBetween ? "translate-x-7" : "translate-x-1"
+            <div className="flex items-center space-x-4 flex-wrap gap-y-2">
+                    <ButtonToggleOptionPDF conditionOption={optionsPDF.spaceBetween} messageTrue="Espaciado Amplio" messageFalse="Espaciado Normal" callBackFunction={handleSpaceBetweenToggle} />
+
+                    <ButtonToggleOptionPDF conditionOption={optionsPDF.orientacionCVTitle} messageTrue="Mostrar Orientación CV" messageFalse="Ocultar Orientación CV" callBackFunction={orientacionCVTitleToggle} />
+              {/* <div className="flex items-center flex-col gap-1 ">
+                <span className="ml-3 text-sm text-gray-600 dark:text-gray-400">
+                  {optionsPDF.spaceBetween
+                    ? "Espaciado Amplio"
+                    : "Espaciado Normal"}
+                </span>
+                <button
+                  onClick={handleSpaceBetweenToggle}
+                  className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 border-gray-50 border focus:ring-blue-500 focus:ring-offset-2 ${
+                    optionsPDF.spaceBetween
+                      ? "bg-blue-600"
+                      : "bg-gray-200 dark:bg-gray-700"
                   }`}
-                />
-              </button>
-              <span className="ml-3 text-sm text-gray-600 dark:text-gray-400">
-                {optionsPDF.spaceBetween
-                  ? "Espaciado Amplio"
-                  : "Espaciado Normal"}
-              </span>
+                >
+                  <span
+                    className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform duration-200 ${
+                      optionsPDF.spaceBetween
+                        ? "translate-x-7"
+                        : "translate-x-1"
+                    }`}
+                  />
+                </button>
+              </div> */}
             </div>
           </div>
 

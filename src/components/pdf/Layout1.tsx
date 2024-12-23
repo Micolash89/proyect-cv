@@ -36,6 +36,12 @@ export const Layout1: React.FC<{
               {cvData.name.split(" ").join("\n")}{cvData.lastName}
             </Text>
 
+            {optionsPDF.orientacionCVTitle &&<Text
+              style={[styles1.profession, { fontSize: getFontSize(14, contador) }]}
+            >
+              {cvData.orientadoCV}
+            </Text>}
+
             {/* Contact Information */}
             <View style={{ marginTop: 20 }}>
               <Text
@@ -97,7 +103,7 @@ export const Layout1: React.FC<{
                 </Text>
                 {cvData.idiomas.map((idioma, index) => (
                   <Text key={index} style={[styles1.skillItem, { fontSize: getFontSize(10, contador) }]}>
-                    • {idioma.idioma} - {idioma.nivel}
+                    • {idioma.idioma.charAt(0).toUpperCase() + idioma.idioma.slice(1).toLowerCase()} - {idioma.nivel=="BASICO"?"Básico": idioma.nivel.charAt(0).toUpperCase() + idioma.nivel.slice(1).toLowerCase()}
                   </Text>
                 ))}
               </View>

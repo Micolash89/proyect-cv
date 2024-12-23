@@ -8,6 +8,7 @@ export interface CVDataPdf {
   ciudad: string;
   provincia: string;
   imagenPerfil: string;
+  orientadoCV: string;
   education: Array<{
     carrera: string;
     estado: string;
@@ -99,6 +100,7 @@ export interface Template {
 export interface OptionsPDF {
   color: string;
   spaceBetween: boolean;
+  orientacionCVTitle:boolean;
   tipoPdf: number;
   contadorContent: number;
 }

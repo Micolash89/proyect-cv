@@ -199,6 +199,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
   const [optionsPDF, setOptionsPDF] = useState({
     color: "#000000",
     spaceBetween: false,
+    orientacionCVTitle:false,
     tipoPdf: 0,
     contadorContent:0
   });

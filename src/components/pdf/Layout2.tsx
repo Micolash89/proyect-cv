@@ -48,6 +48,16 @@ export const Layout2: React.FC<{
               {cvData.name.split(" ").join("\n")} {cvData.lastName}
             </Text>
           )}
+          {cvData.orientadoCV && optionsPDF.orientacionCVTitle && (
+            <Text
+              style={[
+                styles2.profession,
+                { fontSize: getFontSize(15, contador) },
+              ]}
+            >
+              {cvData.orientadoCV}
+            </Text>
+          )}
           <View style={[styles2.contactInfo]}>
             {cvData.fechaNacimiento && (
               <Text
@@ -93,7 +103,7 @@ export const Layout2: React.FC<{
               <Text
                 style={[
                   styles2.contactItem,
-                  { fontSize: getFontSize(10, contador),marginBottom: 0 },
+                  { fontSize: getFontSize(10, contador), marginBottom: 0 },
                 ]}
               >
                 {cvData.ciudad}, {cvData.provincia}

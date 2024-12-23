@@ -33,11 +33,15 @@ Font.register({
     },
     name: {
       fontWeight: 'bold',
-      marginBottom: 10,
+      marginBottom: 5,
       textAlign: 'center',
     },
     contactInfo: {
-      marginBottom: 20,
+      marginBottom: 10,
+    },
+    profession:{
+      textAlign : 'center',
+      marginBottom:5,
     },
     contactItem: {
     },

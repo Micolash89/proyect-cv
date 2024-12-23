@@ -305,9 +305,7 @@ export const Layout6: React.FC<{
                 <Text
                   style={[
                     styles6.sectionTitle,
-                    { fontSize: getFontSize(16, optionsPDF.contadorContent),
-                     },
-                    
+                    { fontSize: getFontSize(16, optionsPDF.contadorContent) },
                   ]}
                 >
                   Cursos
@@ -354,6 +352,36 @@ export const Layout6: React.FC<{
             </View>
           </View>
 
+          {/*Skills*/}
+          {iaData.skills && (
+            <View style={{ width: "100%" }}>
+              <Text
+                style={[
+                  styles6.sectionTitle,
+                  { fontSize: getFontSize(16, optionsPDF.contadorContent) },
+                ]}
+              >
+                Habilidades
+              </Text>
+              <View style={styles6.skills}>
+                {iaData.skills.split("•").map((skill, index) => (
+                  <Text
+                    key={index}
+                    style={[
+                      {
+                        fontSize: getFontSize(10, contador),
+                        textAlign: "center",
+                      },
+                    ]}
+                  >
+                    {skill.trim()}
+                    <Text style={{ color: "#EAEAEA" }}>{" • "}</Text>
+                  </Text>
+                ))}
+              </View>
+            </View>
+          )}
+
           {/* Additional Info and Languages */}
           <View style={styles6.twoColumnSection}>
             {(cvData.licencia ||
@@ -368,7 +396,7 @@ export const Layout6: React.FC<{
                     {
                       borderTop: "none",
                       fontSize: getFontSize(16, optionsPDF.contadorContent),
-                      marginTop: 0
+                      marginTop: 0,
                     },
                   ]}
                 >
@@ -423,7 +451,7 @@ export const Layout6: React.FC<{
                     {
                       borderTop: "none",
                       fontSize: getFontSize(16, optionsPDF.contadorContent),
-                      marginTop: 0
+                      marginTop: 0,
                     },
                   ]}
                 >

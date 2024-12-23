@@ -49,9 +49,8 @@ export const Layout1: React.FC<{
                   styles1.contactInfo,
                   { fontSize: getFontSize(10, contador) },
                 ]}
-                wrap={true}
               >
-                {cvData.email}
+                 {cvData.fechaNacimiento.split("-").reverse().join("/")}
               </Text>
               <Text
                 style={[
@@ -59,8 +58,26 @@ export const Layout1: React.FC<{
                   { fontSize: getFontSize(10, contador) },
                 ]}
               >
-                {cvData.phone}
+                DNI: {cvData.dni}
               </Text>
+              <Text
+                style={[
+                  styles1.contactInfo,
+                  { fontSize: getFontSize(10, contador) },
+                ]}
+              >
+                Tel: {cvData.phone}
+              </Text>
+              <Text
+                style={[
+                  styles1.contactInfo,
+                  { fontSize: getFontSize(10, contador) },
+                ]}
+                wrap={true}
+              >
+                {cvData.email}
+              </Text>
+         
               <Text
                 style={[
                   styles1.contactInfo,
@@ -156,7 +173,7 @@ export const Layout1: React.FC<{
                     { fontSize: getFontSize(10, contador) },
                   ]}
                 >
-                  • Jornada: {cvData.disponibilidad}
+                  • {cvData.disponibilidad=="FULLTIME"?"jornada completa":"jornada parcial"}
                 </Text>
               )}
             </View>

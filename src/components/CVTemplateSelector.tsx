@@ -34,7 +34,9 @@ export default function CVTemplateSelector({
   }, []);
 
   const handleTemplateChange = (templateId: number) => {
-    updateCVData({ ...cvData, template: templateId });
+    //actualizar color al primer elemento
+    updateCVData({ ...cvData, template: templateId, color:templates.find(e=>e.id==templateId)?.colors[0] });
+    
   };
 
   const nextSlide = () => {
@@ -155,7 +157,7 @@ export default function CVTemplateSelector({
                       className={`block w-8 h-8 rounded-full cursor-pointer transition-all ${
                         cvData.color === color
                           ? "ring-4 border-0 ring-offset-2 ring-blue-500 "
-                          : "border-2 hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 "
+                          : "border hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 "
                       }`}
                       style={{ backgroundColor: color }}
                     >

@@ -260,7 +260,7 @@ export const Layout2: React.FC<{
                 { fontSize: getFontSize(10, contador) },
               ]}
             >
-              Jornada: {cvData.disponibilidad}
+              {cvData.disponibilidad=="FULLTIME"?"jornada completa":"jornada parcial"}
             </Text>
           )}
           {cvData.office && (

@@ -392,6 +392,9 @@ function FormRegister({
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
+
+      <h1 className="text-3xl font-bold text-center mt-4 text-gray-900 dark:text-white">{idUser? "Actualización de CV" : "Registro para la creación de CV"}</h1>
+
       <form action={handleSubmit} className="flex flex-col">
         <AnimatePresence mode="sync">
           <motion.section
@@ -401,24 +404,10 @@ function FormRegister({
             variants={sectionVariants}
             className="w-full max-w-4xl mx-auto p-4"
           >
-            {/* <div className="bg-white dark:bg-gray-900 shadow-lg rounded-xl overflow-hidden transition-all duration-200"></div>
-            <div className="p-6 border-b dark:border-gray-700"></div> */}
-            {/* <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white capitalize flex items-center gap-3">
-                Datos personales
-                <div className="h-8 w-8 flex items-center justify-center bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-lg">
-                  svg
-                </div>
-              </h2>
-              <span className="text-xs  text-gray-600 dark:text-gray-400">
-                {" "}
-                * El asterisco indica que es obligatorio
-              </span>
-            </div> */}
             <WrapperSection>
               <WrapperSectionInput>
                 {/* falta lo del asterisco */}
-                <WrapperH2Section title="datos personales" />
+                <WrapperH2Section title="datos personales" additionalMessage="* El asterisco indica que es obligatorio" />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
                   <div className="relative z-0 w-full group">
@@ -623,10 +612,8 @@ function FormRegister({
             >
               <WrapperSection>
                 <WrapperSectionInput>
-                  <WrapperH2Section title="educación" />
-                  {/* <h2 className="text-2xl font-semibold mb-4 capitalize text-black dark:text-white">
-                Educación
-              </h2> */}
+                  <WrapperH2Section title="educación" additionalMessage="Recomendado Incluye tu último nivel de estudios formales."/>
+            
 
                   {cvData.education.map((edu: any, index: number) => (
                     <InfoCard

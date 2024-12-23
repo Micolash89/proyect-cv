@@ -413,7 +413,7 @@ export const Layout6: React.FC<{
                     cvData.movilidad && "Vehículo propio",
                     cvData.incorporacion && "Disponibilidad inmediata",
                     cvData.disponibilidad &&
-                      `Jornada: ${cvData.disponibilidad}`,
+                      `${cvData.disponibilidad=="FULLTIME"?"jornada completa":"jornada parcial"}`,
                     cvData.office && "Microsoft Office",
                   ]
                     .filter(Boolean)

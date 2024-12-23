@@ -21,8 +21,6 @@ export const Layout1: React.FC<{
               styles1.sidebar,
               {
                 backgroundColor: optionsPDF.color,
-                // paddingHorizontal: getPadding(contador, 10),
-                // paddingVertical: getPadding(contador, 10),
               },
             ]}
           >

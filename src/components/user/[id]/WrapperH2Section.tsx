@@ -1,6 +1,12 @@
 import React from "react";
 
-export default function WrapperH2Section({ title,additionalMessage }: { title: string,additionalMessage?:string }) {
+export default function WrapperH2Section({
+  title,
+  additionalMessage,
+}: {
+  title: string;
+  additionalMessage?: string;
+}) {
   // array de objetos para los svg luego sacarlos por title o algo por el estilo
   const icon: { [key: string]: JSX.Element } = {
     "datos personales": (
@@ -80,7 +86,17 @@ export default function WrapperH2Section({ title,additionalMessage }: { title: s
         <path d="M11 7H13V17H11V7ZM15 11H17V17H15V11ZM7 13H9V17H7V13ZM15 4H5V20H19V8H15V4ZM3 2.9918C3 2.44405 3.44749 2 3.9985 2H16L20.9997 7L21 20.9925C21 21.5489 20.5551 22 20.0066 22H3.9934C3.44476 22 3 21.5447 3 21.0082V2.9918Z"></path>
       </svg>
     ),
-    "Seleccionar plantilla de CV":(      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H20C20.5523 2 21 2.44772 21 3V21C21 21.5523 20.5523 22 20 22ZM19 20V4H5V20H19ZM7 6H11V10H7V6ZM7 12H17V14H7V12ZM7 16H17V18H7V16ZM13 7H17V9H13V7Z"></path></svg>)
+    "Seleccionar modelo de CV": (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        fill="currentColor"
+      >
+        <path d="M20 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H20C20.5523 2 21 2.44772 21 3V21C21 21.5523 20.5523 22 20 22ZM19 20V4H5V20H19ZM7 6H11V10H7V6ZM7 12H17V14H7V12ZM7 16H17V18H7V16ZM13 7H17V9H13V7Z"></path>
+      </svg>
+    ),
   };
 
   return (
@@ -92,8 +108,8 @@ export default function WrapperH2Section({ title,additionalMessage }: { title: s
         {title}
       </h2>
       <span className="text-xs  text-gray-600 dark:text-gray-400">
-                {additionalMessage}
-              </span>
+        {additionalMessage}
+      </span>
     </div>
   );
 }

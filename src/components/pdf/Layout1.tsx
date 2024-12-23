@@ -12,7 +12,7 @@ export const Layout1: React.FC<{
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
   return (
-    <Document>
+    <Document title={`Currículum Vitae - ${cvData.name}`}>
       <Page size="A4" style={styles1.page}>
         <View style={styles1.container}>
           {/* Sidebar */}

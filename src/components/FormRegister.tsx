@@ -17,6 +17,7 @@ import WrapperButton from "./user/[id]/WrapperButton";
 import WrapperSectionInput from "./user/[id]/WrapperSectionInput";
 import WrapperSection from "./user/[id]/WrapperSection";
 import CVTemplateSelector from "./CVTemplateSelector";
+import CountArrayForm from "./user/[id]/CountArrayForm";
 
 type Section =
   | "personal"
@@ -557,7 +558,7 @@ function FormRegister({
                     </label>
                   </div>
 
-                  <div className="relative z-0 w-full group row-span-2">
+                  <div className="relative z-0 w-full mx-auto group row-span-2">
                     <ImageUpload
                       value={imageFile}
                       previewUrl={imagePreview}
@@ -897,7 +898,6 @@ function FormRegister({
                       </label>
                     </div>
 
-                    {/* cambiar nombres de name solo para el frnt */}
                     <div className="">
                       <label
                         htmlFor="anioInicioExperiencia"
@@ -978,6 +978,7 @@ function FormRegister({
                     </div>
                   </div>
                 </WrapperSectionInput>
+                    <CountArrayForm cantidad={cvData.experience.length} />
                 <div className="flex justify-between p-6 bg-gray-50 dark:bg-gray-800/50">
                   <WrapperButton
                     title="Agregar"
@@ -1010,10 +1011,6 @@ function FormRegister({
               ref={sectionRefs.cursos}
               className={`w-full max-w-4xl mx-auto p-4`}
             >
-              {/* <h2 className="capitalize text-2xl font-semibold mb-4 text-black dark:text-white">
-                Cursos/Certificaciones
-              </h2> */}
-
               <WrapperSection>
                 <WrapperSectionInput>
                   <WrapperH2Section title="cursos/certificaciones" />
@@ -1094,6 +1091,7 @@ function FormRegister({
                     </div>
                   </div>
                 </WrapperSectionInput>
+                <CountArrayForm cantidad={cvData.cursos.length} />
                 <div className="flex justify-between p-6 bg-gray-50 dark:bg-gray-800/50 ">
                   <WrapperButton
                     title="Agregar"
@@ -1183,7 +1181,7 @@ function FormRegister({
                     </div>
                   </div>
                 </WrapperSectionInput>
-
+                <CountArrayForm cantidad={cvData.idiomas.length} />
                 <div className="flex justify-between p-6 bg-gray-50 dark:bg-gray-800/50">
                   <WrapperButton
                     title="agregar"
@@ -1340,8 +1338,8 @@ function FormRegister({
                         <span className="text-xs text-gray-500 dark:text-gray-400">
                           *(opcional) Indica el propósito del CV: ¿Buscas tu
                           primer empleo, quieres resaltar experiencia en un
-                          sector específico, o aspiras a un puesto en
-                          particular?
+                          sector específico, aspiras a un puesto en
+                          particular o un cv genérico?
                         </span>
                       </div>
                     </div>

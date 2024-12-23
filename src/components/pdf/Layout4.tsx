@@ -12,7 +12,7 @@ export const Layout4: React.FC<{
     optionsPDF: OptionsPDF;
   }> = ({ cvData, iaData, contador, optionsPDF }) => {
      return (
-            <Document>
+            <Document title={`Currículum Vitae - ${cvData.name}`}>
               <Page size="A4" style={styles4.page}>
                 {/* Header Background with Accent */}
                 <View style={componentStyles.headerBackground} />

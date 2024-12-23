@@ -6,13 +6,19 @@ import WrapperSection from "./user/[id]/WrapperSection";
 import { motion } from "framer-motion";
 import WrapperH2Section from "./user/[id]/WrapperH2Section";
 import { templates } from "@/lib/constTemplate";
+import Image from "next/image";
+
+interface CVData {
+  template: number;
+  color: string;
+}
 
 export default function CVTemplateSelector({
   cvData,
   updateCVData,
 }: {
-  cvData: any;
-  updateCVData: any;
+  cvData: CVData;
+  updateCVData: (data: CVData) => void;
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(3);
@@ -33,10 +39,19 @@ export default function CVTemplateSelector({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    // Set the initial index based on the selected template
+    const selectedTemplateIndex = templates.findIndex(t => t.id === cvData.template);
+    if (selectedTemplateIndex !== -1) {
+      setCurrentIndex(Math.floor(selectedTemplateIndex / itemsPerPage) * itemsPerPage);
+    }
+  }, [cvData.template, itemsPerPage]);
+
   const handleTemplateChange = (templateId: number) => {
-    //actualizar color al primer elemento
-    updateCVData({ ...cvData, template: templateId, color:templates.find(e=>e.id==templateId)?.colors[0] });
-    
+    const newTemplate = templates.find(e => e.id === templateId);
+    if (newTemplate) {
+      updateCVData({ ...cvData, template: templateId, color: newTemplate.colors[0] });
+    }
   };
 
   const nextSlide = () => {
@@ -46,9 +61,12 @@ export default function CVTemplateSelector({
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      (prevIndex - itemsPerPage) < 0 ? Math.max(templates.length - itemsPerPage, 0) : prevIndex - itemsPerPage
-    );
+    setCurrentIndex((prevIndex) => {
+      if (prevIndex === 0) {
+        return Math.max(templates.length - itemsPerPage, 0);
+      }
+      return Math.max(0, prevIndex - itemsPerPage);
+    });
   };
 
   const sectionVariants = {
@@ -74,7 +92,7 @@ export default function CVTemplateSelector({
       <WrapperSection>
         <WrapperSectionInput>
           <div className="overflow-hidden">
-            <WrapperH2Section title="Seleccionar plantilla de CV" />
+            <WrapperH2Section title="Seleccionar modelo de CV" />
 
             <div className="relative">
               <motion.div
@@ -105,10 +123,12 @@ export default function CVTemplateSelector({
                             : "border-gray-200 hover:border-blue-300"
                         }`}
                       >
-                        <img
+                        <Image
+                          width={100}
+                          height={300}
                           src={template.image}
                           alt={`Template ${template.id}`}
-                          className="w-full h-auto object-cover"
+                          className="w-full h-[300px] object-cover"
                         />
                       </label>
                     </div>
@@ -118,7 +138,7 @@ export default function CVTemplateSelector({
               <button
                 onClick={prevSlide}
                 type="button"
-                className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 focus:outline-none"
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 border dark:border-gray-300  border-gray-700 rounded-full p-2 focus:outline-none dark:bg-gray-400 dark:bg-opacity-70"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -127,7 +147,7 @@ export default function CVTemplateSelector({
               <button
                 onClick={nextSlide}
                 type="button"
-                className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 rounded-full p-2 focus:outline-none"
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 border dark:border-gray-300 border-gray-700 rounded-full p-2 focus:outline-none dark:bg-gray-400 dark:bg-opacity-70"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -156,8 +176,8 @@ export default function CVTemplateSelector({
                       htmlFor={color}
                       className={`block w-8 h-8 rounded-full cursor-pointer transition-all ${
                         cvData.color === color
-                          ? "ring-4 border-0 ring-offset-2 ring-blue-500 "
-                          : "border hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 "
+                          ? "ring-4 border-0 ring-offset-2 ring-blue-500"
+                          : "border hover:ring-2 hover:ring-offset-2 hover:ring-blue-300"
                       }`}
                       style={{ backgroundColor: color }}
                     >

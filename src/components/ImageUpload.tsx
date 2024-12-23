@@ -50,7 +50,7 @@ export default function ImageUpload({
   }
 
   return (
-    <div className=" w-full">
+    <div className=" w-full ">
       <div className="flex items-center justify-left gap-4">
         {previewUrl && (
           <div className="relative w-[200px] h-[200px] rounded-md overflow-hidden">
@@ -88,7 +88,7 @@ export default function ImageUpload({
         )}
 
         {!previewUrl && (
-          <div className="w-full flex flex-col items-center ">
+          <div className="w-full flex flex-col items-center  ">
             <input
               ref={fileInputRef}
               type="file"
@@ -105,14 +105,14 @@ export default function ImageUpload({
               onDrop={handleDrop}
               className={`
                 cursor-pointer
-                p-4 border-2 w-[200px] h-[200px]
+                p-4 border-2 mx-auto lg:mx-0 lg:mr-auto  w-[200px] h-[200px]
                 ${
                   isDragOver
                     ? "border-blue-500"
                     : "border-dashed border-gray-300"
                 }
                 flex flex-col justify-center items-center gap-2
-                hover:border-gray-400 transition rounded-lg mr-auto
+                hover:border-gray-400 transition rounded-lg mr-auto 
               `}
             >
               

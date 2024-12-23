@@ -42,12 +42,13 @@ export default function WrapperButton({
     <div className={`flex `}>
       <button
         type="button"
+        title={title}
         onClick={moveToNextSection}
         className={`inline-flex items-center gap-2 px-6 py-3 bg-${color}-500 hover:bg-${color}-600 
                       active:bg-${color}-700 text-white font-medium rounded-lg transition-all duration-200
                       focus:outline-none focus:ring-2 focus:ring-${color}-500 focus:ring-offset-2 capitalize`}
       >
-        <span>{title}</span>
+        <span className="hidden sm:inline" >{title}</span>
         {icon[color]}
       </button>
     </div>

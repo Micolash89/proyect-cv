@@ -152,7 +152,7 @@ export const Layout2: React.FC<{
               ))}
             </View>
           )}
-          {cvData.idiomas && (
+          {cvData.idiomas.length>0 && (
             <Text
               style={[
                 styles2.sectionTitle,

@@ -12,7 +12,7 @@ export const Layout6: React.FC<{
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
   return (
-    <Document title={`Currículum Vitae - ${cvData.name}`}>
+    <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
       <Page
         size="A4"
         style={[styles6.page, { fontSize: getFontSize(11, contador) }]}

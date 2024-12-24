@@ -12,7 +12,7 @@ export const Layout7: React.FC<{
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
   
   return (
-    <Document title={`Currículum Vitae - ${cvData.name}`}>
+    <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
       <Page size="A4" style={[styles7.page]}>
         {/* Header Section */}
         <View style={styles7.headerContainer}>

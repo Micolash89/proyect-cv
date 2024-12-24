@@ -11,7 +11,7 @@ export const Layout5: React.FC<{
     optionsPDF: OptionsPDF;
   }> = ({ cvData, iaData, contador, optionsPDF }) => {
     return (
-            <Document title={`Currículum Vitae - ${cvData.name}`}>
+            <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
               <Page size="A4" style={styles5.page}>
                 {/* Header */}
                 <View style={styles5.header}>

@@ -117,18 +117,17 @@ export default function CVTemplateSelector({
                       />
                       <label
                         htmlFor={`${template.id}`}
-                        className={`block cursor-pointer border-2 rounded-lg overflow-hidden transition-all ${
+                        className={`block w-full h-[300px]  cursor-pointer border-2 rounded-lg overflow-hidden transition-all ${
                           cvData.template === template.id
-                            ? "border-blue-500 ring-2 ring-blue-500"
-                            : "border-gray-200 hover:border-blue-300"
+                            ? " ring-4 ring-blue-500"
+                            : "outline-gray-200 hover:outline-blue-300 hover:outline-2 outline-2 outline "
                         }`}
                       >
                         <Image
-                          width={100}
-                          height={300}
+                          fill
                           src={template.image}
                           alt={`Template ${template.id}`}
-                          className="w-full h-[300px] object-cover"
+                          className="w-full h-[300px] rounded-lg object-cover object-top" 
                         />
                       </label>
                     </div>

@@ -1,5 +1,5 @@
 import { JWTPayload, SignJWT, jwtVerify } from "jose";
-import { Experiencia } from './actions';
+import { Experiencia } from "./actions";
 
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
@@ -11,18 +11,6 @@ export async function JWTCreate(payload: any) {
     .setExpirationTime("7d")
     .sign(encodedKey);
 }
-
-// export async function JWTValidate(session: string) {
-//   try {
-//     const { payload } = await jwtVerify(session, encodedKey, {
-//       algorithms: ["HS256"],
-//     });
-//     return payload;
-//   } catch (error) {
-//     console.log("Falló la validacion del JWT");
-//     return null;
-//   }
-// }
 
 export function getJwtSecretKey() {
   const secret = process.env.SESSION_SECRET;
@@ -61,9 +49,10 @@ export function createResponse(
   };
 }
 
-export const getPadding = (contador:number,baseSize:number = 45) => {
-    const reduction = contador <= 5 ? contador * 5 : 25;
-    return baseSize - reduction;
-  };
+export const getPadding = (contador: number, baseSize: number = 45) => {
+  const reduction = contador <= 5 ? contador * 5 : 25;
+  return baseSize - reduction;
+};
 
-export const getFontSize = (baseSize: number, contador: number) => baseSize + contador;
+export const getFontSize = (baseSize: number, contador: number) =>
+  baseSize + contador;

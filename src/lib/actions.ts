@@ -301,6 +301,7 @@ export async function postUsuarios(
     }
   } catch (error) {
     console.log(error);
+    return createResponse(false, [], "Error al crear el usuario");
   } finally {
     prisma.$disconnect();
   }
@@ -596,9 +597,7 @@ export async function updateUser(
     revalidatePath(`/dashboard`);
   } catch (error) {
     console.error(error);
-    return {
-      message: "Database Error: Failed to Update User.",
-    };
+    return createResponse(false, [], `Error al actualizar a ${nombre} ${apellido}`,);
   } finally {
     prisma.$disconnect();
   }
@@ -745,7 +744,7 @@ export async function uploadImageBack(file: File) {
   } catch (error) {
     console.error("Error al subir imagen:", error);
   }
-  return { url: "", error: "Error al subir la imagen" };
+  return { url: "", error: "Error al subir la imagen"};
 }
 
 export async function logoutAction() {

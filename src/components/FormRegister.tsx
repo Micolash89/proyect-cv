@@ -47,16 +47,16 @@ function FormRegister({
 
   const handleInputChangeCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked, value } = e.target;
-  
-      console.log("name", name)
-      console.log("checked", checked)
-      console.log("value", value)
 
-      updateCVData((prevData:any) => ({
-        ...prevData,
-        [name]: checked ? name : ""  // Store the name if checked, empty string if unchecked
-      }));
-      
+    console.log("name", name);
+    console.log("checked", checked);
+    console.log("value", value);
+
+    updateCVData((prevData: any) => ({
+      ...prevData,
+      [name]: checked ? name : "", // Store the name if checked, empty string if unchecked
+    }));
+
     console.log("cvData", cvData.incorporacion);
   };
 
@@ -184,8 +184,10 @@ function FormRegister({
     }
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    if (event.key === 'Enter') {
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    if (event.key === "Enter") {
       event.preventDefault();
     }
   };
@@ -274,6 +276,55 @@ function FormRegister({
     },
   });
 
+  //   const actionSubmit = async (e: FormData) => {
+  // try {
+  //   let result: any;
+
+  //     if (imageFile) {
+  //       const formData = new FormData();
+  //       formData.append("file", imageFile);
+  //       result = await uploadImage(formData);
+  //       updateCVData({ ...cvData, imagenPerfil: result.url });
+  //     }
+
+  //     let newPost;
+
+  //     if (idUser) {
+  //       newPost = await updateUser
+  //         .bind(null, cvData.experience)
+  //         .bind(null, cvData.cursos)
+  //         .bind(null, cvData.education)
+  //         .bind(null, cvData.idiomas)
+  //         .bind(null, result?.url || cvData.imagenPerfil)
+  //         .bind(null, idUser)
+  //         .bind(null, cvData.idCVTemplate);
+  //     } else {
+  //       newPost = await postUsuarios
+  //         .bind(null, cvData.experience)
+  //         .bind(null, cvData.cursos)
+  //         .bind(null, cvData.education)
+  //         .bind(null, cvData.idiomas)
+  //         .bind(null, result?.url || cvData.imagenPerfil);
+  //     }
+
+  //     if(newPost && !newPost.success){
+  //       const newErrors = { ...dataResponse.errors, ...newPost.errors };
+
+  //       setDataResponse({
+  //         ...dataResponse,
+  //         errors: newErrors,
+  //       });
+
+  //       throw newPost;
+  //     }
+
+  //     return newPost;
+
+  // } catch (data) {
+  //     throw data;
+  // }
+  //   }
+
   const handleSubmit = async (e: FormData) => {
     let result: any;
 
@@ -285,8 +336,6 @@ function FormRegister({
     }
 
     let newPost;
-
-    console.log("cvData", cvData);
 
     if (idUser) {
       newPost = updateUser
@@ -353,14 +402,30 @@ function FormRegister({
       id: "licencia",
       label: "Licencia de conducir",
       icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 6H21V18H3V6ZM2 4C1.44772 4 1 4.44772 1 5V19C1 19.5523 1.44772 20 2 20H22C22.5523 20 23 19.5523 23 19V5C23 4.44772 22.5523 4 22 4H2ZM13 8H19V10H13V8ZM18 12H13V14H18V12ZM10.5 10C10.5 11.3807 9.38071 12.5 8 12.5C6.61929 12.5 5.5 11.3807 5.5 10C5.5 8.61929 6.61929 7.5 8 7.5C9.38071 7.5 10.5 8.61929 10.5 10ZM8 13.5C6.067 13.5 4.5 15.067 4.5 17H11.5C11.5 15.067 9.933 13.5 8 13.5Z"></path></svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          fill="currentColor"
+        >
+          <path d="M3 6H21V18H3V6ZM2 4C1.44772 4 1 4.44772 1 5V19C1 19.5523 1.44772 20 2 20H22C22.5523 20 23 19.5523 23 19V5C23 4.44772 22.5523 4 22 4H2ZM13 8H19V10H13V8ZM18 12H13V14H18V12ZM10.5 10C10.5 11.3807 9.38071 12.5 8 12.5C6.61929 12.5 5.5 11.3807 5.5 10C5.5 8.61929 6.61929 7.5 8 7.5C9.38071 7.5 10.5 8.61929 10.5 10ZM8 13.5C6.067 13.5 4.5 15.067 4.5 17H11.5C11.5 15.067 9.933 13.5 8 13.5Z"></path>
+        </svg>
       ),
     },
     {
       id: "movilidad",
       label: "Movilidad propia",
       icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M19 20H5V21C5 21.5523 4.55228 22 4 22H3C2.44772 22 2 21.5523 2 21V11L4.4805 5.21216C4.79566 4.47679 5.51874 4 6.31879 4H17.6812C18.4813 4 19.2043 4.47679 19.5195 5.21216L22 11V21C22 21.5523 21.5523 22 21 22H20C19.4477 22 19 21.5523 19 21V20ZM20 13H4V18H20V13ZM4.17594 11H19.8241L17.6812 6H6.31879L4.17594 11ZM6.5 17C5.67157 17 5 16.3284 5 15.5C5 14.6716 5.67157 14 6.5 14C7.32843 14 8 14.6716 8 15.5C8 16.3284 7.32843 17 6.5 17ZM17.5 17C16.6716 17 16 16.3284 16 15.5C16 14.6716 16.6716 14 17.5 14C18.3284 14 19 14.6716 19 15.5C19 16.3284 18.3284 17 17.5 17Z"></path></svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          fill="currentColor"
+        >
+          <path d="M19 20H5V21C5 21.5523 4.55228 22 4 22H3C2.44772 22 2 21.5523 2 21V11L4.4805 5.21216C4.79566 4.47679 5.51874 4 6.31879 4H17.6812C18.4813 4 19.2043 4.47679 19.5195 5.21216L22 11V21C22 21.5523 21.5523 22 21 22H20C19.4477 22 19 21.5523 19 21V20ZM20 13H4V18H20V13ZM4.17594 11H19.8241L17.6812 6H6.31879L4.17594 11ZM6.5 17C5.67157 17 5 16.3284 5 15.5C5 14.6716 5.67157 14 6.5 14C7.32843 14 8 14.6716 8 15.5C8 16.3284 7.32843 17 6.5 17ZM17.5 17C16.6716 17 16 16.3284 16 15.5C16 14.6716 16.6716 14 17.5 14C18.3284 14 19 14.6716 19 15.5C19 16.3284 18.3284 17 17.5 17Z"></path>
+        </svg>
       ),
     },
     {
@@ -386,15 +451,24 @@ function FormRegister({
       id: "office",
       label: "Microsoft Office",
       icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M17 19H20V4.99997H17V2.99997H21C21.5523 2.99997 22 3.44769 22 3.99997V20C22 20.5523 21.5523 21 21 21H17V19ZM2.85858 2.87732L15.4293 1.0815C15.7027 1.04245 15.9559 1.2324 15.995 1.50577C15.9983 1.52919 16 1.55282 16 1.57648V22.4235C16 22.6996 15.7761 22.9235 15.5 22.9235C15.4763 22.9235 15.4527 22.9218 15.4293 22.9184L2.85858 21.1226C2.36593 21.0522 2 20.6303 2 20.1327V3.86727C2 3.36962 2.36593 2.9477 2.85858 2.87732ZM4 4.73457V19.2654L14 20.694V3.30599L4 4.73457ZM11 7.99997H13V16H11L9 14L7 16H5V7.99997H7L7.01083 13L9 11L11 12.989V7.99997Z"></path></svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          fill="currentColor"
+        >
+          <path d="M17 19H20V4.99997H17V2.99997H21C21.5523 2.99997 22 3.44769 22 3.99997V20C22 20.5523 21.5523 21 21 21H17V19ZM2.85858 2.87732L15.4293 1.0815C15.7027 1.04245 15.9559 1.2324 15.995 1.50577C15.9983 1.52919 16 1.55282 16 1.57648V22.4235C16 22.6996 15.7761 22.9235 15.5 22.9235C15.4763 22.9235 15.4527 22.9218 15.4293 22.9184L2.85858 21.1226C2.36593 21.0522 2 20.6303 2 20.1327V3.86727C2 3.36962 2.36593 2.9477 2.85858 2.87732ZM4 4.73457V19.2654L14 20.694V3.30599L4 4.73457ZM11 7.99997H13V16H11L9 14L7 16H5V7.99997H7L7.01083 13L9 11L11 12.989V7.99997Z"></path>
+        </svg>
       ),
     },
   ];
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
-
-      <h1 className="text-3xl font-bold text-center mt-4 text-gray-900 dark:text-white">{idUser? "Actualización de CV" : "Registro para la creación de CV"}</h1>
+      <h1 className="text-3xl font-bold text-center mt-4 text-gray-900 dark:text-white">
+        {idUser ? "Actualización de CV" : "Registro para la creación de CV"}
+      </h1>
 
       <form action={handleSubmit} className="flex flex-col">
         <AnimatePresence mode="sync">
@@ -407,7 +481,10 @@ function FormRegister({
           >
             <WrapperSection>
               <WrapperSectionInput>
-                <WrapperH2Section title="datos personales" additionalMessage="* El asterisco indica que es obligatorio" />
+                <WrapperH2Section
+                  title="datos personales"
+                  additionalMessage="* El asterisco indica que es obligatorio"
+                />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
                   <div className="relative z-0 w-full group">
                     <input
@@ -607,8 +684,10 @@ function FormRegister({
             >
               <WrapperSection>
                 <WrapperSectionInput>
-                  <WrapperH2Section title="educación" additionalMessage="Recomendado Incluye tu último nivel de estudios formales."/>
-            
+                  <WrapperH2Section
+                    title="educación"
+                    additionalMessage="Recomendado Incluye tu último nivel de estudios formales."
+                  />
 
                   {cvData.education.map((edu: any, index: number) => (
                     <InfoCard
@@ -973,27 +1052,26 @@ function FormRegister({
                   </div>
                 </WrapperSectionInput>
                 <div className=" bg-gray-50 dark:bg-gray-800/50">
-                    <CountArrayForm cantidad={cvData.experience.length} />
-                    <div className="flex gap-2 p-6 justify-between">
-
-                  <WrapperButton
-                    title="Agregar"
-                    moveToNextSection={addExperience}
-                    color="blue"
-                  />
-
-                  {idUser ? (
-                    ""
-                  ) : (
+                  <CountArrayForm cantidad={cvData.experience.length} />
+                  <div className="flex gap-2 p-6 justify-between">
                     <WrapperButton
-                      title="Siguiente"
-                      moveToNextSection={() =>
-                        moveToNextSection("experience", "cursos")
-                      }
-                      color="green"
+                      title="Agregar"
+                      moveToNextSection={addExperience}
+                      color="blue"
                     />
-                  )}
-                </div>
+
+                    {idUser ? (
+                      ""
+                    ) : (
+                      <WrapperButton
+                        title="Siguiente"
+                        moveToNextSection={() =>
+                          moveToNextSection("experience", "cursos")
+                        }
+                        color="green"
+                      />
+                    )}
+                  </div>
                 </div>
               </WrapperSection>
             </motion.section>
@@ -1089,25 +1167,25 @@ function FormRegister({
                   </div>
                 </WrapperSectionInput>
                 <div className=" bg-gray-50 dark:bg-gray-800/50 ">
-                <CountArrayForm cantidad={cvData.cursos.length} />
-                <div className="flex gap-2 p-6 justify-between">
-                  <WrapperButton
-                    title="Agregar"
-                    moveToNextSection={addCursos}
-                    color="blue"
-                  />
-                  {idUser ? (
-                    ""
-                  ) : (
+                  <CountArrayForm cantidad={cvData.cursos.length} />
+                  <div className="flex gap-2 p-6 justify-between">
                     <WrapperButton
-                      title="Siguiente"
-                      moveToNextSection={() =>
-                        moveToNextSection("cursos", "idiomas")
-                      }
-                      color="green"
+                      title="Agregar"
+                      moveToNextSection={addCursos}
+                      color="blue"
                     />
-                  )}
-                </div>
+                    {idUser ? (
+                      ""
+                    ) : (
+                      <WrapperButton
+                        title="Siguiente"
+                        moveToNextSection={() =>
+                          moveToNextSection("cursos", "idiomas")
+                        }
+                        color="green"
+                      />
+                    )}
+                  </div>
                 </div>
               </WrapperSection>
             </motion.section>
@@ -1181,25 +1259,25 @@ function FormRegister({
                   </div>
                 </WrapperSectionInput>
                 <div className="bg-gray-50 dark:bg-gray-800/50">
-                <CountArrayForm cantidad={cvData.idiomas.length} />
-                <div className="flex gap-2 p-6 justify-between">
-                  <WrapperButton
-                    title="agregar"
-                    moveToNextSection={addIdiomas}
-                    color="blue"
-                  />
-                  {idUser ? (
-                    ""
-                  ) : (
+                  <CountArrayForm cantidad={cvData.idiomas.length} />
+                  <div className="flex gap-2 p-6 justify-between">
                     <WrapperButton
-                      title="Siguiente"
-                      moveToNextSection={() =>
-                        moveToNextSection("idiomas", "informacionA")
-                      }
-                      color="green"
+                      title="agregar"
+                      moveToNextSection={addIdiomas}
+                      color="blue"
                     />
-                  )}
-                </div>
+                    {idUser ? (
+                      ""
+                    ) : (
+                      <WrapperButton
+                        title="Siguiente"
+                        moveToNextSection={() =>
+                          moveToNextSection("idiomas", "informacionA")
+                        }
+                        color="green"
+                      />
+                    )}
+                  </div>
                 </div>
               </WrapperSection>
             </motion.section>
@@ -1229,7 +1307,8 @@ function FormRegister({
                                 name={item.id}
                                 id={item.id}
                                 defaultChecked={
-                                  cvData[item.id as keyof typeof cvData].length > 0
+                                  cvData[item.id as keyof typeof cvData]
+                                    .length > 0
                                 }
                                 onChange={handleInputChangeCheck}
                                 className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
@@ -1339,28 +1418,24 @@ function FormRegister({
                         <span className="text-xs text-gray-500 dark:text-gray-400">
                           *(opcional) Indica el propósito del CV: ¿Buscas tu
                           primer empleo, quieres resaltar experiencia en un
-                          sector específico, aspiras a un puesto en
-                          particular o un cv genérico?
+                          sector específico, aspiras a un puesto en particular o
+                          un cv genérico?
                         </span>
                       </div>
                     </div>
                   </div>
-
                 </WrapperSectionInput>
-                  {!idUser && moveToNextSection && (
-                    <div className="flex flex-row justify-end p-6 bg-gray-50 dark:bg-gray-800/50">
-                      <WrapperButton
-                        title="siguiente"
-                        moveToNextSection={() =>
-                          moveToNextSection(
-                            "orientacionCV",
-                            "CVTemplateSelector"
-                          )
-                        }
-                        color="green"
-                      />
-                    </div>
-                  )}
+                {!idUser && moveToNextSection && (
+                  <div className="flex flex-row justify-end p-6 bg-gray-50 dark:bg-gray-800/50">
+                    <WrapperButton
+                      title="siguiente"
+                      moveToNextSection={() =>
+                        moveToNextSection("orientacionCV", "CVTemplateSelector")
+                      }
+                      color="green"
+                    />
+                  </div>
+                )}
               </WrapperSection>
             </motion.section>
           )}

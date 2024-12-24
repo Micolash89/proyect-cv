@@ -6,7 +6,7 @@ export default function WrapperSectionInput({
     children: React.ReactNode;
   }) {
   return (
-    <div className="px-6 pt-6 pb-2 border-b dark:border-gray-700">
+    <div className="p-6 border-b dark:border-gray-700">
     {children}
     </div>
   )

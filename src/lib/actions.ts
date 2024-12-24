@@ -157,14 +157,6 @@ export async function postUsuarios(
   imagenPerfil: string,
   formData: FormData
 ) {
-  console.log("backend");
-  console.log("experiencia", experience);
-  console.log("cursos", cursos1);
-  console.log("educacion", education);
-  console.log("idiomas", idiomas);
-  console.log("formData", formData.get("file"));
-  console.log("formData", formData.get("template"));
-  console.log("formData", formData.get("color"));
 
   const validatedFields = CreateUsuario.safeParse({
     ...Object.fromEntries(formData),
@@ -246,7 +238,7 @@ export async function postUsuarios(
             tipo: educacion.estudios as EstudioTipoEnum,
             ubicacion: educacion.zonaInstitucion as string,
             fechaIngreso: educacion.anioInicioEducacion as string,
-            institucion: educacion.institucion as string, //falta agregar institucion frontend
+            institucion: educacion.institucion as string,
             fechaEgreso: educacion.anioFinEducacion as string,
             idUsuario: user.id,
           },
@@ -328,9 +320,6 @@ const createSchemaLogin = z.object({
 });
 
 export async function postLogin(formdata: FormData) {
-  // const email = formdata.get("email");
-  // const password = formdata.get("password");
-  // console.log(formdata);
 
   const validatedFields = createSchemaLogin.safeParse({
     email: formdata.get("email"),
@@ -360,7 +349,6 @@ export async function postLogin(formdata: FormData) {
       console.log("no existe el email");
       return createResponse(false, [], "no existe Email");
     }
-    //validar password con bvrypt
 
     const comparePass = await comparePassword(password, administrador.password);
 
@@ -390,7 +378,6 @@ export async function postLogin(formdata: FormData) {
       path: "/",
     });
 
-    console.log(administrador);
   } catch (error) {
     console.log(error);
     return null;
@@ -398,14 +385,8 @@ export async function postLogin(formdata: FormData) {
     prisma.$disconnect();
   }
 
-  //guardar un cookie del admin
+  revalidatePath("/"); 
 
-  revalidatePath("/"); //borrar el cache de la tabla
-  //redirect("/"); // redirect
-
-  //prisma.
-
-  //  return user;
   return createResponse(true, [], "login correcto");
 }
 
@@ -433,9 +414,6 @@ export async function updateUser(
   idCVTemplate: number,
   formData: FormData
 ) {
-  console.log("backend");
-  console.log(imagenPerfil);
-  console.log("idCVTemplate", idCVTemplate);
 
   const UpdateUserData = UpdateUsuario.safeParse({
     id: idUser,
@@ -485,12 +463,6 @@ export async function updateUser(
     template,
   } = UpdateUserData.data;
 
-  console.log("id", idTemplate);
-  console.log("color", color);
-  console.log("template", template);
-  console.log("file", file);
-  console.log("imagen Perfil", imagenPerfil);
-
   try {
     await prisma.cVTemplate.update({
       where: {
@@ -535,7 +507,7 @@ export async function updateUser(
             tipo: educacion.estudios as EstudioTipoEnum,
             ubicacion: educacion.zonaInstitucion as string,
             fechaIngreso: educacion.anioInicioEducacion as string,
-            institucion: educacion.institucion as string, //falta agregar institucion frontend
+            institucion: educacion.institucion as string, 
             fechaEgreso: educacion.anioFinEducacion as string,
             idUsuario: user.id,
           },
@@ -681,11 +653,6 @@ export async function generatorSkillsAI(
   orientadoCV: string,
   formData: FormData
 ) {
-  console.log(
-    experience.length <= 4
-      ? ` $ ${Math.floor(6 / experience.length)} de cada uno de los empleos`
-      : " 6 palabras clave en total"
-  );
 
   const perfilDescripcion: string = await generarSkills(
     experience,
@@ -745,12 +712,10 @@ export async function uploadImage(formData: FormData) {
       return { url: "", error: "No se seleccionó ningún archivo" };
     }
 
-    // Convertir el archivo a Base64
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const fileBase64 = `data:${file.type};base64,${buffer.toString("base64")}`;
 
-    // Subir a Cloudinary
     const result = await cloudinary.uploader.upload(fileBase64, {
       folder: "cv-images",
     });
@@ -768,12 +733,10 @@ export async function uploadImageBack(file: File) {
       return { url: "", error: "No se seleccionó ningún archivo" };
     }
 
-    // Convertir el archivo a Base64
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const fileBase64 = `data:${file.type};base64,${buffer.toString("base64")}`;
 
-    // Subir a Cloudinary
     const result = await cloudinary.uploader.upload(fileBase64, {
       folder: "cv-images",
     });

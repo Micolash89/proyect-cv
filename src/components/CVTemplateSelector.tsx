@@ -40,7 +40,6 @@ export default function CVTemplateSelector({
   }, []);
 
   useEffect(() => {
-    // Set the initial index based on the selected template
     const selectedTemplateIndex = templates.findIndex(t => t.id === cvData.template);
     if (selectedTemplateIndex !== -1) {
       setCurrentIndex(Math.floor(selectedTemplateIndex / itemsPerPage) * itemsPerPage);
@@ -119,8 +118,8 @@ export default function CVTemplateSelector({
                         htmlFor={`${template.id}`}
                         className={`block w-full h-[300px]  cursor-pointer border-2 rounded-lg overflow-hidden transition-all ${
                           cvData.template === template.id
-                            ? " ring-4 ring-blue-500"
-                            : "outline-gray-200 hover:outline-blue-300 hover:outline-2 outline-2 outline "
+                            ? " ring-8 ring-blue-500"
+                            : " hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 "
                         }`}
                       >
                         <Image
@@ -161,7 +160,7 @@ export default function CVTemplateSelector({
               {templates
                 .find((t) => t.id === cvData.template)
                 ?.colors.map((color) => (
-                  <div key={color} className="relative p-2">
+                  <div key={color} className="relative p-3">
                     <input
                       type="radio"
                       id={color}
@@ -175,9 +174,12 @@ export default function CVTemplateSelector({
                       htmlFor={color}
                       className={`block w-8 h-8 rounded-full cursor-pointer transition-all ${
                         cvData.color === color
-                          ? "ring-4 border-0 ring-offset-2 ring-blue-500"
-                          : "border hover:ring-2 hover:ring-offset-2 hover:ring-blue-300"
+                          ? "ring-8 border-0 ring-offset-2 ring-blue-500"
+                          : "border hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 "
                       }`}
+                      // `dsa`                            ? " ring-4 ring-blue-500"
+                            // : "outline-gray-200 hover:outline-blue-300 hover:outline-2 outline-2 outline "
+
                       style={{ backgroundColor: color }}
                     >
                       <span className="sr-only">Color {color}</span>

@@ -191,9 +191,7 @@ export async function getUserId(id: number) {
         },
       },
     });
-
-    console.log(user);
-
+    
     return user;
   } catch (error) {
     console.error("Database Error:", error);

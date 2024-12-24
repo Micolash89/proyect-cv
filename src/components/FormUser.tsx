@@ -10,8 +10,6 @@ type Data = {
 
 function FormUser() {
   const [dataResponse, setDataResponse] = useState({
-    // success: null,
-    // data: [] as any,
     message: "" as string,
     errors: {
       nombre: [],

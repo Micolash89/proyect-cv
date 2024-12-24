@@ -306,7 +306,7 @@ function FormRegister({
         .bind(null, result?.url || cvData.imagenPerfil);
     }
 
-    const postPromise = newPost(e); // Tu promesa original
+    const postPromise = newPost(e);
 
     toast.promise(postPromise, {
       loading: `${idUser ? "Actualizando " : "Registrando"} a ${cvData.name} ${
@@ -407,16 +407,13 @@ function FormRegister({
           >
             <WrapperSection>
               <WrapperSectionInput>
-                {/* falta lo del asterisco */}
                 <WrapperH2Section title="datos personales" additionalMessage="* El asterisco indica que es obligatorio" />
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
                   <div className="relative z-0 w-full group">
                     <input
                       type="text"
                       name="name"
                       id="floating_first_name"
-                      // onKeyDown={handleKeyDown}
                       className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                       placeholder=" "
                       onKeyDown={handleKeyDown}
@@ -449,8 +446,6 @@ function FormRegister({
                       Apellido<sup>*</sup>
                     </label>
                   </div>
-                  {/* Desde aca cambiar color fuente y icono del Date*/}
-
                   <div className="relative z-0 w-full group">
                     <input
                       type="date"
@@ -522,7 +517,6 @@ function FormRegister({
                       Correo electrónico
                     </label>
                   </div>
-                  {/* hacerlo con una appi que se despliegue la ciudad */}
                   <div className="relative z-0 w-full group">
                     <input
                       type="text"
@@ -978,8 +972,10 @@ function FormRegister({
                     </div>
                   </div>
                 </WrapperSectionInput>
+                <div className=" bg-gray-50 dark:bg-gray-800/50">
                     <CountArrayForm cantidad={cvData.experience.length} />
-                <div className="flex justify-between p-6 bg-gray-50 dark:bg-gray-800/50">
+                    <div className="flex gap-2 p-6 justify-between">
+
                   <WrapperButton
                     title="Agregar"
                     moveToNextSection={addExperience}
@@ -997,6 +993,7 @@ function FormRegister({
                       color="green"
                     />
                   )}
+                </div>
                 </div>
               </WrapperSection>
             </motion.section>
@@ -1091,8 +1088,9 @@ function FormRegister({
                     </div>
                   </div>
                 </WrapperSectionInput>
+                <div className=" bg-gray-50 dark:bg-gray-800/50 ">
                 <CountArrayForm cantidad={cvData.cursos.length} />
-                <div className="flex justify-between p-6 bg-gray-50 dark:bg-gray-800/50 ">
+                <div className="flex gap-2 p-6 justify-between">
                   <WrapperButton
                     title="Agregar"
                     moveToNextSection={addCursos}
@@ -1109,6 +1107,7 @@ function FormRegister({
                       color="green"
                     />
                   )}
+                </div>
                 </div>
               </WrapperSection>
             </motion.section>
@@ -1181,8 +1180,9 @@ function FormRegister({
                     </div>
                   </div>
                 </WrapperSectionInput>
+                <div className="bg-gray-50 dark:bg-gray-800/50">
                 <CountArrayForm cantidad={cvData.idiomas.length} />
-                <div className="flex justify-between p-6 bg-gray-50 dark:bg-gray-800/50">
+                <div className="flex gap-2 p-6 justify-between">
                   <WrapperButton
                     title="agregar"
                     moveToNextSection={addIdiomas}
@@ -1199,6 +1199,7 @@ function FormRegister({
                       color="green"
                     />
                   )}
+                </div>
                 </div>
               </WrapperSection>
             </motion.section>

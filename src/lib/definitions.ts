@@ -104,3 +104,12 @@ export interface OptionsPDF {
   tipoPdf: number;
   contadorContent: number;
 }
+
+export interface Experiencia {
+  puesto: string;
+  nombreEmpresa: string;
+  anioInicioExperiencia: string;
+  anioFinExperiencia: string;
+  descripcionExperiencia: string;
+}
+

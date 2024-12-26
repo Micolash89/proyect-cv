@@ -45,7 +45,7 @@ export const Layout2: React.FC<{
             <Text
               style={[styles2.name, { fontSize: getFontSize(24, contador) }]}
             >
-              {cvData.name.split(" ").join("\n")} {cvData.lastName}
+              {cvData.name.split(" ")[0]}{`\n`} {cvData.lastName}
             </Text>
           )}
           {cvData.orientadoCV && optionsPDF.orientacionCVTitle && (

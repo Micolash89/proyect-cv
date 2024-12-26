@@ -21,133 +21,10 @@ import {
   Idioma,
 } from "./actionsIA";
 import { v2 as cloudinary } from "cloudinary";
+import { createSchemaLogin, CreateUsuario, UpdateUsuario } from "./zodValidations";
+import { Experiencia } from "./definitions";
 
 const prisma = new PrismaClient();
-
-const CreateSchemaUsuario = z.object({
-  id: z.coerce.number(),
-  name: z
-    .string({ message: "ingrese un nombre" })
-    .min(4, "el nombre debe de tener al menos 4 caracteres"),
-  lastName: z
-    .string({ message: "ingrese un apellido" })
-    .min(3, "el apellido debe tener al menos 3 caracter"),
-  email: z
-    .string({ message: "ingrese un email" })
-    .email("Debe ser un email válido")
-    .min(6, "el email debe tener al menos 6 caracteres"),
-  fechaNacimiento: z.coerce.date({
-    message: "seleccione una fecha de nacimiento",
-  }),
-  imagenPerfil: z.string().optional(),
-  phone: z.string().min(6, "el telefono debe tener al menos 6 caracteres"),
-  ciudad: z.string().min(4, "la ciudad debe de tener al menos 4 caracteres"),
-  dni: z.string().optional(),
-  provincia: z
-    .string()
-    .min(4, "la provincia debe de tener al menos 4 caracteres"),
-  education: z.array(
-    z.object({
-      carrera: z
-        .string()
-        .min(4, "la carrera debe de tener al menos 4 caracteres"),
-      estado: z.string({ message: "seleccione el estado" }),
-      estudios: z
-        .string()
-        .min(4, "los estudios deben tener al menos 4 caracteres"),
-      institucion: z
-        .string()
-        .min(3, "la institución deben tener al menos 3 caracteres"),
-      zonaInstitucion: z
-        .string()
-        .min(4, "La ubicación debe de tener al menos 4 caracteres"),
-      anioInicioEducacion: z
-        .string()
-        .min(
-          4,
-          "el a o de inicio de los estudios debe de tener al menos 4 caracteres"
-        ),
-      anioFinEducacion: z.string(),
-    })
-  ),
-  experience: z.array(
-    z.object({
-      nombreEmpresa: z
-        .string()
-        .min(4, "el nombre de la empresa debe de tener al menos 4 caracteres"),
-      puesto: z
-        .string()
-        .min(4, "el puesto debe de tener al menos 4 caracteres"),
-      zonaEmpresa: z
-        .string()
-        .min(4, "La ubicación debe de tener al menos 4 caracteres"),
-      anioInicioExperiencia: z
-        .string()
-        .min(
-          4,
-          "el año de inicio de la experiencia debe de tener al menos 4 caracteres"
-        ),
-      anioFinExperiencia: z
-        .string()
-        .min(
-          4,
-          "el año de fin de la experiencia debe de tener al menos 4 caracteres"
-        ),
-      descripcionExperiencia: z.string({
-        message: "debe ingresar una descripción",
-      }),
-    })
-  ),
-  cursos: z.array(
-    z.object({
-      curso: z.string().min(4, "el curso debe de tener al menos 4 caracteres"),
-      institucion: z
-        .string()
-        .min(4, "la instituci n debe de tener al menos 4 caracteres"),
-      anioInicioCurso: z
-        .string()
-        .min(
-          4,
-          "el a o de inicio del curso debe de tener al menos 4 caracteres"
-        ),
-    })
-  ),
-  idiomas: z.array(
-    z
-      .object({
-        idioma: z
-          .string()
-          .min(4, "el idiomas debe de tener al menos 4 caracteres"),
-        nivel: z.string({ message: "seleccione el nivel" }),
-      })
-      .optional()
-  ),
-  licencia: z.string({ message: "seleccione una opción" }).optional(),
-  movilidad: z.string({ message: "seleccione una opción" }).optional(),
-  incorporacion: z.string({ message: "seleccione una opción" }).optional(),
-  disponibilidad: z.string({ message: "seleccione una opción" }).optional(),
-  office: z.string({ message: "seleccione una opción" }).optional(),
-  orientadoCV: z.string({ message: "Ingrese una orientación" }).optional(),
-  idCVTemplate: z.number({ message: "falta id del Template del CV" }),
-  color: z.string({ message: "seleccione un color" }),
-  template: z.coerce.number({
-    message: "seleccione un template",
-  }),
-});
-
-const CreateUsuario = CreateSchemaUsuario.omit({
-  id: true,
-  idCVTemplate: true,
-});
-const UpdateUsuario = CreateSchemaUsuario.omit({});
-
-export interface Experiencia {
-  puesto: string;
-  nombreEmpresa: string;
-  anioInicioExperiencia: string;
-  anioFinExperiencia: string;
-  descripcionExperiencia: string;
-}
 
 export async function postUsuarios(
   experience: Experiencia[],
@@ -309,16 +186,7 @@ export async function postUsuarios(
   return createResponse(true, [], `Registro de ${apellido} ${nombre} exitoso`);
 }
 
-const createSchemaLogin = z.object({
-  email: z
-    .string()
-    .min(1, "el email es requerido")
-    .email({ message: "debe ser un email valido" }),
-  password: z
-    .string()
-    .min(1, "la contraseña es requerida")
-    .min(6, "la contraseña debe de tener al menos 6 caracteres"),
-});
+
 
 export async function postLogin(formdata: FormData) {
 

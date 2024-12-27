@@ -63,7 +63,7 @@ function FormLogin() {
 
         setDataResponse({
           message: data.message,
-          errors: newErrors, // Usamos los nuevos errores si existen, si no mantenemos los antiguos
+          errors: newErrors, 
         });
 
         throw data;
@@ -76,14 +76,13 @@ function FormLogin() {
   };
 
   const handleSubmit = async (e: FormData) => {
-    const postPromise = actionLogin(e); // Tu promesa original
-
+    const postPromise = actionLogin(e); 
     const data = toast.promise(postPromise, {
       loading: "Iniciando sesión...",
       success: (dato) => {
         router.refresh();
         router.push("/dashboard");
-        return `${dato?.message}`}, // Ajusta este mensaje según la respuesta que esperas
+        return `${dato?.message}`},
       error: (error) => `${error.message}`,
     });
   };

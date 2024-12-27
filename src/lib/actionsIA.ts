@@ -6,7 +6,7 @@ import {
   HarmBlockThreshold,
 } from "@google/generative-ai";
 import { createResponse } from "./utils";
-import { Experiencia } from "./actions";
+import { Experiencia } from "./definitions";
 
 export interface Curso {
   curso: string;

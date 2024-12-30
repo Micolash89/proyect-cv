@@ -276,55 +276,6 @@ function FormRegister({
     },
   });
 
-  //   const actionSubmit = async (e: FormData) => {
-  // try {
-  //   let result: any;
-
-  //     if (imageFile) {
-  //       const formData = new FormData();
-  //       formData.append("file", imageFile);
-  //       result = await uploadImage(formData);
-  //       updateCVData({ ...cvData, imagenPerfil: result.url });
-  //     }
-
-  //     let newPost;
-
-  //     if (idUser) {
-  //       newPost = await updateUser
-  //         .bind(null, cvData.experience)
-  //         .bind(null, cvData.cursos)
-  //         .bind(null, cvData.education)
-  //         .bind(null, cvData.idiomas)
-  //         .bind(null, result?.url || cvData.imagenPerfil)
-  //         .bind(null, idUser)
-  //         .bind(null, cvData.idCVTemplate);
-  //     } else {
-  //       newPost = await postUsuarios
-  //         .bind(null, cvData.experience)
-  //         .bind(null, cvData.cursos)
-  //         .bind(null, cvData.education)
-  //         .bind(null, cvData.idiomas)
-  //         .bind(null, result?.url || cvData.imagenPerfil);
-  //     }
-
-  //     if(newPost && !newPost.success){
-  //       const newErrors = { ...dataResponse.errors, ...newPost.errors };
-
-  //       setDataResponse({
-  //         ...dataResponse,
-  //         errors: newErrors,
-  //       });
-
-  //       throw newPost;
-  //     }
-
-  //     return newPost;
-
-  // } catch (data) {
-  //     throw data;
-  // }
-  //   }
-
   const handleSubmit = async (e: FormData) => {
     let result: any;
 
@@ -362,15 +313,23 @@ function FormRegister({
         cvData.lastName
       }`,
       success: (dato: any) => {
+
+        if(!dato.success){
+          
+        const newErrors = { ...dataResponse.errors, ...dato.errors };
+        setDataResponse({
+          message: dato.message,
+          errors: newErrors,
+        });
+        throw new Error(dato.message);
+        }
+
         router.push(idUser ? "/dashboard" : "/success");
         return `${dato.message}`;
       },
       error: (error) => {
-        const newErrors = { ...dataResponse.errors, ...error.errors };
-        setDataResponse({
-          message: error.message,
-          errors: newErrors,
-        });
+        
+        
         return `${error.message}`;
       },
     });
@@ -465,7 +424,7 @@ function FormRegister({
   ];
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8 mb-10">
       <h1 className="text-3xl font-bold text-center mt-4 text-gray-900 dark:text-white">
         {idUser ? "Actualización de CV" : "Registro para la creación de CV"}
       </h1>
@@ -929,7 +888,7 @@ function FormRegister({
                       />
                       <label
                         htmlFor="puesto"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                       >
                         Nombre del cargo
                       </label>
@@ -940,7 +899,7 @@ function FormRegister({
                         type="text"
                         name="nombreEmpresa"
                         id="nombre_empresa"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=""
                         value={newExperience.nombreEmpresa}
                         onChange={handleExperienceChange}

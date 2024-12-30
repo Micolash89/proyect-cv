@@ -71,11 +71,11 @@ const CreateSchemaUsuario = z.object({
         .string()
         .min(
           4,
-          "El año de inicio de los estudios debe de tener al menos 4 caracteres"
+          "Seleccione el año de inicio de los estudios"
         ),
       anioFinEducacion: z.string({
         message:
-          "El año de fin de los estudios debe de tener al menos 4 caracteres",
+          "Seleccione el año de fin de los estudios",
       }),
     })
   ),
@@ -102,13 +102,13 @@ const CreateSchemaUsuario = z.object({
         .string()
         .min(
           4,
-          "El año de inicio de la experiencia debe de tener al menos 4 caracteres"
+          "Seleccione el año de inicio de la experiencia"
         ),
       anioFinExperiencia: z
         .string()
         .min(
           4,
-          "El año de fin de la experiencia debe de tener al menos 4 caracteres"
+          "Seleccione el año de fin de la experiencia"
         ),
       descripcionExperiencia: z.string({
         message: "Debe ingresar una descripción",
@@ -121,12 +121,12 @@ const CreateSchemaUsuario = z.object({
       curso: z.string().min(4, "El curso debe de tener al menos 4 caracteres"),
       institucion: z
         .string()
-        .min(4, "La instituci n debe de tener al menos 4 caracteres"),
+        .min(4, "La institución debe de tener al menos 4 caracteres"),
       anioInicioCurso: z
         .string()
         .min(
           4,
-          "El año de inicio del curso debe de tener al menos 4 caracteres"
+          "Seleccione el año de inicio del curso"
         ),
     })
   ),

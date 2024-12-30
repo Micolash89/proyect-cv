@@ -178,7 +178,7 @@ export async function postUsuarios(
     }
   } catch (error) {
     console.log(error);
-    return createResponse(false, [], "Error al crear el usuario");
+    return createResponse(false, [], "Error al crear el CV");
   } finally {
     prisma.$disconnect();
   }

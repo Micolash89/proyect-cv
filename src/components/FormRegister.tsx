@@ -21,6 +21,7 @@ import CountArrayForm from "./user/[id]/CountArrayForm";
 import ErrorComponent from "./user/[id]/ErrorComponent";
 import clsx from "clsx";
 import { Errors } from "@/lib/definitions";
+import InputComponent from "./user/[id]/InputComponent";
 
 type Section =
   | "personal"
@@ -43,11 +44,15 @@ function FormRegister({
 }) {
   const router = useRouter();
 
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target ;
+  const handleInputChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
     updateCVData({ [name]: value });
 
-    if (dataResponse.errors[name].length > 0) {
+    if (dataResponse.errors[name]?.length > 0) {
       setDataResponse({
         ...dataResponse,
         errors: {
@@ -278,7 +283,7 @@ function FormRegister({
     message: "" as string,
     errors: {
       name: [] as string[],
-      lastname: [] as string[],
+      lastName: [] as string[],
       phone: [] as string[],
       dni: [] as string[],
       fechaNacimiento: [] as string[],
@@ -461,13 +466,13 @@ function FormRegister({
                   additionalMessage="* El asterisco indica que es obligatorio"
                 />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
-                  <div className="relative z-0 w-full group">
+                  {/* <div className="relative z-0 w-full group">
                     <input
                       type="text"
                       name="name"
                       id="floating_first_name"
                       className={clsx(
-                        "block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 dark:text-white  appearance-none    dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer",
+                        "block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 dark:text-white appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer",
                         {
                           "border-red-500": dataResponse.errors.name.length,
                           " border-gray-300 dark:border-gray-600":
@@ -486,8 +491,19 @@ function FormRegister({
                     >
                       Nombres<sup>*</sup>
                     </label>
-                  </div>
-                  <div className="relative z-0 w-full group">
+                  </div> */}
+                  <InputComponent
+                    name={"name"}
+                    value={cvData.name}
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
+                    id={"floating_first_name"}
+                    responseError={dataResponse.errors.name.length}
+                    content={"Nombres"}
+                    requiered={true}
+                  />
+
+                  {/* <div className="relative z-0 w-full group">
                     <input
                       type="text"
                       name="lastName"
@@ -504,12 +520,24 @@ function FormRegister({
                     >
                       Apellido<sup>*</sup>
                     </label>
-                  </div>
+                  </div> */}
+
+                    <InputComponent
+                      name={"lastName"}
+                      value={cvData.lastName}
+                      onChange={handleInputChange}
+                      onKeyDown={handleKeyDown}
+                      id={"floating_last_name"}
+                      responseError={dataResponse.errors.lastName.length}
+                      content={"Apellido"}
+                      requiered={true}
+                    />
+
                   <div className="relative z-0 w-full group">
                     <input
                       type="date"
                       name="fechaNacimiento"
-                      id="floating_company"
+                      id="floating_fecha_nacimiento"
                       className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                       placeholder=" "
                       required
@@ -517,7 +545,7 @@ function FormRegister({
                       onChange={handleInputChange}
                     />
                     <label
-                      htmlFor="floating_company"
+                      htmlFor="floating_fecha_nacimiento"
                       className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                     >
                       Fecha de nacimiento<sup>*</sup>
@@ -638,12 +666,12 @@ function FormRegister({
                   </div>
                 </div>
 
-                {(dataResponse.errors.lastname ||
+                {(dataResponse.errors.lastName ||
                   dataResponse.errors.name ||
                   dataResponse.errors.fechaNacimiento ||
                   dataResponse.errors.phone) && (
                   <>
-                    <ErrorComponent arr={dataResponse.errors.lastname} />
+                    <ErrorComponent arr={dataResponse.errors.lastName} />
                     <ErrorComponent arr={dataResponse.errors.name} />
                     <ErrorComponent arr={dataResponse.errors.fechaNacimiento} />
                     <ErrorComponent arr={dataResponse.errors.phone} />

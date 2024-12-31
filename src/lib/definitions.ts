@@ -113,3 +113,6 @@ export interface Experiencia {
   descripcionExperiencia: string;
 }
 
+export interface Errors {
+  [key: string]: string[];
+}

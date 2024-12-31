@@ -1,5 +1,4 @@
 import { JWTPayload, SignJWT, jwtVerify } from "jose";
-import { Experiencia } from "./actions";
 
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);

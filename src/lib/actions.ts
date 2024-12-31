@@ -178,7 +178,8 @@ export async function postUsuarios(
     }
   } catch (error) {
     console.log(error);
-    return createResponse(false, [], "Error al crear el CV");
+    prisma.$disconnect();
+    return createResponse(false, [], "Error en la base de datos");
   } finally {
     prisma.$disconnect();
   }

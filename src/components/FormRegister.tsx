@@ -18,6 +18,9 @@ import WrapperSectionInput from "./user/[id]/WrapperSectionInput";
 import WrapperSection from "./user/[id]/WrapperSection";
 import CVTemplateSelector from "./CVTemplateSelector";
 import CountArrayForm from "./user/[id]/CountArrayForm";
+import ErrorComponent from "./user/[id]/ErrorComponent";
+import clsx from "clsx";
+import { Errors } from "@/lib/definitions";
 
 type Section =
   | "personal"
@@ -41,8 +44,18 @@ function FormRegister({
   const router = useRouter();
 
   const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target ;
     updateCVData({ [name]: value });
+
+    if (dataResponse.errors[name].length > 0) {
+      setDataResponse({
+        ...dataResponse,
+        errors: {
+          ...dataResponse.errors,
+          [name]: [],
+        },
+      });
+    }
   };
 
   const handleInputChangeCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -264,16 +277,19 @@ function FormRegister({
   const [dataResponse, setDataResponse] = useState({
     message: "" as string,
     errors: {
-      nombre: [],
-      apellido: [],
-      telefono: [],
-      fechaNacimiento: [],
-      email: [],
-      domicilio: [],
-      ciudad: [],
-      provincia: [],
-      linkedin: [],
-    },
+      name: [] as string[],
+      lastname: [] as string[],
+      phone: [] as string[],
+      dni: [] as string[],
+      fechaNacimiento: [] as string[],
+      email: [] as string[],
+      domicilio: [] as string[],
+      ciudad: [] as string[],
+      provincia: [] as string[],
+      linkedin: [] as string[],
+      color: [] as string[],
+      template: [] as string[],
+    } as Errors,
   });
 
   const handleSubmit = async (e: FormData) => {
@@ -313,23 +329,19 @@ function FormRegister({
         cvData.lastName
       }`,
       success: (dato: any) => {
-
-        if(!dato.success){
-          
-        const newErrors = { ...dataResponse.errors, ...dato.errors };
-        setDataResponse({
-          message: dato.message,
-          errors: newErrors,
-        });
-        throw new Error(dato.message);
+        if (!dato.success) {
+          const newErrors = { ...dataResponse.errors, ...dato.errors };
+          setDataResponse({
+            message: dato.message,
+            errors: newErrors,
+          });
+          throw new Error(dato.message);
         }
 
         router.push(idUser ? "/dashboard" : "/success");
         return `${dato.message}`;
       },
       error: (error) => {
-        
-        
         return `${error.message}`;
       },
     });
@@ -425,9 +437,13 @@ function FormRegister({
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 mb-10">
-      <h1 className="text-3xl font-bold text-center mt-4 text-gray-900 dark:text-white">
-        {idUser ? "Actualización de CV" : "Registro para la creación de CV"}
-      </h1>
+      <motion.h1
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-3xl font-bold text-center mt-4 text-gray-900 dark:text-white"
+      >
+        {idUser ? "Actualización de registro" : "Formulario de creación de CV"}
+      </motion.h1>
 
       <form action={handleSubmit} className="flex flex-col">
         <AnimatePresence mode="sync">
@@ -450,7 +466,14 @@ function FormRegister({
                       type="text"
                       name="name"
                       id="floating_first_name"
-                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      className={clsx(
+                        "block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 dark:text-white  appearance-none    dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer",
+                        {
+                          "border-red-500": dataResponse.errors.name.length,
+                          " border-gray-300 dark:border-gray-600":
+                            !dataResponse.errors.name.length,
+                        }
+                      )}
                       placeholder=" "
                       onKeyDown={handleKeyDown}
                       value={cvData.name}
@@ -614,6 +637,18 @@ function FormRegister({
                     />
                   </div>
                 </div>
+
+                {(dataResponse.errors.lastname ||
+                  dataResponse.errors.name ||
+                  dataResponse.errors.fechaNacimiento ||
+                  dataResponse.errors.phone) && (
+                  <>
+                    <ErrorComponent arr={dataResponse.errors.lastname} />
+                    <ErrorComponent arr={dataResponse.errors.name} />
+                    <ErrorComponent arr={dataResponse.errors.fechaNacimiento} />
+                    <ErrorComponent arr={dataResponse.errors.phone} />
+                  </>
+                )}
               </WrapperSectionInput>
 
               {idUser ? (

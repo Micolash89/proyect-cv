@@ -1,6 +1,5 @@
 import { CVDataPdf, OptionsPDF } from "@/lib/definitions";
 import { Document, Image, Page, Text, View } from "@react-pdf/renderer";
-import React from "react";
 import { TypeIAData } from "../PreviewCV";
 import { styles2 } from "@/lib/stylePdf/style2";
 import { getFontSize } from "@/lib/utils";

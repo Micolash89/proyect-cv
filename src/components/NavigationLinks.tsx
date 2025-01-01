@@ -3,8 +3,6 @@
 import { revalidateFunction } from "@/lib/actions";
 import clsx from "clsx";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
-
 export interface NavigationLinksProps {
   url: string;
   name: string;

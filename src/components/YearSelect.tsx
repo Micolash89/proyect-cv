@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function YearSelect({name, value, callback}:{ name: string, value: string, callback: any}) {
   const max = new Date().getFullYear();
   const min = max - 50;

@@ -1,5 +1,4 @@
 import { TypeIAData } from "../PreviewCV";
-import React from "react";
 import { CVDataPdf as CVData, OptionsPDF } from "@/lib/definitions";
 import { Layout1 } from "./Layout1";
 import { Layout0 } from "./Layout0";

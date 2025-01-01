@@ -7,7 +7,6 @@ export default function WrapperH2Section({
   title: string;
   additionalMessage?: string;
 }) {
-  // array de objetos para los svg luego sacarlos por title o algo por el estilo
   const icon: { [key: string]: JSX.Element } = {
     "datos personales": (
       <svg
@@ -100,14 +99,14 @@ export default function WrapperH2Section({
   };
 
   return (
-    <div className="flex items-center justify-start  flex-col w-full mb-6">
+    <div className="flex items-center justify-start  flex-col w-full mb-4">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white capitalize flex items-center gap-3">
         <div className="h-8 w-8 flex items-center justify-center bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-lg">
           {icon[title]}
         </div>
         {title}
       </h2>
-      <span className="text-xs  text-gray-600 dark:text-gray-400">
+      <span className="text-xs mt-1 max-w-3xl text-gray-600 dark:text-gray-400">
         {additionalMessage}
       </span>
     </div>

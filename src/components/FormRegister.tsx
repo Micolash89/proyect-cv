@@ -666,58 +666,40 @@ function FormRegister({
                   ))}
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div className="relative z-0 w-full group ">
-                      <input
-                        type="text"
-                        name="institucion"
-                        id="floating_institucion"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=" "
-                        value={newEducation.institucion}
-                        onChange={handleEducationChange}
-                      />
-                      <label
-                        htmlFor="floating_institucion"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      >
-                        Nombre de la institución
-                      </label>
-                    </div>
-
-                    <div className="relative z-0 w-full  group ">
-                      <input
-                        type="text"
-                        name="carrera"
-                        id="carrera_titulo"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=" "
-                        value={newEducation.carrera}
-                        onChange={handleEducationChange}
-                      />
-                      <label
-                        htmlFor="carrera_titulo"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      >
-                        Nombre del titulo
-                      </label>
-                    </div>
-                    <div className="relative z-0 w-full md:col-span-2  group">
-                      <input
-                        type="text"
-                        name="zonaInstitucion"
-                        id="zonaInstitucion"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=" "
-                        value={newEducation.zonaInstitucion}
-                        onChange={handleEducationChange}
-                      />
-                      <label
-                        htmlFor="zonaInstitucion"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      >
-                        Ubicación de la institución
-                      </label>
-                    </div>
+                    <InputComponent
+                    name="institucion"
+                    value={newEducation.institucion}
+                    onChange={handleEducationChange}
+                    onKeyDown={handleKeyDown}
+                    id="floating_institucion"
+                    responseError={0}
+                    content="Nombre de la institución"
+                    requiered={false}
+                    type="text"
+                    />
+                    <InputComponent
+                      name="carrera"
+                      value={newEducation.carrera}
+                      onChange={handleEducationChange}
+                      onKeyDown={handleKeyDown}
+                      id="carrera_titulo"
+                      responseError={0}
+                      content="Nombre del titulo"
+                      requiered={false}
+                      type="text"
+                    />
+                    <InputComponent
+                      name="zonaInstitucion"
+                      value={newEducation.zonaInstitucion}
+                      onChange={handleEducationChange}
+                      onKeyDown={handleKeyDown}
+                      id="zonaInstitucion"
+                      responseError={0}
+                      content="Ubicación de la institución"
+                      requiered={false}
+                      type="text"
+                      fullColInput={true}
+                    />
                     <div className="">
                       <label
                         htmlFor="nivel_estudio"
@@ -829,7 +811,10 @@ function FormRegister({
                   </div>
                 </WrapperSectionInput>
 
-                <div className="flex justify-between p-6 bg-gray-50 dark:bg-gray-800/50">
+                <div className="bg-gray-50 dark:bg-gray-800/50">
+                <CountArrayForm cantidad={cvData.education.length} />
+
+                <div className="flex justify-between p-6 gap-2">
                   <WrapperButton
                     title="agregar"
                     moveToNextSection={addEducation}
@@ -846,6 +831,7 @@ function FormRegister({
                       color="green"
                     />
                   )}
+                </div>
                 </div>
               </WrapperSection>
             </motion.section>
@@ -879,59 +865,40 @@ function FormRegister({
                   ))}
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div className="relative z-0 w-full group">
-                      <input
-                        type="text"
-                        name="puesto"
-                        id="puesto"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=""
-                        value={newExperience.puesto}
-                        onChange={handleExperienceChange}
-                      />
-                      <label
-                        htmlFor="puesto"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      >
-                        Nombre del cargo
-                      </label>
-                    </div>
-
-                    <div className="relative z-0 w-full group">
-                      <input
-                        type="text"
-                        name="nombreEmpresa"
-                        id="nombre_empresa"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=""
-                        value={newExperience.nombreEmpresa}
-                        onChange={handleExperienceChange}
-                      />
-                      <label
-                        htmlFor="nombre_empresa"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      >
-                        Nombre de la empresa
-                      </label>
-                    </div>
-
-                    <div className="relative z-0 w-full group md:col-span-2">
-                      <input
-                        type="text"
-                        name="zonaEmpresa"
-                        id="zona_empresa"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=""
-                        value={newExperience.zonaEmpresa}
-                        onChange={handleExperienceChange}
-                      />
-                      <label
-                        htmlFor="zona_empresa"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      >
-                        Ubicación de la empresa
-                      </label>
-                    </div>
+                    <InputComponent
+                      name="puesto"
+                      value={newExperience.puesto}
+                      onChange={handleExperienceChange}
+                      onKeyDown={handleKeyDown}
+                      id="puesto"
+                      responseError={0}
+                      content="Nombre del cargo"
+                      requiered={false}
+                      type="text"
+                    />
+                    <InputComponent
+                    name="nombreEmpresa"
+                    value={newExperience.nombreEmpresa}
+                    onChange={handleExperienceChange}
+                    onKeyDown={handleKeyDown}
+                    id="nombre_empresa"
+                    responseError={0}
+                    content="Nombre de la empresa"
+                    requiered={false}
+                    type="text"
+                    />
+                    <InputComponent
+                      name="zonaEmpresa"
+                      value={newExperience.zonaEmpresa}
+                      onChange={handleExperienceChange}
+                      onKeyDown={handleKeyDown}
+                      id="zona_empresa"
+                      responseError={0}
+                      content="Ubicación de la empresa"
+                      requiered={false}
+                      type="text"
+                      fullColInput={true}
+                    />
 
                     <div className="">
                       <label
@@ -1062,43 +1029,30 @@ function FormRegister({
                   ))}
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div className="relative z-0 w-full group">
-                      <input
-                        type="text"
-                        name="curso"
-                        id="nombre_curso"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=""
-                        value={newCursos.curso}
-                        onChange={handleCursoChange}
-                      />
-                      <label
-                        htmlFor="nombre_curso"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 "
-                      >
-                        Nombre del curso
-                      </label>
-                    </div>
+                    <InputComponent
+                      name="curso"
+                      value={newCursos.curso}
+                      onChange={handleCursoChange}
+                      onKeyDown={handleKeyDown}
+                      id="curso"
+                      responseError={0}
+                      content="Nombre del curso"
+                      requiered={false}
+                      type="text"
+                    />
 
-                    <div className="relative z-0 w-full group">
-                      <input
-                        type="text"
+                      <InputComponent
                         name="institucion"
-                        id="institucion_nombre_curso"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=""
-                        onChange={handleCursoChange}
                         value={newCursos.institucion}
+                        onChange={handleCursoChange}
+                        onKeyDown={handleKeyDown}
+                        id="institucion_nombre_curso"
+                        responseError={0}
+                        content="Nombre de la institución"
+                        requiered={false}
+                        type="text"
                       />
-                      <label
-                        htmlFor="institucion_nombre_curso"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      >
-                        Nombre de la institución
-                      </label>
-                    </div>
 
-                    {/* cambiar nombres de name solo para el frnt */}
                     <div className="">
                       <label
                         htmlFor="anioInicioCurso"
@@ -1176,23 +1130,17 @@ function FormRegister({
                   ))}
 
                   <div className="grid grid-cols-1 gap-4 mb-4">
-                    <div className="relative z-0 w-full group">
-                      <input
-                        type="text"
-                        name="idioma"
-                        id="floating_idioma"
-                        className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=""
-                        value={newIdioma.idioma}
-                        onChange={handleIdiomaChange}
-                      />
-                      <label
-                        htmlFor="floating_idioma"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      >
-                        ¿Qué idioma dominas?
-                      </label>
-                    </div>
+                  <InputComponent
+                    name="idioma"
+                    value={newIdioma.idioma}
+                    onChange={handleIdiomaChange}
+                    onKeyDown={handleKeyDown}
+                    id="floating_idioma"
+                    responseError={0}
+                    content="¿Qué idioma dominas?"
+                    requiered={false}
+                    type="text"
+                  />
 
                     <div className="">
                       <label
@@ -1356,35 +1304,26 @@ function FormRegister({
             >
               <WrapperSection>
                 <WrapperSectionInput>
-                  <WrapperH2Section title="Orientación Laboral del Currículum Vitae" />
-
-                  <div className="grid grid-cols-1 ">
-                    <div className="relative z-0 w-full group">
-                      <input
-                        type="text"
-                        className="block py-2.5  px-0 w-full text-sm text-gray-900 dark:text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer "
-                        name="orientadoCV"
-                        id="floating_orientado"
-                        placeholder=" "
-                        value={cvData.orientadoCV}
-                        required
-                        onChange={handleInputChange}
-                      />
-                      <label
-                        htmlFor="floating_orientado"
-                        className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                      >
-                        Orientado a empleo
-                      </label>
-                      <div className="mt-5">
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
-                          *(opcional) Indica el propósito del CV: ¿Buscas tu
+                  <WrapperH2Section
+                    title="Orientación Laboral del Currículum Vitae"
+                    additionalMessage="*(opcional) Indica el propósito del CV: ¿Buscas tu
                           primer empleo, quieres resaltar experiencia en un
                           sector específico, aspiras a un puesto en particular o
-                          un cv genérico?
-                        </span>
-                      </div>
-                    </div>
+                          un cv genérico?"
+                  />
+
+                  <div className="grid grid-cols-1 ">
+                    <InputComponent
+                      name="orientadoCV"
+                      value={cvData.orientadoCV}
+                      onChange={handleInputChange}
+                      onKeyDown={handleKeyDown}
+                      id="floating_orientado"
+                      responseError={0}
+                      content="Orientado a empleo"
+                      requiered={false}
+                      type="text"
+                    />
                   </div>
                 </WrapperSectionInput>
                 {!idUser && moveToNextSection && (

@@ -9,7 +9,8 @@ export default function InputComponent({
   responseError,
   content,
   requiered,
-  type
+  type,
+  fullColInput,
 }: {
   name: string;
   value: string;
@@ -20,15 +21,18 @@ export default function InputComponent({
   content: string;
   requiered: boolean;
   type: string;
+  fullColInput?: boolean;
 }) {
   return (
-    <div className="relative z-0 w-full group">
+    <div className={clsx("relative z-0 w-full group ",{
+       "md:col-span-2": fullColInput  
+    })}>
       <input
         type={type}
         name={name}
         id={id}
         className={clsx(
-          "block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 dark:text-white  appearance-none    dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer",
+          "block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 dark:text-white  appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer",
           {
             "border-red-500": responseError,
             " border-gray-300 dark:border-gray-600": !responseError,

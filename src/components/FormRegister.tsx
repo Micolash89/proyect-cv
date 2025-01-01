@@ -347,6 +347,11 @@ function FormRegister({
         return `${dato.message}`;
       },
       error: (error) => {
+        // moveToNextSection("CVTemplateSelector","personal");
+        sectionRefs["personal"].current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
         return `${error.message}`;
       },
     });
@@ -458,6 +463,7 @@ function FormRegister({
             exit="exit"
             variants={sectionVariants}
             className="w-full max-w-4xl mx-auto p-4"
+            ref={sectionRefs.personal}
           >
             <WrapperSection>
               <WrapperSectionInput>
@@ -466,32 +472,6 @@ function FormRegister({
                   additionalMessage="* El asterisco indica que es obligatorio"
                 />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
-                  {/* <div className="relative z-0 w-full group">
-                    <input
-                      type="text"
-                      name="name"
-                      id="floating_first_name"
-                      className={clsx(
-                        "block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 dark:text-white appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer",
-                        {
-                          "border-red-500": dataResponse.errors.name.length,
-                          " border-gray-300 dark:border-gray-600":
-                            !dataResponse.errors.name.length,
-                        }
-                      )}
-                      placeholder=" "
-                      onKeyDown={handleKeyDown}
-                      value={cvData.name}
-                      required
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      htmlFor="floating_first_name"
-                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    >
-                      Nombres<sup>*</sup>
-                    </label>
-                  </div> */}
                   <InputComponent
                     name={"name"}
                     value={cvData.name}
@@ -501,37 +481,20 @@ function FormRegister({
                     responseError={dataResponse.errors.name.length}
                     content={"Nombres"}
                     requiered={true}
+                    type="text"
                   />
 
-                  {/* <div className="relative z-0 w-full group">
-                    <input
-                      type="text"
-                      name="lastName"
-                      id="floating_last_name"
-                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                      placeholder=" "
-                      required
-                      value={cvData.lastName}
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      htmlFor="floating_last_name"
-                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    >
-                      Apellido<sup>*</sup>
-                    </label>
-                  </div> */}
-
-                    <InputComponent
-                      name={"lastName"}
-                      value={cvData.lastName}
-                      onChange={handleInputChange}
-                      onKeyDown={handleKeyDown}
-                      id={"floating_last_name"}
-                      responseError={dataResponse.errors.lastName.length}
-                      content={"Apellido"}
-                      requiered={true}
-                    />
+                  <InputComponent
+                    name={"lastName"}
+                    value={cvData.lastName}
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
+                    id={"floating_last_name"}
+                    responseError={dataResponse.errors.lastName.length}
+                    content={"Apellido"}
+                    requiered={true}
+                    type="text"
+                  />
 
                   <div className="relative z-0 w-full group">
                     <input
@@ -552,92 +515,65 @@ function FormRegister({
                     </label>
                   </div>
 
-                  <div className="relative z-0 w-full group">
-                    <input
-                      type="string"
-                      name="dni"
-                      id="floating_dni"
-                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                      placeholder=" "
-                      value={cvData.dni}
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      htmlFor="floating_dni"
-                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    >
-                      DNI
-                    </label>
-                  </div>
-                  <div className="relative z-0 w-full group">
-                    <input
-                      type="tel"
-                      name="phone"
-                      id="floating_phone"
-                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                      placeholder=" "
-                      value={cvData.phone}
-                      onChange={handleInputChange}
-                      required
-                    />
-                    <label
-                      htmlFor="floating_phone"
-                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    >
-                      Teléfono<sup>*</sup>
-                    </label>
-                  </div>
-                  <div className="relative z-0 w-full group">
-                    <input
-                      type="email"
-                      name="email"
-                      id="floating_email"
-                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                      placeholder=" "
-                      value={cvData.email}
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      htmlFor="floating_email"
-                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 capitalize"
-                    >
-                      Correo electrónico
-                    </label>
-                  </div>
-                  <div className="relative z-0 w-full group">
-                    <input
-                      type="text"
-                      name="provincia"
-                      id="floating_provincia"
-                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                      placeholder=" "
-                      value={cvData.provincia}
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      htmlFor="floating_provincia"
-                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    >
-                      Provincia
-                    </label>
-                  </div>
-                  <div className="relative z-0 w-full group">
-                    <input
-                      type="text"
-                      name="ciudad"
-                      id="floating_ciudad"
-                      className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                      placeholder=" "
-                      value={cvData.ciudad}
-                      onChange={handleInputChange}
-                    />
-                    <label
-                      htmlFor="floating_ciudad"
-                      className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    >
-                      Ciudad
-                    </label>
-                  </div>
+                  <InputComponent
+                    name="dni"
+                    value={cvData.dni}
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
+                    id="floating_dni"
+                    responseError={dataResponse.errors.dni.length}
+                    content="DNI"
+                    requiered={false}
+                    type="text"
+                  />
+
+                  <InputComponent
+                    name="phone"
+                    value={cvData.phone}
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
+                    id="floating_phone"
+                    responseError={dataResponse.errors.phone.length}
+                    content="Teléfono"
+                    requiered={true}
+                    type="tel"
+                  />
+
+                  <InputComponent
+                    name="email"
+                    value={cvData.email}
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
+                    id="floating_email"
+                    responseError={dataResponse.errors.email.length}
+                    content="Correo electrónico"
+                    requiered={false}
+                    type="email"
+                  />
+
+                  <InputComponent
+                    name="provincia"
+                    value={cvData.provincia}
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
+                    id="floating_provincia"
+                    responseError={0}
+                    content="Provincia"
+                    requiered={false}
+                    type="text"
+                  />
+
+                  <InputComponent
+                    name="ciudad"
+                    value={cvData.ciudad}
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
+                    id="floating_ciudad"
+                    responseError={0}
+                    content="Ciudad"
+                    requiered={false}
+                    type="text"
+                  />
 
                   <div className="relative z-0 w-full mx-auto group row-span-2">
                     <ImageUpload
@@ -669,12 +605,16 @@ function FormRegister({
                 {(dataResponse.errors.lastName ||
                   dataResponse.errors.name ||
                   dataResponse.errors.fechaNacimiento ||
-                  dataResponse.errors.phone) && (
+                  dataResponse.errors.phone ||
+                  dataResponse.errors.dni ||
+                  dataResponse.errors.email) && (
                   <>
                     <ErrorComponent arr={dataResponse.errors.lastName} />
                     <ErrorComponent arr={dataResponse.errors.name} />
                     <ErrorComponent arr={dataResponse.errors.fechaNacimiento} />
                     <ErrorComponent arr={dataResponse.errors.phone} />
+                    <ErrorComponent arr={dataResponse.errors.dni} />
+                    <ErrorComponent arr={dataResponse.errors.email} />
                   </>
                 )}
               </WrapperSectionInput>

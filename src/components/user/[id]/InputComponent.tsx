@@ -9,6 +9,7 @@ export default function InputComponent({
   responseError,
   content,
   requiered,
+  type
 }: {
   name: string;
   value: string;
@@ -18,11 +19,12 @@ export default function InputComponent({
   responseError: number;
   content: string;
   requiered: boolean;
+  type: string;
 }) {
   return (
     <div className="relative z-0 w-full group">
       <input
-        type="text"
+        type={type}
         name={name}
         id={id}
         className={clsx(
@@ -35,7 +37,6 @@ export default function InputComponent({
         placeholder=" "
         onKeyDown={onKeyDown}
         value={value}
-        required
         onChange={onChange}
       />
       <label

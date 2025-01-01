@@ -1,80 +1,79 @@
-import { z } from "zod";
+import { nullable, z } from "zod";
 
 const CreateSchemaUsuario = z.object({
   id: z.coerce.number(),
   name: z
     .string({ message: "Ingrese un nombre" })
-    .min(4, "El nombre debe de tener al menos 4 caracteres")
-    .max(25, "El nombre puede contener hasta 25 caracteres")
+    .min(3, "Nombre: debe de tener al menos 3 caracteres")
+    .max(25, "Nombre: puede contener hasta 25 caracteres")
     .regex(/^[a-zA-ZñÑ\s]+$/, {
-      message: "Solo se permiten catacteres o espacios",
+      message: "Nombre: solo se permiten caracteres o espacios",
     }),
   lastName: z
-    .string({ message: "ingrese un apellido" })
-    .min(3, "El apellido debe tener al menos 3 caracteres")
-    .max(15, "El apellido puede contener hasta 25 caracteres")
-    .regex(/^[a-zA-ZñÑ\s]+$/, "Solo se permiten catacteres o espacios"),
-  email: z
+    .string({ message: "Ingrese un apellido" })
+    .min(3, "Apellido: debe tener al menos 3 caracteres")
+    .max(15, "Apellido: puede contener hasta 15 caracteres")
+    .regex(
+      /^[a-zA-ZñÑ\s]+$/,
+      "Apellido: solo se permiten caracteres o espacios"
+    ),
+    email: z
     .string({ message: "Ingrese un Correo Electrónico" })
-    .email("Debe ser un Correo Electrónico válido")
-    .min(6, "El Correo Electrónico debe tener al menos 6 caracteres")
-    .max(40, "El Correo Electrónico puede contener hasta 50 caracteres"),
+    .max(40, "Correo Electrónico: puede contener hasta 40 caracteres")
+    .refine(val => val === "" || z.string().email().safeParse(val).success, {
+      message: "Correo Electrónico: Debe ser válido"
+    })
+    .optional(),
   fechaNacimiento: z.coerce.date({
     message: "Seleccione una fecha de nacimiento",
   }),
   imagenPerfil: z.string({ message: "Seleccione una imagen" }).optional(),
   phone: z
     .string({ message: "Ingrese un teléfono" })
-    .min(6, "El teléfono debe tener al menos 6 caracteres")
-    .max(20, "El teléfono puede contener hasta 20 números")
-      .regex(/^[0-9]+$/, "Solo se permiten numéros"),
+    .min(6, "Teléfono: debe tener al menos 6 caracteres")
+    .max(20, "Teléfono: puede contener hasta 20 números")
+    .regex(/^(?:[0-9]+)?$/, "Teléfono: solo se permiten numéros"),
   ciudad: z
     .string({ message: "Ingrese una ciudad" })
-    .max(25, "La ciudad puede contener hasta 25 caracteres")
-    .regex(/^[a-zA-ZñÑ\s]+$/, {
-      message: "Solo se permiten catacteres o espacios",
+    .max(25, "Ciudad: puede contener hasta 25 caracteres")
+    .regex(/^(?:[a-zA-ZñÑ0-9\s]*)?$/, {
+      message: "Ciudad: solo se permiten caracteres o espacios",
     })
     .optional(),
-  dni: z.string({ message: "Ingrese un DNI" })
-  .max(8, "El DNI puede contener hasta 8 caracteres")
-  .regex(/^[0-9]+$/, "Solo se permiten numéros").optional(),
+  dni: z
+    .string({ message: "Ingrese un DNI" })
+    .max(8, "DNI: puede contener hasta 8 caracteres")
+    .regex(/^(?:[0-9]+)?$/, "DNI: solo se permiten numéros")
+    .optional(),
   provincia: z
     .string({ message: "Seleccione una provincia" })
-    
-    .max(25, "La provincia puede contener hasta 25 caracteres")
-    .regex(/^[a-zA-ZñÑ\s]+$/, {
-      message: "Solo se permiten catacteres o espacios",
+    .max(25, "Provincia: puede contener hasta 25 caracteres")
+    .regex(/^(?:[a-zA-ZñÑ0-9\s]*)?$/, {
+      message: "Solo se permiten caracteres o espacios",
     }),
   education: z.array(
     z.object({
       carrera: z
         .string({ message: "seleccione la carrera" })
-      
         .max(25, "la carrera puede contener hasta 25 caracteres")
-        .regex(/^[a-zA-ZñÑ\s]+$/, {
-            message: "Solo se permiten catacteres o espacios",
+        .regex(/^(?:[a-zA-ZñÑ0-9\s]*)?$/, {
+          message: "Solo se permiten caracteres o espacios",
         }),
       estado: z.string({ message: "Seleccione el estado" }),
       estudios: z
         .string()
-      
         .max(25, "Los estudios pueden contener hasta 25 caracteres"),
       institucion: z
         .string()
-      
         .max(30, "La institución pueden contener hasta 25 caracteres"),
       zonaInstitucion: z
         .string()
         .min(4, "La ubicación debe de tener al menos 4 caracteres"),
       anioInicioEducacion: z
         .string()
-        .min(
-          4,
-          "Seleccione el año de inicio de los estudios"
-        ),
+        .min(4, "Seleccione el año de inicio de los estudios"),
       anioFinEducacion: z.string({
-        message:
-          "Seleccione el año de fin de los estudios",
+        message: "Seleccione el año de fin de los estudios",
       }),
     })
   ),
@@ -82,37 +81,32 @@ const CreateSchemaUsuario = z.object({
     z.object({
       nombreEmpresa: z
         .string()
-      ,
+        .max(25, "El nombre de la empresa puede contener hasta 25 caracteres")
+        .optional(),
       puesto: z
         .string()
-      
         .max(25, "El puesto puede contener hasta 25 caracteres")
         .regex(/^[a-zA-ZñÑ\s]+$/, {
-            message: "Solo se permiten catacteres o espacios",
+          message: "Solo se permiten caracteres o espacios",
         }),
       zonaEmpresa: z
         .string()
-      
         .max(25, "El puesto puede contener hasta 25 caracteres")
-        .regex(/^[a-zA-ZñÑ\s]+$/, {
-            message: "Solo se permiten catacteres o espacios",
+        .regex(/^(?:[a-zA-ZñÑ0-9\s]*)?$/, {
+          message: "Solo se permiten caracteres o espacios",
         }),
       anioInicioExperiencia: z
         .string()
-        .min(
-          4,
-          "Seleccione el año de inicio de la experiencia"
-        ),
+        .min(4, "Seleccione el año de inicio de la experiencia")
+        .optional(),
       anioFinExperiencia: z
         .string()
-        .min(
-          4,
-          "Seleccione el año de fin de la experiencia"
-        ),
-      descripcionExperiencia: z.string({
-        message: "Debe ingresar una descripción",
-      })
-      ,
+        .min(4, "Seleccione el año de fin de la experiencia"),
+      descripcionExperiencia: z
+        .string({
+          message: "Debe ingresar una descripción",
+        })
+        .optional(),
     })
   ),
   cursos: z.array(
@@ -123,10 +117,7 @@ const CreateSchemaUsuario = z.object({
         .min(4, "La institución debe de tener al menos 4 caracteres"),
       anioInicioCurso: z
         .string()
-        .min(
-          4,
-          "Seleccione el año de inicio del curso"
-        ),
+        .min(4, "Seleccione el año de inicio del curso"),
     })
   ),
   idiomas: z.array(

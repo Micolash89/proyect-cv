@@ -49,7 +49,7 @@ export async function postUsuarios(
     return createResponse(
       false,
       [],
-      "Error En Algun Campo",
+      "Error en algún campo",
       validatedFields.error?.flatten().fieldErrors
     );
   }

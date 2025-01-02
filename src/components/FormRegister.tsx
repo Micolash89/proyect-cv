@@ -292,6 +292,7 @@ function FormRegister({
       ciudad: [] as string[],
       provincia: [] as string[],
       linkedin: [] as string[],
+      idiomas: [] as string[],
       color: [] as string[],
       template: [] as string[],
     } as Errors,
@@ -347,7 +348,6 @@ function FormRegister({
         return `${dato.message}`;
       },
       error: (error) => {
-        // moveToNextSection("CVTemplateSelector","personal");
         sectionRefs["personal"].current?.scrollIntoView({
           behavior: "smooth",
           block: "center",
@@ -667,15 +667,15 @@ function FormRegister({
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <InputComponent
-                    name="institucion"
-                    value={newEducation.institucion}
-                    onChange={handleEducationChange}
-                    onKeyDown={handleKeyDown}
-                    id="floating_institucion"
-                    responseError={0}
-                    content="Nombre de la institución"
-                    requiered={false}
-                    type="text"
+                      name="institucion"
+                      value={newEducation.institucion}
+                      onChange={handleEducationChange}
+                      onKeyDown={handleKeyDown}
+                      id="floating_institucion"
+                      responseError={0}
+                      content="Nombre de la institución"
+                      requiered={false}
+                      type="text"
                     />
                     <InputComponent
                       name="carrera"
@@ -812,26 +812,26 @@ function FormRegister({
                 </WrapperSectionInput>
 
                 <div className="bg-gray-50 dark:bg-gray-800/50">
-                <CountArrayForm cantidad={cvData.education.length} />
+                  <CountArrayForm cantidad={cvData.education.length} />
 
-                <div className="flex justify-between p-6 gap-2">
-                  <WrapperButton
-                    title="agregar"
-                    moveToNextSection={addEducation}
-                    color="blue"
-                  />
-                  {idUser ? (
-                    ""
-                  ) : (
+                  <div className="flex justify-between p-6 gap-2">
                     <WrapperButton
-                      title="Siguiente"
-                      moveToNextSection={() =>
-                        moveToNextSection("education", "experience")
-                      }
-                      color="green"
+                      title="agregar"
+                      moveToNextSection={addEducation}
+                      color="blue"
                     />
-                  )}
-                </div>
+                    {idUser ? (
+                      ""
+                    ) : (
+                      <WrapperButton
+                        title="Siguiente"
+                        moveToNextSection={() =>
+                          moveToNextSection("education", "experience")
+                        }
+                        color="green"
+                      />
+                    )}
+                  </div>
                 </div>
               </WrapperSection>
             </motion.section>
@@ -877,15 +877,15 @@ function FormRegister({
                       type="text"
                     />
                     <InputComponent
-                    name="nombreEmpresa"
-                    value={newExperience.nombreEmpresa}
-                    onChange={handleExperienceChange}
-                    onKeyDown={handleKeyDown}
-                    id="nombre_empresa"
-                    responseError={0}
-                    content="Nombre de la empresa"
-                    requiered={false}
-                    type="text"
+                      name="nombreEmpresa"
+                      value={newExperience.nombreEmpresa}
+                      onChange={handleExperienceChange}
+                      onKeyDown={handleKeyDown}
+                      id="nombre_empresa"
+                      responseError={0}
+                      content="Nombre de la empresa"
+                      requiered={false}
+                      type="text"
                     />
                     <InputComponent
                       name="zonaEmpresa"
@@ -1041,17 +1041,17 @@ function FormRegister({
                       type="text"
                     />
 
-                      <InputComponent
-                        name="institucion"
-                        value={newCursos.institucion}
-                        onChange={handleCursoChange}
-                        onKeyDown={handleKeyDown}
-                        id="institucion_nombre_curso"
-                        responseError={0}
-                        content="Nombre de la institución"
-                        requiered={false}
-                        type="text"
-                      />
+                    <InputComponent
+                      name="institucion"
+                      value={newCursos.institucion}
+                      onChange={handleCursoChange}
+                      onKeyDown={handleKeyDown}
+                      id="institucion_nombre_curso"
+                      responseError={0}
+                      content="Nombre de la institución"
+                      requiered={false}
+                      type="text"
+                    />
 
                     <div className="">
                       <label
@@ -1130,17 +1130,17 @@ function FormRegister({
                   ))}
 
                   <div className="grid grid-cols-1 gap-4 mb-4">
-                  <InputComponent
-                    name="idioma"
-                    value={newIdioma.idioma}
-                    onChange={handleIdiomaChange}
-                    onKeyDown={handleKeyDown}
-                    id="floating_idioma"
-                    responseError={0}
-                    content="¿Qué idioma dominas?"
-                    requiered={false}
-                    type="text"
-                  />
+                    <InputComponent
+                      name="idioma"
+                      value={newIdioma.idioma}
+                      onChange={handleIdiomaChange}
+                      onKeyDown={handleKeyDown}
+                      id="floating_idioma"
+                      responseError={0}
+                      content="¿Qué idioma dominas?"
+                      requiered={false}
+                      type="text"
+                    />
 
                     <div className="">
                       <label
@@ -1167,6 +1167,13 @@ function FormRegister({
                       </select>
                     </div>
                   </div>
+
+                  {/* {dataResponse.errors.idiomas && (
+                    <>
+                      <ErrorComponent arr={['El idiomas puede contener hasta 30 caracteres']} />
+                    </>
+                  )} */}
+
                 </WrapperSectionInput>
                 <div className="bg-gray-50 dark:bg-gray-800/50">
                   <CountArrayForm cantidad={cvData.idiomas.length} />

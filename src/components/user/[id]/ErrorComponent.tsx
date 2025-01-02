@@ -1,6 +1,4 @@
 export default function ErrorComponent({ arr }: { arr: string[] }) {
-  console.log("dentre");
-
   return (
     <>
       { arr.map((e, i) => {

@@ -17,11 +17,11 @@ const CreateSchemaUsuario = z.object({
       /^[a-zA-ZñÑ\s]+$/,
       "Apellido: solo se permiten caracteres o espacios"
     ),
-    email: z
+  email: z
     .string({ message: "Ingrese un Correo Electrónico" })
     .max(40, "Correo Electrónico: puede contener hasta 40 caracteres")
-    .refine(val => val === "" || z.string().email().safeParse(val).success, {
-      message: "Correo Electrónico: Debe ser válido"
+    .refine((val) => val === "" || z.string().email().safeParse(val).success, {
+      message: "Correo Electrónico: Debe ser válido",
     })
     .optional(),
   fechaNacimiento: z.coerce.date({
@@ -124,8 +124,9 @@ const CreateSchemaUsuario = z.object({
     z
       .object({
         idioma: z
-          .string()
-          .min(4, "El idiomas debe de tener al menos 4 caracteres"),
+          .string({ message: "Seleccione el idioma" })
+          .min(4, "El idiomas debe de tener al menos 4 caracteres")
+          .max(30, "El idiomas puede contener hasta 30 caracteres"),
         nivel: z.string({ message: "Seleccione el nivel" }),
       })
       .optional()

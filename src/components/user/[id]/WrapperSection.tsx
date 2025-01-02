@@ -5,7 +5,7 @@ export default function WrapperSection({
 }) {
   return (
     <>
-      <div className="bg-white dark:bg-gray-900 shadow-lg rounded-xl overflow-hidden transition-all duration-200">
+      <div className="bg-white dark:bg-gray-900 shadow-lg rounded-xl overflow-hidden transition-all duration-500">
         {children}
       </div>
     </>

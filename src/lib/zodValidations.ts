@@ -72,6 +72,13 @@ const CreateSchemaUsuario = z.object({
       anioFinEducacion: z.string({
         message: "Seleccione el año de fin de los estudios",
       }),
+      mesInicioEducacion
+      : z.string({ message: "Seleccione el mes de inicio de los estudios" })
+      .max(2, "El mes de inicio de los estudios puede contener hasta 2 caracteres")
+      .optional(),
+      mesFinEducacion: z.string({ message: "Seleccione el mes de fin de los estudios" })
+      .max(2, "El mes de fin de los estudios puede contener hasta 2 caracteres")
+      .optional(),
     })
   ),
   experience: z.array(

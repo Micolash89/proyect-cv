@@ -35,6 +35,8 @@ export async function postUsuarios(
   formData: FormData
 ) {
 
+  console.log(education);
+
   const validatedFields = CreateUsuario.safeParse({
     ...Object.fromEntries(formData),
     education,

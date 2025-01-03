@@ -29,6 +29,8 @@ import {
 } from "@/lib/constFormRegister";
 import SelectInputComponent from "./user/[id]/SelectInputComponent";
 import DateInput from "./user/[id]/DateInputComponent";
+import YearSelect from "./user/[id]/YearSelectComponent";
+import MonthSelect from "./user/[id]/SelectInputMouthComponent";
 
 type Section =
   | "personal"
@@ -114,6 +116,8 @@ function FormRegister({
     arr.push(i.toString());
   }
 
+  const currentYear = new Date().getFullYear();
+
   const [newEducation, setNewEducation] = useState({
     estudios: "",
     estado: "",
@@ -122,6 +126,8 @@ function FormRegister({
     zonaInstitucion: "",
     anioInicioEducacion: "",
     anioFinEducacion: "",
+    mesInicioEducacion: "",
+    mesFinEducacion: "",
   });
 
   const [newCursos, setNewCursos] = useState({
@@ -205,6 +211,8 @@ function FormRegister({
         zonaInstitucion: "",
         anioInicioEducacion: "",
         anioFinEducacion: "",
+        mesInicioEducacion: "",
+        mesFinEducacion: "",
       });
     }
   };
@@ -329,7 +337,7 @@ function FormRegister({
     }
 
     let newPost;
-
+    
     if (idUser) {
       newPost = updateUser
         .bind(null, cvData.experience)
@@ -515,7 +523,7 @@ function FormRegister({
                     requiered={true}
                     type="text"
                   />
-                  
+
                   <DateInput
                     name="fechaNacimiento"
                     id="floating_fecha_nacimiento"
@@ -787,6 +795,47 @@ function FormRegister({
                         })}
                       </select>
                     </div>
+
+                    <YearSelect
+                      name="anioInicioEducacion"
+                      label="Año de inicio"
+                      value={newEducation.anioInicioEducacion}
+                      onChange={handleEducationChange}
+                      startYear={currentYear - 50}
+                      endYear={currentYear}
+                    />
+
+                    <MonthSelect
+                      name="mesInicioEducacion"
+                      label="Mes de inicio"
+                      value={newEducation.mesInicioEducacion}
+                      onChange={handleEducationChange}
+                    />
+
+                    <YearSelect
+                      name="anioFinEducacion"
+                      label="Año de finalización o fecha prevista"
+                      value={newEducation.anioFinEducacion}
+                      onChange={handleEducationChange}
+                      startYear={
+                        parseInt(newEducation.anioInicioEducacion) ||
+                        currentYear - 50
+                      }
+                      endYear={currentYear + 10}
+                      disabled={newEducation.anioInicioEducacion === ""}
+                      includeActualidad={newEducation.estado === "PROCESO"}
+                    />
+
+                    <MonthSelect
+                      name="mesFinEducacion"
+                      label="Mes de finalización"
+                      value={newEducation.mesFinEducacion}
+                      onChange={handleEducationChange}
+                      disabled={
+                        newEducation.anioFinEducacion === "" ||
+                        newEducation.anioFinEducacion === "Actualidad"
+                      }
+                    />
                   </div>
                 </WrapperSectionInput>
 

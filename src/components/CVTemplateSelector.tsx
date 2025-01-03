@@ -116,7 +116,7 @@ export default function CVTemplateSelector({
                       />
                       <label
                         htmlFor={`${template.id}`}
-                        className={`block w-full h-[300px]  cursor-pointer border-2 rounded-lg overflow-hidden transition-all ${
+                        className={`block w-full h-[300px] cursor-pointer border-2 rounded-lg overflow-hidden transition-all ${
                           cvData.template === template.id
                             ? " ring-8 ring-blue-500"
                             : " hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 "

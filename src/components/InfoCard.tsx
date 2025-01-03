@@ -24,8 +24,8 @@ export function InfoCard({ title, subtitle, details, onDelete }: InfoCardProps) 
       className={clsx(
         "mb-4 p-4 border  rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300",
         {
-          "border-red-500 animate-pulse": title.length > 30,
-          "border-gray-200 dark:border-gray-700": title.length <= 30,
+          // "border-red-500 animate-pulse": title.length > 30,
+          "border-gray-200 dark:border-gray-700": title.length ,
         }
       )}
     >

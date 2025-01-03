@@ -218,6 +218,16 @@ function FormRegister({
   const handleIdiomaChange = (e: any) => {
     const { name, value } = e.target;
     setNewIdioma((prev) => ({ ...prev, [name]: value }));
+
+    if(dataResponse.errors["idiomas"].length>0){
+      setDataResponse({
+        ...dataResponse,
+        errors: {
+          ...dataResponse.errors,
+          ["idiomas"]: [],
+        },
+      });
+    }
   };
 
   const handleCursoChange = (e: any) => {
@@ -293,6 +303,9 @@ function FormRegister({
       provincia: [] as string[],
       linkedin: [] as string[],
       idiomas: [] as string[],
+      cursos: [] as string[],
+      education: [] as string[],
+      experience: [] as string[],
       color: [] as string[],
       template: [] as string[],
     } as Errors,
@@ -1081,6 +1094,13 @@ function FormRegister({
                       </select>
                     </div>
                   </div>
+
+                  {/* {(dataResponse.errors.cursos.length > 0 || cvData.idiomas.some((e: any) => e.idioma.length > 30) || newIdioma.idioma.length > 30)  && (
+                    <>
+                      <ErrorComponent arr={['El nombre del idioma puede contener hasta 30 caracteres']} />
+                    </>
+                  )} */}
+
                 </WrapperSectionInput>
                 <div className=" bg-gray-50 dark:bg-gray-800/50 ">
                   <CountArrayForm cantidad={cvData.cursos.length} />
@@ -1168,11 +1188,11 @@ function FormRegister({
                     </div>
                   </div>
 
-                  {/* {dataResponse.errors.idiomas && (
+                  {(dataResponse.errors.idiomas.length > 0 || cvData.idiomas.some((e: any) => e.idioma.length > 30) || newIdioma.idioma.length > 30)  && (
                     <>
-                      <ErrorComponent arr={['El idiomas puede contener hasta 30 caracteres']} />
+                      <ErrorComponent arr={['El nombre del idioma puede contener hasta 30 caracteres']} />
                     </>
-                  )} */}
+                  )}
 
                 </WrapperSectionInput>
                 <div className="bg-gray-50 dark:bg-gray-800/50">

@@ -36,8 +36,8 @@ const CreateSchemaUsuario = z.object({
   ciudad: z
     .string({ message: "Ingrese una ciudad" })
     .max(25, "Ciudad: puede contener hasta 25 caracteres")
-    .regex(/^(?:[a-zA-ZñÑ0-9\s]*)?$/, {
-      message: "Ciudad: solo se permiten caracteres o espacios",
+    .regex(/^(?:[a-zA-ZñÑ0-9\s\-\/]*)?$/, {
+      message: "Solo se permiten caracteres o espacios",
     })
     .optional(),
   dni: z
@@ -48,24 +48,21 @@ const CreateSchemaUsuario = z.object({
   provincia: z
     .string({ message: "Seleccione una provincia" })
     .max(25, "Provincia: puede contener hasta 25 caracteres")
-    .regex(/^(?:[a-zA-ZñÑ0-9\s]*)?$/, {
+    .regex(/^(?:[a-zA-ZñÑ0-9\s\-\/]*)?$/, {
       message: "Solo se permiten caracteres o espacios",
     }),
   education: z.array(
     z.object({
       carrera: z
         .string({ message: "seleccione la carrera" })
-        .max(25, "la carrera puede contener hasta 25 caracteres")
-        .regex(/^(?:[a-zA-ZñÑ0-9\s]*)?$/, {
-          message: "Solo se permiten caracteres o espacios",
-        }),
+        .max(60, "la carrera puede contener hasta 60 caracteres"),
       estado: z.string({ message: "Seleccione el estado" }),
       estudios: z
         .string()
         .max(25, "Los estudios pueden contener hasta 25 caracteres"),
       institucion: z
         .string()
-        .max(30, "La institución pueden contener hasta 25 caracteres"),
+        .max(60, "La institución pueden contener hasta 60 caracteres"),
       zonaInstitucion: z
         .string()
         .min(4, "La ubicación debe de tener al menos 4 caracteres"),
@@ -85,16 +82,10 @@ const CreateSchemaUsuario = z.object({
         .optional(),
       puesto: z
         .string()
-        .max(25, "El puesto puede contener hasta 25 caracteres")
-        .regex(/^[a-zA-ZñÑ\s]+$/, {
-          message: "Solo se permiten caracteres o espacios",
-        }),
+        .max(25, "El puesto puede contener hasta 25 caracteres"),
       zonaEmpresa: z
         .string()
-        .max(25, "El puesto puede contener hasta 25 caracteres")
-        .regex(/^(?:[a-zA-ZñÑ0-9\s]*)?$/, {
-          message: "Solo se permiten caracteres o espacios",
-        }),
+        .max(25, "El puesto puede contener hasta 25 caracteres"),
       anioInicioExperiencia: z
         .string()
         .min(4, "Seleccione el año de inicio de la experiencia")

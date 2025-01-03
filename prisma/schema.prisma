@@ -101,7 +101,7 @@ enum EstudioTipoEnum {
   PRIMARIO
   SECUNDARIO
   TERCIARIO
-  UNIVERSITARIO
+  UNIVERSIDAD
 }
 
 enum NivelIdiomaEnum {

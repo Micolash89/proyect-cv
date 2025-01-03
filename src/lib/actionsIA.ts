@@ -2,8 +2,6 @@
 
 import {
   GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
 } from "@google/generative-ai";
 import { createResponse } from "./utils";
 import { Experiencia } from "./definitions";
@@ -140,7 +138,7 @@ export async function generarItemsExperiencia(
           {
             text: `creame las tareas que desempeñaria en un trabajo en un renglón máximo en solo ${max} renglon${
               max < 1 ? "nes" : ""
-            } de la tarea que con la descripción de las tareas que te voy a indicar.solo quiero los párrafos de las tareas desarrolladas por ti nada más, es para copiar y pegar asi como esta, no quiero titulo ni que me lo marques de cual es cada una , yo me guio por el orden en que te lo fui dando, no quiero que me lo des con codigo markdown solo texto. escribelo para un curriculum asi que sea de manera formal, los verbos de acción que se recomiendan para un currículum
+            } de la tarea que con la descripción de las tareas que te voy a indicar.solo quiero los párrafos de las tareas desarrolladas por ti nada más, es para copiar y pegar asi como esta, no quiero titulo ni que me lo marques de cual es cada una , yo me guio por el orden en que te lo fui dando, no quiero que me lo des con codigo markdown solo texto. escribelo para un curriculum asi que sea de manera formal,que este separados en parrafos para cada una de las tareas al final de cada parrafo con un "\n", los verbos de acción que se recomiendan para un currículum
             
 Liderazgo
 Logré, alcancé, contraté, coordiné, manejé, lideré, organicé, supervisé, regulé, reorganicé, administré, delegé, impacté, planifiqué, revisé, analicé, desarrollé, mejoré, predije, programé, asigné, dirigí, incrementé, prioricé, encabezé, obtuve, gané, lideré, produje, fortalezcí, presidí, evalué, dominé, comprobé, supervisé, consolidé, ejecuté, orquesté, recomendé y superé.

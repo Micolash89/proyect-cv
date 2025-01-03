@@ -22,6 +22,12 @@ import ErrorComponent from "./user/[id]/ErrorComponent";
 import clsx from "clsx";
 import { Errors } from "@/lib/definitions";
 import InputComponent from "./user/[id]/InputComponent";
+import {
+  educacionEstadoSelect,
+  educacionNivelSelect,
+  idiomasSelect,
+} from "@/lib/constFormRegister";
+import SelectInputComponent from "./user/[id]/SelectInputComponent";
 
 type Section =
   | "personal"
@@ -219,7 +225,7 @@ function FormRegister({
     const { name, value } = e.target;
     setNewIdioma((prev) => ({ ...prev, [name]: value }));
 
-    if(dataResponse.errors["idiomas"].length>0){
+    if (dataResponse.errors["idiomas"].length > 0) {
       setDataResponse({
         ...dataResponse,
         errors: {
@@ -680,17 +686,6 @@ function FormRegister({
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <InputComponent
-                      name="institucion"
-                      value={newEducation.institucion}
-                      onChange={handleEducationChange}
-                      onKeyDown={handleKeyDown}
-                      id="floating_institucion"
-                      responseError={0}
-                      content="Nombre de la institución"
-                      requiered={false}
-                      type="text"
-                    />
-                    <InputComponent
                       name="carrera"
                       value={newEducation.carrera}
                       onChange={handleEducationChange}
@@ -698,6 +693,17 @@ function FormRegister({
                       id="carrera_titulo"
                       responseError={0}
                       content="Nombre del titulo"
+                      requiered={false}
+                      type="text"
+                    />
+                    <InputComponent
+                      name="institucion"
+                      value={newEducation.institucion}
+                      onChange={handleEducationChange}
+                      onKeyDown={handleKeyDown}
+                      id="floating_institucion"
+                      responseError={0}
+                      content="Nombre de la institución"
                       requiered={false}
                       type="text"
                     />
@@ -713,52 +719,22 @@ function FormRegister({
                       type="text"
                       fullColInput={true}
                     />
-                    <div className="">
-                      <label
-                        htmlFor="nivel_estudio"
-                        className="block mb-2 text-xs font-medium text-gray-900 dark:text-gray-400"
-                      >
-                        Nivel de Estudios:
-                      </label>
-                      <select
-                        id="nivel_estudio"
-                        name="estudios"
-                        className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        onChange={handleEducationChange}
-                        value={newEducation.estudios}
-                      >
-                        <option value={""} hidden>
-                          Seleccione nivel
-                        </option>
-                        <option value={"PRIMARIO"}>Primario</option>
-                        <option value={"SECUNDARIO"}>Secundario</option>
-                        <option value={"TERCIARIO"}>Terciario</option>
-                        <option value={"UNIVERSITARIO"}>Universitario</option>
-                      </select>
-                    </div>
-
-                    <div className="">
-                      <label
-                        htmlFor="estado_estudio"
-                        className="block mb-2 text-xs font-medium text-gray-900 dark:text-gray-400"
-                      >
-                        Estado:
-                      </label>
-                      <select
-                        id="estado_estudio"
-                        name="estado"
-                        className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        value={newEducation.estado}
-                        onChange={handleEducationChange}
-                      >
-                        <option value={""} hidden>
-                          Seleccione un estado
-                        </option>
-                        <option value={"COMPLETO"}>Completo</option>
-                        <option value={"PROCESO"}>En proceso</option>
-                        <option value={"INCOMPLETO"}>Incompleto</option>
-                      </select>
-                    </div>
+                    <SelectInputComponent
+                      onChange={handleEducationChange}
+                      value={newEducation.estudios}
+                      arrOptions={educacionNivelSelect}
+                      id="nivel_estudio"
+                      name="estudios"
+                      label="Nivel de estudios"
+                    />
+                    <SelectInputComponent
+                      onChange={handleEducationChange}
+                      value={newEducation.estado}
+                      arrOptions={educacionEstadoSelect}
+                      id="estado_estudio"
+                      name="estado"
+                      label="Estado"
+                    />
 
                     <div className=" ">
                       <label
@@ -1080,9 +1056,7 @@ function FormRegister({
                         value={newCursos.anioInicioCurso}
                         onChange={handleCursoChange}
                       >
-                        <option value={""} hidden>
-                          Seleccione año
-                        </option>
+                        <option value={""}>Seleccione año</option>
 
                         {arr.map((e, i) => {
                           return (
@@ -1100,7 +1074,6 @@ function FormRegister({
                       <ErrorComponent arr={['El nombre del idioma puede contener hasta 30 caracteres']} />
                     </>
                   )} */}
-
                 </WrapperSectionInput>
                 <div className=" bg-gray-50 dark:bg-gray-800/50 ">
                   <CountArrayForm cantidad={cvData.cursos.length} />
@@ -1162,7 +1135,7 @@ function FormRegister({
                       type="text"
                     />
 
-                    <div className="">
+                    {/* <div className="">
                       <label
                         htmlFor="idioma_nivel"
                         className="block text-xs mb-1 font-medium text-gray-900 dark:text-gray-400 capitalize"
@@ -1185,15 +1158,28 @@ function FormRegister({
                         <option value={"AVANZADO"}>Avanzado</option>
                         <option value={"NATIVO"}>Nativo</option>
                       </select>
-                    </div>
+                    </div> */}
+                    <SelectInputComponent
+                      onChange={handleIdiomaChange}
+                      value={newIdioma.nivel}
+                      arrOptions={idiomasSelect}
+                      id="idioma_nivel"
+                      name="nivel"
+                      label="Nivel"
+                    />
                   </div>
 
-                  {(dataResponse.errors.idiomas.length > 0 || cvData.idiomas.some((e: any) => e.idioma.length > 30) || newIdioma.idioma.length > 30)  && (
+                  {(dataResponse.errors.idiomas.length > 0 ||
+                    cvData.idiomas.some((e: any) => e.idioma.length > 30) ||
+                    newIdioma.idioma.length > 30) && (
                     <>
-                      <ErrorComponent arr={['El nombre del idioma puede contener hasta 30 caracteres']} />
+                      <ErrorComponent
+                        arr={[
+                          "El nombre del idioma puede contener hasta 30 caracteres",
+                        ]}
+                      />
                     </>
                   )}
-
                 </WrapperSectionInput>
                 <div className="bg-gray-50 dark:bg-gray-800/50">
                   <CountArrayForm cantidad={cvData.idiomas.length} />

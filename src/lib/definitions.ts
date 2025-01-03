@@ -116,3 +116,8 @@ export interface Experiencia {
 export interface Errors {
   [key: string]: string[];
 }
+
+export interface ArraySelectInput{
+  value: string;
+  name: string;
+}

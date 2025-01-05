@@ -28,18 +28,20 @@ model User {
   idiomas              Idiomas[]              @relation("UserIdiomas")
   informacionAdicional InformacionAdicional[] @relation("UserInformacionAdicional")
   cvTemplate           CVTemplate?            @relation("UserCVTemplate", fields: [cvTemplateId], references: [id])
-  cvTemplateId         Int?                   @unique // Clave foránea única
+  cvTemplateId         Int?                   @unique 
 }
 
 model Estudio {
   id           Int               @id @default(autoincrement())
   carrera      String            @default("")
   estado       EstudioEstadoEnum
-  tipo         EstudioTipoEnum //estudios
+  tipo         EstudioTipoEnum 
   institucion  String            @default("")
   ubicacion    String            @default("")
   fechaIngreso String            @default("")
+  mesIngreso   String            @default("")
   fechaEgreso  String            @default("")
+  mesEgreso    String            @default("")
   idUsuario    Int
   usuario      User              @relation(fields: [idUsuario], references: [id], name: "UserEstudios")
 }
@@ -50,7 +52,9 @@ model Experiencia {
   puesto      String @default("")
   ubicacion   String @default("")
   fechaInicio String @default("")
+  mesInicio   String @default("")
   fechaFin    String @default("")
+  mesFin      String @default("")
   descripcion String @default("")
   idUsuario   Int
   usuario     User   @relation(fields: [idUsuario], references: [id], name: "UserExperiencias")
@@ -60,6 +64,7 @@ model Curso {
   id          Int    @id @default(autoincrement())
   nombre      String @default("")
   institucion String @default("")
+  mesInicio   String @default("")
   fechaInicio String @default("")
   idUsuario   Int
   usuario     User   @relation(fields: [idUsuario], references: [id], name: "UserCursos")
@@ -88,7 +93,7 @@ model CVTemplate {
   id       Int    @id @default(autoincrement())
   template Int
   color    String
-  user User? @relation("UserCVTemplate")
+  user     User?  @relation("UserCVTemplate")
 }
 
 enum EstudioEstadoEnum {

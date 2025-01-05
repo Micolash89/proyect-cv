@@ -107,14 +107,14 @@ function FormRegister({
     }
   }, [idUser]);
 
-  const max = new Date().getFullYear();
-  const min = max - 50;
+  // const max = new Date().getFullYear();
+  // const min = max - 50;
 
-  const arr: string[] = [];
+  // const arr: string[] = [];
 
-  for (let i = max; i >= min; i--) {
-    arr.push(i.toString());
-  }
+  // for (let i = max; i >= min; i--) {
+  //   arr.push(i.toString());
+  // }
 
   const currentYear = new Date().getFullYear();
 
@@ -134,6 +134,7 @@ function FormRegister({
     curso: "",
     institucion: "",
     anioInicioCurso: "",
+    mesInicioCurso: "",
   });
 
   const [newIdioma, setNewIdioma] = useState({
@@ -146,7 +147,9 @@ function FormRegister({
     nombreEmpresa: "",
     zonaEmpresa: "",
     anioInicioExperiencia: "",
+    mesInicioExperiencia: "",
     anioFinExperiencia: "",
+    mesFinExperiencia: "",
     descripcionExperiencia: "",
   });
 
@@ -257,7 +260,9 @@ function FormRegister({
         puesto: "",
         nombreEmpresa: "",
         anioInicioExperiencia: "",
+        mesInicioExperiencia: "",
         anioFinExperiencia: "",
+        mesFinExperiencia: "",
         descripcionExperiencia: "",
         zonaEmpresa: "",
       });
@@ -267,7 +272,12 @@ function FormRegister({
   const addCursos = () => {
     if (newCursos.curso && newCursos.institucion) {
       updateCVData({ cursos: [...cvData.cursos, newCursos] });
-      setNewCursos({ curso: "", institucion: "", anioInicioCurso: "" });
+      setNewCursos({
+        curso: "",
+        institucion: "",
+        anioInicioCurso: "",
+        mesInicioCurso: "",
+      });
     }
   };
 
@@ -337,7 +347,7 @@ function FormRegister({
     }
 
     let newPost;
-    
+
     if (idUser) {
       newPost = updateUser
         .bind(null, cvData.experience)
@@ -734,108 +744,49 @@ function FormRegister({
                       label="Estado"
                     />
 
-                    <div className=" ">
-                      <label
-                        htmlFor="anioInicioEducacion"
-                        className="block mb-2 text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
-                      >
-                        Año de inicio
-                      </label>
-
-                      <select
+                    <div className="flex gap-2">
+                      <YearSelect
                         name="anioInicioEducacion"
-                        className="w-full px-3 py-2 border border-gray-300 text-sm rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        label="Año de inicio"
                         value={newEducation.anioInicioEducacion}
                         onChange={handleEducationChange}
-                      >
-                        <option value={""} hidden>
-                          Seleccione año
-                        </option>
+                        startYear={currentYear - 50}
+                        endYear={currentYear}
+                      />
 
-                        {arr.map((e, i) => {
-                          return (
-                            <option key={`${e}-${i}`} value={e}>
-                              {e}
-                            </option>
-                          );
-                        })}
-                      </select>
+                      <MonthSelect
+                        name="mesInicioEducacion"
+                        label="Mes de inicio"
+                        value={newEducation.mesInicioEducacion}
+                        onChange={handleEducationChange}
+                      />
                     </div>
-
-                    <div className="">
-                      <label
-                        htmlFor="anioFinEducacion"
-                        className="block mb-2 text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
-                      >
-                        Año de finalización o fecha prevista
-                      </label>
-                      <select
-                        disabled={newEducation.anioInicioEducacion == ""}
+                    <div className="flex gap-2">
+                      <YearSelect
                         name="anioFinEducacion"
-                        className="w-full px-3 py-2 border text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                        label="Año de finalización"
                         value={newEducation.anioFinEducacion}
                         onChange={handleEducationChange}
-                      >
-                        <option value={""} hidden>
-                          Seleccione año
-                        </option>
+                        startYear={
+                          parseInt(newEducation.anioInicioEducacion) ||
+                          currentYear - 50
+                        }
+                        endYear={currentYear + 10}
+                        disabled={newEducation.anioInicioEducacion === ""}
+                        includeActualidad={newEducation.estado === "PROCESO"}
+                      />
 
-                        {newEducation.estado == "PROCESO" && (
-                          <option value={"Actualidad"}>Actualidad</option>
-                        )}
-
-                        {arr.map((e, i) => {
-                          return newEducation.anioInicioEducacion <= e ? (
-                            <option key={`${e}-${i}`} value={e}>
-                              {e}
-                            </option>
-                          ) : (
-                            ""
-                          );
-                        })}
-                      </select>
+                      <MonthSelect
+                        name="mesFinEducacion"
+                        label="Mes de finalización"
+                        value={newEducation.mesFinEducacion}
+                        onChange={handleEducationChange}
+                        disabled={
+                          newEducation.anioFinEducacion === "" ||
+                          newEducation.anioFinEducacion === "Actualidad"
+                        }
+                      />
                     </div>
-
-                    <YearSelect
-                      name="anioInicioEducacion"
-                      label="Año de inicio"
-                      value={newEducation.anioInicioEducacion}
-                      onChange={handleEducationChange}
-                      startYear={currentYear - 50}
-                      endYear={currentYear}
-                    />
-
-                    <MonthSelect
-                      name="mesInicioEducacion"
-                      label="Mes de inicio"
-                      value={newEducation.mesInicioEducacion}
-                      onChange={handleEducationChange}
-                    />
-
-                    <YearSelect
-                      name="anioFinEducacion"
-                      label="Año de finalización o fecha prevista"
-                      value={newEducation.anioFinEducacion}
-                      onChange={handleEducationChange}
-                      startYear={
-                        parseInt(newEducation.anioInicioEducacion) ||
-                        currentYear - 50
-                      }
-                      endYear={currentYear + 10}
-                      disabled={newEducation.anioInicioEducacion === ""}
-                      includeActualidad={newEducation.estado === "PROCESO"}
-                    />
-
-                    <MonthSelect
-                      name="mesFinEducacion"
-                      label="Mes de finalización"
-                      value={newEducation.mesFinEducacion}
-                      onChange={handleEducationChange}
-                      disabled={
-                        newEducation.anioFinEducacion === "" ||
-                        newEducation.anioFinEducacion === "Actualidad"
-                      }
-                    />
                   </div>
                 </WrapperSectionInput>
 
@@ -928,7 +879,7 @@ function FormRegister({
                       fullColInput={true}
                     />
 
-                    <div className="">
+                    {/* <div className="">
                       <label
                         htmlFor="anioInicioExperiencia"
                         className="block mb-1 text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
@@ -954,9 +905,9 @@ function FormRegister({
                           );
                         })}
                       </select>
-                    </div>
+                    </div> */}
 
-                    <div className="">
+                    {/* <div className="">
                       <label
                         htmlFor="anioFinExperiencia"
                         className="block mb-1 text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
@@ -987,6 +938,50 @@ function FormRegister({
                           );
                         })}
                       </select>
+                    </div> */}
+
+                    <div className="flex gap-2">
+                      <YearSelect
+                        name="anioInicioExperiencia"
+                        label="Año de inicio"
+                        value={newExperience.anioInicioExperiencia}
+                        onChange={handleExperienceChange}
+                        startYear={currentYear - 50}
+                        endYear={currentYear}
+                      />
+
+                      <MonthSelect
+                        name="mesInicioExperiencia"
+                        label="Mes de inicio"
+                        value={newExperience.mesInicioExperiencia}
+                        onChange={handleExperienceChange}
+                      />
+                    </div>
+                    <div className="flex gap-2">
+                      <YearSelect
+                        name="anioFinExperiencia"
+                        label="Año de finalización"
+                        value={newExperience.anioFinExperiencia}
+                        onChange={handleExperienceChange}
+                        startYear={
+                          parseInt(newExperience.anioInicioExperiencia) ||
+                          currentYear - 50
+                        }
+                        endYear={currentYear + 10}
+                        disabled={newExperience.anioInicioExperiencia === ""}
+                        includeActualidad={true}
+                      />
+
+                      <MonthSelect
+                        name="mesFinExperiencia"
+                        label="Mes de finalización"
+                        value={newExperience.mesFinExperiencia}
+                        onChange={handleExperienceChange}
+                        disabled={
+                          newExperience.anioFinExperiencia === "" ||
+                          newExperience.anioFinExperiencia === "Actualidad"
+                        }
+                      />
                     </div>
 
                     <div className="md:col-span-2">
@@ -1081,7 +1076,7 @@ function FormRegister({
                       type="text"
                     />
 
-                    <div className="">
+                    {/* <div className="">
                       <label
                         htmlFor="anioInicioCurso"
                         className="block text-xs mb-1 font-medium text-gray-900 dark:text-gray-400 capitalize"
@@ -1105,6 +1100,24 @@ function FormRegister({
                           );
                         })}
                       </select>
+                    </div> */}
+
+                    <div className="flex gap-2">
+                      <YearSelect
+                        name="anioInicioCurso"
+                        label="Año de inicio"
+                        value={newCursos.anioInicioCurso}
+                        onChange={handleCursoChange}
+                        startYear={currentYear - 50}
+                        endYear={currentYear}
+                      />
+
+                      <MonthSelect
+                        name="mesInicioCurso"
+                        label="Mes de inicio"
+                        value={newCursos.mesInicioCurso}
+                        onChange={handleCursoChange}
+                      />
                     </div>
                   </div>
 

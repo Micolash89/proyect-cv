@@ -967,7 +967,7 @@ function FormRegister({
                           parseInt(newExperience.anioInicioExperiencia) ||
                           currentYear - 50
                         }
-                        endYear={currentYear + 10}
+                        endYear={currentYear}
                         disabled={newExperience.anioInicioExperiencia === ""}
                         includeActualidad={true}
                       />

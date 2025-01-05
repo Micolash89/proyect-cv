@@ -34,8 +34,10 @@ export async function postUsuarios(
   imagenPerfil: string,
   formData: FormData
 ) {
-
-  console.log(education);
+  // console.log(education);
+  // console.log(cursos1);
+  // console.log(experience);
+  // console.log(idiomas);
 
   const validatedFields = CreateUsuario.safeParse({
     ...Object.fromEntries(formData),

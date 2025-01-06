@@ -53,8 +53,8 @@ export const styles6 = StyleSheet.create({
   },
   sectionTitle: {
     fontWeight: "bold",
-    marginTop: 10,
-    paddingTop: 10,
+    marginTop: 5,
+    paddingTop: 5,
     borderTop: "1 solid #EAEAEA",
   },
   content: {

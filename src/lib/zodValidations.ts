@@ -1,4 +1,4 @@
-import { nullable, z } from "zod";
+import { z } from "zod";
 
 const CreateSchemaUsuario = z.object({
   id: z.coerce.number(),
@@ -6,7 +6,7 @@ const CreateSchemaUsuario = z.object({
     .string({ message: "Ingrese un nombre" })
     .min(3, "Nombre: debe de tener al menos 3 caracteres")
     .max(25, "Nombre: puede contener hasta 25 caracteres")
-    .regex(/^[a-zA-ZñÑ\s]+$/, {
+    .regex(/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\-\/]+$/, {
       message: "Nombre: solo se permiten caracteres o espacios",
     }),
   lastName: z
@@ -14,7 +14,7 @@ const CreateSchemaUsuario = z.object({
     .min(3, "Apellido: debe tener al menos 3 caracteres")
     .max(15, "Apellido: puede contener hasta 15 caracteres")
     .regex(
-      /^[a-zA-ZñÑ\s]+$/,
+      /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\-\/]+$/,
       "Apellido: solo se permiten caracteres o espacios"
     ),
   email: z
@@ -36,7 +36,7 @@ const CreateSchemaUsuario = z.object({
   ciudad: z
     .string({ message: "Ingrese una ciudad" })
     .max(25, "Ciudad: puede contener hasta 25 caracteres")
-    .regex(/^(?:[a-zA-ZñÑ0-9\s\-\/]*)?$/, {
+    .regex(/^(?:[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s\-\/]*)?$/, {
       message: "Solo se permiten caracteres o espacios",
     })
     .optional(),
@@ -48,7 +48,7 @@ const CreateSchemaUsuario = z.object({
   provincia: z
     .string({ message: "Seleccione una provincia" })
     .max(25, "Provincia: puede contener hasta 25 caracteres")
-    .regex(/^(?:[a-zA-ZñÑ0-9\s\-\/]*)?$/, {
+    .regex(/^(?:[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s\-\/]*)?$/, {
       message: "Solo se permiten caracteres o espacios",
     }),
   education: z.array(
@@ -97,9 +97,17 @@ const CreateSchemaUsuario = z.object({
         .string()
         .min(4, "Seleccione el año de inicio de la experiencia")
         .optional(),
+      mesInicioExperiencia: z
+      .string()
+      .max(2, "El mes de inicio de la experiencia puede contener hasta 2 caracteres")
+      .optional(),
       anioFinExperiencia: z
-        .string()
-        .min(4, "Seleccione el año de fin de la experiencia"),
+      .string()
+      .min(4, "Seleccione el año de fin de la experiencia"),
+      mesFinExperiencia: z
+      .string()
+      .max(2, "El mes de fin de la experiencia puede contener hasta 2 caracteres")
+      .optional(),
       descripcionExperiencia: z
         .string({
           message: "Debe ingresar una descripción",
@@ -116,6 +124,10 @@ const CreateSchemaUsuario = z.object({
       anioInicioCurso: z
         .string()
         .min(4, "Seleccione el año de inicio del curso"),
+        mesInicioCurso: z
+        .string()
+        .max(2, "El mes de inicio del curso puede contener hasta 2 caracteres")
+        .optional(),
     })
   ),
   idiomas: z.array(

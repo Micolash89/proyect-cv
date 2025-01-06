@@ -19,7 +19,6 @@ import WrapperSection from "./user/[id]/WrapperSection";
 import CVTemplateSelector from "./CVTemplateSelector";
 import CountArrayForm from "./user/[id]/CountArrayForm";
 import ErrorComponent from "./user/[id]/ErrorComponent";
-import clsx from "clsx";
 import { Errors } from "@/lib/definitions";
 import InputComponent from "./user/[id]/InputComponent";
 import {
@@ -81,7 +80,7 @@ function FormRegister({
 
     updateCVData((prevData: any) => ({
       ...prevData,
-      [name]: checked ? name : "", // Store the name if checked, empty string if unchecked
+      [name]: checked ? name : "",
     }));
 
     console.log("cvData", cvData.incorporacion);
@@ -107,15 +106,6 @@ function FormRegister({
     }
   }, [idUser]);
 
-  // const max = new Date().getFullYear();
-  // const min = max - 50;
-
-  // const arr: string[] = [];
-
-  // for (let i = max; i >= min; i--) {
-  //   arr.push(i.toString());
-  // }
-
   const currentYear = new Date().getFullYear();
 
   const [newEducation, setNewEducation] = useState({
@@ -125,12 +115,30 @@ function FormRegister({
     institucion: "",
     zonaInstitucion: "",
     anioInicioEducacion: "",
-    anioFinEducacion: "",
     mesInicioEducacion: "",
+    anioFinEducacion: "",
     mesFinEducacion: "",
   });
 
+  const [dataNewEducation, setDataNewEducation] = useState({
+    estudios: [] as string[],
+    estado: [] as string[],
+    carrera: [] as string[],
+    institucion: [] as string[],
+    zonaInstitucion: [] as string[],
+    anioInicioEducacion: [] as string[],
+    mesInicioEducacion: [] as string[],
+    anioFinEducacion: [] as string[],
+    mesFinEducacion: [] as string[],
+  });
+
   const [newCursos, setNewCursos] = useState({
+    curso: "",
+    institucion: "",
+    anioInicioCurso: "",
+    mesInicioCurso: "",
+  });
+  const [dataNewCursos, setDataNewCursos] = useState({
     curso: "",
     institucion: "",
     anioInicioCurso: "",
@@ -143,6 +151,17 @@ function FormRegister({
   });
 
   const [newExperience, setNewExperience] = useState({
+    puesto: "",
+    nombreEmpresa: "",
+    zonaEmpresa: "",
+    anioInicioExperiencia: "",
+    mesInicioExperiencia: "",
+    anioFinExperiencia: "",
+    mesFinExperiencia: "",
+    descripcionExperiencia: "",
+  });
+
+  const [dataNewExperience, setDataNewExperience] = useState({
     puesto: "",
     nombreEmpresa: "",
     zonaEmpresa: "",
@@ -201,10 +220,23 @@ function FormRegister({
   const handleEducationChange = (e: any) => {
     const { name, value } = e.target;
     setNewEducation((prev) => ({ ...prev, [name]: value }));
+
+    setDataNewEducation({
+      ...dataNewEducation,
+
+      [name]: [],
+    });
   };
 
   const addEducation = () => {
-    if (newEducation.estudios && newEducation.estado && newEducation.carrera) {
+    if (
+      newEducation.estudios &&
+      newEducation.estado &&
+      newEducation.carrera &&
+      newEducation.anioInicioEducacion &&
+      newEducation.mesInicioEducacion &&
+      newEducation.anioFinEducacion
+    ) {
       updateCVData({ education: [...cvData.education, newEducation] });
       setNewEducation({
         estudios: "",
@@ -217,6 +249,48 @@ function FormRegister({
         mesInicioEducacion: "",
         mesFinEducacion: "",
       });
+    } else {
+      if (!newEducation.estudios.length) {
+        setDataNewEducation({
+          ...dataNewEducation,
+          ["estudios"]: ["estudios: Seleccione todos los campos"],
+        });
+      }
+
+      if (!newEducation.estado) {
+        setDataNewEducation({
+          ...dataNewEducation,
+          ["estado"]: ["estado: Seleccione todos los campos"],
+        });
+      }
+
+      if (!newEducation.carrera) {
+        setDataNewEducation({
+          ...dataNewEducation,
+          ["carrera"]: ["carrera: Seleccione todos los campos"],
+        });
+      }
+
+      if (!newEducation.anioInicioEducacion) {
+        setDataNewEducation({
+          ...dataNewEducation,
+          ["anioInicioEducacion"]: ["año inicio: Seleccione todos los campos"],
+        });
+      }
+
+      if (!newEducation.anioFinEducacion) {
+        setDataNewEducation({
+          ...dataNewEducation,
+          ["anioFinEducacion"]: ["año fin: Seleccione todos los campos"],
+        });
+      }
+
+      if (!newEducation.mesInicioEducacion) {
+        setDataNewEducation({
+          ...dataNewEducation,
+          ["mesInicioEducacion"]: ["mes inicio : Seleccione todos los campos"],
+        });
+      }
     }
   };
 
@@ -266,6 +340,8 @@ function FormRegister({
         descripcionExperiencia: "",
         zonaEmpresa: "",
       });
+    } else {
+      alert("Debes llenar todos los campos para agregar una experiencia");
     }
   };
 
@@ -327,10 +403,10 @@ function FormRegister({
       ciudad: [] as string[],
       provincia: [] as string[],
       linkedin: [] as string[],
-      idiomas: [] as string[],
-      cursos: [] as string[],
       education: [] as string[],
       experience: [] as string[],
+      cursos: [] as string[],
+      idiomas: [] as string[],
       color: [] as string[],
       template: [] as string[],
     } as Errors,
@@ -686,7 +762,7 @@ function FormRegister({
                       details={[
                         edu.zonaInstitucion,
                         `${edu.carrera}, ${edu.estado}`,
-                        `${edu.anioInicioEducacion} - ${edu.anioFinEducacion}`,
+                        `${edu.mesInicioEducacion}/${edu.anioInicioEducacion} - ${edu.mesFinEducacion}/${edu.anioFinEducacion}`,
                       ]}
                       onDelete={() => removeEducation(index)}
                     />
@@ -745,6 +821,12 @@ function FormRegister({
                     />
 
                     <div className="flex gap-2">
+                      <MonthSelect
+                        name="mesInicioEducacion"
+                        label="Mes de inicio"
+                        value={newEducation.mesInicioEducacion}
+                        onChange={handleEducationChange}
+                      />
                       <YearSelect
                         name="anioInicioEducacion"
                         label="Año de inicio"
@@ -753,18 +835,19 @@ function FormRegister({
                         startYear={currentYear - 50}
                         endYear={currentYear}
                       />
-
-                      <MonthSelect
-                        name="mesInicioEducacion"
-                        label="Mes de inicio"
-                        value={newEducation.mesInicioEducacion}
-                        onChange={handleEducationChange}
-                      />
                     </div>
                     <div className="flex gap-2">
+                      <MonthSelect
+                        name="mesFinEducacion"
+                        label="Mes de finalización"
+                        value={newEducation.mesFinEducacion}
+                        onChange={handleEducationChange}
+                        disabled={newEducation.anioInicioEducacion === ""}
+                      />
+
                       <YearSelect
                         name="anioFinEducacion"
-                        label="Año de finalización"
+                        label="Año de finalización/previsto"
                         value={newEducation.anioFinEducacion}
                         onChange={handleEducationChange}
                         startYear={
@@ -775,19 +858,28 @@ function FormRegister({
                         disabled={newEducation.anioInicioEducacion === ""}
                         includeActualidad={newEducation.estado === "PROCESO"}
                       />
-
-                      <MonthSelect
-                        name="mesFinEducacion"
-                        label="Mes de finalización"
-                        value={newEducation.mesFinEducacion}
-                        onChange={handleEducationChange}
-                        disabled={
-                          newEducation.anioFinEducacion === "" ||
-                          newEducation.anioFinEducacion === "Actualidad"
-                        }
-                      />
                     </div>
                   </div>
+
+                  {(dataNewEducation.estudios ||
+                    dataNewEducation.carrera ||
+                    dataNewEducation.institucion ||
+                    dataNewEducation.anioInicioEducacion ||
+                    dataNewEducation.mesInicioEducacion ||
+                    dataNewEducation.anioFinEducacion) && (
+                    <>
+                      <ErrorComponent arr={dataNewEducation.estudios} />
+                      <ErrorComponent arr={dataNewEducation.carrera} />
+                      <ErrorComponent arr={dataNewEducation.institucion} />
+                      <ErrorComponent
+                        arr={dataNewEducation.anioInicioEducacion}
+                      />
+                      <ErrorComponent
+                        arr={dataNewEducation.mesInicioEducacion}
+                      />
+                      <ErrorComponent arr={dataNewEducation.anioFinEducacion} />
+                    </>
+                  )}
                 </WrapperSectionInput>
 
                 <div className="bg-gray-50 dark:bg-gray-800/50">
@@ -837,7 +929,7 @@ function FormRegister({
                       details={[
                         exp.zonaEmpresa,
                         exp.descripcionExperiencia,
-                        `${exp.anioInicioExperiencia} - ${exp.anioFinExperiencia}`,
+                        `${exp.mesInicioExperiencia}/${exp.anioInicioExperiencia} - ${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`,
                       ]}
                       onDelete={() => removeExperience(index)}
                     />
@@ -879,68 +971,14 @@ function FormRegister({
                       fullColInput={true}
                     />
 
-                    {/* <div className="">
-                      <label
-                        htmlFor="anioInicioExperiencia"
-                        className="block mb-1 text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
-                      >
-                        Año de inicio
-                      </label>
-                      <select
-                        id="anioInicioExperiencia"
-                        name="anioInicioExperiencia"
-                        className="w-full px-3 text-sm py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        onChange={handleExperienceChange}
-                        value={newExperience.anioInicioExperiencia}
-                      >
-                        <option value={""} hidden>
-                          Seleccione año
-                        </option>
-
-                        {arr.map((e, i) => {
-                          return (
-                            <option key={`${e}-${i}`} value={e}>
-                              {e}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div> */}
-
-                    {/* <div className="">
-                      <label
-                        htmlFor="anioFinExperiencia"
-                        className="block mb-1 text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
-                      >
-                        Año de finalización*
-                      </label>
-                      <select
-                        id="anioFinExperiencia"
-                        name="anioFinExperiencia"
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        onChange={handleExperienceChange}
-                        value={newExperience.anioFinExperiencia}
-                        disabled={newExperience.anioInicioExperiencia === ""}
-                      >
-                        <option value={""} hidden>
-                          Seleccione año
-                        </option>
-
-                        <option value={"Actualidad"}>Actualidad</option>
-
-                        {arr.map((e, i) => {
-                          return newExperience.anioInicioExperiencia <= e ? (
-                            <option key={`${e}-${i}`} value={e}>
-                              {e}
-                            </option>
-                          ) : (
-                            ""
-                          );
-                        })}
-                      </select>
-                    </div> */}
-
                     <div className="flex gap-2">
+                      <MonthSelect
+                        name="mesInicioExperiencia"
+                        label="Mes de inicio"
+                        value={newExperience.mesInicioExperiencia}
+                        onChange={handleExperienceChange}
+                      />
+
                       <YearSelect
                         name="anioInicioExperiencia"
                         label="Año de inicio"
@@ -949,15 +987,15 @@ function FormRegister({
                         startYear={currentYear - 50}
                         endYear={currentYear}
                       />
-
-                      <MonthSelect
-                        name="mesInicioExperiencia"
-                        label="Mes de inicio"
-                        value={newExperience.mesInicioExperiencia}
-                        onChange={handleExperienceChange}
-                      />
                     </div>
                     <div className="flex gap-2">
+                      <MonthSelect
+                        name="mesFinExperiencia"
+                        label="Mes de finalización"
+                        value={newExperience.mesFinExperiencia}
+                        onChange={handleExperienceChange}
+                        disabled={newExperience.anioInicioExperiencia === ""}
+                      />
                       <YearSelect
                         name="anioFinExperiencia"
                         label="Año de finalización"
@@ -970,17 +1008,6 @@ function FormRegister({
                         endYear={currentYear}
                         disabled={newExperience.anioInicioExperiencia === ""}
                         includeActualidad={true}
-                      />
-
-                      <MonthSelect
-                        name="mesFinExperiencia"
-                        label="Mes de finalización"
-                        value={newExperience.mesFinExperiencia}
-                        onChange={handleExperienceChange}
-                        disabled={
-                          newExperience.anioFinExperiencia === "" ||
-                          newExperience.anioFinExperiencia === "Actualidad"
-                        }
                       />
                     </div>
 
@@ -1046,7 +1073,10 @@ function FormRegister({
                     <InfoCard
                       key={`${index}-cursos`}
                       title={curso.curso}
-                      details={[curso.institucion, curso.anioInicioCurso]}
+                      details={[
+                        curso.institucion,
+                        `${curso.mesInicioCurso}/${curso.anioInicioCurso}`,
+                      ]}
                       onDelete={() => removeCursos(index)}
                     />
                   ))}
@@ -1076,33 +1106,13 @@ function FormRegister({
                       type="text"
                     />
 
-                    {/* <div className="">
-                      <label
-                        htmlFor="anioInicioCurso"
-                        className="block text-xs mb-1 font-medium text-gray-900 dark:text-gray-400 capitalize"
-                      >
-                        Año de inicio
-                      </label>
-                      <select
-                        id="anioInicioCurso"
-                        name="anioInicioCurso"
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        value={newCursos.anioInicioCurso}
-                        onChange={handleCursoChange}
-                      >
-                        <option value={""}>Seleccione año</option>
-
-                        {arr.map((e, i) => {
-                          return (
-                            <option key={`${e}-${i}`} value={e}>
-                              {e}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    </div> */}
-
                     <div className="flex gap-2">
+                      <MonthSelect
+                        name="mesInicioCurso"
+                        label="Mes de inicio"
+                        value={newCursos.mesInicioCurso}
+                        onChange={handleCursoChange}
+                      />
                       <YearSelect
                         name="anioInicioCurso"
                         label="Año de inicio"
@@ -1111,21 +1121,8 @@ function FormRegister({
                         startYear={currentYear - 50}
                         endYear={currentYear}
                       />
-
-                      <MonthSelect
-                        name="mesInicioCurso"
-                        label="Mes de inicio"
-                        value={newCursos.mesInicioCurso}
-                        onChange={handleCursoChange}
-                      />
                     </div>
                   </div>
-
-                  {/* {(dataResponse.errors.cursos.length > 0 || cvData.idiomas.some((e: any) => e.idioma.length > 30) || newIdioma.idioma.length > 30)  && (
-                    <>
-                      <ErrorComponent arr={['El nombre del idioma puede contener hasta 30 caracteres']} />
-                    </>
-                  )} */}
                 </WrapperSectionInput>
                 <div className=" bg-gray-50 dark:bg-gray-800/50 ">
                   <CountArrayForm cantidad={cvData.cursos.length} />
@@ -1186,31 +1183,6 @@ function FormRegister({
                       requiered={false}
                       type="text"
                     />
-
-                    {/* <div className="">
-                      <label
-                        htmlFor="idioma_nivel"
-                        className="block text-xs mb-1 font-medium text-gray-900 dark:text-gray-400 capitalize"
-                      >
-                        Nivel{" "}
-                      </label>
-                      <select
-                        id="idioma_nivel"
-                        name="nivel"
-                        className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                        value={newIdioma.nivel}
-                        onChange={handleIdiomaChange}
-                      >
-                        <option value={""} hidden>
-                          Seleccione nivel
-                        </option>
-
-                        <option value={"BASICO"}>Básico</option>
-                        <option value={"INTERMEDIO"}>Intermedio</option>
-                        <option value={"AVANZADO"}>Avanzado</option>
-                        <option value={"NATIVO"}>Nativo</option>
-                      </select>
-                    </div> */}
                     <SelectInputComponent
                       onChange={handleIdiomaChange}
                       value={newIdioma.nivel}

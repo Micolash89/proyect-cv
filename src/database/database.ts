@@ -144,7 +144,9 @@ export async function getUserId(id: number) {
             institucion: true,
             ubicacion: true,
             fechaIngreso: true,
+            mesIngreso: true,
             fechaEgreso: true,
+            mesEgreso: true,
           },
         },
         experiencias: {
@@ -154,7 +156,9 @@ export async function getUserId(id: number) {
             puesto: true,
             ubicacion: true,
             fechaInicio: true,
+            mesInicio:true,
             fechaFin: true,
+            mesFin:true,
             descripcion: true,
           },
         },
@@ -171,6 +175,7 @@ export async function getUserId(id: number) {
             nombre: true,
             institucion: true,
             fechaInicio: true,
+            mesInicio:true,
           },
         },
         informacionAdicional: {

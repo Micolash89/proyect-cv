@@ -22,7 +22,9 @@ interface Estudio {
   institucion: string;
   zonaInstitucion: string;
   anioInicioEducacion: string;
+  mesInicioEducacion: string;
   anioFinEducacion: string;
+  mesFinEducacion: string;
 }
 
 export interface Experiencia {
@@ -30,7 +32,9 @@ export interface Experiencia {
   nombreEmpresa: string;
   zonaEmpresa: string;
   anioInicioExperiencia: string;
+  mesInicioExperiencia: string;
   anioFinExperiencia: string;
+  mesFinExperiencia: string;
   descripcionExperiencia: string;
 }
 
@@ -43,6 +47,7 @@ export interface Curso {
   curso: string;
   institucion: string;
   anioInicioCurso: string;
+  mesInicioCurso: string;
 }
 
 export interface cvTemplate {
@@ -121,7 +126,9 @@ export default function Home({ user }: { user?: UserDataBase }) {
           institucion: estudio.institucion,
           zonaInstitucion: estudio.ubicacion,
           anioInicioEducacion: estudio.fechaIngreso,
+          mesInicioEducacion: estudio.mesIngreso,
           anioFinEducacion: estudio.fechaEgreso,
+          mesFinEducacion: estudio.mesEgreso,
         })
       );
 
@@ -131,7 +138,9 @@ export default function Home({ user }: { user?: UserDataBase }) {
           nombreEmpresa: experiencia.nombre,
           zonaEmpresa: experiencia.ubicacion,
           anioInicioExperiencia: experiencia.fechaInicio,
+          mesInicioExperiencia: experiencia.mesInicio,
           anioFinExperiencia: experiencia.fechaFin,
+          mesFinExperiencia: experiencia.mesFin,
           descripcionExperiencia: experiencia.descripcion,
         })
       );
@@ -140,6 +149,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
         curso: curso.nombre,
         institucion: curso.institucion,
         anioInicioCurso: curso.fechaInicio,
+        mesInicioCurso: curso.mesInicio,
       }));
 
       const idiomas: Idioma[] = user.idiomas.map((idioma: IdiomaDataBase) => ({
@@ -169,11 +179,11 @@ export default function Home({ user }: { user?: UserDataBase }) {
         experience: experiencias || [],
         cursos: cursos || [],
         idiomas: idiomas || [],
-        licencia: user.informacionAdicional[0].licencia || "",
-        movilidad: user.informacionAdicional[0].movilidad || "",
-        incorporacion: user.informacionAdicional[0].incorporacion || "",
-        disponibilidad: user.informacionAdicional[0].disponibilidad || "",
-        office: user.informacionAdicional[0].office || "",
+        licencia: user.informacionAdicional[0]?.licencia || "",
+        movilidad: user.informacionAdicional[0]?.movilidad || "",
+        incorporacion: user.informacionAdicional[0]?.incorporacion || "",
+        disponibilidad: user.informacionAdicional[0]?.disponibilidad || "",
+        office: user.informacionAdicional[0]?.office || "",
         orientadoCV: user.orientacionCV || "",
         idCVTemplate:user.cvTemplate?.id || 0 ,
         template:user.cvTemplate?.template || 0,
@@ -222,8 +232,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
 
         {showCompleteInputs ? (
           <div>
-            {/* <PreviewCV cvData={cvData} iaData={iaData} /> */}
-
+      
             <div className="mt-7">
 
             <IARegister
@@ -256,7 +265,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
               setOptionsPDF={setOptionsPDF}
             />
 
-            <div className="max-w-4xl mx-auto h-[900px] mt-5">
+            <div className="max-w-4xl mx-auto h-[900px] my-5">
               <PDFViewer width="100%" height="100%">
                 <MyDocumentPDF
                   cvData={cvData}

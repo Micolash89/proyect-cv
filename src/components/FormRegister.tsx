@@ -250,48 +250,12 @@ function FormRegister({
         mesFinEducacion: "",
       });
     } else {
-      if (!newEducation.estudios.length) {
-        setDataNewEducation({
-          ...dataNewEducation,
-          ["estudios"]: ["estudios: Seleccione todos los campos"],
-        });
-      }
 
-      if (!newEducation.estado) {
-        setDataNewEducation({
-          ...dataNewEducation,
-          ["estado"]: ["estado: Seleccione todos los campos"],
-        });
-      }
-
-      if (!newEducation.carrera) {
-        setDataNewEducation({
-          ...dataNewEducation,
-          ["carrera"]: ["carrera: Seleccione todos los campos"],
-        });
-      }
-
-      if (!newEducation.anioInicioEducacion) {
-        setDataNewEducation({
-          ...dataNewEducation,
-          ["anioInicioEducacion"]: ["año inicio: Seleccione todos los campos"],
-        });
-      }
-
-      if (!newEducation.anioFinEducacion) {
-        setDataNewEducation({
-          ...dataNewEducation,
-          ["anioFinEducacion"]: ["año fin: Seleccione todos los campos"],
-        });
-      }
-
-      if (!newEducation.mesInicioEducacion) {
-        setDataNewEducation({
-          ...dataNewEducation,
-          ["mesInicioEducacion"]: ["mes inicio : Seleccione todos los campos"],
-        });
-      }
     }
+
+    console.log(dataNewEducation);
+    console.log(!newEducation.estudios.length);
+
   };
 
   const handleKeyDown = (
@@ -861,12 +825,12 @@ function FormRegister({
                     </div>
                   </div>
 
-                  {(dataNewEducation.estudios ||
-                    dataNewEducation.carrera ||
-                    dataNewEducation.institucion ||
-                    dataNewEducation.anioInicioEducacion ||
-                    dataNewEducation.mesInicioEducacion ||
-                    dataNewEducation.anioFinEducacion) && (
+                  {(dataNewEducation.estudios.length > 0 ||
+                    dataNewEducation.carrera.length > 0 ||
+                    dataNewEducation.institucion.length > 0 ||
+                    dataNewEducation.anioInicioEducacion.length > 0 ||
+                    dataNewEducation.mesInicioEducacion.length > 0 ||
+                    dataNewEducation.anioFinEducacion.length > 0) && (
                     <>
                       <ErrorComponent arr={dataNewEducation.estudios} />
                       <ErrorComponent arr={dataNewEducation.carrera} />
@@ -880,6 +844,8 @@ function FormRegister({
                       <ErrorComponent arr={dataNewEducation.anioFinEducacion} />
                     </>
                   )}
+
+                  
                 </WrapperSectionInput>
 
                 <div className="bg-gray-50 dark:bg-gray-800/50">

@@ -117,6 +117,17 @@ export interface Errors {
   [key: string]: string[];
 }
 
+ export interface EducationErrors {
+  estudios: string[];
+  estado: string[];
+  carrera: string[];
+  anioInicioEducacion: string[];
+  mesInicioEducacion: string[];
+  anioFinEducacion: string[];
+}
+
+
+
 export interface ArraySelectInput{
   value: string;
   name: string;

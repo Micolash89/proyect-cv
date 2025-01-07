@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React from "react";
 
 interface SelectInputProps {
@@ -8,6 +9,8 @@ interface SelectInputProps {
   options: { value: string; label: string }[];
   disabled?: boolean;
   placeholder?: string;
+  required?: boolean;
+  responseError?: boolean;
 }
 
 const SelectInput: React.FC<SelectInputProps> = ({
@@ -18,6 +21,8 @@ const SelectInput: React.FC<SelectInputProps> = ({
   options,
   disabled = false,
   placeholder = "Seleccione una opción",
+  required = false,
+  responseError = true,
 }) => {
   return (
     <div className="w-full gap-2 flex flex-col relative">
@@ -25,13 +30,21 @@ const SelectInput: React.FC<SelectInputProps> = ({
         htmlFor={name}
         className="block  w-full text-xs font-medium text-gray-900 dark:text-gray-400 capitalize"
       >
-        {label}
+        {label}{required && <sup>*</sup>}
       </label>
       <div className="relative">
         <select
           name={name}
           id={name}
-          className="w-full px-3 py-2 border border-gray-300 text-sm rounded-md dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white focus:border-transparent appearance-none "
+          className={clsx(
+            "w-full px-3 py-2 border text-sm rounded-md dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white focus:border-transparent appearance-none ",
+            {
+              "border-red-500 focus:border-red-500": !responseError,
+              "border-gray-300 focus:border-gray-500 dark:border-gray-600": responseError,
+              
+            
+            }
+          )}
           value={value}
           onChange={onChange}
           disabled={disabled}

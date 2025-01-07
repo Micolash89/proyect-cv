@@ -1,4 +1,3 @@
-import React from 'react';
 import SelectInput from './SelectInputYearcomponent';
 
 interface MonthSelectProps {
@@ -8,6 +7,8 @@ interface MonthSelectProps {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   disabled?: boolean;
   placeholder?: string;
+  required?: boolean;
+  responseError?: boolean;
 }
 
 const MonthSelect: React.FC<MonthSelectProps> = ({
@@ -16,7 +17,9 @@ const MonthSelect: React.FC<MonthSelectProps> = ({
   value,
   onChange,
   disabled = false,
-  placeholder = "Seleccione mes"
+  placeholder = "Seleccione mes",
+  required = false,
+  responseError = true
 }) => {
   const months = [
     { value: "1", label: "Enero" },
@@ -42,6 +45,8 @@ const MonthSelect: React.FC<MonthSelectProps> = ({
       options={months}
       disabled={disabled}
       placeholder={placeholder}
+      required={required}
+      responseError={responseError}
     />
   );
 };

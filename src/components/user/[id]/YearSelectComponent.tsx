@@ -12,6 +12,8 @@ interface YearSelectProps {
   disabled?: boolean;
   placeholder?: string;
   includeActualidad?: boolean;
+  required?: boolean;
+  responseError?: boolean;
 }
 
 const YearSelect: React.FC<YearSelectProps> = ({
@@ -23,7 +25,9 @@ const YearSelect: React.FC<YearSelectProps> = ({
   endYear,
   disabled = false,
   placeholder = "Seleccione año",
-  includeActualidad = false
+  includeActualidad = false,
+  required = false,
+  responseError = true,
 }) => {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i).reverse();
@@ -42,6 +46,8 @@ const YearSelect: React.FC<YearSelectProps> = ({
       options={options}
       disabled={disabled}
       placeholder={placeholder}
+      required={required}
+      responseError={responseError}
     />
   );
 };

@@ -292,8 +292,6 @@ function FormRegister({
       });
     }
 
-    console.log(dataNewEducation);
-    console.log(!newEducation.estudios.length);
   };
 
   const handleKeyDown = (
@@ -495,8 +493,8 @@ function FormRegister({
         .bind(null, result?.url || cvData.imagenPerfil)
         .bind(null, idUser)
         .bind(null, cvData.idCVTemplate);
-    } else {
-      newPost = postUsuarios
+      } else {
+        newPost = postUsuarios
         .bind(null, cvData.experience)
         .bind(null, cvData.cursos)
         .bind(null, cvData.education)
@@ -505,6 +503,8 @@ function FormRegister({
     }
 
     const postPromise = newPost(e);
+
+    console.log(cvData);
 
     toast.promise(postPromise, {
       loading: `${idUser ? "Actualizando " : "Registrando"} a ${cvData.name} ${

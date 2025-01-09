@@ -35,49 +35,87 @@ export default function CVTemplateSelector({
     };
 
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
-    const selectedTemplateIndex = templates.findIndex(t => t.id === cvData.template);
+    const selectedTemplateIndex = templates.findIndex(
+      (t) => t.id === cvData.template
+    );
     if (selectedTemplateIndex !== -1) {
-      setCurrentIndex(Math.floor(selectedTemplateIndex / itemsPerPage) * itemsPerPage);
+      setCurrentIndex(
+        Math.floor(selectedTemplateIndex / itemsPerPage) * itemsPerPage
+      );
     }
   }, [cvData.template, itemsPerPage]);
 
   const handleTemplateChange = (templateId: number) => {
-    const newTemplate = templates.find(e => e.id === templateId);
+    const newTemplate = templates.find((e) => e.id === templateId);
     if (newTemplate) {
-      updateCVData({ ...cvData, template: templateId, color: newTemplate.colors[0] });
+      updateCVData({
+        ...cvData,
+        template: templateId,
+        color: newTemplate.colors[0],
+      });
     }
   };
 
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      (prevIndex + itemsPerPage) >= templates.length ? 0 : prevIndex + itemsPerPage
-    );
+  const nextSlide = async () => {
+    setCurrentIndex((prevIndex) => {
+      const num =
+        prevIndex + itemsPerPage >= templates.length
+          ? 0
+          : prevIndex + itemsPerPage;
+
+      updateCVData({
+        ...cvData,
+        color: templates[num].colors[0],
+        template: templates[num].id,
+      });
+
+      return num;
+    });
   };
 
-  const prevSlide = () => {
+  const prevSlide = async () => {
     setCurrentIndex((prevIndex) => {
-      if (prevIndex === 0) {
-        return Math.max(templates.length - itemsPerPage, 0);
-      }
-      return Math.max(0, prevIndex - itemsPerPage);
+      const num =
+        prevIndex == 0
+          ? Math.max(templates.length - itemsPerPage, 0)
+          : Math.max(0, prevIndex - itemsPerPage);
+
+      updateCVData({
+        ...cvData,
+        color: templates[num].colors[0],
+        template: templates[num].id,
+      });
+
+      return num;
     });
   };
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
     exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
   };
 
   const slideVariants = {
-    hidden: (direction: number) => ({ x: direction > 0 ? 1000 : -1000, opacity: 0 }),
+    hidden: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+    }),
     visible: { x: 0, opacity: 1, transition: { duration: 0.5 } },
-    exit: (direction: number) => ({ x: direction > 0 ? -1000 : 1000, opacity: 0, transition: { duration: 0.5 } }),
+    exit: (direction: number) => ({
+      x: direction > 0 ? -1000 : 1000,
+      opacity: 0,
+      transition: { duration: 0.5 },
+    }),
   };
 
   return (
@@ -102,44 +140,61 @@ export default function CVTemplateSelector({
                 variants={slideVariants}
                 custom={currentIndex > 0 ? 1 : -1}
               >
-                {templates.slice(currentIndex, currentIndex + itemsPerPage).map((template) => (
-                  <div key={template.id} className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 p-2">
-                    <div className="relative">
-                      <input
-                        type="radio"
-                        id={`${template.id}`}
-                        name="template"
-                        value={template.id}
-                        checked={cvData.template === template.id}
-                        onChange={() => handleTemplateChange(template.id)}
-                        className="sr-only"
-                      />
-                      <label
-                        htmlFor={`${template.id}`}
-                        className={`block w-full h-[300px] cursor-pointer border-2 rounded-lg overflow-hidden transition-all ${
-                          cvData.template === template.id
-                            ? " ring-8 ring-blue-500"
-                            : " hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 "
-                        }`}
-                      >
-                        <Image
-                          fill
-                          src={template.image}
-                          alt={`Template ${template.id}`}
-                          className="w-full h-[300px] rounded-lg object-cover object-top" 
+                {templates
+                  .slice(currentIndex, currentIndex + itemsPerPage)
+                  .map((template) => (
+                    <div
+                      key={template.id}
+                      className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 p-2"
+                    >
+                      <div className="relative">
+                        <input
+                          type="radio"
+                          id={`${template.id}`}
+                          name="template"
+                          value={template.id}
+                          checked={cvData.template === template.id}
+                          onChange={() => handleTemplateChange(template.id)}
+                          className="sr-only"
                         />
-                      </label>
+                        <label
+                          htmlFor={`${template.id}`}
+                          className={`block w-full h-[300px] cursor-pointer border-2 rounded-lg overflow-hidden transition-all ${
+                            cvData.template === template.id
+                              ? " ring-8 ring-blue-500"
+                              : " hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 "
+                          }`}
+                        >
+                          <Image
+                            fill
+                            sizes="100%"
+                            src={template.image}
+                            alt={`Template ${template.id}`}
+                            className="w-full h-[300px] rounded-lg object-cover object-top"
+                          />
+                        </label>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </motion.div>
               <button
                 onClick={prevSlide}
                 type="button"
                 className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 border dark:border-gray-300  border-gray-700 rounded-full p-2 focus:outline-none dark:bg-gray-400 dark:bg-opacity-70"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
                 </svg>
               </button>
               <button
@@ -147,8 +202,19 @@ export default function CVTemplateSelector({
                 type="button"
                 className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 hover:bg-opacity-75 border dark:border-gray-300 border-gray-700 rounded-full p-2 focus:outline-none dark:bg-gray-400 dark:bg-opacity-70"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </button>
             </div>
@@ -159,8 +225,8 @@ export default function CVTemplateSelector({
             <div className="flex flex-wrap gap-2">
               {templates
                 .find((t) => t.id === cvData.template)
-                ?.colors.map((color) => (
-                  <div key={color} className="relative p-3">
+                ?.colors.map((color, index) => (
+                  <div key={`${color}-${index}`} className="relative p-3">
                     <input
                       type="radio"
                       id={color}
@@ -171,15 +237,13 @@ export default function CVTemplateSelector({
                       className="sr-only"
                     />
                     <label
+                      title={color}
                       htmlFor={color}
                       className={`block w-8 h-8 rounded-full cursor-pointer transition-all ${
                         cvData.color === color
                           ? "ring-8 border-0 ring-offset-2 ring-blue-500"
                           : "border hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 "
                       }`}
-                      // `dsa`                            ? " ring-4 ring-blue-500"
-                            // : "outline-gray-200 hover:outline-blue-300 hover:outline-2 outline-2 outline "
-
                       style={{ backgroundColor: color }}
                     >
                       <span className="sr-only">Color {color}</span>
@@ -193,4 +257,3 @@ export default function CVTemplateSelector({
     </motion.section>
   );
 }
-

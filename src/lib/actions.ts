@@ -471,7 +471,7 @@ export async function updateUser(
           movilidad: movilidad ? (movilidad as string) : "",
           incorporacion: incorporacion ? (incorporacion as string) : "",
           office: office ? (office as string) : "",
-          disponibilidad: disponibilidad as DisponibilidadEnum,
+          disponibilidad: disponibilidad? disponibilidad as DisponibilidadEnum:"NINGUNO",
           idUsuario: user.id,
         },
       });

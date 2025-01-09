@@ -84,7 +84,7 @@ model InformacionAdicional {
   movilidad      String             @default("")
   incorporacion  String             @default("")
   office         String             @default("")
-  disponibilidad DisponibilidadEnum
+  disponibilidad DisponibilidadEnum 
   idUsuario      Int
   usuario        User               @relation(fields: [idUsuario], references: [id], name: "UserInformacionAdicional")
 }
@@ -119,6 +119,7 @@ enum NivelIdiomaEnum {
 enum DisponibilidadEnum {
   FULLTIME
   PARTTIME
+  NINGUNO
 }
 
 model Administrador {

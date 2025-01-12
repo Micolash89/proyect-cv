@@ -159,10 +159,10 @@ export default function CVTemplateSelector({
                         />
                         <label
                           htmlFor={`${template.id}`}
-                          className={`block w-full h-[300px] cursor-pointer border-2 rounded-lg overflow-hidden transition-all ${
+                          className={`block w-full h-[300px] cursor-pointer  rounded-lg overflow-hidden transition-all  ${
                             cvData.template === template.id
                               ? " ring-8 ring-blue-500"
-                              : " hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 "
+                              : " hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 dark:hover:ring-blue-600 ring-2 ring-offset-2 ring-gray-100 dark:ring-gray-800 shadow-sm"
                           }`}
                         >
                           <Image
@@ -242,7 +242,7 @@ export default function CVTemplateSelector({
                       className={`block w-8 h-8 rounded-full cursor-pointer transition-all ${
                         cvData.color === color
                           ? "ring-8 border-0 ring-offset-2 ring-blue-500"
-                          : "border hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 "
+                          : "border hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 ring-1 ring-gray-100 dark:ring-gray-800"
                       }`}
                       style={{ backgroundColor: color }}
                     >

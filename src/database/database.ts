@@ -9,18 +9,19 @@ const ITEMS_PER_PAGE = 7;
 
 export async function getAllUsers() {
   try {
-    prisma.$connect();
+    await prisma.$connect();
     const users = await prisma.user.findMany();
     return users;
   } catch (error) {
     console.error(error);
   } finally {
-    prisma.$disconnect();
+    await prisma.$disconnect();
   }
 }
 
 export async function fetchRegistrosPages(query: string) {
   try {
+    await prisma.$connect();
     const users = await prisma.user.findMany({
       where: {
         OR: [
@@ -35,7 +36,7 @@ export async function fetchRegistrosPages(query: string) {
         ],
       },
     });
-
+    
     //   `SELECT COUNT(*)
     //   FROM invoices
     //   JOIN customers ON invoices.customer_id = customers.id
@@ -46,11 +47,13 @@ export async function fetchRegistrosPages(query: string) {
     //     invoices.date::text ILIKE ${`%${query}%`} OR
     //     invoices.status ILIKE ${`%${query}%`}
     // `;
-
+    
     const totalPages = Math.ceil(Number(users.length) / ITEMS_PER_PAGE);
+    await prisma.$disconnect();
     return totalPages;
   } catch (error) {
     console.error("Database Error:", error);
+    prisma.$disconnect();
     throw new Error("Failed to fetch total number of invoices.");
   }
 }
@@ -62,6 +65,7 @@ export async function fetchFilteredUsers(query: string, currentPage: number) {
   const filter: string = query.replaceAll(" ", "");
 
   try {
+    await prisma.$connect();
     const users = await prisma.user.findMany({
       where: {
         OR: [
@@ -106,9 +110,10 @@ export async function fetchFilteredUsers(query: string, currentPage: number) {
       take: ITEMS_PER_PAGE,
       skip: offset,
     });
-
+    await prisma.$disconnect();
     return users;
   } catch (error) {
+    await prisma.$disconnect();
     console.error("Database Error:", error);
     throw new Error("Failed to fetch users.");
   }
@@ -117,6 +122,7 @@ export async function fetchFilteredUsers(query: string, currentPage: number) {
 /*falta ahcer el join con todas las tablas*/
 export async function getUserId(id: number) {
   try {
+    await prisma.$connect();
     const user = await prisma.user.findUnique({
       where: {
         id: id as number,
@@ -196,9 +202,10 @@ export async function getUserId(id: number) {
         },
       },
     });
-    
+    await prisma.$disconnect();
     return user;
   } catch (error) {
+    await prisma.$disconnect();
     console.error("Database Error:", error);
     return null;
   }
@@ -206,6 +213,7 @@ export async function getUserId(id: number) {
 
 export const  changeStateUser = async (id: number) => {
   try {
+    await prisma.$connect();
     await prisma.user.update({
       where: {
         id: id as number,
@@ -217,6 +225,7 @@ export const  changeStateUser = async (id: number) => {
 
     revalidatePath("/dashboard");
   } catch (error) {
+    await prisma.$disconnect();
     console.error("Database Error:", error);
   }
 };

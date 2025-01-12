@@ -14,7 +14,7 @@ export default async function UserTable({
   const users = await fetchFilteredUsers(query, currentPage);
 
     return (
-    <div className="mt-6 flow-root">
+    <div className="mt-6 flow-root ">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 dark:bg-gray-800 text-black dark:text-white  md:pt-0 duration-500">
           <div className="lg:hidden">

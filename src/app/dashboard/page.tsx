@@ -1,3 +1,4 @@
+import ErrorDatabase from "@/components/dashboard/ErrorDataBase";
 import Pagination from "@/components/dashboard/Pagination";
 import Search from "@/components/dashboard/Search";
 import Table from "@/components/dashboard/Table";
@@ -17,16 +18,15 @@ export default async function Page({
   try {
     totalPages = await fetchRegistrosPages(query);
   } catch (error) {
-    // pagina de error de trows
     return (
       <>
-        <h2>error en la carga base de datos</h2>
+        <ErrorDatabase/>
       </>
     );
   }
-
+  
   return (
-    <section className="container mx-auto w-full mt-5 ">
+    <section className="container mx-auto w-full my-5 ">
       <div className="w-full flex-grow p-5 lg:p-5 bg-white dark:bg-gray-900 rounded-lg shadow-md duration-500">
         <h1
           className={` text-black dark:text-white text-2xl lg:text-4xl font-bold text-center lg:text-left`}

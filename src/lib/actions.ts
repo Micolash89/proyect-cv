@@ -296,6 +296,8 @@ export async function updateUser(
   formData: FormData
 ) {
 
+  console.log("imagen perfil",imagenPerfil);
+
   const UpdateUserData = UpdateUsuario.safeParse({
     id: idUser,
     ...Object.fromEntries(formData),
@@ -303,7 +305,7 @@ export async function updateUser(
     cursos: cursos1,
     experience,
     idiomas,
-    imagenPerfil,
+    imagenPerfil: imagenPerfil?imagenPerfil:"",
     idCVTemplate,
   });
 

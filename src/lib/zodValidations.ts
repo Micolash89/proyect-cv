@@ -27,7 +27,8 @@ const CreateSchemaUsuario = z.object({
   fechaNacimiento: z.coerce.date({
     message: "Seleccione una fecha de nacimiento",
   }),
-  imagenPerfil: z.string({ message: "Seleccione una imagen" }).optional(),
+  imagenPerfil: z.string({ message: "Seleccione una imagen" })
+  .optional(),
   phone: z
     .string({ message: "Ingrese un teléfono" })
     .min(6, "Teléfono: debe tener al menos 6 caracteres")

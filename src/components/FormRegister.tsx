@@ -74,16 +74,11 @@ function FormRegister({
   const handleInputChangeCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked, value } = e.target;
 
-    console.log("name", name);
-    console.log("checked", checked);
-    console.log("value", value);
-
     updateCVData((prevData: any) => ({
       ...prevData,
       [name]: checked ? name : "",
     }));
 
-    console.log("cvData", cvData.incorporacion);
   };
 
   const [imageFile, setImageFile] = useState<File | null>(null);

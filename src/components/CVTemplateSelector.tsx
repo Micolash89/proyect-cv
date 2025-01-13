@@ -219,10 +219,10 @@ export default function CVTemplateSelector({
               </button>
             </div>
 
-            <h3 className="text-xl font-semibold mb-2 capitalize text-black dark:text-white mt-6">
+            <h3 className="text-xl font-semibold mb-2 capitalize text-black dark:text-white mt-6 text-center sm:text-left">
               Seleccionar color
             </h3>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 justify-center sm:justify-start ">
               {templates
                 .find((t) => t.id === cvData.template)
                 ?.colors.map((color, index) => (
@@ -239,7 +239,7 @@ export default function CVTemplateSelector({
                     <label
                       title={color}
                       htmlFor={color}
-                      className={`block w-8 h-8 rounded-full cursor-pointer transition-all ${
+                      className={`block w-8 h-8 rounded-full cursor-pointer transition-all  ${
                         cvData.color === color
                           ? "ring-8 border-0 ring-offset-2 ring-blue-500"
                           : "border hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 ring-1 ring-gray-100 dark:ring-gray-800"

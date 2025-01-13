@@ -98,7 +98,7 @@ export default function WrapperH2Section({
 
   return (
     <div className="flex items-center justify-start  flex-col w-full mb-4">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white capitalize flex items-center gap-3">
+      <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white capitalize flex items-center gap-3">
         <div className="h-8 w-8 flex items-center justify-center bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-lg">
           {icon[title]}
         </div>

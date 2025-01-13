@@ -27,8 +27,7 @@ const CreateSchemaUsuario = z.object({
   fechaNacimiento: z.coerce.date({
     message: "Seleccione una fecha de nacimiento",
   }),
-  imagenPerfil: z.string({ message: "Seleccione una imagen" })
-  .optional(),
+  imagenPerfil: z.string({ message: "Seleccione una imagen" }).optional(),
   phone: z
     .string({ message: "Ingrese un teléfono" })
     .min(6, "Teléfono: debe tener al menos 6 caracteres")
@@ -55,11 +54,11 @@ const CreateSchemaUsuario = z.object({
   education: z.array(
     z.object({
       carrera: z
-        .string({ message: "seleccione la carrera" })
+        .string({ message: "Ingrese el nombre de la carrera/titulo" })
         .max(60, "la carrera puede contener hasta 60 caracteres"),
       estado: z.string({ message: "Seleccione el estado" }),
       estudios: z
-        .string()
+        .string({ message: "Ingrese el nivel del estudio" })
         .max(25, "Los estudios pueden contener hasta 25 caracteres"),
       institucion: z
         .string()
@@ -73,13 +72,20 @@ const CreateSchemaUsuario = z.object({
       anioFinEducacion: z.string({
         message: "Seleccione el año de fin de los estudios",
       }),
-      mesInicioEducacion
-      : z.string({ message: "Seleccione el mes de inicio de los estudios" })
-      .max(2, "El mes de inicio de los estudios puede contener hasta 2 caracteres")
-      .optional(),
-      mesFinEducacion: z.string({ message: "Seleccione el mes de fin de los estudios" })
-      .max(2, "El mes de fin de los estudios puede contener hasta 2 caracteres")
-      .optional(),
+      mesInicioEducacion: z
+        .string({ message: "Seleccione el mes de inicio de los estudios" })
+        .max(
+          2,
+          "El mes de inicio de los estudios puede contener hasta 2 caracteres"
+        )
+        .optional(),
+      mesFinEducacion: z
+        .string({ message: "Seleccione el mes de fin de los estudios" })
+        .max(
+          2,
+          "El mes de fin de los estudios puede contener hasta 2 caracteres"
+        )
+        .optional(),
     })
   ),
   experience: z.array(
@@ -93,22 +99,27 @@ const CreateSchemaUsuario = z.object({
         .max(25, "El puesto puede contener hasta 25 caracteres"),
       zonaEmpresa: z
         .string()
-        .max(25, "El puesto puede contener hasta 25 caracteres"),
+        .max(25, "El puesto puede contener hasta 25 caracteres")
+        .optional(),
       anioInicioExperiencia: z
         .string()
-        .min(4, "Seleccione el año de inicio de la experiencia")
-        .optional(),
+        .min(4, "Seleccione el año de inicio de la experiencia"),
       mesInicioExperiencia: z
-      .string()
-      .max(2, "El mes de inicio de la experiencia puede contener hasta 2 caracteres")
-      .optional(),
+        .string()
+        .max(
+          2,
+          "El mes de inicio de la experiencia puede contener hasta 2 caracteres"
+        ),
       anioFinExperiencia: z
-      .string()
-      .min(4, "Seleccione el año de fin de la experiencia"),
+        .string()
+        .min(4, "Seleccione el año de fin de la experiencia"),
       mesFinExperiencia: z
-      .string()
-      .max(2, "El mes de fin de la experiencia puede contener hasta 2 caracteres")
-      .optional(),
+        .string()
+        .max(
+          2,
+          "El mes de fin de la experiencia puede contener hasta 2 caracteres"
+        )
+        .optional(),
       descripcionExperiencia: z
         .string({
           message: "Debe ingresar una descripción",
@@ -121,11 +132,12 @@ const CreateSchemaUsuario = z.object({
       curso: z.string().min(4, "El curso debe de tener al menos 4 caracteres"),
       institucion: z
         .string()
-        .min(4, "La institución debe de tener al menos 4 caracteres"),
+        .min(4, "La institución debe de tener al menos 4 caracteres")
+        .optional(),
       anioInicioCurso: z
         .string()
         .min(4, "Seleccione el año de inicio del curso"),
-        mesInicioCurso: z
+      mesInicioCurso: z
         .string()
         .max(2, "El mes de inicio del curso puede contener hasta 2 caracteres")
         .optional(),

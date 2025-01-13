@@ -30,6 +30,7 @@ import SelectInputComponent from "./user/[id]/SelectInputComponent";
 import DateInput from "./user/[id]/DateInputComponent";
 import YearSelect from "./user/[id]/YearSelectComponent";
 import MonthSelect from "./user/[id]/SelectInputMouthComponent";
+import { validateEducation } from "@/lib/libs";
 
 type Section =
   | "personal"
@@ -168,7 +169,6 @@ function FormRegister({
     anioInicioExperiencia: [] as string[],
     mesInicioExperiencia: [] as string[],
     anioFinExperiencia: [] as string[],
-    mesFinExperiencia: [] as string[],
     descripcionExperiencia: [] as string[],
   });
 
@@ -226,67 +226,155 @@ function FormRegister({
     });
   };
 
+  // const addEducation = () => {
+  //   if (
+  //     newEducation.estudios &&
+  //     newEducation.estado &&
+  //     newEducation.carrera &&
+  //     newEducation.anioInicioEducacion &&
+  //     newEducation.mesInicioEducacion &&
+  //     newEducation.anioFinEducacion
+  //   ) {
+  //     updateCVData({ education: [...cvData.education, newEducation] });
+  //     setNewEducation({
+  //       estudios: "",
+  //       estado: "",
+  //       carrera: "",
+  //       institucion: "",
+  //       zonaInstitucion: "",
+  //       anioInicioEducacion: "",
+  //       anioFinEducacion: "",
+  //       mesInicioEducacion: "",
+  //       mesFinEducacion: "",
+  //     });
+  //   } else {
+  //     let errors = {
+  //       estudios: [] as string[],
+  //       estado: [] as string[],
+  //       carrera: [] as string[],
+  //       anioInicioEducacion: [] as string[],
+  //       mesInicioEducacion: [] as string[],
+  //       anioFinEducacion: [] as string[],
+  //     };
+
+  //     if (newEducation.carrera.length === 0) {
+  //       errors.carrera = ["ingrese nombre del titulo"];
+  //     }
+  //     if (newEducation.estudios.length === 0) {
+  //       errors.estudios = ["seleccione nivel de estudios/carrera"];
+  //     }
+
+  //     if (newEducation.estado.length === 0) {
+  //       errors.estado = ["seleccione el estado"];
+  //     }
+
+  //     if (newEducation.anioInicioEducacion.length === 0) {
+  //       errors.anioInicioEducacion = ["seleccione el año de inicio"];
+  //     }
+
+  //     if (newEducation.mesInicioEducacion.length === 0) {
+  //       errors.mesInicioEducacion = ["seleccione el mes de inicio"];
+  //     }
+
+  //     if (newEducation.anioFinEducacion.length === 0) {
+  //       errors.anioFinEducacion = ["seleccione el año de fin"];
+  //     }
+
+  //     setDataNewEducation({
+  //       ...dataNewEducation,
+  //       ...errors,
+  //     });
+  //   }
+
+  // };
+
+
+  // const addEducation = () => {
+  //   const validationRules = {
+  //     estudios: {
+  //       condition: (value: string) => value.length > 0,
+  //       message: "Seleccione nivel de estudios/carrera",
+  //     },
+  //     estado: {
+  //       condition: (value: string) => value.length > 0,
+  //       message: "Seleccione el estado",
+  //     },
+  //     carrera: {
+  //       condition: (value: string) => value.length > 0,
+  //       message: "Ingrese nombre del título",
+  //     },
+  //     anioInicioEducacion: {
+  //       condition: (value: string) => value.length > 0,
+  //       message: "Seleccione el año de inicio",
+  //     },
+  //     mesInicioEducacion: {
+  //       condition: (value: string) => value.length > 0,
+  //       message: "Seleccione el mes de inicio",
+  //     },
+  //     anioFinEducacion: {
+  //       condition: (value: string) => value.length > 0,
+  //       message: "Seleccione el año de fin",
+  //     },
+  //     // Ejemplo de nueva regla: carrera debe tener menos de 60 caracteres
+  //     // carreraLongitud: {
+  //     //   condition: (value: string) => value.length < 60,
+  //     //   message: "El nombre del título no debe exceder los 60 caracteres",
+  //     // },
+  //   };
+  
+  //   let errors: Record<string, string[]> = {};
+  
+  //   // Validamos cada regla definida
+  //   Object.entries(validationRules).forEach(([field, rule]) => {
+  //     if (!rule.condition((newEducation as any)[field])) {
+  //       errors[field] = [...(errors[field] || []), rule.message];
+  //     }
+  //   });
+  
+  //   // Si no hay errores, procedemos a agregar la educación
+  //   if (Object.keys(errors).length === 0) {
+  //     updateCVData({ education: [...cvData.education, newEducation] });
+  //     setNewEducation({
+  //       estudios: "",
+  //       estado: "",
+  //       carrera: "",
+  //       institucion: "",
+  //       zonaInstitucion: "",
+  //       anioInicioEducacion: "",
+  //       anioFinEducacion: "",
+  //       mesInicioEducacion: "",
+  //       mesFinEducacion: "",
+  //     });
+  //   } else {
+  //     setDataNewEducation({
+  //       ...dataNewEducation,
+  //       ...errors,
+  //     });
+  //   }
+  // };
+
   const addEducation = () => {
-    if (
-      newEducation.estudios &&
-      newEducation.estado &&
-      newEducation.carrera &&
-      newEducation.anioInicioEducacion &&
-      newEducation.mesInicioEducacion &&
-      newEducation.anioFinEducacion
-    ) {
+    const errors = validateEducation(newEducation);
+    
+    if (Object.keys(errors).length === 0) {
       updateCVData({ education: [...cvData.education, newEducation] });
       setNewEducation({
-        estudios: "",
-        estado: "",
-        carrera: "",
-        institucion: "",
-        zonaInstitucion: "",
-        anioInicioEducacion: "",
-        anioFinEducacion: "",
-        mesInicioEducacion: "",
-        mesFinEducacion: "",
+        carrera: '',
+        estudios: '',
+        estado: '',
+        institucion: '',
+        zonaInstitucion: '',
+        anioInicioEducacion: '',
+        anioFinEducacion: '',
+        mesInicioEducacion: '',
+        mesFinEducacion: '',
       });
     } else {
-      let errors = {
-        estudios: [] as string[],
-        estado: [] as string[],
-        carrera: [] as string[],
-        anioInicioEducacion: [] as string[],
-        mesInicioEducacion: [] as string[],
-        anioFinEducacion: [] as string[],
-      };
-
-      if (newEducation.estudios.length === 0) {
-        errors.estudios = ["seleccione la estudios"];
-      }
-
-      if (newEducation.estado.length === 0) {
-        errors.estado = ["seleccione el estado"];
-      }
-
-      if (newEducation.carrera.length === 0) {
-        errors.carrera = ["seleccione la carrera"];
-      }
-
-      if (newEducation.anioInicioEducacion.length === 0) {
-        errors.anioInicioEducacion = ["seleccione el año de inicio"];
-      }
-
-      if (newEducation.mesInicioEducacion.length === 0) {
-        errors.mesInicioEducacion = ["seleccione el mes de inicio"];
-      }
-
-      if (newEducation.anioFinEducacion.length === 0) {
-        errors.anioFinEducacion = ["seleccione el año de fin"];
-      }
-
       setDataNewEducation({
         ...dataNewEducation,
         ...errors,
       });
     }
-
   };
 
   const handleKeyDown = (
@@ -327,7 +415,7 @@ function FormRegister({
   };
 
   const addExperience = () => {
-    if (newExperience.nombreEmpresa && newExperience.puesto) {
+    if (newExperience.mesInicioExperiencia && newExperience.anioInicioExperiencia &&  newExperience.anioFinExperiencia && newExperience.puesto) {
       updateCVData({ experience: [...cvData.experience, newExperience] });
       setNewExperience({
         puesto: "",
@@ -345,7 +433,6 @@ function FormRegister({
         anioInicioExperiencia: [] as string[],
         mesInicioExperiencia: [] as string[],
         anioFinExperiencia: [] as string[],
-        mesFinExperiencia: [] as string[],
       };
 
       if (newExperience.puesto.length === 0) {
@@ -359,9 +446,6 @@ function FormRegister({
       }
       if (newExperience.anioFinExperiencia.length === 0) {
         errors.anioFinExperiencia = ["Seleccione año de fin"];
-      }
-      if (newExperience.mesFinExperiencia.length === 0) {
-        errors.mesFinExperiencia = ["Seleccione mes de fin"];
       }
 
       setDataNewExperience({
@@ -382,9 +466,13 @@ function FormRegister({
     } else {
       let errors = {
         curso: [] as string[],
+        anioInicioCurso: [] as string [],
       };
       if (!newCursos.curso) {
         errors.curso = ["ingrese el nombre del curso"];
+      }
+      if (!newCursos.anioInicioCurso) {
+        errors.anioInicioCurso = ["ingrese el año de inicio"];
       }
 
       setDataNewCursos({
@@ -1119,11 +1207,10 @@ function FormRegister({
                       ></textarea>
                     </div>
                   </div>
-                  {(dataNewExperience.puesto.length ||
-                    dataNewExperience.anioInicioExperiencia.length ||
-                    dataNewExperience.mesInicioExperiencia.length ||
-                    dataNewExperience.anioFinExperiencia.length ||
-                    dataNewExperience.mesFinExperiencia.length) && (
+                  {(dataNewExperience.puesto.length > 0 ||
+                    dataNewExperience.anioInicioExperiencia.length > 0 ||
+                    dataNewExperience.mesInicioExperiencia.length > 0 ||
+                    dataNewExperience.anioFinExperiencia.length > 0) && (
                     <>
                       <ErrorComponent arr={dataNewExperience.puesto} />
                       <ErrorComponent
@@ -1134,9 +1221,6 @@ function FormRegister({
                       />
                       <ErrorComponent
                         arr={dataNewExperience.anioFinExperiencia}
-                      />
-                      <ErrorComponent
-                        arr={dataNewExperience.mesFinExperiencia}
                       />
                     </>
                   )}
@@ -1230,13 +1314,18 @@ function FormRegister({
                         onChange={handleCursoChange}
                         startYear={currentYear - 50}
                         endYear={currentYear}
+                        required={true}
+                        responseError={
+                          dataNewCursos.anioInicioCurso.length == 0
+                        }
                       />
                     </div>
                   </div>
 
-                  {dataNewCursos.curso && (
+                  {(dataNewCursos.curso || dataNewCursos.anioInicioCurso) && (
                     <>
                       <ErrorComponent arr={dataNewCursos.curso} />
+                      <ErrorComponent arr={dataNewCursos.anioInicioCurso} />
                     </>
                   )}
                 </WrapperSectionInput>

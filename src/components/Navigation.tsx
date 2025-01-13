@@ -114,7 +114,7 @@ export default function Navigation() {
                 <polyline points="10 9 9 9 8 9"></polyline>
               </motion.svg>
               <motion.span
-                className="font-bold text-xl dark:text-white duration-500 "
+                className="font-bold hidden sm:block text-xl dark:text-white duration-500 "
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.5 }}

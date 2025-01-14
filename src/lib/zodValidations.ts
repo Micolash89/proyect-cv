@@ -15,7 +15,7 @@ const CreateSchemaUsuario = z.object({
   lastName: z
     .string({ message: "Ingrese un apellido" })
     .min(3, "Apellido: debe tener al menos 3 caracteres")
-    .max(15, "Apellido: puede contener hasta 15 caracteres")
+    .max(20, "Apellido: puede contener hasta 20 caracteres")
     .regex(
       /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\-\/]+$/,
       "Apellido: solo se permiten caracteres o espacios"
@@ -60,15 +60,14 @@ const CreateSchemaUsuario = z.object({
         .string({ message: "Ingrese el nombre de la carrera/titulo" })
         .max(60, "la carrera puede contener hasta 60 caracteres"),
       estado: z.string({ message: "Seleccione el estado" }),
-      estudios: z
-        .string({ message: "Ingrese el nivel del estudio" })
-        .max(25, "Los estudios pueden contener hasta 25 caracteres"),
       institucion: z
         .string()
         .max(60, "La institución pueden contener hasta 60 caracteres"),
       zonaInstitucion: z
         .string()
-        .min(4, "La ubicación debe de tener al menos 4 caracteres"),
+        .min(4, "La ubicación debe de tener al menos 4 caracteres")
+        .max(40, "La ubicación puede contener hasta 40 caracteres"),
+      estudios: z.string({ message: "Ingrese el nivel del estudio" }),
       anioInicioEducacion: z
         .string()
         .min(4, "Seleccione el año de inicio de los estudios"),
@@ -93,16 +92,16 @@ const CreateSchemaUsuario = z.object({
   ),
   experience: z.array(
     z.object({
-      nombreEmpresa: z
-        .string()
-        .max(25, "El nombre de la empresa puede contener hasta 25 caracteres")
-        .optional(),
       puesto: z
         .string()
-        .max(25, "El puesto puede contener hasta 25 caracteres"),
+        .max(40, "El puesto puede contener hasta 40 caracteres"),
+      nombreEmpresa: z
+        .string()
+        .max(35, "El nombre de la empresa puede contener hasta 35 caracteres")
+        .optional(),
       zonaEmpresa: z
         .string()
-        .max(25, "El puesto puede contener hasta 25 caracteres")
+        .max(40, "El puesto puede contener hasta 40 caracteres")
         .optional(),
       anioInicioExperiencia: z
         .string()
@@ -127,15 +126,16 @@ const CreateSchemaUsuario = z.object({
         .string({
           message: "Debe ingresar una descripción",
         })
+        .max(1000, "La descripción puede contener hasta 1000 caracteres")
         .optional(),
     })
   ),
   cursos: z.array(
     z.object({
-      curso: z.string().min(4, "El curso debe de tener al menos 4 caracteres"),
+      curso: z.string().max(60, "El curso puede contener hasta 60 caracteres"),
       institucion: z
         .string()
-        .min(4, "La institución debe de tener al menos 4 caracteres")
+        .max(60, "La institución puede contener hasta 60 caracteres")
         .optional(),
       anioInicioCurso: z
         .string()
@@ -151,7 +151,7 @@ const CreateSchemaUsuario = z.object({
       .object({
         idioma: z
           .string({ message: "Seleccione el idioma" })
-          .min(4, "El idiomas debe de tener al menos 4 caracteres")
+          .min(2, "El idiomas debe de tener al menos 2 caracteres")
           .max(30, "El idiomas puede contener hasta 30 caracteres"),
         nivel: z.string({ message: "Seleccione el nivel" }),
       })
@@ -162,7 +162,7 @@ const CreateSchemaUsuario = z.object({
   incorporacion: z.string({ message: "Seleccione una opción" }).optional(),
   disponibilidad: z.string({ message: "Seleccione una opción" }).optional(),
   office: z.string({ message: "Seleccione una opción" }).optional(),
-  orientadoCV: z.string({ message: "Ingrese una orientación" }).optional(),
+  orientadoCV: z.string({ message: "Ingrese una orientación" }).max(1000, "La orientación puede contener hasta 1000 caracteres").optional(),
   idCVTemplate: z.number({ message: "Falta ID del Template del CV" }),
   color: z.string({ message: "Seleccione un color" }),
   template: z.coerce.number({

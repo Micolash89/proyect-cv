@@ -30,7 +30,13 @@ import SelectInputComponent from "./user/[id]/SelectInputComponent";
 import DateInput from "./user/[id]/DateInputComponent";
 import YearSelect from "./user/[id]/YearSelectComponent";
 import MonthSelect from "./user/[id]/SelectInputMouthComponent";
-import { validateEducation } from "@/lib/libs";
+import {
+  validateCursos,
+  validateEducation,
+  validateExperience,
+  validateIdiomas,
+} from "@/lib/libs";
+import clsx from "clsx";
 
 type Section =
   | "personal"
@@ -79,7 +85,6 @@ function FormRegister({
       ...prevData,
       [name]: checked ? name : "",
     }));
-
   };
 
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -226,148 +231,21 @@ function FormRegister({
     });
   };
 
-  // const addEducation = () => {
-  //   if (
-  //     newEducation.estudios &&
-  //     newEducation.estado &&
-  //     newEducation.carrera &&
-  //     newEducation.anioInicioEducacion &&
-  //     newEducation.mesInicioEducacion &&
-  //     newEducation.anioFinEducacion
-  //   ) {
-  //     updateCVData({ education: [...cvData.education, newEducation] });
-  //     setNewEducation({
-  //       estudios: "",
-  //       estado: "",
-  //       carrera: "",
-  //       institucion: "",
-  //       zonaInstitucion: "",
-  //       anioInicioEducacion: "",
-  //       anioFinEducacion: "",
-  //       mesInicioEducacion: "",
-  //       mesFinEducacion: "",
-  //     });
-  //   } else {
-  //     let errors = {
-  //       estudios: [] as string[],
-  //       estado: [] as string[],
-  //       carrera: [] as string[],
-  //       anioInicioEducacion: [] as string[],
-  //       mesInicioEducacion: [] as string[],
-  //       anioFinEducacion: [] as string[],
-  //     };
-
-  //     if (newEducation.carrera.length === 0) {
-  //       errors.carrera = ["ingrese nombre del titulo"];
-  //     }
-  //     if (newEducation.estudios.length === 0) {
-  //       errors.estudios = ["seleccione nivel de estudios/carrera"];
-  //     }
-
-  //     if (newEducation.estado.length === 0) {
-  //       errors.estado = ["seleccione el estado"];
-  //     }
-
-  //     if (newEducation.anioInicioEducacion.length === 0) {
-  //       errors.anioInicioEducacion = ["seleccione el año de inicio"];
-  //     }
-
-  //     if (newEducation.mesInicioEducacion.length === 0) {
-  //       errors.mesInicioEducacion = ["seleccione el mes de inicio"];
-  //     }
-
-  //     if (newEducation.anioFinEducacion.length === 0) {
-  //       errors.anioFinEducacion = ["seleccione el año de fin"];
-  //     }
-
-  //     setDataNewEducation({
-  //       ...dataNewEducation,
-  //       ...errors,
-  //     });
-  //   }
-
-  // };
-
-
-  // const addEducation = () => {
-  //   const validationRules = {
-  //     estudios: {
-  //       condition: (value: string) => value.length > 0,
-  //       message: "Seleccione nivel de estudios/carrera",
-  //     },
-  //     estado: {
-  //       condition: (value: string) => value.length > 0,
-  //       message: "Seleccione el estado",
-  //     },
-  //     carrera: {
-  //       condition: (value: string) => value.length > 0,
-  //       message: "Ingrese nombre del título",
-  //     },
-  //     anioInicioEducacion: {
-  //       condition: (value: string) => value.length > 0,
-  //       message: "Seleccione el año de inicio",
-  //     },
-  //     mesInicioEducacion: {
-  //       condition: (value: string) => value.length > 0,
-  //       message: "Seleccione el mes de inicio",
-  //     },
-  //     anioFinEducacion: {
-  //       condition: (value: string) => value.length > 0,
-  //       message: "Seleccione el año de fin",
-  //     },
-  //     // Ejemplo de nueva regla: carrera debe tener menos de 60 caracteres
-  //     // carreraLongitud: {
-  //     //   condition: (value: string) => value.length < 60,
-  //     //   message: "El nombre del título no debe exceder los 60 caracteres",
-  //     // },
-  //   };
-  
-  //   let errors: Record<string, string[]> = {};
-  
-  //   // Validamos cada regla definida
-  //   Object.entries(validationRules).forEach(([field, rule]) => {
-  //     if (!rule.condition((newEducation as any)[field])) {
-  //       errors[field] = [...(errors[field] || []), rule.message];
-  //     }
-  //   });
-  
-  //   // Si no hay errores, procedemos a agregar la educación
-  //   if (Object.keys(errors).length === 0) {
-  //     updateCVData({ education: [...cvData.education, newEducation] });
-  //     setNewEducation({
-  //       estudios: "",
-  //       estado: "",
-  //       carrera: "",
-  //       institucion: "",
-  //       zonaInstitucion: "",
-  //       anioInicioEducacion: "",
-  //       anioFinEducacion: "",
-  //       mesInicioEducacion: "",
-  //       mesFinEducacion: "",
-  //     });
-  //   } else {
-  //     setDataNewEducation({
-  //       ...dataNewEducation,
-  //       ...errors,
-  //     });
-  //   }
-  // };
-
   const addEducation = () => {
     const errors = validateEducation(newEducation);
-    
+
     if (Object.keys(errors).length === 0) {
       updateCVData({ education: [...cvData.education, newEducation] });
       setNewEducation({
-        carrera: '',
-        estudios: '',
-        estado: '',
-        institucion: '',
-        zonaInstitucion: '',
-        anioInicioEducacion: '',
-        anioFinEducacion: '',
-        mesInicioEducacion: '',
-        mesFinEducacion: '',
+        carrera: "",
+        estudios: "",
+        estado: "",
+        institucion: "",
+        zonaInstitucion: "",
+        anioInicioEducacion: "",
+        anioFinEducacion: "",
+        mesInicioEducacion: "",
+        mesFinEducacion: "",
       });
     } else {
       setDataNewEducation({
@@ -415,7 +293,9 @@ function FormRegister({
   };
 
   const addExperience = () => {
-    if (newExperience.mesInicioExperiencia && newExperience.anioInicioExperiencia &&  newExperience.anioFinExperiencia && newExperience.puesto) {
+    const error = validateExperience(newExperience);
+
+    if (Object.keys(error).length === 0) {
       updateCVData({ experience: [...cvData.experience, newExperience] });
       setNewExperience({
         puesto: "",
@@ -428,34 +308,18 @@ function FormRegister({
         zonaEmpresa: "",
       });
     } else {
-      let errors = {
-        puesto: [] as string[],
-        anioInicioExperiencia: [] as string[],
-        mesInicioExperiencia: [] as string[],
-        anioFinExperiencia: [] as string[],
-      };
-
-      if (newExperience.puesto.length === 0) {
-        errors.puesto = ["ingrese el puesto"];
-      }
-      if (newExperience.anioInicioExperiencia.length === 0) {
-        errors.anioInicioExperiencia = ["Seleccione año de inicio"];
-      }
-      if (newExperience.mesInicioExperiencia.length === 0) {
-        errors.mesInicioExperiencia = ["Seleccione mes de inicio"];
-      }
-      if (newExperience.anioFinExperiencia.length === 0) {
-        errors.anioFinExperiencia = ["Seleccione año de fin"];
-      }
-
       setDataNewExperience({
         ...dataNewExperience,
-        ...errors,
+        ...error,
       });
     }
   };
+
   const addCursos = () => {
-    if (newCursos.curso) {
+
+    const error = validateCursos(newCursos);
+
+    if (Object.keys(error).length === 0) {
       updateCVData({ cursos: [...cvData.cursos, newCursos] });
       setNewCursos({
         curso: "",
@@ -464,45 +328,22 @@ function FormRegister({
         mesInicioCurso: "",
       });
     } else {
-      let errors = {
-        curso: [] as string[],
-        anioInicioCurso: [] as string [],
-      };
-      if (!newCursos.curso) {
-        errors.curso = ["ingrese el nombre del curso"];
-      }
-      if (!newCursos.anioInicioCurso) {
-        errors.anioInicioCurso = ["ingrese el año de inicio"];
-      }
-
       setDataNewCursos({
         ...dataNewCursos,
-        ...errors,
+        ...error,
       });
     }
   };
 
   const addIdiomas = () => {
-    if (newIdioma.nivel && newIdioma.idioma) {
+    const error = validateIdiomas(newIdioma);
+    if (Object.keys(error).length === 0) {
       updateCVData({ idiomas: [...cvData.idiomas, newIdioma] });
       setNewIdioma({ idioma: "", nivel: "" });
     } else {
-      let errors = {
-        idioma: [] as string[],
-        nivel: [] as string[],
-      };
-
-      if (newIdioma.nivel.length === 0) {
-        errors.nivel = ["seleccione el nivel"];
-      }
-
-      if (newIdioma.idioma.length === 0) {
-        errors.idioma = ["seleccione el idioma"];
-      }
-
       setDataNewIdioma({
         ...dataNewIdioma,
-        ...errors,
+        ...error,
       });
     }
   };
@@ -552,6 +393,7 @@ function FormRegister({
       idiomas: [] as string[],
       color: [] as string[],
       template: [] as string[],
+      orientadoCV: [] as string[],
     } as Errors,
   });
 
@@ -576,8 +418,8 @@ function FormRegister({
         .bind(null, result?.url || cvData.imagenPerfil)
         .bind(null, idUser)
         .bind(null, cvData.idCVTemplate);
-      } else {
-        newPost = postUsuarios
+    } else {
+      newPost = postUsuarios
         .bind(null, cvData.experience)
         .bind(null, cvData.cursos)
         .bind(null, cvData.education)
@@ -735,7 +577,7 @@ function FormRegister({
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                     id={"floating_first_name"}
-                    responseError={dataResponse.errors.name.length}
+                    responseError={dataResponse.errors.name.length != 0}
                     content={"Nombres"}
                     requiered={true}
                     type="text"
@@ -747,7 +589,7 @@ function FormRegister({
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                     id={"floating_last_name"}
-                    responseError={dataResponse.errors.lastName.length}
+                    responseError={dataResponse.errors.lastName.length != 0}
                     content={"Apellido"}
                     requiered={true}
                     type="text"
@@ -767,7 +609,7 @@ function FormRegister({
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                     id="floating_dni"
-                    responseError={dataResponse.errors.dni.length}
+                    responseError={dataResponse.errors.dni.length != 0}
                     content="DNI"
                     requiered={false}
                     type="text"
@@ -779,7 +621,7 @@ function FormRegister({
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                     id="floating_phone"
-                    responseError={dataResponse.errors.phone.length}
+                    responseError={dataResponse.errors.phone.length != 0}
                     content="Teléfono"
                     requiered={true}
                     type="tel"
@@ -791,7 +633,7 @@ function FormRegister({
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                     id="floating_email"
-                    responseError={dataResponse.errors.email.length}
+                    responseError={dataResponse.errors.email.length != 0}
                     content="Correo electrónico"
                     requiered={false}
                     type="email"
@@ -803,7 +645,7 @@ function FormRegister({
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                     id="floating_provincia"
-                    responseError={0}
+                    responseError={false}
                     content="Provincia"
                     requiered={false}
                     type="text"
@@ -815,7 +657,7 @@ function FormRegister({
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                     id="floating_ciudad"
-                    responseError={0}
+                    responseError={false}
                     content="Ciudad"
                     requiered={false}
                     type="text"
@@ -863,7 +705,7 @@ function FormRegister({
                     <ErrorComponent arr={dataResponse.errors.email} />
                   </>
                 )}
-              </WrapperSectionInput>
+              </WrapperSectionInput>                
 
               {idUser ? (
                 ""
@@ -918,7 +760,7 @@ function FormRegister({
                       onChange={handleEducationChange}
                       onKeyDown={handleKeyDown}
                       id="carrera_titulo"
-                      responseError={dataNewEducation.carrera.length}
+                      responseError={dataNewEducation.carrera.length != 0}
                       content="Nombre del titulo"
                       requiered={true}
                       type="text"
@@ -929,7 +771,7 @@ function FormRegister({
                       onChange={handleEducationChange}
                       onKeyDown={handleKeyDown}
                       id="floating_institucion"
-                      responseError={0}
+                      responseError={dataNewEducation.institucion.length != 0}
                       content="Nombre de la institución"
                       requiered={false}
                       type="text"
@@ -940,9 +782,11 @@ function FormRegister({
                       onChange={handleEducationChange}
                       onKeyDown={handleKeyDown}
                       id="zonaInstitucion"
-                      responseError={0}
+                      responseError={
+                        dataNewEducation.zonaInstitucion.length != 0
+                      }
                       content="Ubicación de la institución"
-                      requiered={false}
+                      requiered={true}
                       type="text"
                       fullColInput={true}
                     />
@@ -1026,15 +870,17 @@ function FormRegister({
                   {(dataNewEducation.estudios.length > 0 ||
                     dataNewEducation.carrera.length > 0 ||
                     dataNewEducation.estado.length > 0 ||
+                    dataNewEducation.zonaInstitucion.length > 0 ||
                     dataNewEducation.institucion.length > 0 ||
                     dataNewEducation.anioInicioEducacion.length > 0 ||
                     dataNewEducation.mesInicioEducacion.length > 0 ||
                     dataNewEducation.anioFinEducacion.length > 0) && (
                     <>
-                      <ErrorComponent arr={dataNewEducation.estudios} />
-                      <ErrorComponent arr={dataNewEducation.estado} />
                       <ErrorComponent arr={dataNewEducation.carrera} />
                       <ErrorComponent arr={dataNewEducation.institucion} />
+                      <ErrorComponent arr={dataNewEducation.zonaInstitucion} />
+                      <ErrorComponent arr={dataNewEducation.estudios} />
+                      <ErrorComponent arr={dataNewEducation.estado} />
                       <ErrorComponent
                         arr={dataNewEducation.anioInicioEducacion}
                       />
@@ -1106,7 +952,7 @@ function FormRegister({
                       onChange={handleExperienceChange}
                       onKeyDown={handleKeyDown}
                       id="puesto"
-                      responseError={dataNewExperience.puesto.length}
+                      responseError={dataNewExperience.puesto.length != 0}
                       content="Nombre del cargo"
                       requiered={true}
                       type="text"
@@ -1117,7 +963,9 @@ function FormRegister({
                       onChange={handleExperienceChange}
                       onKeyDown={handleKeyDown}
                       id="nombre_empresa"
-                      responseError={0}
+                      responseError={
+                        dataNewExperience.nombreEmpresa.length != 0
+                      }
                       content="Nombre de la empresa"
                       requiered={false}
                       type="text"
@@ -1128,7 +976,7 @@ function FormRegister({
                       onChange={handleExperienceChange}
                       onKeyDown={handleKeyDown}
                       id="zona_empresa"
-                      responseError={0}
+                      responseError={dataNewExperience.zonaEmpresa.length != 0}
                       content="Ubicación de la empresa"
                       requiered={false}
                       type="text"
@@ -1198,7 +1046,18 @@ function FormRegister({
                         id="descripcionExperiencia"
                         rows={4}
                         name="descripcionExperiencia"
-                        className="w-full px-3 py-2 border border-gray-300 dark:bg-gray-700 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white rounded-md"
+                        className={clsx(
+                          "w-full px-3 py-2 border  dark:bg-gray-700  dark:placeholder-gray-400 dark:text-white rounded-md",
+                          {
+                            "border-red-500 dark:border-red-500":
+                              dataNewExperience.descripcionExperiencia.length !=
+                              0,
+                            "border-gray-300 dark:border-gray-500": !(
+                              dataNewExperience.descripcionExperiencia.length !=
+                              0
+                            ),
+                          }
+                        )}
                         placeholder="Descripción de tareas"
                         onChange={handleExperienceChange}
                         value={newExperience.descripcionExperiencia}
@@ -1206,11 +1065,15 @@ function FormRegister({
                     </div>
                   </div>
                   {(dataNewExperience.puesto.length > 0 ||
+                    dataNewExperience.descripcionExperiencia.length > 0 ||
+                    dataNewExperience.nombreEmpresa.length > 0 ||
                     dataNewExperience.anioInicioExperiencia.length > 0 ||
                     dataNewExperience.mesInicioExperiencia.length > 0 ||
                     dataNewExperience.anioFinExperiencia.length > 0) && (
                     <>
                       <ErrorComponent arr={dataNewExperience.puesto} />
+                      <ErrorComponent arr={dataNewExperience.nombreEmpresa} />
+                      <ErrorComponent arr={dataNewExperience.zonaEmpresa} />
                       <ErrorComponent
                         arr={dataNewExperience.anioInicioExperiencia}
                       />
@@ -1219,6 +1082,9 @@ function FormRegister({
                       />
                       <ErrorComponent
                         arr={dataNewExperience.anioFinExperiencia}
+                      />
+                      <ErrorComponent
+                        arr={dataNewExperience.descripcionExperiencia}
                       />
                     </>
                   )}
@@ -1281,7 +1147,7 @@ function FormRegister({
                       onChange={handleCursoChange}
                       onKeyDown={handleKeyDown}
                       id="curso"
-                      responseError={dataNewCursos.curso.length}
+                      responseError={dataNewCursos.curso.length != 0}
                       content="Nombre del curso"
                       requiered={true}
                       type="text"
@@ -1292,7 +1158,7 @@ function FormRegister({
                       onChange={handleCursoChange}
                       onKeyDown={handleKeyDown}
                       id="institucion_nombre_curso"
-                      responseError={0}
+                      responseError={dataNewCursos.institucion.length != 0}
                       content="Nombre de la institución"
                       requiered={false}
                       type="text"
@@ -1320,9 +1186,12 @@ function FormRegister({
                     </div>
                   </div>
 
-                  {(dataNewCursos.curso || dataNewCursos.anioInicioCurso) && (
+                  {(dataNewCursos.curso ||
+                    dataNewCursos.anioInicioCurso ||
+                    dataNewCursos.institucion) && (
                     <>
                       <ErrorComponent arr={dataNewCursos.curso} />
+                      <ErrorComponent arr={dataNewCursos.institucion} />
                       <ErrorComponent arr={dataNewCursos.anioInicioCurso} />
                     </>
                   )}
@@ -1381,7 +1250,7 @@ function FormRegister({
                       onChange={handleIdiomaChange}
                       onKeyDown={handleKeyDown}
                       id="floating_idioma"
-                      responseError={dataNewIdioma.idioma.length}
+                      responseError={dataNewIdioma.idioma.length != 0}
                       content="¿Qué idioma dominas?"
                       requiered={true}
                       type="text"
@@ -1398,22 +1267,10 @@ function FormRegister({
                     />
                   </div>
 
-                  {(dataResponse.errors.idiomas.length > 0 ||
-                    cvData.idiomas.some((e: any) => e.idioma.length > 30) ||
-                    newIdioma.idioma.length > 30) && (
-                    <>
-                      <ErrorComponent
-                        arr={[
-                          "El nombre del idioma puede contener hasta 30 caracteres",
-                        ]}
-                      />
-                    </>
-                  )}
-
                   {(dataNewIdioma.idioma || dataNewIdioma.nivel) && (
                     <>
-                      <ErrorComponent arr={dataNewIdioma.nivel} />
                       <ErrorComponent arr={dataNewIdioma.idioma} />
+                      <ErrorComponent arr={dataNewIdioma.nivel} />
                     </>
                   )}
                 </WrapperSectionInput>
@@ -1568,12 +1425,18 @@ function FormRegister({
                       onChange={handleInputChange}
                       onKeyDown={handleKeyDown}
                       id="floating_orientado"
-                      responseError={0}
+                      responseError={dataResponse.errors.orientadoCV.length!=0}
                       content="Orientado a empleo"
                       requiered={false}
                       type="text"
                     />
                   </div>
+                  
+                {
+                  (dataResponse.errors.orientadoCV) && (
+                    <ErrorComponent arr={dataResponse.errors.orientadoCV} />
+                  )
+                }
                 </WrapperSectionInput>
                 {!idUser && moveToNextSection && (
                   <div className="flex flex-row justify-end p-6 bg-gray-50 dark:bg-gray-800/50">

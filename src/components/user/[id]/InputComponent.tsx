@@ -17,7 +17,7 @@ export default function InputComponent({
   onChange: any;
   onKeyDown: any;
   id: string;
-  responseError: number;
+  responseError: boolean;
   content: string;
   requiered: boolean;
   type: string;
@@ -32,7 +32,7 @@ export default function InputComponent({
         name={name}
         id={id}
         className={clsx(
-          "block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 dark:text-white  appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer",
+          "block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 dark:text-white  appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer ",
           {
             "border-red-500": responseError,
             " border-gray-300 dark:border-gray-600": !responseError,

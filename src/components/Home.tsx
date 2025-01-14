@@ -14,6 +14,7 @@ import {
   UserDataBase,
 } from "@/app/user/[id]/page";
 import { TextZoom } from "./TextZoom";
+import { OptionsPDF } from "@/lib/definitions";
 
 interface Estudio {
   estudios: string;
@@ -206,12 +207,16 @@ export default function Home({ user }: { user?: UserDataBase }) {
   });
 
   const [contador, setContador] = useState(0);
-  const [optionsPDF, setOptionsPDF] = useState({
+  const [optionsPDF, setOptionsPDF] = useState<OptionsPDF>({
     color: "#000000",
     spaceBetween: false,
     orientacionCVTitle:false,
     tipoPdf: 0,
-    contadorContent:0
+    contadorContent:0,
+    fullName: false,
+    reverseExperience:false,
+    reverseEducation:false,
+    reverseCursos:false,
   });
 
   const updateCVData = (newData: any) => {

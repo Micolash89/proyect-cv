@@ -1,4 +1,4 @@
-import { Education, ERROR_MESSAGES, REQUIRED_FIELDS, ValidationErrors } from "./constFormRegister";
+import { CursoErrors, Education, ERROR_MESSAGES_CURSOS, ERROR_MESSAGES_EDUCATION, ERROR_MESSAGES_EXPERIENCE, ERROR_MESSAGES_IDIOMAS, ExperienceErrors, IdiomaErrors, REQUIRED_FIELDS_CURSOS, REQUIRED_FIELDS_EDUCATION, REQUIRED_FIELDS_EXPERIENCE, REQUIRED_FIELDS_IDIOMAS, ValidationErrors } from "./constFormRegister";
 
 export const generatePagination = (currentPage: number, totalPages: number) => {
 
@@ -53,29 +53,101 @@ export const formatDateToLocal = (
 export const validateEducation = (education: Education): ValidationErrors => {
   const errors: ValidationErrors = {};
 
-  // Validar campos requeridos
-  REQUIRED_FIELDS.forEach(field => {
+  REQUIRED_FIELDS_EDUCATION.forEach(field => {
     if (education[field].length === 0) {
-      errors[field] = [ERROR_MESSAGES.required[field]];
+      errors[field] = [ERROR_MESSAGES_EDUCATION.required[field]];
     }
   });
 
-  // Validaciones adicionales
   if (education.carrera.length > 60) {
     errors.carrera = errors.carrera || [];
-    errors.carrera.push(ERROR_MESSAGES.length.carrera);
+    errors.carrera.push(ERROR_MESSAGES_EDUCATION.length.carrera);
   }
 
-  // Aquí puedes agregar más validaciones personalizadas
-  // Por ejemplo, validar que la fecha de fin sea posterior a la de inicio
-  // if (education.anioFinEducacion && education.anioInicioEducacion) {
-  //   const startYear = parseInt(education.anioInicioEducacion);
-  //   const endYear = parseInt(education.anioFinEducacion);
-  //   if (endYear < startYear) {
-  //     errors.anioFinEducacion = errors.anioFinEducacion || [];
-  //     errors.anioFinEducacion.push('El año de fin debe ser posterior al año de inicio');
-  //   }
-  // }
+  if (education.institucion.length > 60) {
+    errors.institucion = errors.institucion || [];
+    errors.institucion.push(ERROR_MESSAGES_EDUCATION.length.institucion);
+  }
+  
+  if (education.zonaInstitucion.length > 40) {
+    errors.zonaInstitucion = errors.zonaInstitucion || [];
+    errors.zonaInstitucion.push(ERROR_MESSAGES_EDUCATION.length.zonaInstitucion);
+  }
+
+  return errors;
+};
+export const validateExperience = (experience: ExperienceErrors): ValidationErrors => {
+  const errors: ValidationErrors = {};
+
+  REQUIRED_FIELDS_EXPERIENCE.forEach(field => {
+    if (experience[field].length === 0) {
+      errors[field] = [ERROR_MESSAGES_EXPERIENCE.required[field]];
+    }
+  });
+
+  if (experience.puesto.length > 40) {
+    errors.puesto = errors.puesto || [];
+    errors.puesto.push(ERROR_MESSAGES_EXPERIENCE.length.puesto);
+  }
+
+  if (experience.nombreEmpresa.length > 35) {
+    errors.nombreEmpresa = errors.nombreEmpresa || [];
+    errors.nombreEmpresa.push(ERROR_MESSAGES_EXPERIENCE.length.nombreEmpresa);
+  }
+
+  if (experience.zonaEmpresa.length > 40) {
+    errors.zonaEmpresa = errors.zonaEmpresa || [];
+    errors.zonaEmpresa.push(ERROR_MESSAGES_EXPERIENCE.length.zonaEmpresa);
+  }
+
+  if (experience.descripcionExperiencia.length > 1000) {
+    errors.descripcionExperiencia = errors.descripcionExperiencia || [];
+    errors.descripcionExperiencia.push(ERROR_MESSAGES_EXPERIENCE.length.descripcionExperiencia);
+  }
+
+  return errors;
+};
+
+export const validateCursos = (curso: CursoErrors): ValidationErrors => {
+  const errors: ValidationErrors = {};
+
+  REQUIRED_FIELDS_CURSOS.forEach(field => {
+    if (curso[field].length === 0) {
+      errors[field] = [ERROR_MESSAGES_CURSOS.required[field]];
+    }
+  });
+
+  if (curso.curso.length > 60) {
+    errors.curso = errors.curso || [];
+    errors.curso.push(ERROR_MESSAGES_CURSOS.length.curso);
+  }
+
+  if (curso.institucion.length > 60) {
+    errors.institucion = errors.institucion || [];
+    errors.institucion.push(ERROR_MESSAGES_CURSOS.length.institucion);
+  }
+
+  return errors;
+};
+
+export const validateIdiomas = (idioma: IdiomaErrors): ValidationErrors => {
+  const errors: ValidationErrors = {};
+
+  REQUIRED_FIELDS_IDIOMAS.forEach(field => {
+    if (idioma[field].length === 0) {
+      errors[field] = [ERROR_MESSAGES_IDIOMAS.required[field]];
+    }
+  });
+
+  if (idioma.idioma.length > 30) {
+    errors.idioma = errors.idioma || [];
+    errors.idioma.push(ERROR_MESSAGES_IDIOMAS.length.idioma);
+  }
+
+  if (idioma.idioma.length < 2) {
+    errors.idioma = errors.idioma || [];
+    errors.idioma.push(ERROR_MESSAGES_IDIOMAS.lengthMin.idioma);
+  }
 
   return errors;
 };

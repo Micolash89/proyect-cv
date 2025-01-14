@@ -29,7 +29,6 @@ import {
 import { Experiencia } from "./definitions";
 
 const prisma = new PrismaClient();
-
 export async function postUsuarios(
   experience: Experiencia[],
   cursos1: any[],
@@ -38,10 +37,6 @@ export async function postUsuarios(
   imagenPerfil: string,
   formData: FormData
 ) {
-  // console.log(education);
-  // console.log(cursos1);
-  // console.log(experience);
-  // console.log(idiomas);
 
   console.log(Object.fromEntries(formData));
 

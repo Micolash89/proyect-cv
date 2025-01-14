@@ -103,6 +103,10 @@ export interface OptionsPDF {
   orientacionCVTitle:boolean;
   tipoPdf: number;
   contadorContent: number;
+  reverseExperience:boolean;
+  reverseEducation:boolean;
+  reverseCursos:boolean;
+  fullName:boolean;
 }
 
 export interface Experiencia {

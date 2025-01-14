@@ -26,8 +26,8 @@ export const Layout0: React.FC<{
                       stylesDefault.name,
                       {
                         fontSize: 24 + contador,
-                        marginTop: 20,
-                        marginBottom: contador <= 2 ? contador * 5 : 15,
+                        marginTop: 10,
+                        marginBottom:  15,
                       },
                     ]}
                   >
@@ -64,7 +64,7 @@ export const Layout0: React.FC<{
                       style={[
                         stylesDefault.description,
                         {
-                          fontSize: 10.5 + contador,
+                          fontSize: 10.5 + optionsPDF.contadorContent,
                           fontStyle: "italic",
                           textAlign: "justify",
                         },
@@ -81,7 +81,7 @@ export const Layout0: React.FC<{
                     <Text
                       style={[
                         stylesDefault.sectionTitle,
-                        { fontSize: 14 + contador },
+                        { fontSize: 14 + optionsPDF.contadorContent },
                       ]}
                     >
                       EDUCACIÓN
@@ -92,7 +92,7 @@ export const Layout0: React.FC<{
                           <Text
                             style={[
                               stylesDefault.institution,
-                              { fontSize: 11 + contador },
+                              { fontSize: 11 + optionsPDF.contadorContent },
                             ]}
                           >
                             {edu.institucion}
@@ -100,7 +100,7 @@ export const Layout0: React.FC<{
                           <Text
                             style={[
                               stylesDefault.location,
-                              { fontSize: 11 + contador },
+                              { fontSize: 11 + optionsPDF.contadorContent },
                             ]}
                           >
                             {edu.zonaInstitucion}
@@ -110,7 +110,7 @@ export const Layout0: React.FC<{
                           <Text
                             style={[
                               stylesDefault.degree,
-                              { fontSize: 11 + contador },
+                              { fontSize: 11 + optionsPDF.contadorContent },
                             ]}
                           >
                             {edu.carrera} ({edu.estado.toLowerCase()})
@@ -118,7 +118,7 @@ export const Layout0: React.FC<{
                           <Text
                             style={[
                               stylesDefault.dates,
-                              { fontSize: 11 + contador },
+                              { fontSize: 11 + optionsPDF.contadorContent },
                             ]}
                           >
                             {edu.anioInicioEducacion} - {edu.anioFinEducacion}
@@ -135,7 +135,7 @@ export const Layout0: React.FC<{
                     <Text
                       style={[
                         stylesDefault.sectionTitle,
-                        { fontSize: 14 + contador },
+                        { fontSize: 14 + optionsPDF.contadorContent },
                       ]}
                     >
                       EXPERIENCIA PROFESIONAL
@@ -146,7 +146,7 @@ export const Layout0: React.FC<{
                           <Text
                             style={[
                               stylesDefault.institution,
-                              { fontSize: 11 + contador },
+                              { fontSize: 11 + optionsPDF.contadorContent },
                             ]}
                           >
                             {exp.nombreEmpresa}
@@ -154,7 +154,7 @@ export const Layout0: React.FC<{
                           <Text
                             style={[
                               stylesDefault.location,
-                              { fontSize: 11 + contador },
+                              { fontSize: 11 + optionsPDF.contadorContent },
                             ]}
                           >
                             {exp.zonaEmpresa}
@@ -164,7 +164,7 @@ export const Layout0: React.FC<{
                           <Text
                             style={[
                               stylesDefault.degree,
-                              { fontSize: 11 + contador },
+                              { fontSize: 11 + optionsPDF.contadorContent },
                             ]}
                           >
                             {exp.puesto}
@@ -172,7 +172,7 @@ export const Layout0: React.FC<{
                           <Text
                             style={[
                               stylesDefault.dates,
-                              { fontSize: 11 + contador },
+                              { fontSize: 11 + optionsPDF.contadorContent },
                             ]}
                           >
                             {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
@@ -181,7 +181,7 @@ export const Layout0: React.FC<{
                         <Text
                           style={[
                             stylesDefault.description,
-                            { fontSize: 11 + contador },
+                            { fontSize: 11 + optionsPDF.contadorContent },
                           ]}
                         >
                           • {iaData.descriptionWork.split("\n")[index]}
@@ -197,7 +197,7 @@ export const Layout0: React.FC<{
                     <Text
                       style={[
                         stylesDefault.sectionTitle,
-                        { fontSize: 14 + contador },
+                        { fontSize: 14 + optionsPDF.contadorContent },
                       ]}
                     >
                       CERTIFICACIONES
@@ -208,7 +208,7 @@ export const Layout0: React.FC<{
                           <Text
                             style={[
                               stylesDefault.institution,
-                              { fontSize: 11 + contador },
+                              { fontSize: 11 + optionsPDF.contadorContent },
                             ]}
                           >
                             • {curso.curso}
@@ -216,7 +216,7 @@ export const Layout0: React.FC<{
                           <Text
                             style={[
                               stylesDefault.location,
-                              { fontSize: 11 + contador, fontStyle: "italic" },
+                              { fontSize: 11 + optionsPDF.contadorContent, fontStyle: "italic" },
                             ]}
                           >
                             {curso.anioInicioCurso}
@@ -227,7 +227,7 @@ export const Layout0: React.FC<{
                           <Text
                             style={[
                               stylesDefault.degree,
-                              { fontSize: 11 + contador },
+                              { fontSize: 11 + optionsPDF.contadorContent },
                             ]}
                           >
                             {curso.institucion}
@@ -244,7 +244,7 @@ export const Layout0: React.FC<{
                     <Text
                       style={[
                         stylesDefault.sectionTitle,
-                        { fontSize: 14 + contador },
+                        { fontSize: 14 + optionsPDF.contadorContent },
                       ]}
                     >
                       HABILIDADES
@@ -252,7 +252,7 @@ export const Layout0: React.FC<{
                     <View
                       style={[stylesDefault.description, { textAlign: "center" }]}
                     >
-                      <Text wrap={true} style={{ fontSize: 11 + contador }}>
+                      <Text wrap={true} style={{ fontSize: 11 + optionsPDF.contadorContent }}>
                         {iaData.skills.split("•").map((skill, index) => (
                           <React.Fragment key={index}>
                             {" • " + skill}
@@ -274,7 +274,7 @@ export const Layout0: React.FC<{
                     <Text
                       style={[
                         stylesDefault.sectionTitle,
-                        { fontSize: 14 + contador },
+                        { fontSize: 14 + optionsPDF.contadorContent },
                       ]}
                     >
                       INFORMACIÓN ADICIONAL
@@ -282,7 +282,7 @@ export const Layout0: React.FC<{
                     <Text
                       style={[
                         stylesDefault.description,
-                        { fontSize: 11 + contador, textAlign: "center" },
+                        { fontSize: 11 + optionsPDF.contadorContent, textAlign: "center" },
                       ]}
                     >
                       {[

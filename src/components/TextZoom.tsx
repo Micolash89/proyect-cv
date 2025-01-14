@@ -2,24 +2,11 @@
 import { templates } from "@/lib/constTemplate";
 import React from "react";
 import ButtonToggleOptionPDF from "./ButtonToggleOptionPDF";
+import { OptionsPDF } from "@/lib/definitions";
 
 interface PdfOptionsProps {
-  optionsPDF: {
-    color: string;
-    spaceBetween: boolean;
-    orientacionCVTitle: boolean;
-    tipoPdf: number;
-    contadorContent: number;
-  };
-  setOptionsPDF: React.Dispatch<
-    React.SetStateAction<{
-      color: string;
-      spaceBetween: boolean;
-      orientacionCVTitle: boolean;
-      tipoPdf: number;
-      contadorContent: number;
-    }>
-  >;
+  optionsPDF: OptionsPDF;
+  setOptionsPDF: React.Dispatch<React.SetStateAction<OptionsPDF>>;
   contador: number;
   setContador: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -312,6 +299,51 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
                 messageTrue="Mostrar Orientación CV"
                 messageFalse="Ocultar Orientación CV"
                 callBackFunction={orientacionCVTitleToggle}
+              />
+
+              <ButtonToggleOptionPDF
+                conditionOption={optionsPDF.reverseExperience}
+                messageTrue="Experiencia orden normal"
+                messageFalse="Experiencia orden inverso"
+                callBackFunction={() => {
+                  setOptionsPDF((prev) => ({
+                    ...prev,
+                    reverseExperience: !prev.reverseExperience,
+                  }));
+                }}
+              />
+              <ButtonToggleOptionPDF
+                conditionOption={optionsPDF.reverseEducation}
+                messageTrue="Educación orden normal"
+                messageFalse="Educación orden inverso"
+                callBackFunction={() => {
+                  setOptionsPDF((prev) => ({
+                    ...prev,
+                    reverseEducation: !prev.reverseEducation,
+                  }));
+                }}
+              />
+              <ButtonToggleOptionPDF
+                conditionOption={optionsPDF.reverseCursos}
+                messageTrue={`Cursos orden normal`}
+                messageFalse={`Cursos orden inverso`}
+                callBackFunction={() => {
+                  setOptionsPDF((prev) => ({
+                    ...prev,
+                    reverseCursos: !prev.reverseCursos,
+                  }));
+                }}
+              />
+              <ButtonToggleOptionPDF
+                conditionOption={optionsPDF.fullName}
+                messageTrue={`Nombre completo`}
+                messageFalse={`Primer nombre y apellido`}
+                callBackFunction={() => {
+                  setOptionsPDF((prev) => ({
+                    ...prev,
+                    fullName: !prev.fullName,
+                  }));
+                }}
               />
             </div>
           </div>

@@ -587,8 +587,6 @@ function FormRegister({
 
     const postPromise = newPost(e);
 
-    console.log(cvData);
-
     toast.promise(postPromise, {
       loading: `${idUser ? "Actualizando " : "Registrando"} a ${cvData.name} ${
         cvData.lastName

@@ -36,6 +36,7 @@ export function TableUserSkeleton() {
                   scope="col"
                   className="relative pb-4 pl-3 pr-6 pt-2 sm:pr-6"
                 >
+                  
                   <span className="sr-only">Editar</span>
                 </th>
               </tr>
@@ -86,6 +87,7 @@ export function TableRowSkeleton() {
       {/* actions */}
       <td className="whitespace-nowrap py-3 pl-6 pr-3">
         <div className="flex justify-end gap-3">
+          <div className="h-[20px] w-[20px] rounded bg-white dark:bg-gray-700"></div>
           <div className="h-[20px] w-[20px] rounded bg-white dark:bg-gray-700"></div>
         </div>
       </td>

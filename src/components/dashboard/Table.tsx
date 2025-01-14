@@ -3,6 +3,7 @@ import { fetchFilteredUsers } from "@/database/database";
 import { formatDateToLocal } from "@/lib/libs";
 import Update from "./Update";
 import AnimationDot from "../AnimationDot";
+import DeleteButton from "./DeleteButton";
 
 export default async function UserTable({
   query,
@@ -98,6 +99,7 @@ export default async function UserTable({
                   visto
                 </th>
                 <th scope="col" className="relative py-3 pl-6 pr-3">
+                  <span className="sr-only">Delete</span>
                   <span className="sr-only">Edit</span>
                 </th>
               </tr>
@@ -147,6 +149,7 @@ export default async function UserTable({
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
                       <Update id={user.id} />
+                      <DeleteButton id={user.id} />
                     </div>
                   </td>
                 </tr>

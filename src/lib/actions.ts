@@ -8,7 +8,6 @@ import {
   PrismaClient,
 } from "@prisma/client";
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
 import { createResponse, JWTCreate } from "./utils";
 import { cookies } from "next/headers";
 import { comparePassword } from "./utilsBcrypt";
@@ -21,7 +20,12 @@ import {
   Idioma,
 } from "./actionsIA";
 import { v2 as cloudinary } from "cloudinary";
-import { createSchemaLogin, CreateUsuario, UpdateUsuario } from "./zodValidations";
+import {
+  createSchemaLogin,
+  CreateUsuario,
+  GetUsuario,
+  UpdateUsuario,
+} from "./zodValidations";
 import { Experiencia } from "./definitions";
 
 const prisma = new PrismaClient();
@@ -182,7 +186,9 @@ export async function postUsuarios(
           movilidad: movilidad ? (movilidad as string) : "",
           incorporacion: incorporacion ? (incorporacion as string) : "",
           office: office ? (office as string) : "",
-          disponibilidad: disponibilidad ? disponibilidad as DisponibilidadEnum: "NINGUNO",
+          disponibilidad: disponibilidad
+            ? (disponibilidad as DisponibilidadEnum)
+            : "NINGUNO",
           idUsuario: user.id,
         },
       });
@@ -198,10 +204,7 @@ export async function postUsuarios(
   return createResponse(true, [], `Registro de ${apellido} ${nombre} exitoso`);
 }
 
-
-
 export async function postLogin(formdata: FormData) {
-
   const validatedFields = createSchemaLogin.safeParse({
     email: formdata.get("email"),
     password: formdata.get("password"),
@@ -258,7 +261,6 @@ export async function postLogin(formdata: FormData) {
       maxAge: 2147483647,
       path: "/",
     });
-
   } catch (error) {
     console.log(error);
     return null;
@@ -266,7 +268,7 @@ export async function postLogin(formdata: FormData) {
     prisma.$disconnect();
   }
 
-  revalidatePath("/"); 
+  revalidatePath("/");
 
   return createResponse(true, [], "login correcto");
 }
@@ -296,8 +298,6 @@ export async function updateUser(
   formData: FormData
 ) {
 
-  console.log("imagen perfil",imagenPerfil);
-
   const UpdateUserData = UpdateUsuario.safeParse({
     id: idUser,
     ...Object.fromEntries(formData),
@@ -305,7 +305,7 @@ export async function updateUser(
     cursos: cursos1,
     experience,
     idiomas,
-    imagenPerfil: imagenPerfil?imagenPerfil:"",
+    imagenPerfil: imagenPerfil ? imagenPerfil : "",
     idCVTemplate,
   });
 
@@ -391,7 +391,7 @@ export async function updateUser(
             ubicacion: educacion.zonaInstitucion as string,
             fechaIngreso: educacion.anioInicioEducacion as string,
             mesIngreso: educacion.mesInicioEducacion as string,
-            institucion: educacion.institucion as string, 
+            institucion: educacion.institucion as string,
             fechaEgreso: educacion.anioFinEducacion as string,
             mesEgreso: educacion.mesFinEducacion as string,
             idUsuario: user.id,
@@ -475,7 +475,9 @@ export async function updateUser(
           movilidad: movilidad ? (movilidad as string) : "",
           incorporacion: incorporacion ? (incorporacion as string) : "",
           office: office ? (office as string) : "",
-          disponibilidad: disponibilidad? disponibilidad as DisponibilidadEnum:"NINGUNO",
+          disponibilidad: disponibilidad
+            ? (disponibilidad as DisponibilidadEnum)
+            : "NINGUNO",
           idUsuario: user.id,
         },
       });
@@ -484,7 +486,11 @@ export async function updateUser(
     revalidatePath(`/dashboard`);
   } catch (error) {
     console.error(error);
-    return createResponse(false, [], `Error al actualizar a ${nombre} ${apellido}`,);
+    return createResponse(
+      false,
+      [],
+      `Error al actualizar a ${nombre} ${apellido}`
+    );
   } finally {
     prisma.$disconnect();
   }
@@ -539,7 +545,6 @@ export async function generatorSkillsAI(
   orientadoCV: string,
   formData: FormData
 ) {
-
   const perfilDescripcion: string = await generarSkills(
     experience,
     educacion,
@@ -557,15 +562,8 @@ export async function generatorSkillsAI(
   );
 }
 
-const GetUserSchema = z.object({
-  id: z.coerce.number({
-    invalid_type_error: "El ID debe ser un número entero",
-    message: "El ID debe ser un número entero",
-  }),
-});
-
 export async function getOneUser(id: number) {
-  const validatedFields = GetUserSchema.safeParse({
+  const validatedFields = GetUsuario.safeParse({
     id,
   });
 
@@ -582,6 +580,83 @@ export async function getOneUser(id: number) {
 
   const user = await prisma.user.findUnique({ where: { id: id_user } });
   return user;
+}
+
+export async function deleteOneUser(id: number,formData: FormData) {
+  
+  const validatedFields = GetUsuario.safeParse({
+    id,
+  });
+
+  if (!validatedFields.success) {
+    return createResponse(
+      false,
+      [],
+      "Error En Algun Campo",
+      validatedFields.error?.flatten().fieldErrors
+    );
+  }
+
+  const { id: id_user } = validatedFields.data;
+
+  try {
+    await prisma.$connect();
+
+    const user = await prisma.user.findUnique({ where: { id: id_user } });
+    if (!user) {
+      return createResponse(false, [], "El usuario no existe");
+    }
+
+    await prisma.estudio.deleteMany({
+      where: {
+        idUsuario: user.id,
+      },
+    });
+
+    await prisma.experiencia.deleteMany({
+      where: {
+        idUsuario: user.id,
+      },
+    });
+
+    await prisma.curso.deleteMany({
+      where: {
+        idUsuario: user.id,
+      },
+    });
+
+    await prisma.idiomas.deleteMany({
+      where: {
+        idUsuario: user.id,
+      },
+    });
+
+    await prisma.informacionAdicional.deleteMany({
+      where: {
+        idUsuario: user.id,
+      },
+    });
+
+    await prisma.user.delete({
+      where: { id },
+    });
+
+    if (user.cvTemplateId) {
+      await prisma.cVTemplate.deleteMany({
+        where: {
+          id: user.cvTemplateId,
+        },
+      });
+    }
+
+    revalidatePath("/dashboard");
+  } catch (error) {
+    return createResponse(false, [], "Error al borrar el usuario");
+  } finally {
+    prisma.$disconnect();
+  }
+
+  return createResponse(true, [], "Usuario Borrado");
 }
 
 cloudinary.config({
@@ -631,7 +706,7 @@ export async function uploadImageBack(file: File) {
   } catch (error) {
     console.error("Error al subir imagen:", error);
   }
-  return { url: "", error: "Error al subir la imagen"};
+  return { url: "", error: "Error al subir la imagen" };
 }
 
 export async function logoutAction() {

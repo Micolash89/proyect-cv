@@ -1,7 +1,10 @@
 import { z } from "zod";
 
 const CreateSchemaUsuario = z.object({
-  id: z.coerce.number(),
+  id: z.coerce.number({
+    invalid_type_error: "El ID debe ser un número entero",
+    message: "El ID debe ser un número entero",
+  }),
   name: z
     .string({ message: "Ingrese un nombre" })
     .min(3, "Nombre: debe de tener al menos 3 caracteres")
@@ -171,7 +174,33 @@ export const CreateUsuario = CreateSchemaUsuario.omit({
   id: true,
   idCVTemplate: true,
 });
+
 export const UpdateUsuario = CreateSchemaUsuario.omit({});
+
+export const GetUsuario = CreateSchemaUsuario.omit({
+  name: true,
+  lastName: true,
+  idCVTemplate: true,
+  email: true,
+  imagenPerfil: true,
+  fechaNacimiento: true,
+  dni: true,
+  phone: true,
+  ciudad: true,
+  provincia: true,
+  education: true,
+  experience: true,
+  cursos: true,
+  idiomas: true,
+  licencia: true,
+  movilidad: true,
+  incorporacion: true,
+  disponibilidad: true,
+  office: true,
+  orientadoCV: true,
+  color: true,
+  template: true,
+});
 
 export const createSchemaLogin = z.object({
   email: z

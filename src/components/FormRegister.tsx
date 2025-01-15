@@ -929,7 +929,7 @@ function FormRegister({
             >
               <WrapperSection>
                 <WrapperSectionInput>
-                  <WrapperH2Section title="experiencia laboral" />
+                  <WrapperH2Section title="experiencia laboral" additionalMessage="Recomendado: Incluir la experiencia más reciente a la más antigua" />
 
                   {cvData.experience.map((exp: any, index: number) => (
                     <InfoCard

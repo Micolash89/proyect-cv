@@ -10,8 +10,121 @@ export const Layout1: React.FC<{
   contador: number;
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
+  const experiencia = cvData.experience.map((exp, index) => (
+    <View key={index} style={styles1.experienceEntry}>
+      <Text
+        style={[
+          styles1.companyName,
+          { fontSize: getFontSize(12, optionsPDF.contadorContent) },
+        ]}
+      >
+        {exp.nombreEmpresa}
+      </Text>
+      <Text
+        style={[
+          styles1.jobTitle,
+          { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+        ]}
+      >
+        {exp.puesto}
+      </Text>
+      <Text
+        style={[
+          styles1.dateLocation,
+          { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+        ]}
+      >
+        {exp.anioInicioExperiencia} - {exp.anioFinExperiencia} |{" "}
+        {exp.zonaEmpresa}
+      </Text>
+      <Text
+        style={[
+          styles1.description,
+          { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+        ]}
+      >
+        • {iaData.descriptionWork.split("\n")[index]}
+      </Text>
+    </View>
+  ));
+
+  const educacion = cvData.education.map((edu, index) => (
+    <View key={index} style={styles1.educationEntry}>
+      <Text
+        style={[
+          styles1.institution,
+          { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+        ]}
+      >
+        {edu.institucion}
+      </Text>
+      <Text
+        style={[
+          styles1.degree,
+          { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+        ]}
+      >
+        {edu.carrera} ({edu.estado})
+      </Text>
+      <Text
+        style={[
+          styles1.dateLocation,
+          { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+        ]}
+      >
+        {edu.anioInicioEducacion} - {edu.anioFinEducacion} |{" "}
+        {edu.zonaInstitucion}
+      </Text>
+    </View>
+  ));
+
+  const cursos = cvData.cursos.map((curso, index) => (
+    <View key={index} style={styles1.educationEntry}>
+      <Text
+        style={[
+          styles1.institution,
+          { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+        ]}
+      >
+        {curso.curso}
+      </Text>
+      <Text
+        style={[
+          styles1.degree,
+          { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+        ]}
+      >
+        {curso.institucion}
+      </Text>
+      <Text
+        style={[
+          styles1.dateLocation,
+          { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+        ]}
+      >
+        {curso.anioInicioCurso}
+      </Text>
+    </View>
+  ));
+
+  const cutname = (
+    <Text style={[styles1.name, { fontSize: getFontSize(20, contador) }]}>
+      {cvData.name.split(" ")[0]}
+      {`\n`}
+      {cvData.lastName.split(" ")[0]}
+    </Text>
+  );
+
+  const fullname = (
+    <Text style={[styles1.name, { fontSize: getFontSize(20, contador) }]}>
+      {cvData.name}
+      {`\n`}
+      {cvData.lastName}
+    </Text>
+  );
+
   return (
-    <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
+    <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}  >
       <Page size="A4" style={styles1.page}>
         <View style={styles1.container}>
           {/* Sidebar */}
@@ -26,18 +139,18 @@ export const Layout1: React.FC<{
             {cvData.imagenPerfil && (
               <Image src={cvData.imagenPerfil} style={styles1.profileImage} />
             )}
+            {optionsPDF.fullName ? fullname : cutname}
 
-            <Text
-              style={[styles1.name, { fontSize: getFontSize(20, contador) }]}
-            >
-              {cvData.name.split(" ")[0]}{`\n`}{cvData.lastName}
-            </Text>
-
-            {optionsPDF.orientacionCVTitle &&<Text
-              style={[styles1.profession, { fontSize: getFontSize(14, contador) }]}
-            >
-              {cvData.orientadoCV}
-            </Text>}
+            {optionsPDF.orientacionCVTitle && (
+              <Text
+                style={[
+                  styles1.profession,
+                  { fontSize: getFontSize(14, contador) },
+                ]}
+              >
+                {cvData.orientadoCV}
+              </Text>
+            )}
 
             {/* Contact Information */}
             <View style={{ marginTop: 20 }}>
@@ -47,7 +160,7 @@ export const Layout1: React.FC<{
                   { fontSize: getFontSize(10, contador) },
                 ]}
               >
-                 {cvData.fechaNacimiento.split("-").reverse().join("/")}
+                {cvData.fechaNacimiento.split("-").reverse().join("/")}
               </Text>
               <Text
                 style={[
@@ -74,7 +187,7 @@ export const Layout1: React.FC<{
               >
                 {cvData.email}
               </Text>
-         
+
               <Text
                 style={[
                   styles1.contactInfo,
@@ -97,7 +210,13 @@ export const Layout1: React.FC<{
                   HABILIDADES
                 </Text>
                 {iaData.skills.split("•").map((skill, index) => (
-                  <Text key={index} style={[styles1.skillItem, { fontSize: getFontSize(10, contador) }]}>
+                  <Text
+                    key={index}
+                    style={[
+                      styles1.skillItem,
+                      { fontSize: getFontSize(10, contador) },
+                    ]}
+                  >
                     • {skill.trim()}
                   </Text>
                 ))}
@@ -116,8 +235,21 @@ export const Layout1: React.FC<{
                   IDIOMAS
                 </Text>
                 {cvData.idiomas.map((idioma, index) => (
-                  <Text key={index} style={[styles1.skillItem, { fontSize: getFontSize(10, contador) }]}>
-                    • {idioma.idioma.charAt(0).toUpperCase() + idioma.idioma.slice(1).toLowerCase()} - {idioma.nivel=="BASICO"?"Básico": idioma.nivel.charAt(0).toUpperCase() + idioma.nivel.slice(1).toLowerCase()}
+                  <Text
+                    key={index}
+                    style={[
+                      styles1.skillItem,
+                      { fontSize: getFontSize(10, contador) },
+                    ]}
+                  >
+                    •{" "}
+                    {idioma.idioma.charAt(0).toUpperCase() +
+                      idioma.idioma.slice(1).toLowerCase()}{" "}
+                    -{" "}
+                    {idioma.nivel == "BASICO"
+                      ? "Básico"
+                      : idioma.nivel.charAt(0).toUpperCase() +
+                        idioma.nivel.slice(1).toLowerCase()}
                   </Text>
                 ))}
               </View>
@@ -170,23 +302,48 @@ export const Layout1: React.FC<{
                     { fontSize: getFontSize(10, contador) },
                   ]}
                 >
-                  • {cvData.disponibilidad=="FULLTIME"?"jornada completa":"jornada parcial"}
+                  •{" "}
+                  {cvData.disponibilidad == "FULLTIME"
+                    ? "jornada completa"
+                    : "jornada parcial"}
                 </Text>
               )}
             </View>
           </View>
 
           {/* Main Content */}
-          <View style={[styles1.mainContent, {justifyContent: optionsPDF.spaceBetween ? 'space-between':'flex-start'}]}>
+          <View
+            style={[
+              styles1.mainContent,
+              {
+                justifyContent: optionsPDF.spaceBetween
+                  ? "space-between"
+                  : "flex-start",
+              },
+            ]}
+          >
             {/* Profile Summary */}
             {iaData.profile && (
               <View style={{ marginBottom: 20 }}>
                 <Text
-                  style={[styles1.sectionTitle, { color: optionsPDF.color, fontSize: getFontSize(16, optionsPDF.contadorContent) }]}
+                  style={[
+                    styles1.sectionTitle,
+                    {
+                      color: optionsPDF.color,
+                      fontSize: getFontSize(16, optionsPDF.contadorContent),
+                    },
+                  ]}
                 >
                   PERFIL PROFESIONAL
                 </Text>
-                <Text style={[styles1.description, { fontSize: getFontSize(10, optionsPDF.contadorContent) }]}>{iaData.profile}</Text>
+                <Text
+                  style={[
+                    styles1.description,
+                    { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                  ]}
+                >
+                  {iaData.profile}
+                </Text>
               </View>
             )}
 
@@ -194,23 +351,19 @@ export const Layout1: React.FC<{
             {cvData.experience.length > 0 && (
               <View style={{ marginBottom: 20 }}>
                 <Text
-                  style={[styles1.sectionTitle, { color: optionsPDF.color, fontSize: getFontSize(16, optionsPDF.contadorContent) }]}
+                  style={[
+                    styles1.sectionTitle,
+                    {
+                      color: optionsPDF.color,
+                      fontSize: getFontSize(16, optionsPDF.contadorContent),
+                    },
+                  ]}
                 >
                   EXPERIENCIA PROFESIONAL
                 </Text>
-                {cvData.experience.map((exp, index) => (
-                  <View key={index} style={styles1.experienceEntry}>
-                    <Text style={[styles1.companyName, { fontSize: getFontSize(12, optionsPDF.contadorContent) }]}>{exp.nombreEmpresa}</Text>
-                    <Text style={[styles1.jobTitle, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>{exp.puesto}</Text>
-                    <Text style={[styles1.dateLocation, { fontSize: getFontSize(10, optionsPDF.contadorContent) }]}>
-                      {exp.anioInicioExperiencia} - {exp.anioFinExperiencia} |{" "}
-                      {exp.zonaEmpresa}
-                    </Text>
-                    <Text style={[styles1.description, { fontSize: getFontSize(10, optionsPDF.contadorContent) }]}>
-                      • {iaData.descriptionWork.split("\n")[index]}
-                    </Text>
-                  </View>
-                ))}
+                {optionsPDF.reverseExperience
+                  ? experiencia.reverse()
+                  : experiencia}
               </View>
             )}
 
@@ -218,22 +371,17 @@ export const Layout1: React.FC<{
             {cvData.education.length > 0 && (
               <View style={{ marginBottom: 20 }}>
                 <Text
-                  style={[styles1.sectionTitle, { color: optionsPDF.color, fontSize: getFontSize(16, optionsPDF.contadorContent) }]}
+                  style={[
+                    styles1.sectionTitle,
+                    {
+                      color: optionsPDF.color,
+                      fontSize: getFontSize(16, optionsPDF.contadorContent),
+                    },
+                  ]}
                 >
                   EDUCACIÓN
                 </Text>
-                {cvData.education.map((edu, index) => (
-                  <View key={index} style={styles1.educationEntry}>
-                    <Text style={[styles1.institution,{ fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>{edu.institucion}</Text>
-                    <Text style={[styles1.degree, { fontSize: getFontSize(10, optionsPDF.contadorContent) }]}>
-                      {edu.carrera} ({edu.estado})
-                    </Text>
-                    <Text style={[styles1.dateLocation,{fontSize: getFontSize(10, optionsPDF.contadorContent)}]}>
-                      {edu.anioInicioEducacion} - {edu.anioFinEducacion} |{" "}
-                      {edu.zonaInstitucion}
-                    </Text>
-                  </View>
-                ))}
+                {optionsPDF.reverseEducation ? educacion.reverse() : educacion}
               </View>
             )}
 
@@ -241,19 +389,17 @@ export const Layout1: React.FC<{
             {cvData.cursos.length > 0 && (
               <View>
                 <Text
-                  style={[styles1.sectionTitle, { color: optionsPDF.color, fontSize: getFontSize(16, optionsPDF.contadorContent) }]}
+                  style={[
+                    styles1.sectionTitle,
+                    {
+                      color: optionsPDF.color,
+                      fontSize: getFontSize(16, optionsPDF.contadorContent),
+                    },
+                  ]}
                 >
                   CERTIFICACIONES
                 </Text>
-                {cvData.cursos.map((curso, index) => (
-                  <View key={index} style={styles1.educationEntry}>
-                    <Text style={[styles1.institution,{ fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>{curso.curso}</Text>
-                    <Text style={[styles1.degree, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>{curso.institucion}</Text>
-                    <Text style={[styles1.dateLocation,{fontSize: getFontSize(10, optionsPDF.contadorContent)}]}>
-                      {curso.anioInicioCurso}
-                    </Text>
-                  </View>
-                ))}
+                {optionsPDF.reverseCursos ? cursos.reverse() : cursos}
               </View>
             )}
           </View>

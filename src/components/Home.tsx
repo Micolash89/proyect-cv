@@ -271,7 +271,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
             />
 
             <div className="max-w-4xl mx-auto h-[900px] my-5">
-              <PDFViewer width="100%" height="100%">
+              <PDFViewer width="100%" height="100%" >
                 <MyDocumentPDF
                   cvData={cvData}
                   iaData={iaData}

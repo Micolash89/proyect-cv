@@ -10,6 +10,146 @@ export const Layout2: React.FC<{
   contador: number;
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
+
+  const experiencia = cvData.experience.map((exp, index) => (
+    <View key={index} style={styles2.entryContainer}>
+      <View style={styles2.entryHeader}>
+        <Text
+          style={[
+            styles2.institution,
+            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+          ]}
+        >
+          {exp.nombreEmpresa}
+        </Text>
+        <Text
+          style={[
+            styles2.location,
+            { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+          ]}
+        >
+          {exp.zonaEmpresa}
+        </Text>
+      </View>
+      <View style={styles2.entryHeader}>
+        <Text
+          style={[
+            styles2.degree,
+            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+          ]}
+        >
+          {exp.puesto}
+        </Text>
+        <Text
+          style={[
+            styles2.dates,
+            { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+          ]}
+        >
+          {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
+        </Text>
+      </View>
+      <Text
+        style={[
+          styles2.description,
+          { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+        ]}
+      >
+        • {iaData.descriptionWork.split("\n")[index]}
+      </Text>
+    </View>
+  ))
+
+  const educacion = cvData.education.map((edu, index) => (
+    <View key={index} style={styles2.entryContainer}>
+      <View style={styles2.entryHeader}>
+        <Text
+          style={[
+            styles2.institution,
+            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+          ]}
+        >
+          {edu.institucion}
+        </Text>
+        <Text
+          style={[
+            styles2.location,
+            { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+          ]}
+        >
+          {edu.zonaInstitucion}{" "}
+          {optionsPDF.contadorContent > 2
+            ? `${edu.anioInicioEducacion} - ${edu.anioFinEducacion}`
+            : ""}
+        </Text>
+      </View>
+      <View style={styles2.entryHeader}>
+        <Text
+          style={[
+            styles2.degree,
+            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+          ]}
+        >
+          {edu.carrera} ({edu.estado.toLowerCase()})
+        </Text>
+        <Text
+          style={[
+            styles2.dates,
+            { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+          ]}
+        >
+          {optionsPDF.contadorContent < 3
+            ? `${edu.anioInicioEducacion} - ${edu.anioFinEducacion}`
+            : ""}
+        </Text>
+      </View>
+    </View>
+  ));
+
+  const cursos = cvData.cursos.map((curso, index) => (
+    <View key={index} style={styles2.entryContainer}>
+      <View style={styles2.entryHeader}>
+        <Text
+          style={[
+            styles2.institution,
+            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+          ]}
+        >
+          {curso.curso}
+        </Text>
+        <Text
+          style={[
+            styles2.dates,
+            { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+          ]}
+        >
+          {curso.anioInicioCurso}
+        </Text>
+      </View>
+      <Text
+        style={[
+          styles2.degree,
+          { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+        ]}
+      >
+        {curso.institucion}
+      </Text>
+    </View>
+  ));
+
+  const cutName = (<Text
+  style={[styles2.name, { fontSize: getFontSize(24, contador) }]}
+>
+  {cvData.name.split(" ")[0]}{`\n`} {cvData.lastName.split(" ")[0]}
+</Text>)
+
+  const fullName = (<Text
+  style={[styles2.name, { fontSize: getFontSize(24, contador) }]}
+>
+  {cvData.name.split(" ").join("\n")}{`\n`} {cvData.lastName}
+</Text>)
+
+
   return (
     <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
       <Page
@@ -41,11 +181,13 @@ export const Layout2: React.FC<{
             />
           )}
           {(cvData.name || cvData.lastName) && (
-            <Text
-              style={[styles2.name, { fontSize: getFontSize(24, contador) }]}
-            >
-              {cvData.name.split(" ")[0]}{`\n`} {cvData.lastName}
-            </Text>
+            // <Text
+            //   style={[styles2.name, { fontSize: getFontSize(24, contador) }]}
+            // >
+            //   {cvData.name.split(" ")[0]}{`\n`} {cvData.lastName}
+            // </Text>
+            optionsPDF.fullName ? fullName : cutName
+
           )}
           {cvData.orientadoCV && optionsPDF.orientacionCVTitle && (
             <Text
@@ -252,7 +394,7 @@ export const Layout2: React.FC<{
               Disponibilidad inmediata
             </Text>
           )}
-          {cvData.disponibilidad && (
+          {cvData.disponibilidad && cvData.disponibilidad!="NINGUNO" && (
             <Text
               style={[
                 styles2.contactItem,
@@ -333,54 +475,10 @@ export const Layout2: React.FC<{
                 Experiencia Profesional
               </Text>
             )}
-            {cvData.experience.map((exp, index) => (
-              <View key={index} style={styles2.entryContainer}>
-                <View style={styles2.entryHeader}>
-                  <Text
-                    style={[
-                      styles2.institution,
-                      { fontSize: getFontSize(11, optionsPDF.contadorContent) },
-                    ]}
-                  >
-                    {exp.nombreEmpresa}
-                  </Text>
-                  <Text
-                    style={[
-                      styles2.location,
-                      { fontSize: getFontSize(10, optionsPDF.contadorContent) },
-                    ]}
-                  >
-                    {exp.zonaEmpresa}
-                  </Text>
-                </View>
-                <View style={styles2.entryHeader}>
-                  <Text
-                    style={[
-                      styles2.degree,
-                      { fontSize: getFontSize(11, optionsPDF.contadorContent) },
-                    ]}
-                  >
-                    {exp.puesto}
-                  </Text>
-                  <Text
-                    style={[
-                      styles2.dates,
-                      { fontSize: getFontSize(10, optionsPDF.contadorContent) },
-                    ]}
-                  >
-                    {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
-                  </Text>
-                </View>
-                <Text
-                  style={[
-                    styles2.description,
-                    { fontSize: getFontSize(10, optionsPDF.contadorContent) },
-                  ]}
-                >
-                  • {iaData.descriptionWork.split("\n")[index]}
-                </Text>
-              </View>
-            ))}
+            {
+              optionsPDF.reverseExperience ? experiencia.reverse() : experiencia
+            }
+
           </View>
 
           <View>
@@ -401,51 +499,9 @@ export const Layout2: React.FC<{
                 Educación
               </Text>
             )}
-            {cvData.education.map((edu, index) => (
-              <View key={index} style={styles2.entryContainer}>
-                <View style={styles2.entryHeader}>
-                  <Text
-                    style={[
-                      styles2.institution,
-                      { fontSize: getFontSize(11, optionsPDF.contadorContent) },
-                    ]}
-                  >
-                    {edu.institucion}
-                  </Text>
-                  <Text
-                    style={[
-                      styles2.location,
-                      { fontSize: getFontSize(10, optionsPDF.contadorContent) },
-                    ]}
-                  >
-                    {edu.zonaInstitucion}{" "}
-                    {optionsPDF.contadorContent > 2
-                      ? `${edu.anioInicioEducacion} - ${edu.anioFinEducacion}`
-                      : ""}
-                  </Text>
-                </View>
-                <View style={styles2.entryHeader}>
-                  <Text
-                    style={[
-                      styles2.degree,
-                      { fontSize: getFontSize(11, optionsPDF.contadorContent) },
-                    ]}
-                  >
-                    {edu.carrera} ({edu.estado.toLowerCase()})
-                  </Text>
-                  <Text
-                    style={[
-                      styles2.dates,
-                      { fontSize: getFontSize(10, optionsPDF.contadorContent) },
-                    ]}
-                  >
-                    {optionsPDF.contadorContent < 3
-                      ? `${edu.anioInicioEducacion} - ${edu.anioFinEducacion}`
-                      : ""}
-                  </Text>
-                </View>
-              </View>
-            ))}
+            {
+              optionsPDF.reverseEducation ? educacion.reverse() : educacion
+            }
           </View>
           <View>
             {cvData.cursos.length > 0 && (
@@ -465,36 +521,9 @@ export const Layout2: React.FC<{
                 Certificaciones
               </Text>
             )}
-            {cvData.cursos.map((curso, index) => (
-              <View key={index} style={styles2.entryContainer}>
-                <View style={styles2.entryHeader}>
-                  <Text
-                    style={[
-                      styles2.institution,
-                      { fontSize: getFontSize(11, optionsPDF.contadorContent) },
-                    ]}
-                  >
-                    {curso.curso}
-                  </Text>
-                  <Text
-                    style={[
-                      styles2.dates,
-                      { fontSize: getFontSize(10, optionsPDF.contadorContent) },
-                    ]}
-                  >
-                    {curso.anioInicioCurso}
-                  </Text>
-                </View>
-                <Text
-                  style={[
-                    styles2.degree,
-                    { fontSize: getFontSize(11, optionsPDF.contadorContent) },
-                  ]}
-                >
-                  {curso.institucion}
-                </Text>
-              </View>
-            ))}
+            {
+              optionsPDF.reverseCursos ? cursos.reverse() : cursos
+            }
           </View>
         </View>
       </Page>

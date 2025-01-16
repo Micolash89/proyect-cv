@@ -100,33 +100,6 @@ export const Layout0: React.FC<{
     </View>
   ));
 
-  const cutName =   <Text
-  style={[
-    stylesDefault.name,
-    {
-      fontSize: 24 + contador,
-      marginTop: 10,
-      marginBottom: 15,
-    },
-  ]}
->
-  {cvData.name.split(" ")[0]} {cvData.lastName.split(" ")[0]}
-</Text>
-
-  const fullName =   <Text
-  style={[
-    stylesDefault.name,
-    {
-      fontSize: 24 + contador,
-      marginTop: 10,
-      marginBottom: 15,
-    },
-  ]}
->
-  {cvData.name} {cvData.lastName}
-</Text>
-
-
   const cursos = cvData.cursos.map((curso, index) => (
     <View key={index} style={stylesDefault.entryContainer}>
       <View style={stylesDefault.entryHeader}>
@@ -164,6 +137,36 @@ export const Layout0: React.FC<{
     </View>
   ));
 
+  const cutName = (
+    <Text
+      style={[
+        stylesDefault.name,
+        {
+          fontSize: 24 + contador,
+          marginTop: 10,
+          marginBottom: 15,
+        },
+      ]}
+    >
+      {cvData.name.split(" ")[0]} {cvData.lastName.split(" ")[0]}
+    </Text>
+  );
+
+  const fullName = (
+    <Text
+      style={[
+        stylesDefault.name,
+        {
+          fontSize: 24 + contador,
+          marginTop: 10,
+          marginBottom: 15,
+        },
+      ]}
+    >
+      {cvData.name.split(" ").join("\n")}{cvData.lastName}
+    </Text>
+  );
+
   return (
     <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
       <Page
@@ -175,21 +178,7 @@ export const Layout0: React.FC<{
       >
         {/* Header */}
         <View style={stylesDefault.header}>
-          {/* <Text
-            style={[
-              stylesDefault.name,
-              {
-                fontSize: 24 + contador,
-                marginTop: 10,
-                marginBottom: 15,
-              },
-            ]}
-          >
-            {cvData.name} {cvData.lastName}
-          </Text> */}
-          {
-            optionsPDF.fullName? fullName: cutName 
-          }
+          {optionsPDF.fullName ? fullName : cutName}
 
           <Text
             style={[stylesDefault.contactInfo, { fontSize: 11 + contador }]}
@@ -274,10 +263,7 @@ export const Layout0: React.FC<{
             >
               CERTIFICACIONES
             </Text>
-            {
-              optionsPDF.reverseCursos ? cursos.reverse() : cursos
-            }
-
+            {optionsPDF.reverseCursos ? cursos.reverse() : cursos}
           </View>
         )}
 

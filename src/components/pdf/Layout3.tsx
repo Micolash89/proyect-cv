@@ -10,6 +10,66 @@ export const Layout3: React.FC<{
     contador: number;
     optionsPDF: OptionsPDF;
   }> = ({ cvData, iaData, contador, optionsPDF }) => {
+
+    const experiencia = (cvData.experience.map((exp, index) => (
+      <View key={index} style={styles3.experienceItem}>
+        <View style={styles3.experienceHeader}>
+          <Text style={styles3.companyName}>
+            {exp.nombreEmpresa}
+          </Text>
+          <Text style={styles3.dateLocation}>
+            {exp.anioInicioExperiencia} -{" "}
+            {exp.anioFinExperiencia}
+          </Text>
+        </View>
+        <Text style={styles3.jobTitle}>{exp.puesto}</Text>
+        <Text style={styles3.locationText}>
+          {exp.zonaEmpresa}
+        </Text>
+        <Text style={styles3.description}>
+          • {iaData.descriptionWork.split("\n")[index]}
+        </Text>
+      </View>
+    )));
+
+    const educacion = (cvData.education.map((edu, index) => (
+      <View key={index} style={styles3.educationItem}>
+        <View style={styles3.educationHeader}>
+          <Text style={styles3.institutionName}>
+            {edu.institucion}
+          </Text>
+          <Text style={styles3.dateLocation}>
+            {edu.anioInicioEducacion} - {edu.anioFinEducacion}
+          </Text>
+        </View>
+        <Text style={styles3.degree}>
+          {edu.carrera} ({edu.estado})
+        </Text>
+        <Text style={styles3.locationText}>
+          {edu.zonaInstitucion}
+        </Text>
+      </View>
+    )));
+
+    const cursos = cvData.cursos.map((curso, index) => (
+      <View key={index} style={styles3.certificationItem}>
+        <Text style={styles3.certificationName}>
+          {curso.curso}
+        </Text>
+        <Text style={styles3.certificationInstitution}>
+          {curso.institucion} | {curso.anioInicioCurso}
+        </Text>
+      </View>
+    ));
+
+    const cutName = (<Text style={styles3.name}>
+      {cvData.name.split(" ")[0]} {cvData.lastName.split(" ")[0]}
+    </Text>)
+
+    const fullName = (<Text style={styles3.name}>
+      {cvData.name} {cvData.lastName}
+    </Text>)
+
     return (
             <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
               <Page size="A4" style={styles3.page}>
@@ -19,9 +79,7 @@ export const Layout3: React.FC<{
                     <Image src={cvData.imagenPerfil} style={styles3.profileImage} />
                   )}
                   <View style={styles3.headerContent}>
-                    <Text style={styles3.name}>
-                      {cvData.name} {cvData.lastName}
-                    </Text>
+           {optionsPDF.fullName ? fullName : cutName}
                     <Text style={styles3.title}>
                       {cvData.experience[0]?.puesto || "Professional"}
                     </Text>
@@ -94,26 +152,11 @@ export const Layout3: React.FC<{
                     {cvData.experience.length > 0 && (
                       <View style={styles3.section}>
                         <Text style={styles3.sectionTitle}>EXPERIENCIA</Text>
-                        {cvData.experience.map((exp, index) => (
-                          <View key={index} style={styles3.experienceItem}>
-                            <View style={styles3.experienceHeader}>
-                              <Text style={styles3.companyName}>
-                                {exp.nombreEmpresa}
-                              </Text>
-                              <Text style={styles3.dateLocation}>
-                                {exp.anioInicioExperiencia} -{" "}
-                                {exp.anioFinExperiencia}
-                              </Text>
-                            </View>
-                            <Text style={styles3.jobTitle}>{exp.puesto}</Text>
-                            <Text style={styles3.locationText}>
-                              {exp.zonaEmpresa}
-                            </Text>
-                            <Text style={styles3.description}>
-                              • {iaData.descriptionWork.split("\n")[index]}
-                            </Text>
-                          </View>
-                        ))}
+                        {
+                          optionsPDF.reverseExperience
+                            ? experiencia.reverse()
+                            : experiencia
+                        }
                       </View>
                     )}
     
@@ -121,24 +164,11 @@ export const Layout3: React.FC<{
                     {cvData.education.length > 0 && (
                       <View style={styles3.section}>
                         <Text style={styles3.sectionTitle}>EDUCACIÓN</Text>
-                        {cvData.education.map((edu, index) => (
-                          <View key={index} style={styles3.educationItem}>
-                            <View style={styles3.educationHeader}>
-                              <Text style={styles3.institutionName}>
-                                {edu.institucion}
-                              </Text>
-                              <Text style={styles3.dateLocation}>
-                                {edu.anioInicioEducacion} - {edu.anioFinEducacion}
-                              </Text>
-                            </View>
-                            <Text style={styles3.degree}>
-                              {edu.carrera} ({edu.estado})
-                            </Text>
-                            <Text style={styles3.locationText}>
-                              {edu.zonaInstitucion}
-                            </Text>
-                          </View>
-                        ))}
+                        {
+                          optionsPDF.reverseEducation
+                            ? educacion.reverse()
+                            : educacion
+                        }
                       </View>
                     )}
     
@@ -146,16 +176,11 @@ export const Layout3: React.FC<{
                     {cvData.cursos.length > 0 && (
                       <View style={styles3.section}>
                         <Text style={styles3.sectionTitle}>CURSOS</Text>
-                        {cvData.cursos.map((curso, index) => (
-                          <View key={index} style={styles3.certificationItem}>
-                            <Text style={styles3.certificationName}>
-                              {curso.curso}
-                            </Text>
-                            <Text style={styles3.certificationInstitution}>
-                              {curso.institucion} | {curso.anioInicioCurso}
-                            </Text>
-                          </View>
-                        ))}
+                        {
+                          optionsPDF.reverseCursos
+                            ? cursos.reverse()
+                            : cursos
+                        }
                       </View>
                     )}
                   </View>

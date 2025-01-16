@@ -10,6 +10,84 @@ export const Layout7: React.FC<{
   contador: number;
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
+
+  const experiencia = (cvData.experience.map((exp, index) => (
+    <View key={index} style={styles7.entryContainer}>
+      <View style={styles7.entryHeader}>
+        <Text
+          style={[
+            styles7.institution,
+            { fontSize: getFontSize(11,contador) },
+          ]}
+        >
+          {exp.nombreEmpresa}
+        </Text>
+        <Text
+          style={[styles7.dates, { fontSize: getFontSize(11,contador) }]}
+        >
+          {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
+        </Text>
+      </View>
+      <Text
+        style={[styles7.jobTitle, { fontSize: getFontSize(11,contador) }]}
+      >
+        {exp.puesto}
+      </Text>
+      <Text
+        style={[styles7.location, { fontSize: getFontSize(11,contador) }]}
+      >
+        {exp.zonaEmpresa}
+      </Text>
+      <Text
+        style={[
+          styles7.description,
+          { fontSize: getFontSize(11,contador) },
+        ]}
+      >
+        • {iaData.descriptionWork.split("\n")[index]}
+      </Text>
+    </View>
+  )));
+
+  const educacion = (cvData.education.map((edu: any, index: number) => (
+    <View key={index} style={styles7.entryContainer}>
+      <View style={styles7.entryHeader}>
+        <Text
+          style={[
+            styles7.institution,
+            { fontSize: getFontSize(11,contador) },
+          ]}
+        >
+          {edu.institucion}
+        </Text>
+        <Text
+          style={[styles7.dates, { fontSize: getFontSize(11,contador) }]}
+        >
+          {edu.anioInicioEducacion} - {edu.anioFinEducacion}
+        </Text>
+      </View>
+      <Text
+        style={[styles7.degree, { fontSize: getFontSize(11,contador) }]}
+      >
+        {edu.carrera} ({edu.estado.toLowerCase()})
+      </Text>
+      <Text
+        style={[styles7.location, { fontSize: getFontSize(11,contador) }]}
+      >
+        {edu.zonaInstitucion}
+      </Text>
+    </View>
+  )));
+
+  // const cursos = ();
+
+  const cutName = ( <Text style={[styles7.name, { fontSize: getFontSize(24,contador) }]}>
+  {cvData.name.split(" ")[0]} {cvData.lastName.split(" ")[0]}
+</Text>);
+
+  const fullName = ( <Text style={[styles7.name, { fontSize: getFontSize(24,contador) }]}>
+  {cvData.name} {cvData.lastName}
+</Text>);
   
   return (
     <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
@@ -20,9 +98,7 @@ export const Layout7: React.FC<{
             <Image src={cvData.imagenPerfil} style={styles7.profileImage} />
           )}
           <View style={styles7.headerContent}>
-            <Text style={[styles7.name, { fontSize: getFontSize(24,contador) }]}>
-              {cvData.name} {cvData.lastName}
-            </Text>
+         {optionsPDF.fullName ? fullName : cutName}
             <Text style={[styles7.contactInfo, { fontSize: getFontSize(11,contador) }]}>
               {cvData.ciudad}, {cvData.provincia}
               {cvData.dni && ` • DNI: ${cvData.dni}`} •{" "}
@@ -58,35 +134,7 @@ export const Layout7: React.FC<{
                 >
                   EDUCACIÓN
                 </Text>
-                {cvData.education.map((edu: any, index: number) => (
-                  <View key={index} style={styles7.entryContainer}>
-                    <View style={styles7.entryHeader}>
-                      <Text
-                        style={[
-                          styles7.institution,
-                          { fontSize: getFontSize(11,contador) },
-                        ]}
-                      >
-                        {edu.institucion}
-                      </Text>
-                      <Text
-                        style={[styles7.dates, { fontSize: getFontSize(11,contador) }]}
-                      >
-                        {edu.anioInicioEducacion} - {edu.anioFinEducacion}
-                      </Text>
-                    </View>
-                    <Text
-                      style={[styles7.degree, { fontSize: getFontSize(11,contador) }]}
-                    >
-                      {edu.carrera} ({edu.estado.toLowerCase()})
-                    </Text>
-                    <Text
-                      style={[styles7.location, { fontSize: getFontSize(11,contador) }]}
-                    >
-                      {edu.zonaInstitucion}
-                    </Text>
-                  </View>
-                ))}
+                {optionsPDF.reverseEducation ? educacion.reverse() : educacion}
               </View>
             )}
 
@@ -128,43 +176,7 @@ export const Layout7: React.FC<{
                 >
                   EXPERIENCIA PROFESIONAL
                 </Text>
-                {cvData.experience.map((exp, index) => (
-                  <View key={index} style={styles7.entryContainer}>
-                    <View style={styles7.entryHeader}>
-                      <Text
-                        style={[
-                          styles7.institution,
-                          { fontSize: getFontSize(11,contador) },
-                        ]}
-                      >
-                        {exp.nombreEmpresa}
-                      </Text>
-                      <Text
-                        style={[styles7.dates, { fontSize: getFontSize(11,contador) }]}
-                      >
-                        {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
-                      </Text>
-                    </View>
-                    <Text
-                      style={[styles7.jobTitle, { fontSize: getFontSize(11,contador) }]}
-                    >
-                      {exp.puesto}
-                    </Text>
-                    <Text
-                      style={[styles7.location, { fontSize: getFontSize(11,contador) }]}
-                    >
-                      {exp.zonaEmpresa}
-                    </Text>
-                    <Text
-                      style={[
-                        styles7.description,
-                        { fontSize: getFontSize(11,contador) },
-                      ]}
-                    >
-                      • {iaData.descriptionWork.split("\n")[index]}
-                    </Text>
-                  </View>
-                ))}
+                {optionsPDF.reverseExperience ? experiencia.reverse() : experiencia}
               </View>
             )}
           </View>

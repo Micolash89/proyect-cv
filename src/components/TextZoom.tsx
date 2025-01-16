@@ -93,7 +93,7 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
 
         <div className="space-y-6">
           {/* Text Size Control */}
-          <div className="flex flex-col space-y-3">
+          <div className="flex flex-col items-center space-y-3">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
               <svg
                 className="w-5 h-5"
@@ -215,7 +215,7 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
           </div>
 
           {/* Color Selection */}
-          <div className="flex flex-col space-y-3">
+          <div className="flex flex-col items-center pt-4 space-y-3">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
               <svg
                 className="w-5 h-5"
@@ -269,7 +269,7 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
           </div>
 
           {/* Space Between Paragraphs Toggle */}
-          <div className="flex flex-col space-y-3">
+          <div className="flex flex-col items-center space-y-3">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
               <svg
                 className="w-5 h-5"
@@ -286,7 +286,7 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
               </svg>
               Ajustes de diseño
             </label>
-            <div className="flex items-center space-x-4 flex-wrap gap-y-2">
+            <div className="flex items-center justify-center space-x-4 flex-wrap gap-y-2">
               <ButtonToggleOptionPDF
                 conditionOption={optionsPDF.spaceBetween}
                 messageTrue="Espaciado Amplio"
@@ -349,7 +349,7 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
           </div>
 
           {/* PDF Type Selection */}
-          <div className="flex flex-col space-y-3">
+          <div className="flex flex-col space-y-3 items-center pt-4">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
               <svg
                 className="w-5 h-5"

@@ -163,7 +163,7 @@ export const Layout0: React.FC<{
         },
       ]}
     >
-      {cvData.name.split(" ").join("\n")}{cvData.lastName}
+      {cvData.name} {cvData.lastName}
     </Text>
   );
 

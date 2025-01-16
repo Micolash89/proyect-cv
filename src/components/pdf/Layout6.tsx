@@ -10,6 +10,146 @@ export const Layout6: React.FC<{
   contador: number;
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
+
+  const experiencia = (cvData.experience.map((exp, index) => (
+    <View key={index} style={styles6.timelineEntry}>
+      <Text
+        style={[
+          styles6.timelineSubtitle,
+          {
+            fontSize: getFontSize(
+              10,
+              optionsPDF.contadorContent
+            ),
+            width: 150,
+          },
+        ]}
+      >
+        {exp.nombreEmpresa}
+      </Text>
+      <View style={styles6.timelineDot} />
+      <View style={styles6.timelineContent}>
+        <Text
+          style={[
+            styles6.timelineTitle,
+            {
+              fontSize: getFontSize(
+                11,
+                optionsPDF.contadorContent
+              ),
+            },
+          ]}
+        >
+          {exp.puesto} | {exp.anioInicioExperiencia} -{" "}
+          {exp.anioFinExperiencia}
+        </Text>
+        <Text
+          style={[
+            styles6.timelineDescription,
+            {
+              fontSize: getFontSize(
+                10,
+                optionsPDF.contadorContent
+              ),
+            },
+          ]}
+        >
+          {iaData.descriptionWork.split("\n")[index]}
+        </Text>
+      </View>
+    </View>
+  )));
+
+  const educacion = (cvData.education.map((edu, index) => (
+    <View key={index} style={styles6.timelineEntry}>
+      <Text
+        style={[
+          styles6.timelineDate,
+          {
+            fontSize: getFontSize(10, optionsPDF.contadorContent),
+            width: 150,
+          },
+        ]}
+      >
+        {edu.anioInicioEducacion} - {edu.anioFinEducacion}
+      </Text>
+      <View style={styles6.timelineDot} />
+      <View style={styles6.timelineContent}>
+        <Text
+          style={[
+            styles6.timelineTitle,
+            {
+              fontSize: getFontSize(11, optionsPDF.contadorContent),
+            },
+          ]}
+        >
+          {edu.carrera}
+        </Text>
+        <Text
+          style={[
+            styles6.timelineSubtitle,
+            {
+              fontSize: getFontSize(10, optionsPDF.contadorContent),
+            },
+          ]}
+        >
+          {edu.institucion}
+        </Text>
+      </View>
+    </View>
+  )));
+
+  const cursos = cvData.cursos.map((curso, index) => (
+    <View key={`curso-${index}`} style={styles6.timelineEntry}>
+      <Text
+        style={[
+          styles6.timelineDate,
+          {
+            fontSize: getFontSize(10, optionsPDF.contadorContent),
+            width: 150,
+          },
+        ]}
+      >
+        {curso.anioInicioCurso}
+      </Text>
+      <View style={styles6.timelineDot} />
+      <View style={styles6.timelineContent}>
+        <Text
+          style={[
+            styles6.timelineTitle,
+            {
+              fontSize: getFontSize(11, optionsPDF.contadorContent),
+            },
+          ]}
+        >
+          {curso.curso}
+        </Text>
+        <Text
+          style={[
+            styles6.timelineSubtitle,
+            {
+              fontSize: getFontSize(10, optionsPDF.contadorContent),
+            },
+          ]}
+        >
+          {curso.institucion}
+        </Text>
+      </View>
+    </View>
+  ));
+
+  const cutName = ( <Text
+    style={[styles6.name, { fontSize: getFontSize(24, contador) }]}
+  >
+    {cvData.name.split(" ")[0]} {cvData.lastName.split(" ")[0]}
+  </Text>);
+
+  const fullName = ( <Text
+    style={[styles6.name, { fontSize: getFontSize(24, contador) }]}
+  >
+    {cvData.name} {cvData.lastName}
+  </Text>);
+
   return (
     <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
       <Page
@@ -25,11 +165,7 @@ export const Layout6: React.FC<{
           </View>
           <View style={styles6.headerColumn}>
             {(cvData.name || cvData.lastName) && (
-              <Text
-                style={[styles6.name, { fontSize: getFontSize(24, contador) }]}
-              >
-                {cvData.name} {cvData.lastName}
-              </Text>
+            optionsPDF.fullName ? fullName : cutName
             )}
 
             <View
@@ -196,54 +332,7 @@ export const Layout6: React.FC<{
                   Experiencia de trabajo
                 </Text>
                 <View style={styles6.timelineContainer}>
-                  {cvData.experience.map((exp, index) => (
-                    <View key={index} style={styles6.timelineEntry}>
-                      <Text
-                        style={[
-                          styles6.timelineSubtitle,
-                          {
-                            fontSize: getFontSize(
-                              10,
-                              optionsPDF.contadorContent
-                            ),
-                            width: 150,
-                          },
-                        ]}
-                      >
-                        {exp.nombreEmpresa}
-                      </Text>
-                      <View style={styles6.timelineDot} />
-                      <View style={styles6.timelineContent}>
-                        <Text
-                          style={[
-                            styles6.timelineTitle,
-                            {
-                              fontSize: getFontSize(
-                                11,
-                                optionsPDF.contadorContent
-                              ),
-                            },
-                          ]}
-                        >
-                          {exp.puesto} | {exp.anioInicioExperiencia} -{" "}
-                          {exp.anioFinExperiencia}
-                        </Text>
-                        <Text
-                          style={[
-                            styles6.timelineDescription,
-                            {
-                              fontSize: getFontSize(
-                                10,
-                                optionsPDF.contadorContent
-                              ),
-                            },
-                          ]}
-                        >
-                          {iaData.descriptionWork.split("\n")[index]}
-                        </Text>
-                      </View>
-                    </View>
-                  ))}
+                  {optionsPDF.reverseExperience? experiencia.reverse() : experiencia}
                 </View>
               </View>
             )}
@@ -262,44 +351,7 @@ export const Layout6: React.FC<{
               </Text>
             )}
             <View style={styles6.timelineContainer}>
-              {cvData.education.map((edu, index) => (
-                <View key={index} style={styles6.timelineEntry}>
-                  <Text
-                    style={[
-                      styles6.timelineDate,
-                      {
-                        fontSize: getFontSize(10, optionsPDF.contadorContent),
-                        width: 150,
-                      },
-                    ]}
-                  >
-                    {edu.anioInicioEducacion} - {edu.anioFinEducacion}
-                  </Text>
-                  <View style={styles6.timelineDot} />
-                  <View style={styles6.timelineContent}>
-                    <Text
-                      style={[
-                        styles6.timelineTitle,
-                        {
-                          fontSize: getFontSize(11, optionsPDF.contadorContent),
-                        },
-                      ]}
-                    >
-                      {edu.carrera}
-                    </Text>
-                    <Text
-                      style={[
-                        styles6.timelineSubtitle,
-                        {
-                          fontSize: getFontSize(10, optionsPDF.contadorContent),
-                        },
-                      ]}
-                    >
-                      {edu.institucion}
-                    </Text>
-                  </View>
-                </View>
-              ))}
+              {optionsPDF.reverseEducation? educacion.reverse() : educacion}
               {cvData.cursos.length > 0 && (
                 <Text
                   style={[
@@ -310,44 +362,7 @@ export const Layout6: React.FC<{
                   Cursos
                 </Text>
               )}
-              {cvData.cursos.map((curso, index) => (
-                <View key={`curso-${index}`} style={styles6.timelineEntry}>
-                  <Text
-                    style={[
-                      styles6.timelineDate,
-                      {
-                        fontSize: getFontSize(10, optionsPDF.contadorContent),
-                        width: 150,
-                      },
-                    ]}
-                  >
-                    {curso.anioInicioCurso}
-                  </Text>
-                  <View style={styles6.timelineDot} />
-                  <View style={styles6.timelineContent}>
-                    <Text
-                      style={[
-                        styles6.timelineTitle,
-                        {
-                          fontSize: getFontSize(11, optionsPDF.contadorContent),
-                        },
-                      ]}
-                    >
-                      {curso.curso}
-                    </Text>
-                    <Text
-                      style={[
-                        styles6.timelineSubtitle,
-                        {
-                          fontSize: getFontSize(10, optionsPDF.contadorContent),
-                        },
-                      ]}
-                    >
-                      {curso.institucion}
-                    </Text>
-                  </View>
-                </View>
-              ))}
+              {optionsPDF.reverseCursos? cursos.reverse() : cursos}
             </View>
           </View>
 

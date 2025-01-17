@@ -3,6 +3,7 @@ import { templates } from "@/lib/constTemplate";
 import React from "react";
 import ButtonToggleOptionPDF from "./ButtonToggleOptionPDF";
 import { OptionsPDF } from "@/lib/definitions";
+import WrapperH3 from "@/components/WrapperH3";
 
 interface PdfOptionsProps {
   optionsPDF: OptionsPDF;
@@ -67,7 +68,7 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
 
   return (
     <div className="w-full max-w-4xl mx-auto py-4">
-      <div className="bg-white dark:bg-gray-900 shadow-lg rounded-xl p-6 space-y-8 transition-all duration-200">
+      <div className="bg-white dark:bg-gray-900 shadow-lg rounded-xl p-6  transition-all duration-200">
         <div className="flex items-center justify-between border-b dark:border-gray-700 pb-4">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
             <svg
@@ -85,6 +86,7 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
             </svg>
             Configuración del CV
           </h2>
+
           <div
             className="h-8 w-8 rounded-full"
             style={{ backgroundColor: optionsPDF.color }}
@@ -92,24 +94,8 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
         </div>
 
         <div className="space-y-6">
-          {/* Text Size Control */}
           <div className="flex flex-col items-center space-y-3">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                />
-              </svg>
-              Tamaño del Texto
-            </label>
+            <WrapperH3 title="Tamaño del Texto" />
             <div className="flex gap-2 flex-col lg:flex-row items-center">
               <div className="flex items-center flex-col justify-center bg-gray-100 dark:bg-gray-800 rounded-lg p-2 w-fit">
                 <h6 className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -214,24 +200,9 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
             </div>
           </div>
 
-          {/* Color Selection */}
-          <div className="flex flex-col items-center pt-4 space-y-3">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-                />
-              </svg>
-              Color del CV
-            </label>
+          <div className="flex flex-col items-center space-y-3">
+            <WrapperH3 title="Personalizar color" />
+
             <div className="flex items-center space-x-4">
               <div className="flex flex-wrap gap-2">
                 {templates
@@ -263,30 +234,15 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
                 type="text"
                 value={optionsPDF.color}
                 onChange={handleColorChange}
-                className=" text-sm font-mono bg-gray-100 dark:bg-gray-800 px-3 py-1 text-gray-700 dark:text-gray-300 rounded"
+                className=" text-lg font-mono bg-gray-100 dark:bg-gray-800  px-3 py-2 text-gray-700 dark:text-gray-300 rounded w-24"
               />
             </div>
           </div>
 
-          {/* Space Between Paragraphs Toggle */}
           <div className="flex flex-col items-center space-y-3">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                />
-              </svg>
-              Ajustes de diseño
-            </label>
-            <div className="flex items-center justify-center space-x-4 flex-wrap gap-y-2">
+            <WrapperH3 title="Ajustes de diseño" />
+
+            <div className="flex items-center justify-center space-x-4 flex-wrap gap-y-4">
               <ButtonToggleOptionPDF
                 conditionOption={optionsPDF.spaceBetween}
                 messageTrue="Espaciado Amplio"
@@ -348,24 +304,9 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
             </div>
           </div>
 
-          {/* PDF Type Selection */}
-          <div className="flex flex-col space-y-3 items-center pt-4">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
-                />
-              </svg>
-              Estilo del CV
-            </label>
+          <div className="flex flex-col space-y-3 items-center ">
+            <WrapperH3 title="Diseño" />
+
             <div className="flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-lg p-2">
               <button
                 onClick={() => handlePdfTypeChange("prev")}
@@ -387,7 +328,7 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
                 </svg>
               </button>
               <span className="w-24 text-center font-medium text-gray-900 dark:text-white">
-                Estilo {optionsPDF.tipoPdf}
+                {optionsPDF.tipoPdf}
               </span>
               <button
                 onClick={() => handlePdfTypeChange("next")}

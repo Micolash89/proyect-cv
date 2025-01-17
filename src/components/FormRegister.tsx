@@ -1316,8 +1316,8 @@ function FormRegister({
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {checkboxItems.map((item) => (
                         <div key={item.id} className="relative">
-                          <label className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                            <div className="flex items-center h-5">
+                          <label className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group has-[:checked]:bg-gray-100 dark:has-[:checked]:bg-gray-700 ">
+                            <div className="flex items-center h-5 ">
                               <input
                                 type="checkbox"
                                 name={item.id}

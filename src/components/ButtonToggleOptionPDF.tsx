@@ -13,7 +13,7 @@ export default function ButtonToggleOptionPDF({
 }) {
   return (
     <>
-      <div className=" text-center flex max-w-[144px] bg-gray-100 dark:bg-gray-800 p-3 rounded-lg items-center flex-col gap-3  ">
+      <div className=" text-center flex max-w-[144px] min-w-[144px] bg-gray-100 dark:bg-gray-800 p-3 rounded-lg items-center flex-col gap-3  ">
         <span className="ml-3 text-sm text-gray-600 dark:text-gray-400">
           <strong className="font-bold">
             {conditionOption

@@ -149,7 +149,7 @@ export default async function UserTable({
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
                       <Update id={user.id} />
-                      <DeleteButton id={user.id} />
+                      <DeleteButton id={user.id} mensajeEliminar={`Eliminar a ${user.nombre.split(" ")[0]} ${user.apellido.split(" ")[0]}`} />
                     </div>
                   </td>
                 </tr>

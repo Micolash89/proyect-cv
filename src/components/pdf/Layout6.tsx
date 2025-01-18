@@ -426,7 +426,7 @@ export const Layout6: React.FC<{
                     cvData.licencia && "Licencia de conducir",
                     cvData.movilidad && "Vehículo propio",
                     cvData.incorporacion && "Disponibilidad inmediata",
-                    cvData.disponibilidad &&
+                    cvData.disponibilidad && cvData.disponibilidad!="NINGUNO" &&
                       `${cvData.disponibilidad=="FULLTIME"?"jornada completa":"jornada parcial"}`,
                     cvData.office && "Microsoft Office",
                   ]

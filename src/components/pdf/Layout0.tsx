@@ -320,7 +320,7 @@ export const Layout0: React.FC<{
                 cvData.licencia && "Licencia de conducir",
                 cvData.movilidad && "Vehículo propio",
                 cvData.incorporacion && "Disponibilidad inmediata",
-                cvData.disponibilidad && `Jornada: ${cvData.disponibilidad}`,
+                cvData.disponibilidad && cvData.disponibilidad!="NINGUNO" && `Jornada: ${cvData.disponibilidad}`,
                 cvData.office && "Microsoft Office",
                 ...cvData.idiomas.map(
                   (idioma) => `${idioma.idioma} - ${idioma.nivel.toLowerCase()}`

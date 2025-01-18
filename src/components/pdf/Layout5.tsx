@@ -165,7 +165,7 @@ export const Layout5: React.FC<{
                         Disponibilidad inmediata
                       </Text>
                     )}
-                    {cvData.disponibilidad && (
+                    {cvData.disponibilidad && cvData.disponibilidad !== "NINGUNO" && (
                       <Text style={styles5.additionalInfoItem}>
                         Jornada: {cvData.disponibilidad}
                       </Text>

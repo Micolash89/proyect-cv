@@ -295,7 +295,7 @@ export const Layout1: React.FC<{
                   • Disponibilidad inmediata
                 </Text>
               )}
-              {cvData.disponibilidad && (
+              {cvData.disponibilidad && cvData.disponibilidad!= "NINGUNO" && (
                 <Text
                   style={[
                     styles1.additionalInfo,

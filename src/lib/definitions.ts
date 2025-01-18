@@ -130,9 +130,39 @@ export interface Errors {
   anioFinEducacion: string[];
 }
 
-
-
 export interface ArraySelectInput{
   value: string;
   name: string;
 }
+
+export interface UserTable{
+  id: number;
+  nombre: string;
+  apellido: string;
+  telefono: string;
+  fechaNacimiento: Date;
+  email: string;
+  ciudad: string;
+  imagenPerfil: string;
+  provincia: string;
+  linkedin: string;
+  dni: string;
+  visto: boolean;
+  orientacionCV: string;
+  cvTemplateId: number | null;
+}
+
+export type Section =
+  | "personal"
+  | "education"
+  | "experience"
+  | "cursos"
+  | "idiomas"
+  | "informacionA"
+  | "orientacionCV"
+  | "CVTemplateSelector";
+
+  export interface CVDataTemplateSelector {
+    template: number;
+    color: string;
+  }

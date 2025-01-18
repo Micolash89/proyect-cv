@@ -28,10 +28,8 @@ const AnimatedCounter = ({
     if (!element) return;
     if (!inView) return;
 
-    // Set initial value
     element.textContent = String(from);
 
-    // If reduced motion is enabled in system's preferences
     if (window.matchMedia("(prefers-reduced-motion)").matches) {
       element.textContent = String(to);
       return;

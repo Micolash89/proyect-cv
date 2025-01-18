@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  postUsuarios,
-  updateUser,
-  uploadImage,
-  uploadImageBack,
-} from "@/lib/actions";
+import { postUsuarios, updateUser, uploadImage } from "@/lib/actions";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
@@ -19,7 +14,7 @@ import WrapperSection from "./user/[id]/WrapperSection";
 import CVTemplateSelector from "./CVTemplateSelector";
 import CountArrayForm from "./user/[id]/CountArrayForm";
 import ErrorComponent from "./user/[id]/ErrorComponent";
-import { Errors } from "@/lib/definitions";
+import { Errors, Section } from "@/lib/definitions";
 import InputComponent from "./user/[id]/InputComponent";
 import {
   educacionEstadoSelect,
@@ -37,16 +32,6 @@ import {
   validateIdiomas,
 } from "@/lib/libs";
 import clsx from "clsx";
-
-type Section =
-  | "personal"
-  | "education"
-  | "experience"
-  | "cursos"
-  | "idiomas"
-  | "informacionA"
-  | "orientacionCV"
-  | "CVTemplateSelector";
 
 function FormRegister({
   cvData,
@@ -316,7 +301,6 @@ function FormRegister({
   };
 
   const addCursos = () => {
-
     const error = validateCursos(newCursos);
 
     if (Object.keys(error).length === 0) {
@@ -705,7 +689,7 @@ function FormRegister({
                     <ErrorComponent arr={dataResponse.errors.email} />
                   </>
                 )}
-              </WrapperSectionInput>                
+              </WrapperSectionInput>
 
               {idUser ? (
                 ""
@@ -929,7 +913,10 @@ function FormRegister({
             >
               <WrapperSection>
                 <WrapperSectionInput>
-                  <WrapperH2Section title="experiencia laboral" additionalMessage="Recomendado: Incluir la experiencia más reciente a la más antigua" />
+                  <WrapperH2Section
+                    title="experiencia laboral"
+                    additionalMessage="Recomendado: Incluir la experiencia más reciente a la más antigua"
+                  />
 
                   {cvData.experience.map((exp: any, index: number) => (
                     <InfoCard
@@ -1425,18 +1412,18 @@ function FormRegister({
                       onChange={handleInputChange}
                       onKeyDown={handleKeyDown}
                       id="floating_orientado"
-                      responseError={dataResponse.errors.orientadoCV.length!=0}
+                      responseError={
+                        dataResponse.errors.orientadoCV.length != 0
+                      }
                       content="Orientado a empleo"
                       requiered={false}
                       type="text"
                     />
                   </div>
-                  
-                {
-                  (dataResponse.errors.orientadoCV) && (
+
+                  {dataResponse.errors.orientadoCV && (
                     <ErrorComponent arr={dataResponse.errors.orientadoCV} />
-                  )
-                }
+                  )}
                 </WrapperSectionInput>
                 {!idUser && moveToNextSection && (
                   <div className="flex flex-row justify-end p-6 bg-gray-50 dark:bg-gray-800/50">

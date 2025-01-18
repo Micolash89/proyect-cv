@@ -22,12 +22,10 @@ export default function AnimationDot({ state }: { state?: boolean }) {
           ></span>
         </span>
         <span
-          className={clsx(
-            "capitalize text-sm font-medium ",
-            { "text-green-500": state,
-              "text-red-500": !state
-             }
-          )}
+          className={clsx("capitalize text-sm font-medium ", {
+            "text-green-500": state,
+            "text-red-500": !state,
+          })}
         >
           {state ? "Visto" : "nuevo"}
         </span>

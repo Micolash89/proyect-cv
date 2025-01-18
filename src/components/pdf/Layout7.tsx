@@ -10,85 +10,67 @@ export const Layout7: React.FC<{
   contador: number;
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
-
-  const experiencia = (cvData.experience.map((exp, index) => (
+  const experiencia = cvData.experience.map((exp, index) => (
     <View key={index} style={styles7.entryContainer}>
       <View style={styles7.entryHeader}>
         <Text
-          style={[
-            styles7.institution,
-            { fontSize: getFontSize(11,contador) },
-          ]}
+          style={[styles7.institution, { fontSize: getFontSize(11, contador) }]}
         >
           {exp.nombreEmpresa}
         </Text>
-        <Text
-          style={[styles7.dates, { fontSize: getFontSize(11,contador) }]}
-        >
+        <Text style={[styles7.dates, { fontSize: getFontSize(11, contador) }]}>
           {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
         </Text>
       </View>
-      <Text
-        style={[styles7.jobTitle, { fontSize: getFontSize(11,contador) }]}
-      >
+      <Text style={[styles7.jobTitle, { fontSize: getFontSize(11, contador) }]}>
         {exp.puesto}
       </Text>
-      <Text
-        style={[styles7.location, { fontSize: getFontSize(11,contador) }]}
-      >
+      <Text style={[styles7.location, { fontSize: getFontSize(11, contador) }]}>
         {exp.zonaEmpresa}
       </Text>
       <Text
-        style={[
-          styles7.description,
-          { fontSize: getFontSize(11,contador) },
-        ]}
+        style={[styles7.description, { fontSize: getFontSize(11, contador) }]}
       >
         • {iaData.descriptionWork.split("\n")[index]}
       </Text>
     </View>
-  )));
+  ));
 
-  const educacion = (cvData.education.map((edu: any, index: number) => (
+  const educacion = cvData.education.map((edu: any, index: number) => (
     <View key={index} style={styles7.entryContainer}>
       <View style={styles7.entryHeader}>
         <Text
-          style={[
-            styles7.institution,
-            { fontSize: getFontSize(11,contador) },
-          ]}
+          style={[styles7.institution, { fontSize: getFontSize(11, contador) }]}
         >
           {edu.institucion}
         </Text>
-        <Text
-          style={[styles7.dates, { fontSize: getFontSize(11,contador) }]}
-        >
+        <Text style={[styles7.dates, { fontSize: getFontSize(11, contador) }]}>
           {edu.anioInicioEducacion} - {edu.anioFinEducacion}
         </Text>
       </View>
-      <Text
-        style={[styles7.degree, { fontSize: getFontSize(11,contador) }]}
-      >
+      <Text style={[styles7.degree, { fontSize: getFontSize(11, contador) }]}>
         {edu.carrera} ({edu.estado.toLowerCase()})
       </Text>
-      <Text
-        style={[styles7.location, { fontSize: getFontSize(11,contador) }]}
-      >
+      <Text style={[styles7.location, { fontSize: getFontSize(11, contador) }]}>
         {edu.zonaInstitucion}
       </Text>
     </View>
-  )));
+  ));
 
   // const cursos = ();
 
-  const cutName = ( <Text style={[styles7.name, { fontSize: getFontSize(24,contador) }]}>
-  {cvData.name.split(" ")[0]} {cvData.lastName.split(" ")[0]}
-</Text>);
+  const cutName = (
+    <Text style={[styles7.name, { fontSize: getFontSize(24, contador) }]}>
+      {cvData.name.split(" ")[0]} {cvData.lastName.split(" ")[0]}
+    </Text>
+  );
 
-  const fullName = ( <Text style={[styles7.name, { fontSize: getFontSize(24,contador) }]}>
-  {cvData.name} {cvData.lastName}
-</Text>);
-  
+  const fullName = (
+    <Text style={[styles7.name, { fontSize: getFontSize(24, contador) }]}>
+      {cvData.name} {cvData.lastName}
+    </Text>
+  );
+
   return (
     <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
       <Page size="A4" style={[styles7.page]}>
@@ -98,8 +80,13 @@ export const Layout7: React.FC<{
             <Image src={cvData.imagenPerfil} style={styles7.profileImage} />
           )}
           <View style={styles7.headerContent}>
-         {optionsPDF.fullName ? fullName : cutName}
-            <Text style={[styles7.contactInfo, { fontSize: getFontSize(11,contador) }]}>
+            {optionsPDF.fullName ? fullName : cutName}
+            <Text
+              style={[
+                styles7.contactInfo,
+                { fontSize: getFontSize(11, contador) },
+              ]}
+            >
               {cvData.ciudad}, {cvData.provincia}
               {cvData.dni && ` • DNI: ${cvData.dni}`} •{" "}
               {cvData.fechaNacimiento.split("-").reverse().join("/")} • Tel.:{" "}
@@ -110,112 +97,144 @@ export const Layout7: React.FC<{
         </View>
 
         {/* Profile Summary */}
-        <View style={{paddingHorizontal: getPadding(contador,45), paddingBottom: getPadding(contador,45)}}>
-        
-        {iaData.profile && (
-          <View style={styles7.section}>
-            <Text
-              style={[styles7.profileText, { fontSize: getFontSize(10.5,contador) }]}
-            >
-              {iaData.profile}
-            </Text>
-          </View>
-        )}
-
-        {/* Main Content Grid */}
-        <View style={styles7.mainContent}>
-          {/* Left Column */}
-          <View style={styles7.leftColumn}>
-            {/* Education Section */}
-            {cvData.education.length > 0 && (
-              <View style={styles7.section}>
-                <Text
-                  style={[styles7.sectionTitle, { fontSize: getFontSize(14,contador) }]}
-                >
-                  EDUCACIÓN
-                </Text>
-                {optionsPDF.reverseEducation ? educacion.reverse() : educacion}
-              </View>
-            )}
-
-            {/* Skills Section */}
-            {iaData.skills && (
-              <View style={styles7.section}>
-                <Text
-                  style={[styles7.sectionTitle, { fontSize: getFontSize(14,contador) }]}
-                >
-                  HABILIDADES
-                </Text>
-                <View style={styles7.skillsGrid}>
-                  {iaData.skills.split("•").map(
-                    (skill: any, index: number) =>
-                      skill.trim() && (
-                        <Text
-                          key={index}
-                          style={[
-                            styles7.skillItem,
-                            { fontSize: getFontSize(11,contador) },
-                          ]}
-                        >
-                          • {skill.trim()}
-                        </Text>
-                      )
-                  )}
-                </View>
-              </View>
-            )}
-          </View>
-
-          {/* Right Column */}
-          <View style={styles7.rightColumn}>
-            {/* Experience Section */}
-            {cvData.experience.length > 0 && (
-              <View style={styles7.section}>
-                <Text
-                  style={[styles7.sectionTitle, { fontSize: getFontSize(14,contador) }]}
-                >
-                  EXPERIENCIA PROFESIONAL
-                </Text>
-                {optionsPDF.reverseExperience ? experiencia.reverse() : experiencia}
-              </View>
-            )}
-          </View>
-        </View>
-
-        {/* Additional Information */}
-        <View style={styles7.footer}>
-          {(cvData.licencia ||
-            cvData.movilidad ||
-            cvData.incorporacion ||
-            cvData.disponibilidad ||
-            cvData.office ||
-            cvData.idiomas.length > 0) && (
+        <View
+          style={{
+            paddingHorizontal: getPadding(contador, 45),
+            paddingBottom: getPadding(contador, 45),
+          }}
+        >
+          {iaData.profile && (
             <View style={styles7.section}>
               <Text
-                style={[styles7.sectionTitle, { fontSize: getFontSize(14,contador) }]}
+                style={[
+                  styles7.profileText,
+                  { fontSize: getFontSize(10.5, contador) },
+                ]}
               >
-                INFORMACIÓN ADICIONAL
-              </Text>
-              <Text
-                style={[styles7.additionalInfo, { fontSize: getFontSize(11,contador) }]}
-              >
-                {[
-                  cvData.licencia && "Licencia de conducir",
-                  cvData.movilidad && "Vehículo propio",
-                  cvData.incorporacion && "Disponibilidad inmediata",
-                  cvData.disponibilidad && `Jornada: ${cvData.disponibilidad}`,
-                  cvData.office && "Microsoft Office",
-                  ...cvData.idiomas.map(
-                    (idioma) =>
-                      `${idioma.idioma} - ${idioma.nivel.toLowerCase()}`
-                  ),
-                ]
-                  .filter(Boolean)
-                  .join(" • ")}
+                {iaData.profile}
               </Text>
             </View>
           )}
-        </View>
+
+          {/* Main Content Grid */}
+          <View style={styles7.mainContent}>
+            {/* Left Column */}
+            <View style={styles7.leftColumn}>
+              {/* Education Section */}
+              {cvData.education.length > 0 && (
+                <View style={styles7.section}>
+                  <Text
+                    style={[
+                      styles7.sectionTitle,
+                      { fontSize: getFontSize(14, contador) },
+                    ]}
+                  >
+                    EDUCACIÓN
+                  </Text>
+                  {optionsPDF.reverseEducation
+                    ? educacion.reverse()
+                    : educacion}
+                </View>
+              )}
+
+              {/* Skills Section */}
+              {iaData.skills && (
+                <View style={styles7.section}>
+                  <Text
+                    style={[
+                      styles7.sectionTitle,
+                      { fontSize: getFontSize(14, contador) },
+                    ]}
+                  >
+                    HABILIDADES
+                  </Text>
+                  <View style={styles7.skillsGrid}>
+                    {iaData.skills.split("•").map(
+                      (skill: any, index: number) =>
+                        skill.trim() && (
+                          <Text
+                            key={index}
+                            style={[
+                              styles7.skillItem,
+                              { fontSize: getFontSize(11, contador) },
+                            ]}
+                          >
+                            • {skill.trim()}
+                          </Text>
+                        )
+                    )}
+                  </View>
+                </View>
+              )}
+            </View>
+
+            {/* Right Column */}
+            <View style={styles7.rightColumn}>
+              {/* Experience Section */}
+              {cvData.experience.length > 0 && (
+                <View style={styles7.section}>
+                  <Text
+                    style={[
+                      styles7.sectionTitle,
+                      { fontSize: getFontSize(14, contador) },
+                    ]}
+                  >
+                    EXPERIENCIA PROFESIONAL
+                  </Text>
+                  {optionsPDF.reverseExperience
+                    ? experiencia.reverse()
+                    : experiencia}
+                </View>
+              )}
+            </View>
+          </View>
+
+          {/* Additional Information */}
+          <View style={styles7.footer}>
+            {(cvData.licencia ||
+              cvData.movilidad ||
+              cvData.incorporacion ||
+              cvData.disponibilidad ||
+              cvData.office ||
+              cvData.idiomas.length > 0) && (
+              <View style={styles7.section}>
+                <Text
+                  style={[
+                    styles7.sectionTitle,
+                    { fontSize: getFontSize(14, contador) },
+                  ]}
+                >
+                  INFORMACIÓN ADICIONAL
+                </Text>
+                <Text
+                  style={[
+                    styles7.additionalInfo,
+                    { fontSize: getFontSize(11, contador) },
+                  ]}
+                >
+                  {[
+                    cvData.licencia && "Licencia de conducir",
+                    cvData.movilidad && "Vehículo propio",
+                    cvData.incorporacion && "Disponibilidad inmediata",
+                    cvData.disponibilidad &&
+                      cvData.disponibilidad != "NINGUNO" &&
+                      `Jornada: ${
+                        cvData.disponibilidad == "FULLTIME"
+                          ? "completa"
+                          : "parcial"
+                      }`,
+                    cvData.office && "Microsoft Office",
+                    ...cvData.idiomas.map(
+                      (idioma) =>
+                        `${idioma.idioma} - ${idioma.nivel.toLowerCase()}`
+                    ),
+                  ]
+                    .filter(Boolean)
+                    .join(" • ")}
+                </Text>
+              </View>
+            )}
+          </View>
         </View>
       </Page>
     </Document>

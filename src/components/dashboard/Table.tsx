@@ -4,6 +4,8 @@ import { formatDateToLocal } from "@/lib/libs";
 import Update from "./Update";
 import AnimationDot from "../AnimationDot";
 import DeleteButton from "./DeleteButton";
+import { formatDate } from "@/lib/utils";
+import TableRow from "./TableRow";
 
 export default async function UserTable({
   query,
@@ -71,7 +73,7 @@ export default async function UserTable({
               </div>
             ))}
           </div>
-          <table className="hidden min-w-full text-gray-900 dark:text-white  lg:table">
+          {/* <table className="hidden min-w-full text-gray-900 dark:text-white  lg:table">
             <thead className="rounded-lg text-left text-sm font-normal ">
               <tr>
                 <th
@@ -155,19 +157,13 @@ export default async function UserTable({
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table> */}
+
+              <TableRow users={users}/>
+
         </div>
       </div>
     </div>
   );
 }
 
-export const formatDate = (
-  date: Date,
-  locale: string,
-  options?:any 
-) => {
-
-  return Intl.DateTimeFormat(locale, { ...options, timeZone: 'UTC' }).format(date);
-
-};

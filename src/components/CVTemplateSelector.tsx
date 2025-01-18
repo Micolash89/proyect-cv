@@ -7,18 +7,14 @@ import { motion } from "framer-motion";
 import WrapperH2Section from "./user/[id]/WrapperH2Section";
 import { templates } from "@/lib/constTemplate";
 import Image from "next/image";
-
-interface CVData {
-  template: number;
-  color: string;
-}
+import { CVDataTemplateSelector } from "@/lib/definitions";
 
 export default function CVTemplateSelector({
   cvData,
   updateCVData,
 }: {
-  cvData: CVData;
-  updateCVData: (data: CVData) => void;
+  cvData: CVDataTemplateSelector;
+  updateCVData: (data: CVDataTemplateSelector) => void;
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(3);

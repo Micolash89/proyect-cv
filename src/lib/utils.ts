@@ -55,3 +55,13 @@ export const getPadding = (contador: number, baseSize: number = 45) => {
 
 export const getFontSize = (baseSize: number, contador: number) =>
   baseSize + contador;
+
+export const formatDate = (
+  date: Date,
+  locale: string,
+  options?:any 
+) => {
+
+  return Intl.DateTimeFormat(locale, { ...options, timeZone: 'UTC' }).format(date);
+
+};

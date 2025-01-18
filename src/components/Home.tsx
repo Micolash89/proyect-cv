@@ -16,7 +16,7 @@ import {
 import { TextZoom } from "./TextZoom";
 import { OptionsPDF } from "@/lib/definitions";
 
-interface Estudio {
+export interface Estudio {
   estudios: string;
   estado: string;
   carrera: string;

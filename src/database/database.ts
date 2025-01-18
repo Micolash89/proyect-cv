@@ -119,7 +119,6 @@ export async function fetchFilteredUsers(query: string, currentPage: number) {
   }
 }
 
-/*falta ahcer el join con todas las tablas*/
 export async function getUserId(id: number) {
   try {
     await prisma.$connect();

@@ -15,7 +15,7 @@ export const Layout3: React.FC<{
       <View style={styles3.experienceHeader}>
         <Text style={styles3.companyName}>{exp.nombreEmpresa}</Text>
         <Text style={styles3.dateLocation}>
-          {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
+          {exp.anioInicioExperiencia}/{exp.anioInicioExperiencia} - {exp.anioFinExperiencia=="Actualidad"?"Actualidad":`${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}
         </Text>
       </View>
       <Text style={styles3.jobTitle}>{exp.puesto}</Text>
@@ -31,7 +31,7 @@ export const Layout3: React.FC<{
       <View style={styles3.educationHeader}>
         <Text style={styles3.institutionName}>{edu.institucion}</Text>
         <Text style={styles3.dateLocation}>
-          {edu.anioInicioEducacion} - {edu.anioFinEducacion}
+          {edu.mesInicioEducacion}/{edu.anioInicioEducacion} - {edu.anioFinEducacion=="Actualidad"?"Actualidad":`${edu.mesFinEducacion}/${edu.anioFinEducacion}`}
         </Text>
       </View>
       <Text style={styles3.degree}>
@@ -45,7 +45,7 @@ export const Layout3: React.FC<{
     <View key={index} style={styles3.certificationItem}>
       <Text style={styles3.certificationName}>{curso.curso}</Text>
       <Text style={styles3.certificationInstitution}>
-        {curso.institucion} | {curso.anioInicioCurso}
+        {curso.institucion} | {curso.anioInicioCurso=="Actualidad"?"Actualidad":`${curso.mesInicioCurso}/${curso.anioInicioCurso}`}
       </Text>
     </View>
   ));

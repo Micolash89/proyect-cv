@@ -34,7 +34,7 @@ export const Layout1: React.FC<{
           { fontSize: getFontSize(10, optionsPDF.contadorContent) },
         ]}
       >
-        {exp.anioInicioExperiencia} - {exp.anioFinExperiencia} |{" "}
+        {exp.mesInicioExperiencia}/{exp.anioInicioExperiencia} - {exp.anioFinExperiencia=="Actualidad"?"Actualidad ":`${exp.mesFinExperiencia}/${exp.anioFinExperiencia} `}|{" "}
         {exp.zonaEmpresa}
       </Text>
       <Text
@@ -72,7 +72,7 @@ export const Layout1: React.FC<{
           { fontSize: getFontSize(10, optionsPDF.contadorContent) },
         ]}
       >
-        {edu.anioInicioEducacion} - {edu.anioFinEducacion} |{" "}
+        {edu.mesInicioEducacion}/{edu.anioInicioEducacion} - {edu.mesFinEducacion}/{edu.anioFinEducacion} |{" "}
         {edu.zonaInstitucion}
       </Text>
     </View>
@@ -102,7 +102,7 @@ export const Layout1: React.FC<{
           { fontSize: getFontSize(10, optionsPDF.contadorContent) },
         ]}
       >
-        {curso.anioInicioCurso}
+        {curso.anioInicioCurso=="Actualidad"?"Actualidad":`${curso.mesInicioCurso}/${curso.anioInicioCurso}`}
       </Text>
     </View>
   ));

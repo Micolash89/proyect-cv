@@ -10,7 +10,6 @@ export const Layout2: React.FC<{
   contador: number;
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
-
   const experiencia = cvData.experience.map((exp, index) => (
     <View key={index} style={styles2.entryContainer}>
       <View style={styles2.entryHeader}>
@@ -46,7 +45,7 @@ export const Layout2: React.FC<{
             { fontSize: getFontSize(10, optionsPDF.contadorContent) },
           ]}
         >
-          {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
+          {exp.mesInicioExperiencia}/{exp.anioInicioExperiencia} - {exp.anioFinExperiencia=="Actualidad"?"Actualidad":`${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}
         </Text>
       </View>
       <Text
@@ -58,7 +57,7 @@ export const Layout2: React.FC<{
         • {iaData.descriptionWork.split("\n")[index]}
       </Text>
     </View>
-  ))
+  ));
 
   const educacion = cvData.education.map((edu, index) => (
     <View key={index} style={styles2.entryContainer}>
@@ -79,7 +78,7 @@ export const Layout2: React.FC<{
         >
           {edu.zonaInstitucion}{" "}
           {optionsPDF.contadorContent > 2
-            ? `${edu.anioInicioEducacion} - ${edu.anioFinEducacion}`
+            ? `${edu.mesInicioEducacion}/${edu.anioInicioEducacion} - ${edu.anioFinEducacion=="Actualidad"?`Actualidad`:`${edu.mesFinEducacion}/${edu.anioFinEducacion}`}`
             : ""}
         </Text>
       </View>
@@ -99,7 +98,7 @@ export const Layout2: React.FC<{
           ]}
         >
           {optionsPDF.contadorContent < 3
-            ? `${edu.anioInicioEducacion} - ${edu.anioFinEducacion}`
+            ? `${edu.mesInicioEducacion}/${edu.anioInicioEducacion} - ${edu.anioFinEducacion=="Actualidad"?`Actualidad`:`${edu.mesFinEducacion}/${edu.anioFinEducacion}`}`
             : ""}
         </Text>
       </View>
@@ -123,7 +122,7 @@ export const Layout2: React.FC<{
             { fontSize: getFontSize(10, optionsPDF.contadorContent) },
           ]}
         >
-          {curso.anioInicioCurso}
+          {curso.anioInicioCurso=="Actualidad"?`Actualidad`:`${curso.mesInicioCurso}/${curso.anioInicioCurso}`}
         </Text>
       </View>
       <Text
@@ -137,18 +136,19 @@ export const Layout2: React.FC<{
     </View>
   ));
 
-  const cutName = (<Text
-  style={[styles2.name, { fontSize: getFontSize(24, contador) }]}
->
-  {cvData.name.split(" ")[0]}{`\n`} {cvData.lastName.split(" ")[0]}
-</Text>)
+  const cutName = (
+    <Text style={[styles2.name, { fontSize: getFontSize(24, contador) }]}>
+      {cvData.name.split(" ")[0]}
+      {`\n`} {cvData.lastName.split(" ")[0]}
+    </Text>
+  );
 
-  const fullName = (<Text
-  style={[styles2.name, { fontSize: getFontSize(24, contador) }]}
->
-  {cvData.name.split(" ").join("\n")}{`\n`} {cvData.lastName}
-</Text>)
-
+  const fullName = (
+    <Text style={[styles2.name, { fontSize: getFontSize(24, contador) }]}>
+      {cvData.name.split(" ").join("\n")}
+      {`\n`} {cvData.lastName}
+    </Text>
+  );
 
   return (
     <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
@@ -161,7 +161,6 @@ export const Layout2: React.FC<{
           },
         ]}
       >
-        {/* Left Column */}
         <View
           style={[
             styles2.leftColumn,
@@ -180,15 +179,8 @@ export const Layout2: React.FC<{
               ]}
             />
           )}
-          {(cvData.name || cvData.lastName) && (
-            // <Text
-            //   style={[styles2.name, { fontSize: getFontSize(24, contador) }]}
-            // >
-            //   {cvData.name.split(" ")[0]}{`\n`} {cvData.lastName}
-            // </Text>
-            optionsPDF.fullName ? fullName : cutName
-
-          )}
+          {(cvData.name || cvData.lastName) &&
+            (optionsPDF.fullName ? fullName : cutName)}
           {cvData.orientadoCV && optionsPDF.orientacionCVTitle && (
             <Text
               style={[
@@ -293,7 +285,7 @@ export const Layout2: React.FC<{
               ))}
             </View>
           )}
-          {cvData.idiomas.length>0 && (
+          {cvData.idiomas.length > 0 && (
             <Text
               style={[
                 styles2.sectionTitle,
@@ -394,14 +386,16 @@ export const Layout2: React.FC<{
               Disponibilidad inmediata
             </Text>
           )}
-          {cvData.disponibilidad && cvData.disponibilidad!="NINGUNO" && (
+          {cvData.disponibilidad && cvData.disponibilidad != "NINGUNO" && (
             <Text
               style={[
                 styles2.contactItem,
                 { fontSize: getFontSize(10, contador) },
               ]}
             >
-              {cvData.disponibilidad=="FULLTIME"?"jornada completa":"jornada parcial"}
+              {cvData.disponibilidad == "FULLTIME"
+                ? "jornada completa"
+                : "jornada parcial"}
             </Text>
           )}
           {cvData.office && (
@@ -475,10 +469,7 @@ export const Layout2: React.FC<{
                 Experiencia Profesional
               </Text>
             )}
-            {
-              optionsPDF.reverseExperience ? experiencia.reverse() : experiencia
-            }
-
+            {optionsPDF.reverseExperience ? experiencia.reverse() : experiencia}
           </View>
 
           <View>
@@ -499,9 +490,7 @@ export const Layout2: React.FC<{
                 Educación
               </Text>
             )}
-            {
-              optionsPDF.reverseEducation ? educacion.reverse() : educacion
-            }
+            {optionsPDF.reverseEducation ? educacion.reverse() : educacion}
           </View>
           <View>
             {cvData.cursos.length > 0 && (
@@ -521,9 +510,7 @@ export const Layout2: React.FC<{
                 Certificaciones
               </Text>
             )}
-            {
-              optionsPDF.reverseCursos ? cursos.reverse() : cursos
-            }
+            {optionsPDF.reverseCursos ? cursos.reverse() : cursos}
           </View>
         </View>
       </Page>

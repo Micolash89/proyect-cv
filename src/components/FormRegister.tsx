@@ -1166,6 +1166,7 @@ function FormRegister({
                         startYear={currentYear - 50}
                         endYear={currentYear}
                         required={true}
+                        includeActualidad={true}
                         responseError={
                           dataNewCursos.anioInicioCurso.length == 0
                         }

@@ -10,6 +10,7 @@ export const Layout0: React.FC<{
   contador: number;
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
+
   const experiencia = cvData.experience.map((exp, index) => (
     <View key={index} style={stylesDefault.entryContainer}>
       <View style={stylesDefault.entryHeader}>
@@ -45,7 +46,7 @@ export const Layout0: React.FC<{
             { fontSize: 11 + optionsPDF.contadorContent },
           ]}
         >
-          {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
+          {exp.mesInicioExperiencia}/{ exp.anioInicioExperiencia} - {exp.anioFinExperiencia === "Actualidad" ? "Actualidad" : `${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}
         </Text>
       </View>
       <Text
@@ -94,7 +95,7 @@ export const Layout0: React.FC<{
             { fontSize: 11 + optionsPDF.contadorContent },
           ]}
         >
-          {edu.anioInicioEducacion} - {edu.anioFinEducacion}
+          {edu.mesInicioEducacion}/{ edu.anioInicioEducacion} - {edu.mesFinEducacion}/{edu.anioFinEducacion}
         </Text>
       </View>
     </View>
@@ -120,7 +121,8 @@ export const Layout0: React.FC<{
             },
           ]}
         >
-          {curso.anioInicioCurso}
+          {curso.anioInicioCurso=="Actualidad"?"Actualidad":`${curso.mesInicioCurso}/${curso.anioInicioCurso}`}
+          
         </Text>
       </View>
 

@@ -40,8 +40,8 @@ export const Layout6: React.FC<{
             },
           ]}
         >
-          {exp.puesto} | {exp.anioInicioExperiencia} -{" "}
-          {exp.anioFinExperiencia}
+          {exp.puesto} | {exp.mesFinExperiencia}/{exp.anioInicioExperiencia} -{" "}
+          {exp.anioFinExperiencia=="Actualidad"?"Actualidad":`${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}
         </Text>
         <Text
           style={[
@@ -71,7 +71,7 @@ export const Layout6: React.FC<{
           },
         ]}
       >
-        {edu.anioInicioEducacion} - {edu.anioFinEducacion}
+        {edu.mesInicioEducacion}/{edu.anioInicioEducacion} - {edu.mesFinEducacion}/{edu.anioFinEducacion}
       </Text>
       <View style={styles6.timelineDot} />
       <View style={styles6.timelineContent}>
@@ -110,7 +110,7 @@ export const Layout6: React.FC<{
           },
         ]}
       >
-        {curso.anioInicioCurso}
+        {curso.anioInicioCurso=="Actualidad"?"Actualidad":`${curso.mesInicioCurso}/${curso.anioInicioCurso}`}
       </Text>
       <View style={styles6.timelineDot} />
       <View style={styles6.timelineContent}>

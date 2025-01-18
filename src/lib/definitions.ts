@@ -16,20 +16,25 @@ export interface CVDataPdf {
     institucion: string;
     zonaInstitucion: string;
     anioInicioEducacion: string;
+    mesInicioEducacion: string;
     anioFinEducacion: string;
+    mesFinEducacion:string;
   }>;
   experience: Array<{
     nombreEmpresa: string;
     puesto: string;
     zonaEmpresa: string;
     anioInicioExperiencia: string;
+    mesInicioExperiencia: string;
     anioFinExperiencia: string;
+    mesFinExperiencia: string;
     descripcionExperiencia: string;
   }>;
   cursos: Array<{
     curso: string;
     institucion: string;
     anioInicioCurso: string;
+    mesInicioCurso: string;
   }>;
   idiomas: Array<{
     idioma: string;

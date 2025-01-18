@@ -19,7 +19,7 @@ export const Layout7: React.FC<{
           {exp.nombreEmpresa}
         </Text>
         <Text style={[styles7.dates, { fontSize: getFontSize(11, contador) }]}>
-          {exp.anioInicioExperiencia} - {exp.anioFinExperiencia}
+          {exp.mesInicioExperiencia}/{exp.anioInicioExperiencia} - {exp.anioFinExperiencia=="Actualidad"?"Actualidad":`${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}
         </Text>
       </View>
       <Text style={[styles7.jobTitle, { fontSize: getFontSize(11, contador) }]}>
@@ -45,7 +45,7 @@ export const Layout7: React.FC<{
           {edu.institucion}
         </Text>
         <Text style={[styles7.dates, { fontSize: getFontSize(11, contador) }]}>
-          {edu.anioInicioEducacion} - {edu.anioFinEducacion}
+          {edu.mesInicioEducacion}/{edu.anioInicioEducacion} - {edu.mesFinEducacion}/{edu.anioFinEducacion}
         </Text>
       </View>
       <Text style={[styles7.degree, { fontSize: getFontSize(11, contador) }]}>

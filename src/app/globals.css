@@ -34,11 +34,11 @@ input:-webkit-autofill {
 
   ::-webkit-scrollbar {
     width: 0.8rem;
-    @apply bg-gray-100 dark:bg-gray-400;
+    @apply bg-gray-100 dark:bg-gray-500;
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply bg-gray-400 dark:bg-blue-600 transition-colors duration-700 ;
+    @apply bg-gray-400 dark:bg-blue-900 transition-colors duration-700 ;
     border-radius: 0.3rem;
   }
   

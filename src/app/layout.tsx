@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: {
     default: 'Generador de Currículum Profesional',
-    template: '%s | CV Builder AI'
+    template: 'Generador de Currículum Profesional'
   },
   description: 'Crea tu currículum vitae profesional con inteligencia artificial. Generador de CV online gratuito con plantillas modernas y personalizables. Optimiza tu búsqueda de empleo con un CV perfecto.',
   keywords: [
@@ -51,12 +51,12 @@ export const metadata: Metadata = {
     url: 'https://cv-builder-ai.vercel.app',
     title: 'Crea tu Currículum Profesional',
     description: 'Generador de CV profesional con inteligencia artificial. Crea tu currículum vitae perfecto en minutos con nuestras plantillas modernas.',
-    siteName: 'CV Builder AI',
+    siteName: 'Generador de Currículum Profesional',
     images: [{
       url: '/og-image.png',
       width: 1200,
       height: 630,
-      alt: 'CV Builder AI Preview'
+      alt: 'Generador de Currículum Profesional'
     }],
   },
   twitter: {

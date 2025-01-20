@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://proyect-cv.vercel.app'),
   title: {
     default: 'Generador de Currículum Profesional',
     template: 'Generador de Currículum Profesional'
@@ -27,9 +28,9 @@ export const metadata: Metadata = {
     'cv pdf',
     'cv gratis'
   ],
-  authors: [{ name: 'Micolas89' }],
-  creator: 'Micolash89',
-  publisher: 'Micolash89',
+  authors: [{ name: 'micolas89' }],
+  creator: 'micolas89',
+  publisher: 'micolas89',
   formatDetection: {
     email: false,
     address: false,
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'es_ES',
-    url: 'https://cv-builder-ai.vercel.app',
+    url: 'https://proyect-cv.vercel.app',
     title: 'Crea tu Currículum Profesional',
     description: 'Generador de CV profesional con inteligencia artificial. Crea tu currículum vitae perfecto en minutos con nuestras plantillas modernas.',
     siteName: 'Generador de Currículum Profesional',
@@ -64,11 +65,6 @@ export const metadata: Metadata = {
     title: 'Generador de CV Profesional',
     description: 'Crea tu CV profesional con IA. Plantillas modernas y personalizables para destacar tu perfil.',
     images: ['/twitter-image.png'],
-  },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
   },
   robots: {
     index: true,

@@ -2,7 +2,6 @@
 
 import FormRegister from "@/components/FormRegister";
 import MyDocumentPDF from "@/components/pdf/GeneratorPDF";
-import PreviewCV from "@/components/PreviewCV";
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import IARegister from "@/components/IARegister";

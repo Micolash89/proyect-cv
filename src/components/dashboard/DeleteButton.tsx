@@ -22,7 +22,6 @@ export default function DeleteButton({
     toast.promise(postPromise, {
       loading: `Eliminando Usuario ${id}`,
       success: (data) => {
-        console.log(data);
         if (!data.success) {
           throw new Error(data.message);
         }

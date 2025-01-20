@@ -38,8 +38,6 @@ export async function postUsuarios(
   formData: FormData
 ) {
 
-  console.log(Object.fromEntries(formData));
-
   const validatedFields = CreateUsuario.safeParse({
     ...Object.fromEntries(formData),
     education,
@@ -50,7 +48,6 @@ export async function postUsuarios(
   });
 
   if (!validatedFields.success) {
-    console.log(validatedFields.error.flatten().fieldErrors);
     return createResponse(
       false,
       [],
@@ -101,12 +98,12 @@ export async function postUsuarios(
           apellido.slice(1).toLowerCase()) as string,
         telefono: telefono as string,
         fechaNacimiento: fechaNacimiento as Date,
-        email: email as string,
-        ciudad: ciudad as string,
-        provincia: provincia as string,
+        email: email?.trim() as string,
+        ciudad: ciudad?.trim() as string,
+        provincia: provincia?.trim() as string,
         imagenPerfil: file as string,
-        orientacionCV: orientadoCV as string,
-        dni: dni as string,
+        orientacionCV: orientadoCV?.trim() as string,
+        dni: dni?.trim() as string,
         cvTemplateId: cvTemplate.id,
       },
     });
@@ -115,11 +112,11 @@ export async function postUsuarios(
       educacion.forEach(async (educacion) => {
         await prisma.estudio.create({
           data: {
-            carrera: educacion.carrera as string,
+            carrera: educacion.carrera.trim() as string,
             estado: educacion.estado as EstudioEstadoEnum,
             tipo: educacion.estudios as EstudioTipoEnum,
-            ubicacion: educacion.zonaInstitucion as string,
-            institucion: educacion.institucion as string,
+            ubicacion: educacion.zonaInstitucion.trim() as string,
+            institucion: educacion.institucion.trim() as string,
             fechaIngreso: educacion.anioInicioEducacion as string,
             mesIngreso: educacion.mesInicioEducacion as string,
             fechaEgreso: educacion.anioFinEducacion as string,
@@ -134,14 +131,14 @@ export async function postUsuarios(
       experiencia.forEach(async (experiencia) => {
         await prisma.experiencia.create({
           data: {
-            nombre: experiencia.nombreEmpresa as string,
-            puesto: experiencia.puesto as string,
-            ubicacion: experiencia.zonaEmpresa as string,
+            nombre: experiencia.nombreEmpresa?.trim() as string,
+            puesto: experiencia.puesto.trim() as string,
+            ubicacion: experiencia.zonaEmpresa?.trim() as string,
             fechaInicio: experiencia.anioInicioExperiencia as string,
             mesInicio: experiencia.mesInicioExperiencia as string,
             fechaFin: experiencia.anioFinExperiencia as string,
             mesFin: experiencia.mesFinExperiencia as string,
-            descripcion: experiencia.descripcionExperiencia as string,
+            descripcion: experiencia.descripcionExperiencia?.trim() as string,
             idUsuario: user.id,
           },
         });
@@ -152,8 +149,8 @@ export async function postUsuarios(
       cursos.forEach(async (cursos) => {
         await prisma.curso.create({
           data: {
-            nombre: cursos.curso as string,
-            institucion: cursos.institucion as string,
+            nombre: cursos.curso.trim() as string,
+            institucion: cursos.institucion?.trim() as string,
             fechaInicio: cursos.anioInicioCurso as string,
             mesInicio: cursos.mesInicioCurso as string,
             idUsuario: user.id,
@@ -166,7 +163,7 @@ export async function postUsuarios(
       idiomas1.forEach(async (idioma) => {
         await prisma.idiomas.create({
           data: {
-            idioma: idioma?.idioma as string,
+            idioma: idioma?.idioma.trim() as string,
             nivel: idioma?.nivel as NivelIdiomaEnum,
             idUsuario: user.id,
           },
@@ -189,7 +186,6 @@ export async function postUsuarios(
       });
     }
   } catch (error) {
-    console.log(error);
     prisma.$disconnect();
     return createResponse(false, [], "Error en la base de datos");
   } finally {
@@ -225,7 +221,6 @@ export async function postLogin(formdata: FormData) {
     });
 
     if (!administrador) {
-      console.log("no existe el email");
       return createResponse(false, [], "no existe Email");
     }
 
@@ -257,7 +252,6 @@ export async function postLogin(formdata: FormData) {
       path: "/",
     });
   } catch (error) {
-    console.log(error);
     return null;
   } finally {
     prisma.$disconnect();
@@ -305,7 +299,6 @@ export async function updateUser(
   });
 
   if (!UpdateUserData.success) {
-    console.log(UpdateUserData.error?.flatten().fieldErrors);
 
     return createResponse(
       false,

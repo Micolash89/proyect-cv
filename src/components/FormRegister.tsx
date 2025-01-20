@@ -926,7 +926,7 @@ function FormRegister({
                       details={[
                         exp.zonaEmpresa,
                         exp.descripcionExperiencia,
-                        `${exp.mesInicioExperiencia}/${exp.anioInicioExperiencia} - ${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`,
+                        `${exp.mesInicioExperiencia}/${exp.anioInicioExperiencia} - ${exp.anioFinExperiencia === "Actualidad"?"Actualidad":`${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}`,
                       ]}
                       onDelete={() => removeExperience(index)}
                     />
@@ -1121,7 +1121,7 @@ function FormRegister({
                       title={curso.curso}
                       details={[
                         curso.institucion,
-                        `${curso.mesInicioCurso}/${curso.anioInicioCurso}`,
+                        `${curso.anioInicioCurso=="Actualidad"?"Actualidad":`${curso.mesInicioCurso}/${curso.anioInicioCurso}`}`,
                       ]}
                       onDelete={() => removeCursos(index)}
                     />

@@ -52,9 +52,9 @@ export default function About() {
               style={{ width: "100%", height: "100%" }}
             >
               <Image
+                fill
                 src="/images/cvejemplohardvard.png"
                 alt="Ejemplo de CV"
-                fill
                 className="object-cover object-top rounded-lg"
               />
             </motion.div>

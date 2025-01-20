@@ -19,17 +19,15 @@ body {
 }
 
 body{
-    @apply   bg-gradient-to-r from-indigo-300 dark:from-purple-950 via-sky-400 dark:via-sky-950 to-indigo-300 dark:to-purple-950 duration-500;
+    @apply   bg-gradient-to-r from-indigo-300 dark:from-gray-950 via-sky-500 dark:via-sky-800 to-indigo-300 dark:to-gray-950 duration-500;
 }
 
-  /* Modo claro (por defecto) */
 input:-webkit-autofill {
     background-color: transparent !important;
     -webkit-text-fill-color: black !important;
     transition: background-color 5000s ease-in-out 0s, -webkit-text-fill-color 0s 0s !important;
   }
   
-  /* Modo oscuro */
   .dark input:-webkit-autofill {
     -webkit-text-fill-color: white !important;
   }

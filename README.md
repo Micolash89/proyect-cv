@@ -56,7 +56,7 @@ Una aplicación moderna para la creación y gestión de currículums vitae const
 
 1. Clona el repositorio:
 ```bash
-git clone https://github.com/tu-usuario/cv-proyect.git
+git clone https://github.com/micolash89/cv-proyect.git
 cd cv-proyect
 ```
 
@@ -94,9 +94,8 @@ cv-proyect/
 ├── app/
 ├── components/
 ├── lib/
-├── prisma/
-├── public/
-└── types/
+├── database/
+└── public/
 ```
 
 ## ✨ Agradecimientos

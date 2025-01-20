@@ -19,7 +19,7 @@ body {
 }
 
 body{
-    @apply   bg-gradient-to-r from-indigo-300 dark:from-gray-950 via-sky-500 dark:via-sky-800 to-indigo-300 dark:to-gray-950 duration-500;
+    @apply   bg-gradient-to-r from-indigo-300 dark:from-gray-950 via-blue-500 dark:via-blue-800 to-indigo-300 dark:to-gray-950 duration-500;
 }
 
 input:-webkit-autofill {
@@ -38,7 +38,7 @@ input:-webkit-autofill {
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply bg-gray-400 dark:bg-slate-600 transition-colors duration-700 ;
+    @apply bg-gray-400 dark:bg-blue-600 transition-colors duration-700 ;
     border-radius: 0.3rem;
   }
   

@@ -28,22 +28,18 @@ export const metadata: Metadata = {
     'cv pdf',
     'cv gratis'
   ],
-  authors: [{ name: 'micolas89' }],
-  creator: 'micolas89',
-  publisher: 'micolas89',
+  authors: [{ name: 'micolash89' }],
+  creator: 'micolash89',
+  publisher: 'micolash89',
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   icons: {
-    icon: '/icon.png',
+    icon: '/icons/icon.png',
     shortcut: '/favicon.ico',
-    apple: '/apple-icon.png',
-    other: {
-      rel: 'apple-touch-icon-precomposed',
-      url: '/apple-touch-icon-precomposed.png',
-    },
+    apple: '/icons/icon.png',
   },
   manifest: '/manifest.json',
   openGraph: {
@@ -54,7 +50,7 @@ export const metadata: Metadata = {
     description: 'Generador de CV profesional con inteligencia artificial. Crea tu currículum vitae perfecto en minutos con nuestras plantillas modernas.',
     siteName: 'Generador de Currículum Profesional',
     images: [{
-      url: '/og-image.png',
+      url: '/preview.png',
       width: 1200,
       height: 630,
       alt: 'Generador de Currículum Profesional'
@@ -64,7 +60,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Generador de CV Profesional',
     description: 'Crea tu CV profesional con IA. Plantillas modernas y personalizables para destacar tu perfil.',
-    images: ['/twitter-image.png'],
+    images: ['/preview.png'],
   },
   robots: {
     index: true,
@@ -76,10 +72,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    google: 'your-google-site-verification',
-    yandex: 'your-yandex-verification',
   },
 };
 

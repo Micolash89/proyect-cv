@@ -8,47 +8,6 @@ export type TypeIAData = {
   descriptionWork: string;
 }
 
-// interface CVData {
-//   name: string;
-//   lastName: string;
-//   email: string;
-//   fechaNacimiento: string;
-//   phone: string;
-//   ciudad: string;
-//   provincia: string;
-//   education: Array<{
-//     carrera: string;
-//     estado: string;
-//     estudios: string;
-//     institucion: string;
-//     zonaInstitucion: string;
-//     anioInicioEducacion: string;
-//     anioFinEducacion: string;
-//   }>;
-//   experience: Array<{
-//     nombreEmpresa: string;
-//     puesto: string;
-//     zonaEmpresa: string;
-//     anioInicioExperiencia: string;
-//     anioFinExperiencia: string;
-//     descripcionExperiencia: string;
-//   }>;
-//   cursos: Array<{
-//     curso: string;
-//     institucion: string;
-//     anioInicioCurso: string;
-//   }>;
-//   idiomas: Array<{
-//     idioma: string;
-//     nivel: string;
-//   }>;
-//   licencia: string;
-//   movilidad: string;
-//   incorporacion: string;
-//   disponibilidad: string;
-//   office: string;
-// }
-
 export default function PreviewCV({ cvData, iaData }: { cvData: CVData; iaData: TypeIAData }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -65,7 +24,6 @@ export default function PreviewCV({ cvData, iaData }: { cvData: CVData; iaData: 
       onHoverEnd={() => setIsHovered(false)}
     >
       <div className="p-6 font-serif">
-        {/* Header */}
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-bold uppercase tracking-wide">
             {cvData.name} {cvData.lastName}
@@ -76,7 +34,6 @@ export default function PreviewCV({ cvData, iaData }: { cvData: CVData; iaData: 
           </p>
         </div>
 
-        {/* Profile */}
         {iaData.profile && (
           <div className="mb-6">
             <h2 className="text-lg font-bold uppercase border-b border-gray-300 pb-1 mb-2">
@@ -86,7 +43,6 @@ export default function PreviewCV({ cvData, iaData }: { cvData: CVData; iaData: 
           </div>
         )}
 
-        {/* Education */}
         {cvData.education.length > 0 && (
           <div className="mb-6">
             <h2 className="text-lg font-bold uppercase border-b border-gray-300 pb-1 mb-2">
@@ -111,7 +67,6 @@ export default function PreviewCV({ cvData, iaData }: { cvData: CVData; iaData: 
           </div>
         )}
 
-        {/* Experience */}
         {cvData.experience.length > 0 && (
           <div className="mb-6">
             <h2 className="text-lg font-bold uppercase border-b border-gray-300 pb-1 mb-2">
@@ -137,7 +92,6 @@ export default function PreviewCV({ cvData, iaData }: { cvData: CVData; iaData: 
           </div>
         )}
 
-        {/* Skills */}
         {iaData.skills && (
           <div className="mb-6">
             <h2 className="text-lg font-bold uppercase border-b border-gray-300 pb-1 mb-2">
@@ -175,7 +129,6 @@ export default function PreviewCV({ cvData, iaData }: { cvData: CVData; iaData: 
           </div>
         )}
 
-        {/* Certifications */}
         {cvData.cursos.length > 0 && (
           <div className="mb-6">
             <h2 className="text-lg font-bold uppercase border-b border-gray-300 pb-1 mb-2">

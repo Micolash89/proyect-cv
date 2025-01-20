@@ -11,7 +11,7 @@ export default function About() {
           animate={{ opacity: 1, y: 0 }}
           className="text-4xl font-bold text-center mb-8 dark:text-white"
         >
-          Sobre el creador de CV
+          Sobre el creador de currículum vitae
         </motion.h1>
 
         <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
@@ -21,26 +21,24 @@ export default function About() {
             transition={{ delay: 0.2 }}
           >
             <h2 className="text-2xl font-semibold mb-4 dark:text-gray-200">
-              Constructor de CV Estilo Harvard
+              Diseña tu Currículum Vitae Profesional
             </h2>
             <p className="text-gray-600 dark:text-gray-400 mb-4">
-              Nuestro Constructor de CV implementa el prestigioso formato de
-              currículum de Harvard, reconocido mundialmente por su claridad,
-              profesionalismo y eficacia para destacar tus logros y
-              cualificaciones profesionales.
+              Un formato clásico y elegante, perfecto para postulaciones en
+              empresas tradicionales. Organiza tu información de manera clara y
+              directa.
             </p>
             <ul className="space-y-2 text-gray-600 dark:text-gray-400">
               <li>• Diseño limpio y profesional</li>
-              <li>• Énfasis en logros cuantificables</li>
+              <li>• Elige entre diferentes estilos.</li>
               <li>• Organización clara por secciones</li>
               <li>• Densidad de contenido óptima</li>
-              <li>• Compatible con sistemas ATS</li>
             </ul>
           </motion.div>
-          
+
           <motion.div
-            initial={{ opacity: 0, x:50 }}
-            animate={{ opacity: 1, x:0 }}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
             className="relative h-[350px] rounded-lg overflow-hidden"
           >
@@ -54,7 +52,7 @@ export default function About() {
               style={{ width: "100%", height: "100%" }}
             >
               <Image
-                src="/cvejemplohardvard.png"
+                src="/images/cvejemplohardvard.png"
                 alt="Ejemplo de CV"
                 fill
                 className="object-cover object-top rounded-lg"
@@ -76,12 +74,11 @@ export default function About() {
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <h3 className="text-xl font-medium mb-3 dark:text-gray-200">
-                Vista Previa en Tiempo Real
+                Todo en Un Solo Lugar
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Observa cómo tu CV toma forma mientras ingresas tu información,
-                con retroalimentación visual instantánea de cómo se verá tu
-                documento final.
+                Registra tus datos personales, educación y experiencia modifica
+                y actualiza tu información cuando lo necesites.
               </p>
             </div>
 
@@ -98,22 +95,22 @@ export default function About() {
 
             <div>
               <h3 className="text-xl font-medium mb-3 dark:text-gray-200">
-                Formato Harvard Optimizado
+                Fácil de Usar
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Estructura tu CV siguiendo las mejores prácticas recomendadas
-                por Harvard, maximizando tus posibilidades de éxito en procesos
-                de selección.
+                Interfaz intuitiva que te guía paso a paso en la creación de tu
+                currículum. Sin complicaciones ni conocimientos técnicos
+                necesarios.
               </p>
             </div>
 
             <div>
               <h3 className="text-xl font-medium mb-3 dark:text-gray-200">
-                Personalización Inteligente
+                Generación Inmediata
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                Adapta cada sección a tus necesidades específicas mientras
-                mantienes la consistencia y profesionalismo del formato Harvard.
+                Obtén tu currículum en PDF en una versión digital cuando lo
+                necesites.
               </p>
             </div>
           </div>
@@ -126,16 +123,14 @@ export default function About() {
           className="mt-12 text-center"
         >
           <h2 className="text-2xl font-semibold mb-4 dark:text-white">
-            ¿Por qué elegir el formato Harvard?
+            Crea tu Currículum Hoy
           </h2>
           <p className="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            El formato de CV Harvard es reconocido por los reclutadores por su
-            efectividad en presentar la información de manera clara y concisa.
-            Este formato prioriza la legibilidad y la organización jerárquica de
-            la información, permitiendo que tus logros y experiencias destaquen
-            de manera natural. Además, su estructura está optimizada para
-            sistemas de seguimiento de candidatos (ATS), aumentando tus
-            posibilidades de superar los filtros iniciales de reclutamiento.
+            Tanto si estás buscando tu primer trabajo como si quieres dar el
+            siguiente paso en tu carrera, tenemos el formato perfecto para ti.
+            Nuestros diseños te ayudan a presentar tu experiencia de forma
+            profesional y atractiva, aumentando tus posibilidades de conseguir
+            esa entrevista que deseas.
           </p>
         </motion.div>
       </div>

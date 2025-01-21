@@ -30,7 +30,7 @@ function getCookie(name: string): string | null {
 }
 
 function setCookie(name: string, value: string) {
-  document.cookie = `${name}=${value};path=/;max-age=31536000` // 1 año
+  document.cookie = `${name}=${value};path=/;max-age=31536000`
 }
 
 export default function ThemeToggle() {

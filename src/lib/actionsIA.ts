@@ -4,11 +4,9 @@ import {
   GoogleGenerativeAI,
 } from "@google/generative-ai";
 import { Experiencia, EducacionIA as Educacion, CursoIA as Curso, IdiomaIA as Idioma } from "./definitions";
+import { envConfig } from "@/app/config/envConfig";
 
-
-
-
-const apiKey: string = process.env.API_KEY_GEMINI || "";
+const apiKey: string = envConfig.api_key_gemini || "";
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({

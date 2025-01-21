@@ -12,13 +12,15 @@ import { createResponse, JWTCreate } from "./utils";
 import { cookies } from "next/headers";
 import { comparePassword } from "./utilsBcrypt";
 import {
-  Curso,
-  Educacion,
   generarItemsExperiencia,
   generarPerfilExperiencia,
   generarSkills,
-  Idioma,
 } from "./actionsIA";
+import {
+  CursoIA as Curso,
+  EducacionIA as Educacion,
+  IdiomaIA as Idioma,
+} from "@/lib/definitions";
 import { v2 as cloudinary } from "cloudinary";
 import {
   createSchemaLogin,
@@ -27,6 +29,7 @@ import {
   UpdateUsuario,
 } from "./zodValidations";
 import { Experiencia } from "./definitions";
+import { envConfig } from "@/app/config/envConfig";
 
 const prisma = new PrismaClient();
 export async function postUsuarios(
@@ -648,9 +651,9 @@ export async function deleteOneUser(id: number,formData: FormData) {
 }
 
 cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: envConfig.cloud_name,
+  api_key: envConfig.api_key,
+  api_secret: envConfig.api_secret,
 });
 
 export async function uploadImage(formData: FormData) {

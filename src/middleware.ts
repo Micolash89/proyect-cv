@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyJwtToken } from "./lib/utils";
+import { envConfig } from "./app/config/envConfig";
 
 const protectedRoutes = ["dashboard","user"];
 const publicRoutes = ["/login","/","/about"];
@@ -26,7 +27,7 @@ export async function middleware(req: NextRequest) {
 
     if (!tokenverify) {
       const response = NextResponse.redirect(
-        new URL(`/login?error=auth_required&url=${pathname.toString()}`, process.env.URL_BASE)
+        new URL(`/login?error=auth_required&url=${pathname.toString()}`, envConfig.url_base)
       );
 
       response.cookies.delete("token");
@@ -44,7 +45,7 @@ export async function middleware(req: NextRequest) {
   if (isProtectedRoute) {
   
     const response = NextResponse.redirect(
-      new URL(`/login?error=auth_required&url=${pathname.toString()}`, process.env.URL_BASE)
+      new URL(`/login?error=auth_required&url=${pathname.toString()}`, envConfig.url_base)
     );
  
     return response;

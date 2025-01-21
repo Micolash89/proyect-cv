@@ -1,9 +1,12 @@
+import { envConfig } from "@/app/config/envConfig";
 import { JWTPayload, SignJWT, jwtVerify } from "jose";
 
-const secretKey = process.env.SESSION_SECRET;
-const encodedKey = new TextEncoder().encode(secretKey);
 
 export async function JWTCreate(payload: any) {
+
+  const secretKey = envConfig.secretKey;
+  const encodedKey = new TextEncoder().encode(secretKey);
+
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -12,7 +15,7 @@ export async function JWTCreate(payload: any) {
 }
 
 export function getJwtSecretKey() {
-  const secret = process.env.SESSION_SECRET;
+  const secret = envConfig.secretKey;
 
   if (!secret) {
     throw new Error("JWT Secret key is not set");

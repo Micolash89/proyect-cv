@@ -171,3 +171,24 @@ export type Section =
     template: number;
     color: string;
   }
+
+  export interface CursoIA {
+    curso: string;
+    institucion: string;
+    anioInicioCurso: string;
+  }
+  
+  export interface IdiomaIA {
+    idioma: string;
+    nivel: string;
+  }
+  
+  export interface EducacionIA {
+    carrera: string;
+    estado: string;
+    estudios: string;
+    institucion: string;
+    zonaInstitucion: string;
+    anioInicioEducacion: string;
+    anioFinEducacion: string;
+  }

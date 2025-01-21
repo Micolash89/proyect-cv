@@ -1,4 +1,4 @@
-import { envConfig } from "@/app/config/envConfig";
+import { envConfig } from "@/config/envConfig";
 import { JWTPayload, SignJWT, jwtVerify } from "jose";
 
 

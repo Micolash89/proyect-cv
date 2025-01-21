@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyJwtToken } from "./lib/utils";
-import { envConfig } from "./app/config/envConfig";
+import { envConfig } from "./config/envConfig";
 
 const protectedRoutes = ["dashboard","user"];
 const publicRoutes = ["/login","/","/about"];

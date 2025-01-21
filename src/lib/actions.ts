@@ -29,7 +29,7 @@ import {
   UpdateUsuario,
 } from "./zodValidations";
 import { Experiencia } from "./definitions";
-import { envConfig } from "@/app/config/envConfig";
+import { envConfig } from "@/config/envConfig";
 
 const prisma = new PrismaClient();
 export async function postUsuarios(

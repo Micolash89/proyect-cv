@@ -1,10 +1,10 @@
-# CV Project 📄 
+# 📄 Generador de Currículum Vitae (CV Project) 
 
-<div align="center">
+<div align="center" >
 <table border="0">
 <tr>
 <td>
-  
+
 ![Next JS](https://img.shields.io/badge/-Next_JS-black?style=for-the-badge&logoColor=white&logo=nextdotjs&color=000000)
 
 </td>
@@ -26,6 +26,8 @@
 </tr>
 </table>
 </div>
+
+
 
 Una aplicación moderna para la creación y gestión de currículums vitae construida con Next.js y TypeScript.
 
@@ -62,7 +64,7 @@ cd cv-proyect
 
 2. Instala las dependencias:
 ```bash
-npm install
+pnpm install
 # o
 yarn install
 ```
@@ -91,12 +93,18 @@ yarn dev
 
 ```
 cv-proyect/
-├── app/
-├── components/
-├── lib/
-├── database/
-└── public/
+├── src/
+|    ├── app/
+|    ├── components/
+|    ├── lib/
+|    ├── database/
+|    ├── config/
+|    └── public/
+├── public/
+└── prisma/
 ```
 
 ## ✨ Agradecimientos
 
+| [<img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/127222464?v=4" width=115><br><sub>Pablo Agostinelli</sub>](https://github.com/PabloMartinAgostinelli) <br> [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/pablo-agostinelli/)  | [<img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/127248902?v=4" width=115><br><sub>Leonel Quiroga</sub>](https://github.com/leonelquiroga10) <br> [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/leonel-quiroga-459069274/) | [<img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/127250022?v=4" width=115><br><sub>Matias Insaurralde</sub>](https://github.com/Mat-Insaurralde) <br> [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mat-insaurralde/)| 
+|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |

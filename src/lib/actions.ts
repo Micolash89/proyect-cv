@@ -30,6 +30,7 @@ import {
 } from "./zodValidations";
 import { Experiencia } from "./definitions";
 import { envConfig } from "@/config/envConfig";
+import { EmailService } from "./service/emailService";
 
 const prisma = new PrismaClient();
 export async function postUsuarios(
@@ -58,6 +59,8 @@ export async function postUsuarios(
       validatedFields.error?.flatten().fieldErrors
     );
   }
+
+  const emailService = new EmailService();
 
   const {
     data: {
@@ -188,12 +191,19 @@ export async function postUsuarios(
         },
       });
     }
+
+   await emailService.sendWelcomeEmail(
+      user.email,
+    )
+
   } catch (error) {
     prisma.$disconnect();
     return createResponse(false, [], "Error en la base de datos");
   } finally {
     prisma.$disconnect();
   }
+
+
 
   return createResponse(true, [], `Registro de ${apellido} ${nombre} exitoso`);
 }

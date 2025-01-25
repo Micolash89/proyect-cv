@@ -17,9 +17,11 @@ import ErrorComponent from "./user/[id]/ErrorComponent";
 import { Errors, Section } from "@/lib/definitions";
 import InputComponent from "./user/[id]/InputComponent";
 import {
+  CursoErrors,
   educacionEstadoSelect,
   educacionNivelSelect,
   idiomasSelect,
+  ValidationErrors,
 } from "@/lib/constFormRegister";
 import SelectInputComponent from "./user/[id]/SelectInputComponent";
 import DateInput from "./user/[id]/DateInputComponent";

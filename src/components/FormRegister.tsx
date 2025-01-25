@@ -1029,7 +1029,7 @@ function FormRegister({
                         htmlFor="descripcionExperiencia"
                         className="block capitalize mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
                       >
-                        Descripción
+                        Descripción / Responsabilidades:
                       </label>
                       <textarea
                         id="descripcionExperiencia"

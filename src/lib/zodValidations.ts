@@ -39,7 +39,7 @@ const CreateSchemaUsuario = z.object({
   ciudad: z
     .string({ message: "Ingrese una ciudad" })
     .max(25, "Ciudad: puede contener hasta 25 caracteres")
-    .regex(/^(?:[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s\-\/]*)?$/, {
+    .regex(/^(?:[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s\-\/\.]*)?$/, {
       message: "Solo se permiten caracteres o espacios",
     })
     .optional(),
@@ -51,7 +51,7 @@ const CreateSchemaUsuario = z.object({
   provincia: z
     .string({ message: "Seleccione una provincia" })
     .max(25, "Provincia: puede contener hasta 25 caracteres")
-    .regex(/^(?:[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s\-\/]*)?$/, {
+    .regex(/^(?:[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s\-\/\.]*)?$/, {
       message: "Solo se permiten caracteres o espacios",
     }),
   education: z.array(

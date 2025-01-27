@@ -58,7 +58,7 @@ const CreateSchemaUsuario = z.object({
     z.object({
       carrera: z
         .string({ message: "Ingrese el nombre de la carrera/titulo" })
-        .max(60, "la carrera puede contener hasta 60 caracteres"),
+        .max(80, "la carrera puede contener hasta 80 caracteres"),
       estado: z.string({ message: "Seleccione el estado" }),
       institucion: z
         .string()
@@ -94,7 +94,7 @@ const CreateSchemaUsuario = z.object({
     z.object({
       puesto: z
         .string()
-        .max(40, "El puesto puede contener hasta 40 caracteres"),
+        .max(60, "El puesto puede contener hasta 60 caracteres"),
       nombreEmpresa: z
         .string()
         .max(35, "El nombre de la empresa puede contener hasta 35 caracteres")

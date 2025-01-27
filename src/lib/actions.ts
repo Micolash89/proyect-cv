@@ -312,6 +312,7 @@ export async function updateUser(
   });
 
   if (!UpdateUserData.success) {
+    console.log(UpdateUserData.error?.flatten().fieldErrors);
 
     return createResponse(
       false,

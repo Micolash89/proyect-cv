@@ -59,7 +59,7 @@ export const validateEducation = (education: Education): ValidationErrors => {
     }
   });
 
-  if (education.carrera.length > 60) {
+  if (education.carrera.length > 80) {
     errors.carrera = errors.carrera || [];
     errors.carrera.push(ERROR_MESSAGES_EDUCATION.length.carrera);
   }
@@ -85,7 +85,7 @@ export const validateExperience = (experience: ExperienceErrors): ValidationErro
     }
   });
 
-  if (experience.puesto.length > 40) {
+  if (experience.puesto.length > 60) {
     errors.puesto = errors.puesto || [];
     errors.puesto.push(ERROR_MESSAGES_EXPERIENCE.length.puesto);
   }

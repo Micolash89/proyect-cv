@@ -79,7 +79,7 @@ export const ERROR_MESSAGES_EDUCATION = {
     anioFinEducacion: "Seleccione el año de fin",
   },
   length: {
-    carrera: "El título debe tener menos de 60 caracteres",
+    carrera: "El título debe tener menos de 80 caracteres",
     institucion: "la institución debe tener menos de 60 caracteres",
     zonaInstitucion: "la ubicación debe tener menos de 40 caracteres",
   },
@@ -100,7 +100,7 @@ export const ERROR_MESSAGES_EXPERIENCE = {
     anioFinExperiencia: "Seleccione el año de fin",
   },
   length: {
-    puesto: "El puesto debe tener menos de 40 caracteres",
+    puesto: "El puesto debe tener menos de 60 caracteres",
     nombreEmpresa: "El nombre de la empresa debe tener menos de 35 caracteres",
     zonaEmpresa: "La ubicación debe tener menos de 40 caracteres",
     descripcionExperiencia: "La descripcion debe tener menos de 1000 caracteres",

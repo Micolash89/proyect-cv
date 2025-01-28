@@ -67,7 +67,6 @@ export const styles7 = StyleSheet.create({
     marginBottom: 10,
   },
   entryContainer: {
-    marginBottom: 12,
   },
   entryHeader: {
     flexDirection: "row",
@@ -109,7 +108,6 @@ export const styles7 = StyleSheet.create({
     color: "#34495E",
     fontStyle: "italic",
     textAlign: "justify",
-    marginBottom: 20,
   },
   footer: {
     marginTop: 20,

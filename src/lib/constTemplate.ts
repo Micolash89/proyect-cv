@@ -36,9 +36,9 @@ export const templates: Template[] = [
       image: "/images/cvTemplate6.jpg",
       colors: ["#000000"],
     },
-    // {
-    //   id: 7,
-    //   image: "/placeholder.svg?height=200&width=150",
-    //   colors: ["#3B82F6", "#2C3E50", "#6F7072", "#181D2B", "#AF815E", "#F3F2E3"],
-    // },
+    {
+      id: 7,
+      image: "/images/cvTemplate7.png",
+      colors: ["#2C3E50"],
+    },
   ];

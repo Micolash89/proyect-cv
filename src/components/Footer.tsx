@@ -13,10 +13,10 @@ const Footer = () => {
             transition={{ delay: 0.2 }}
             className="space-y-4"
           >
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
               Generador de Currículum Vitae Profesional
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
+            <p className="text-gray-600 dark:text-gray-300 text-xs">
               Creador de currículum vitae profesional y asistente IA para
               ayudarte a destacar en tu búsqueda laboral.
             </p>
@@ -28,10 +28,10 @@ const Footer = () => {
             transition={{ delay: 0.4 }}
             className="space-y-4"
           >
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
               Características
             </h3>
-            <ul className="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
+            <ul className="space-y-2 text-gray-600 dark:text-gray-300 text-xs">
               <li>• Distintos Formatos de Currículum Vitae profesional</li>
               <li>• Asistente IA para perfiles</li>
               <li>• Envio de currículum vitae en PDF</li>
@@ -45,10 +45,10 @@ const Footer = () => {
             transition={{ delay: 0.6 }}
             className="space-y-4"
           >
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
               Contacto
             </h3>
-            <ul className="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
+            <ul className="space-y-2 text-gray-600 dark:text-gray-300 text-xs">
               <li className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,7 @@ const Footer = () => {
           transition={{ delay: 0.8 }}
           className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700"
         >
-          <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-center text-xs text-gray-500 dark:text-gray-400">
             © {new Date().getFullYear()} Generador de Currículum Vitae. Todos
             los derechos reservados.
           </p>

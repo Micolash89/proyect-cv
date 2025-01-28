@@ -14,22 +14,49 @@ export const Layout7: React.FC<{
     <View key={index} style={styles7.entryContainer}>
       <View style={styles7.entryHeader}>
         <Text
-          style={[styles7.institution, { fontSize: getFontSize(11, contador) }]}
+          style={[
+            styles7.institution,
+            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+          ]}
         >
           {exp.nombreEmpresa}
         </Text>
-        <Text style={[styles7.dates, { fontSize: getFontSize(11, contador) }]}>
-          {exp.mesInicioExperiencia}/{exp.anioInicioExperiencia} - {exp.anioFinExperiencia=="Actualidad"?"Actualidad":`${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}
+        <Text
+          style={[
+            styles7.dates,
+            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+          ]}
+        >
+          {exp.mesInicioExperiencia}/{exp.anioInicioExperiencia} -{" "}
+          {exp.anioFinExperiencia == "Actualidad"
+            ? "Actualidad"
+            : `${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}
         </Text>
       </View>
-      <Text style={[styles7.jobTitle, { fontSize: getFontSize(11, contador) }]}>
+      <Text
+        style={[
+          styles7.jobTitle,
+          { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+        ]}
+      >
         {exp.puesto}
       </Text>
-      <Text style={[styles7.location, { fontSize: getFontSize(11, contador) }]}>
+      <Text
+        style={[
+          styles7.location,
+          { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+        ]}
+      >
         {exp.zonaEmpresa}
       </Text>
       <Text
-        style={[styles7.description, { fontSize: getFontSize(11, contador) }]}
+        style={[
+          styles7.description,
+          {
+            fontSize: getFontSize(11, optionsPDF.contadorContent),
+            marginBottom: 10,
+          },
+        ]}
       >
         • {iaData.descriptionWork.split("\n")[index]}
       </Text>
@@ -40,24 +67,74 @@ export const Layout7: React.FC<{
     <View key={index} style={styles7.entryContainer}>
       <View style={styles7.entryHeader}>
         <Text
-          style={[styles7.institution, { fontSize: getFontSize(11, contador) }]}
+          style={[
+            styles7.institution,
+            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+          ]}
         >
           {edu.institucion}
         </Text>
-        <Text style={[styles7.dates, { fontSize: getFontSize(11, contador) }]}>
-          {edu.mesInicioEducacion}/{edu.anioInicioEducacion} - {edu.mesFinEducacion}/{edu.anioFinEducacion}
+        <Text
+          style={[
+            styles7.dates,
+            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+          ]}
+        >
+          {edu.mesInicioEducacion}/{edu.anioInicioEducacion} -{" "}
+          {edu.mesFinEducacion}/{edu.anioFinEducacion}
         </Text>
       </View>
-      <Text style={[styles7.degree, { fontSize: getFontSize(11, contador) }]}>
+      <Text
+        style={[
+          styles7.degree,
+          { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+        ]}
+      >
         {edu.carrera} ({edu.estado.toLowerCase()})
       </Text>
-      <Text style={[styles7.location, { fontSize: getFontSize(11, contador) }]}>
+      <Text
+        style={[
+          styles7.location,
+          { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+        ]}
+      >
         {edu.zonaInstitucion}
       </Text>
     </View>
   ));
 
-  // const cursos = ();
+  const cursos = cvData.cursos.map((exp, index) => (
+    <View key={index} style={styles7.entryContainer}>
+      <View style={styles7.entryHeader}>
+        <Text
+          style={[
+            styles7.institution,
+            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+          ]}
+        >
+          {exp.curso}
+        </Text>
+        <Text
+          style={[
+            styles7.dates,
+            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+          ]}
+        >
+          {exp.anioInicioCurso == "Actualidad"
+            ? "Actualidad"
+            : `${exp.mesInicioCurso}/${exp.anioInicioCurso}`}
+        </Text>
+      </View>
+      <Text
+        style={[
+          styles7.jobTitle,
+          { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+        ]}
+      >
+        {exp.institucion}
+      </Text>
+    </View>
+  ));
 
   const cutName = (
     <Text style={[styles7.name, { fontSize: getFontSize(24, contador) }]}>
@@ -87,11 +164,12 @@ export const Layout7: React.FC<{
                 { fontSize: getFontSize(11, contador) },
               ]}
             >
-              {cvData.ciudad}, {cvData.provincia}
               {cvData.dni && ` • DNI: ${cvData.dni}`} •{" "}
               {cvData.fechaNacimiento.split("-").reverse().join("/")} • Tel.:{" "}
               {cvData.phone}
               {cvData.email && ` • ${cvData.email}`}
+              {(cvData.ciudad || cvData.provincia) &&
+                ` • ${cvData.ciudad}, ${cvData.provincia}`}
             </Text>
           </View>
         </View>
@@ -99,16 +177,16 @@ export const Layout7: React.FC<{
         {/* Profile Summary */}
         <View
           style={{
-            paddingHorizontal: getPadding(contador, 45),
-            paddingBottom: getPadding(contador, 45),
+            paddingHorizontal: getPadding(optionsPDF.contadorContent, 40),
+            paddingBottom: getPadding(optionsPDF.contadorContent, 40),
           }}
         >
           {iaData.profile && (
-            <View style={styles7.section}>
+            <View style={[]}>
               <Text
                 style={[
                   styles7.profileText,
-                  { fontSize: getFontSize(10.5, contador) },
+                  { fontSize: getFontSize(10.5, optionsPDF.contadorContent) },
                 ]}
               >
                 {iaData.profile}
@@ -126,7 +204,7 @@ export const Layout7: React.FC<{
                   <Text
                     style={[
                       styles7.sectionTitle,
-                      { fontSize: getFontSize(14, contador) },
+                      { fontSize: getFontSize(14, optionsPDF.contadorContent) },
                     ]}
                   >
                     EDUCACIÓN
@@ -143,7 +221,7 @@ export const Layout7: React.FC<{
                   <Text
                     style={[
                       styles7.sectionTitle,
-                      { fontSize: getFontSize(14, contador) },
+                      { fontSize: getFontSize(14, optionsPDF.contadorContent) },
                     ]}
                   >
                     HABILIDADES
@@ -156,7 +234,12 @@ export const Layout7: React.FC<{
                             key={index}
                             style={[
                               styles7.skillItem,
-                              { fontSize: getFontSize(11, contador) },
+                              {
+                                fontSize: getFontSize(
+                                  11,
+                                  optionsPDF.contadorContent
+                                ),
+                              },
                             ]}
                           >
                             • {skill.trim()}
@@ -166,17 +249,72 @@ export const Layout7: React.FC<{
                   </View>
                 </View>
               )}
+
+              {(cvData.licencia ||
+                cvData.movilidad ||
+                cvData.incorporacion ||
+                cvData.disponibilidad ||
+                cvData.office ||
+                cvData.idiomas.length > 0) && (
+                <View style={styles7.section}>
+                  <Text
+                    style={[
+                      styles7.sectionTitle,
+                      { fontSize: getFontSize(14, optionsPDF.contadorContent) },
+                    ]}
+                  >
+                    {optionsPDF.contadorContent < 2
+                      ? "INFORMACIÓN ADICIONALES"
+                      : "INFORMACIÓN ADICIONAL".split(" ").join("\n")}
+                  </Text>
+                  <View style={styles7.skillsGrid}>
+                    {[
+                      cvData.licencia && "Licencia de conducir",
+                      cvData.movilidad && "Vehículo propio",
+                      cvData.incorporacion && "Disponibilidad inmediata",
+                      cvData.disponibilidad &&
+                        cvData.disponibilidad != "NINGUNO" &&
+                        `Jornada: ${
+                          cvData.disponibilidad == "FULLTIME"
+                            ? "completa"
+                            : "parcial"
+                        }`,
+                      cvData.office && "Microsoft Office",
+                      ...cvData.idiomas.map(
+                        (idioma) =>
+                          `${idioma.idioma} - ${idioma.nivel.toLowerCase()}`
+                      ),
+                    ]
+                      .filter(Boolean)
+                      .map((item: any, index: number) => (
+                        <Text
+                          key={`${index}`}
+                          style={[
+                            styles7.skillItem,
+                            {
+                              fontSize: getFontSize(
+                                11,
+                                optionsPDF.contadorContent
+                              ),
+                            },
+                          ]}
+                        >
+                          • {item}
+                        </Text>
+                      ))}
+                  </View>
+                </View>
+              )}
             </View>
 
             {/* Right Column */}
             <View style={styles7.rightColumn}>
-              {/* Experience Section */}
               {cvData.experience.length > 0 && (
                 <View style={styles7.section}>
                   <Text
                     style={[
                       styles7.sectionTitle,
-                      { fontSize: getFontSize(14, contador) },
+                      { fontSize: getFontSize(14, optionsPDF.contadorContent) },
                     ]}
                   >
                     EXPERIENCIA PROFESIONAL
@@ -186,54 +324,20 @@ export const Layout7: React.FC<{
                     : experiencia}
                 </View>
               )}
+              {cvData.cursos.length > 0 && (
+                <View style={styles7.section}>
+                  <Text
+                    style={[
+                      styles7.sectionTitle,
+                      { fontSize: getFontSize(14, optionsPDF.contadorContent) },
+                    ]}
+                  >
+                    CURSOS
+                  </Text>
+                  {optionsPDF.reverseCursos ? cursos.reverse() : cursos}
+                </View>
+              )}
             </View>
-          </View>
-
-          {/* Additional Information */}
-          <View style={styles7.footer}>
-            {(cvData.licencia ||
-              cvData.movilidad ||
-              cvData.incorporacion ||
-              cvData.disponibilidad ||
-              cvData.office ||
-              cvData.idiomas.length > 0) && (
-              <View style={styles7.section}>
-                <Text
-                  style={[
-                    styles7.sectionTitle,
-                    { fontSize: getFontSize(14, contador) },
-                  ]}
-                >
-                  INFORMACIÓN ADICIONAL
-                </Text>
-                <Text
-                  style={[
-                    styles7.additionalInfo,
-                    { fontSize: getFontSize(11, contador) },
-                  ]}
-                >
-                  {[
-                    cvData.licencia && "Licencia de conducir",
-                    cvData.movilidad && "Vehículo propio",
-                    cvData.incorporacion && "Disponibilidad inmediata",
-                    cvData.disponibilidad &&
-                      cvData.disponibilidad != "NINGUNO" &&
-                      `Jornada: ${
-                        cvData.disponibilidad == "FULLTIME"
-                          ? "completa"
-                          : "parcial"
-                      }`,
-                    cvData.office && "Microsoft Office",
-                    ...cvData.idiomas.map(
-                      (idioma) =>
-                        `${idioma.idioma} - ${idioma.nivel.toLowerCase()}`
-                    ),
-                  ]
-                    .filter(Boolean)
-                    .join(" • ")}
-                </Text>
-              </View>
-            )}
           </View>
         </View>
       </Page>

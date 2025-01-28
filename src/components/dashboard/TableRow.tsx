@@ -79,11 +79,11 @@ export default function TableRow({ users }: { users: UserTable[] }) {
               className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg odd:bg-white even:bg-gray-100 dark:odd:bg-gray-500 dark:even:md:bg-gray-600"
             >
               <td className="whitespace-nowrap">
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center h-[45px] overflow-hidden">
                   {user.imagenPerfil ? (
                     <Image
                       src={user.imagenPerfil}
-                      className="rounded-full overflow-hidden"
+                      className="rounded-lg overflow-hidden w-10 h-[45px] object-cover"
                       width={40}
                       height={45}
                       alt={`${user.nombre}'s profile picture`}

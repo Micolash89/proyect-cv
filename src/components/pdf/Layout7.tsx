@@ -16,7 +16,6 @@ export const Layout7: React.FC<{
   contador: number;
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
-
   const experiencia = cvData.experience.map((exp, index) => (
     <View key={index} style={styles7.entryContainer}>
       <View style={styles7.entryHeader}>
@@ -129,15 +128,15 @@ export const Layout7: React.FC<{
           {exp.curso}
         </Text>
         <Text
-      style={[
-        styles7.dates,
-        { fontSize: getFontSize(11, optionsPDF.contadorContent) },
-      ]}
-    >
-      {exp.anioInicioCurso == "Actualidad"
-        ? "Actualidad"
-        : `${exp.mesInicioCurso}/${exp.anioInicioCurso}`}
-    </Text>
+          style={[
+            styles7.dates,
+            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+          ]}
+        >
+          {exp.anioInicioCurso == "Actualidad"
+            ? "Actualidad"
+            : `${exp.mesInicioCurso}/${exp.anioInicioCurso}`}
+        </Text>
       </View>
       <Text
         style={[
@@ -194,7 +193,7 @@ export const Layout7: React.FC<{
           }}
         >
           {iaData.profile && (
-            <View style={[]}>
+            <View>
               <Text
                 style={[
                   styles7.profileText,
@@ -206,7 +205,7 @@ export const Layout7: React.FC<{
             </View>
           )}
 
-          <View style={[styles7.mainContent,{} ]}>
+          <View style={[styles7.mainContent]}>
             <View style={styles7.leftColumn}>
               {cvData.education.length > 0 && (
                 <View style={styles7.section}>
@@ -315,9 +314,16 @@ export const Layout7: React.FC<{
               )}
             </View>
 
-            <View style={[styles7.rightColumn,{ justifyContent: optionsPDF.spaceBetween
-                  ? "space-between"
-                  : "flex-start",}]}>
+            <View
+              style={[
+                styles7.rightColumn,
+                {
+                  justifyContent: optionsPDF.spaceBetween
+                    ? "space-between"
+                    : "flex-start",
+                },
+              ]}
+            >
               {cvData.experience.length > 0 && (
                 <View style={styles7.section}>
                   <Text

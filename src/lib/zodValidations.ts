@@ -162,7 +162,10 @@ const CreateSchemaUsuario = z.object({
   incorporacion: z.string({ message: "Seleccione una opción" }).optional(),
   disponibilidad: z.string({ message: "Seleccione una opción" }).optional(),
   office: z.string({ message: "Seleccione una opción" }).optional(),
-  orientadoCV: z.string({ message: "Ingrese una orientación" }).max(1000, "La orientación puede contener hasta 1000 caracteres").optional(),
+  orientadoCV: z
+    .string({ message: "Ingrese una orientación" })
+    .max(1000, "La orientación puede contener hasta 1000 caracteres")
+    .optional(),
   idCVTemplate: z.number({ message: "Falta ID del Template del CV" }),
   color: z.string({ message: "Seleccione un color" }),
   template: z.coerce.number({

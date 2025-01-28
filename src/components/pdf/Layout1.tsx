@@ -251,7 +251,8 @@ export const Layout1: React.FC<{
               </View>
             )}
 
-            <View>
+            { (cvData.licencia || cvData.movilidad || cvData.incorporacion || cvData.disponibilidad) &&
+              <View>
               <Text
                 style={[
                   styles1.sidebarSectionTitle,
@@ -303,7 +304,7 @@ export const Layout1: React.FC<{
                     : "jornada parcial"}
                 </Text>
               )}
-            </View>
+            </View>}
           </View>
 
           <View

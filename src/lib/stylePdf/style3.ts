@@ -20,7 +20,7 @@ export const styles3 = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#2A4365",
-    padding: 30,
+    padding: 20,
     marginBottom: 20,
   },
   headerContent: {
@@ -47,13 +47,11 @@ export const styles3 = StyleSheet.create({
     border: "4 solid #FFFFFF",
   },
   name: {
-    fontSize: 24,
     color: "#FFFFFF",
     fontWeight: "bold",
     marginBottom: 5,
   },
   title: {
-    fontSize: 16,
     color: "#CBD5E0",
     fontWeight: "medium",
   },
@@ -61,7 +59,6 @@ export const styles3 = StyleSheet.create({
     marginBottom: 20,
   },
   sectionTitle: {
-    fontSize: 14,
     color: "#2A4365",
     fontWeight: "bold",
     borderBottom: "2 solid #E2E8F0",
@@ -72,12 +69,10 @@ export const styles3 = StyleSheet.create({
     marginBottom: 10,
   },
   contactText: {
-    fontSize: 10,
     color: "#4A5568",
     marginBottom: 3,
   },
   skillItem: {
-    fontSize: 10,
     color: "#4A5568",
     marginBottom: 5,
   },
@@ -85,16 +80,13 @@ export const styles3 = StyleSheet.create({
     marginBottom: 5,
   },
   languageName: {
-    fontSize: 10,
     color: "#2D3748",
     fontWeight: "medium",
   },
   languageLevel: {
-    fontSize: 9,
     color: "#718096",
   },
   profileText: {
-    fontSize: 10,
     color: "#4A5568",
     lineHeight: 1.6,
   },
@@ -108,12 +100,10 @@ export const styles3 = StyleSheet.create({
     marginBottom: 3,
   },
   companyName: {
-    fontSize: 12,
     color: "#2D3748",
     fontWeight: "bold",
   },
   jobTitle: {
-    fontSize: 11,
     color: "#4A5568",
     fontWeight: "medium",
     marginBottom: 2,
@@ -123,12 +113,10 @@ export const styles3 = StyleSheet.create({
     color: "#718096",
   },
   locationText: {
-    fontSize: 10,
     color: "#718096",
     marginBottom: 3,
   },
   description: {
-    fontSize: 10,
     color: "#4A5568",
     lineHeight: 1.4,
   },
@@ -142,12 +130,10 @@ export const styles3 = StyleSheet.create({
     marginBottom: 3,
   },
   institutionName: {
-    fontSize: 11,
     color: "#2D3748",
     fontWeight: "bold",
   },
   degree: {
-    fontSize: 10,
     color: "#4A5568",
     marginBottom: 2,
   },

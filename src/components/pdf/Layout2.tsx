@@ -409,8 +409,6 @@ export const Layout2: React.FC<{
             </Text>
           )}
         </View>
-
-        {/* Right Column */}
         <View
           style={[
             styles2.rightColumn,

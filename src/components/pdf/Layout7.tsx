@@ -165,7 +165,6 @@ export const Layout7: React.FC<{
   return (
     <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
       <Page size="A4" style={[styles7.page]}>
-        {/* Header Section */}
         <View style={styles7.headerContainer}>
           {cvData.imagenPerfil && (
             <Image src={cvData.imagenPerfil} style={styles7.profileImage} />
@@ -188,7 +187,6 @@ export const Layout7: React.FC<{
           </View>
         </View>
 
-        {/* Profile Summary */}
         <View
           style={{
             paddingHorizontal: getPadding(optionsPDF.contadorContent, 40),
@@ -208,11 +206,8 @@ export const Layout7: React.FC<{
             </View>
           )}
 
-          {/* Main Content Grid */}
-          <View style={styles7.mainContent}>
-            {/* Left Column */}
+          <View style={[styles7.mainContent,{} ]}>
             <View style={styles7.leftColumn}>
-              {/* Education Section */}
               {cvData.education.length > 0 && (
                 <View style={styles7.section}>
                   <Text
@@ -229,7 +224,6 @@ export const Layout7: React.FC<{
                 </View>
               )}
 
-              {/* Skills Section */}
               {iaData.skills && (
                 <View style={styles7.section}>
                   <Text
@@ -321,8 +315,9 @@ export const Layout7: React.FC<{
               )}
             </View>
 
-            {/* Right Column */}
-            <View style={styles7.rightColumn}>
+            <View style={[styles7.rightColumn,{ justifyContent: optionsPDF.spaceBetween
+                  ? "space-between"
+                  : "flex-start",}]}>
               {cvData.experience.length > 0 && (
                 <View style={styles7.section}>
                   <Text

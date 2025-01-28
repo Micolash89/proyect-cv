@@ -46,15 +46,19 @@ export const styles7 = StyleSheet.create({
   mainContent: {
     flexDirection: "row",
     paddingTop: 20,
+    height :"100%"
   },
   leftColumn: {
     width: "40%",
     paddingRight: 15,
   },
   rightColumn: {
+    display: "flex",
     width: "60%",
     paddingLeft: 15,
     borderLeft: "1 solid #BDC3C7",
+    flexDirection: "column",
+    height: "100%",
   },
   section: {
     marginBottom: 20,

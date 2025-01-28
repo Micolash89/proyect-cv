@@ -127,7 +127,6 @@ export const Layout1: React.FC<{
     <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}  >
       <Page size="A4" style={styles1.page}>
         <View style={styles1.container}>
-          {/* Sidebar */}
           <View
             style={[
               styles1.sidebar,
@@ -152,7 +151,6 @@ export const Layout1: React.FC<{
               </Text>
             )}
 
-            {/* Contact Information */}
             <View style={{ marginTop: 20 }}>
               <Text
                 style={[
@@ -198,7 +196,6 @@ export const Layout1: React.FC<{
               </Text>
             </View>
 
-            {/* Skills Section */}
             {iaData.skills && (
               <View>
                 <Text
@@ -223,7 +220,6 @@ export const Layout1: React.FC<{
               </View>
             )}
 
-            {/* Languages */}
             {cvData.idiomas.length > 0 && (
               <View>
                 <Text
@@ -255,7 +251,6 @@ export const Layout1: React.FC<{
               </View>
             )}
 
-            {/* Additional Information */}
             <View>
               <Text
                 style={[
@@ -311,7 +306,6 @@ export const Layout1: React.FC<{
             </View>
           </View>
 
-          {/* Main Content */}
           <View
             style={[
               styles1.mainContent,
@@ -322,7 +316,7 @@ export const Layout1: React.FC<{
               },
             ]}
           >
-            {/* Profile Summary */}
+
             {iaData.profile && (
               <View style={{ marginBottom: 20 }}>
                 <Text
@@ -347,7 +341,6 @@ export const Layout1: React.FC<{
               </View>
             )}
 
-            {/* Experience */}
             {cvData.experience.length > 0 && (
               <View style={{ marginBottom: 20 }}>
                 <Text
@@ -367,7 +360,6 @@ export const Layout1: React.FC<{
               </View>
             )}
 
-            {/* Education */}
             {cvData.education.length > 0 && (
               <View style={{ marginBottom: 20 }}>
                 <Text
@@ -385,7 +377,6 @@ export const Layout1: React.FC<{
               </View>
             )}
 
-            {/* Certifications */}
             {cvData.cursos.length > 0 && (
               <View>
                 <Text

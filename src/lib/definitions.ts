@@ -18,7 +18,7 @@ export interface CVDataPdf {
     anioInicioEducacion: string;
     mesInicioEducacion: string;
     anioFinEducacion: string;
-    mesFinEducacion:string;
+    mesFinEducacion: string;
   }>;
   experience: Array<{
     nombreEmpresa: string;
@@ -105,13 +105,13 @@ export interface Template {
 export interface OptionsPDF {
   color: string;
   spaceBetween: boolean;
-  orientacionCVTitle:boolean;
+  orientacionCVTitle: boolean;
   tipoPdf: number;
   contadorContent: number;
-  reverseExperience:boolean;
-  reverseEducation:boolean;
-  reverseCursos:boolean;
-  fullName:boolean;
+  reverseExperience: boolean;
+  reverseEducation: boolean;
+  reverseCursos: boolean;
+  fullName: boolean;
 }
 
 export interface Experiencia {
@@ -126,7 +126,7 @@ export interface Errors {
   [key: string]: string[];
 }
 
- export interface EducationErrors {
+export interface EducationErrors {
   estudios: string[];
   estado: string[];
   carrera: string[];
@@ -135,12 +135,12 @@ export interface Errors {
   anioFinEducacion: string[];
 }
 
-export interface ArraySelectInput{
+export interface ArraySelectInput {
   value: string;
   name: string;
 }
 
-export interface UserTable{
+export interface UserTable {
   id: number;
   nombre: string;
   apellido: string;
@@ -167,28 +167,47 @@ export type Section =
   | "orientacionCV"
   | "CVTemplateSelector";
 
-  export interface CVDataTemplateSelector {
-    template: number;
-    color: string;
-  }
+export interface CVDataTemplateSelector {
+  template: number;
+  color: string;
+}
 
-  export interface CursoIA {
-    curso: string;
-    institucion: string;
-    anioInicioCurso: string;
-  }
-  
-  export interface IdiomaIA {
-    idioma: string;
-    nivel: string;
-  }
-  
-  export interface EducacionIA {
-    carrera: string;
-    estado: string;
-    estudios: string;
-    institucion: string;
-    zonaInstitucion: string;
-    anioInicioEducacion: string;
-    anioFinEducacion: string;
-  }
+export interface CursoIA {
+  curso: string;
+  institucion: string;
+  anioInicioCurso: string;
+}
+
+export interface IdiomaIA {
+  idioma: string;
+  nivel: string;
+}
+
+export interface EducacionIA {
+  carrera: string;
+  estado: string;
+  estudios: string;
+  institucion: string;
+  zonaInstitucion: string;
+  anioInicioEducacion: string;
+  anioFinEducacion: string;
+}
+
+export interface AnioExperiencia {
+  mesFinExperiencia: string;
+  mesInicioExperiencia: string;
+  anioFinExperiencia: string;
+  anioInicioExperiencia: string;
+}
+
+export interface AnioEducacion {
+  anioInicioEducacion: string;
+  mesInicioEducacion: string;
+  mesFinEducacion: string;
+  anioFinEducacion: string;
+}
+
+export interface AnioCurso {
+  anioInicioCurso: string;
+  mesInicioCurso: string;
+}

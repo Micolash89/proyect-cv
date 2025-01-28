@@ -1,4 +1,10 @@
-import { CVDataPdf, OptionsPDF } from "@/lib/definitions";
+import {
+  AnioCurso,
+  AnioEducacion,
+  AnioExperiencia,
+  CVDataPdf,
+  OptionsPDF,
+} from "@/lib/definitions";
 import { TypeIAData } from "../PreviewCV";
 import { Document, Page, Text, View, Image } from "@react-pdf/renderer";
 import { styles7 } from "@/lib/stylePdf/style7";
@@ -10,6 +16,7 @@ export const Layout7: React.FC<{
   contador: number;
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
+
   const experiencia = cvData.experience.map((exp, index) => (
     <View key={index} style={styles7.entryContainer}>
       <View style={styles7.entryHeader}>
@@ -63,6 +70,20 @@ export const Layout7: React.FC<{
     </View>
   ));
 
+  const anioEdu = ({ edu }: { edu: AnioEducacion }) => {
+    return (
+      <Text
+        style={[
+          styles7.dates,
+          { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+        ]}
+      >
+        {edu.mesInicioEducacion}/{edu.anioInicioEducacion} -{" "}
+        {edu.mesFinEducacion}/{edu.anioFinEducacion}
+      </Text>
+    );
+  };
+
   const educacion = cvData.education.map((edu: any, index: number) => (
     <View key={index} style={styles7.entryContainer}>
       <View style={styles7.entryHeader}>
@@ -74,15 +95,7 @@ export const Layout7: React.FC<{
         >
           {edu.institucion}
         </Text>
-        <Text
-          style={[
-            styles7.dates,
-            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
-          ]}
-        >
-          {edu.mesInicioEducacion}/{edu.anioInicioEducacion} -{" "}
-          {edu.mesFinEducacion}/{edu.anioFinEducacion}
-        </Text>
+        {edu.institucion.length > 23 ? "" : anioEdu({ edu })}
       </View>
       <Text
         style={[
@@ -98,13 +111,14 @@ export const Layout7: React.FC<{
           { fontSize: getFontSize(11, optionsPDF.contadorContent) },
         ]}
       >
-        {edu.zonaInstitucion}
+        {edu.zonaInstitucion} {edu.zonaInstitucion && " "}
+        {edu.institucion.length < 23 ? "" : anioEdu({ edu })}
       </Text>
     </View>
   ));
 
   const cursos = cvData.cursos.map((exp, index) => (
-    <View key={index} style={styles7.entryContainer}>
+    <View key={index} style={[styles7.entryContainer, { marginBottom: 10 }]}>
       <View style={styles7.entryHeader}>
         <Text
           style={[
@@ -115,15 +129,15 @@ export const Layout7: React.FC<{
           {exp.curso}
         </Text>
         <Text
-          style={[
-            styles7.dates,
-            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
-          ]}
-        >
-          {exp.anioInicioCurso == "Actualidad"
-            ? "Actualidad"
-            : `${exp.mesInicioCurso}/${exp.anioInicioCurso}`}
-        </Text>
+      style={[
+        styles7.dates,
+        { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+      ]}
+    >
+      {exp.anioInicioCurso == "Actualidad"
+        ? "Actualidad"
+        : `${exp.mesInicioCurso}/${exp.anioInicioCurso}`}
+    </Text>
       </View>
       <Text
         style={[
@@ -264,7 +278,7 @@ export const Layout7: React.FC<{
                     ]}
                   >
                     {optionsPDF.contadorContent < 2
-                      ? "INFORMACIÓN ADICIONALES"
+                      ? "INFORMACIÓN ADICIONAL"
                       : "INFORMACIÓN ADICIONAL".split(" ").join("\n")}
                   </Text>
                   <View style={styles7.skillsGrid}>

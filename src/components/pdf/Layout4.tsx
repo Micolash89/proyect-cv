@@ -113,13 +113,13 @@ export const Layout4: React.FC<{
   ));
 
   const cutname = (
-    <Text style={[styles4.name, { fontSize: getFontSize(24, contador) }]}>
+    <Text style={[styles4.name, { fontSize: getFontSize(24, contador), marginBottom: optionsPDF.orientacionCVTitle? 0:20 }]}>
       {cvData.name.split(" ")[0]} {cvData.lastName.split(" ")[0]}
     </Text>
   );
 
   const fullname = (
-    <Text style={[styles4.name, { fontSize: getFontSize(24, contador) }]}>
+    <Text style={[styles4.name, { fontSize: getFontSize(24, contador), marginBottom: optionsPDF.orientacionCVTitle? 0:20 }]}>
       {cvData.name} {cvData.lastName}
     </Text>
   );
@@ -184,7 +184,7 @@ export const Layout4: React.FC<{
               <Text
                 style={[
                   styles4.contactItem,
-                  { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                  { fontSize: getFontSize(10, optionsPDF.contadorContent), marginBottom: 0 },
                 ]}
               >
                 {cvData.ciudad}, {cvData.provincia}

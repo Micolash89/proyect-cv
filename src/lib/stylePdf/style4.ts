@@ -1,4 +1,4 @@
-import { StyleSheet, Font } from "@react-pdf/renderer"
+import { StyleSheet, Font } from "@react-pdf/renderer";
 
 Font.register({
   family: "Helvetica",
@@ -7,7 +7,7 @@ Font.register({
     { src: "/fonts/Helvetica-Bold.ttf", fontWeight: "bold" },
     { src: "/fonts/Helvetica-Oblique.ttf", fontStyle: "italic" },
   ],
-})
+});
 
 export const styles4 = StyleSheet.create({
   page: {
@@ -34,7 +34,6 @@ export const styles4 = StyleSheet.create({
     fontSize: 24,
     letterSpacing: 2,
     textTransform: "uppercase",
-    marginBottom: 5,
     color: "#333333",
     fontWeight: "bold",
   },
@@ -50,7 +49,6 @@ export const styles4 = StyleSheet.create({
     letterSpacing: 1.5,
     textTransform: "uppercase",
     marginBottom: 10,
-    marginTop: 20,
     color: "#333333",
     borderBottom: "1 solid #DDDDDD",
     paddingBottom: 5,
@@ -68,8 +66,9 @@ export const styles4 = StyleSheet.create({
   },
   languageItem: {
     fontSize: 10,
-    marginBottom: 5,
+    marginBottom: 10,
     color: "#444444",
+    textTransform: "capitalize",
   },
   profileSummary: {
     fontSize: 10,
@@ -148,5 +147,4 @@ export const styles4 = StyleSheet.create({
     margin: 2,
     fontSize: 8,
   },
-})
-
+});

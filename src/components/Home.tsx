@@ -14,6 +14,7 @@ import {
 } from "@/app/user/[id]/page";
 import { TextZoom } from "./TextZoom";
 import { OptionsPDF } from "@/lib/definitions";
+import WrapperH2Section from "./user/[id]/WrapperH2Section";
 
 export interface Estudio {
   estudios: string;
@@ -76,7 +77,7 @@ export interface CVData {
   disponibilidad: string;
   office: string;
   orientadoCV: string;
-  idCVTemplate:number;
+  idCVTemplate: number;
   color: string;
   template: number;
 }
@@ -109,9 +110,9 @@ export default function Home({ user }: { user?: UserDataBase }) {
     office: "",
     disponibilidad: "",
     orientadoCV: "",
-    idCVTemplate:0,
-    color:"#000000",
-    template:0
+    idCVTemplate: 0,
+    color: "#000000",
+    template: 0,
   });
 
   useEffect(() => {
@@ -185,9 +186,9 @@ export default function Home({ user }: { user?: UserDataBase }) {
         disponibilidad: user.informacionAdicional[0]?.disponibilidad || "",
         office: user.informacionAdicional[0]?.office || "",
         orientadoCV: user.orientacionCV || "",
-        idCVTemplate:user.cvTemplate?.id || 0 ,
-        template:user.cvTemplate?.template || 0,
-        color :user.cvTemplate?.color || "#000000"
+        idCVTemplate: user.cvTemplate?.id || 0,
+        template: user.cvTemplate?.template || 0,
+        color: user.cvTemplate?.color || "#000000",
       });
 
       setOptionsPDF((prev) => ({
@@ -195,7 +196,6 @@ export default function Home({ user }: { user?: UserDataBase }) {
         color: user.cvTemplate?.color || "#000000",
         tipoPdf: user.cvTemplate?.template || 0,
       }));
-      
     }
   }, [user]);
 
@@ -209,13 +209,13 @@ export default function Home({ user }: { user?: UserDataBase }) {
   const [optionsPDF, setOptionsPDF] = useState<OptionsPDF>({
     color: "#000000",
     spaceBetween: false,
-    orientacionCVTitle:false,
+    orientacionCVTitle: false,
     tipoPdf: 0,
-    contadorContent:0,
+    contadorContent: 0,
     fullName: false,
-    reverseExperience:false,
-    reverseEducation:false,
-    reverseCursos:false,
+    reverseExperience: false,
+    reverseEducation: false,
+    reverseCursos: false,
   });
 
   const updateCVData = (newData: any) => {
@@ -236,32 +236,46 @@ export default function Home({ user }: { user?: UserDataBase }) {
 
         {showCompleteInputs ? (
           <div>
-      
-            <div className="mt-7">
-
-            <IARegister
-              cvData={cvData}
-              updateIAData={updateIAData}
-              title={"generar perfil IA"}
-              tipo={1}
-              iaData={iaData.profile}
-              />
-            <IARegister
-              cvData={cvData}
-              updateIAData={updateIAData}
-              title={"generar tareas IA"}
-              tipo={2}
-              iaData={iaData.descriptionWork}
-            />
-            <IARegister
-              cvData={cvData}
-              updateIAData={updateIAData}
-              title={"generar skills IA"}
-              tipo={3}
-              iaData={iaData.skills}
-            />
+            <div className="mt-10">
+              <div className=" w-full max-w-4xl mx-auto p-4  ">
+                <WrapperH2Section
+                  title={"Generar contenido con IA"}
+                  additionalMessage={
+                    "Utiliza la inteligencia artificial para generar el contenido de tu CV"
+                  }
+                />
               </div>
+              <IARegister
+                cvData={cvData}
+                updateIAData={updateIAData}
+                title={"perfil"}
+                tipo={1}
+                iaData={iaData.profile}
+              />
+              <IARegister
+                cvData={cvData}
+                updateIAData={updateIAData}
+                title={"tareas de cada trabajo"}
+                tipo={2}
+                iaData={iaData.descriptionWork}
+              />
+              <IARegister
+                cvData={cvData}
+                updateIAData={updateIAData}
+                title={"habilidades"}
+                tipo={3}
+                iaData={iaData.skills}
+              />
+            </div>
 
+            <div className="mt-5 w-full max-w-4xl mx-auto pt-4 ">
+              <WrapperH2Section
+                title={"Configuración de PDF"}
+                additionalMessage={
+                  "Configura el PDF que deseas generar"
+                }
+              />
+            </div>
             <TextZoom
               setContador={setContador}
               contador={contador}
@@ -270,7 +284,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
             />
 
             <div className="max-w-4xl mx-auto h-[900px] my-5">
-              <PDFViewer width="100%" height="100%" >
+              <PDFViewer width="100%" height="100%">
                 <MyDocumentPDF
                   cvData={cvData}
                   iaData={iaData}

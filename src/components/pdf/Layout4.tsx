@@ -52,7 +52,7 @@ export const Layout4: React.FC<{
     </View>
   ));
 
-  const educacion = cvData.education.map((edu, index) => (
+  const educacion = cvData.education.map((educacion, index) => (
     <View key={index} style={styles4.educationEntry}>
       <Text
         style={[
@@ -60,7 +60,7 @@ export const Layout4: React.FC<{
           { fontSize: getFontSize(11, optionsPDF.contadorContent) },
         ]}
       >
-        {edu.institucion}
+        {educacion.carrera} ({educacion.estado})
       </Text>
       <Text
         style={[
@@ -68,7 +68,7 @@ export const Layout4: React.FC<{
           { fontSize: getFontSize(10, optionsPDF.contadorContent) },
         ]}
       >
-        {edu.carrera} ({edu.estado})
+        {educacion.institucion}
       </Text>
       <Text
         style={[
@@ -76,13 +76,12 @@ export const Layout4: React.FC<{
           { fontSize: getFontSize(10, optionsPDF.contadorContent) },
         ]}
       >
-        {edu.mesInicioEducacion}/{edu.anioInicioEducacion} -{" "}
-        {edu.mesFinEducacion}/{edu.anioFinEducacion} | {edu.zonaInstitucion}
+        {`${educacion.mesInicioEducacion}/${educacion.anioInicioEducacion} - ${educacion.mesFinEducacion}/${educacion.anioFinEducacion}`}
       </Text>
     </View>
   ));
 
-  const cursos = cvData.cursos.map((curso, index) => (
+  const cursos = cvData.cursos.map((curso,index) => (
     <View key={index} style={styles4.educationEntry}>
       <Text
         style={[
@@ -90,20 +89,20 @@ export const Layout4: React.FC<{
           { fontSize: getFontSize(11, optionsPDF.contadorContent) },
         ]}
       >
-        {curso.curso}
+         {curso.curso}
       </Text>
-      <Text
+      {curso.institucion && <Text
         style={[
           styles4.degree,
           { fontSize: getFontSize(10, optionsPDF.contadorContent) },
         ]}
       >
         {curso.institucion}
-      </Text>
+      </Text>}
       <Text
         style={[
           styles4.dateLocation,
-          { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+          { fontSize: getFontSize(10, optionsPDF.contadorContent)},
         ]}
       >
         {curso.anioInicioCurso === "Actualidad"
@@ -128,6 +127,9 @@ export const Layout4: React.FC<{
   return (
     <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
       <Page size="A4" style={styles4.page}>
+        <View>
+          <Text style={styles4.nameBack}>{cvData.lastName.split(" ")[0]}</Text>
+        </View>
         <View style={styles4.container}>
           <View style={styles4.leftColumn}>
             {cvData.imagenPerfil && (
@@ -151,14 +153,16 @@ export const Layout4: React.FC<{
               >
                 {cvData.fechaNacimiento.split("-").reverse().join("/")}
               </Text>
-             {cvData.dni && <Text
-                style={[
-                  styles4.contactItem,
-                  { fontSize: getFontSize(10, optionsPDF.contadorContent) },
-                ]}
-              >
-                DNI: {cvData.dni}
-              </Text>}
+              {cvData.dni && (
+                <Text
+                  style={[
+                    styles4.contactItem,
+                    { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                  ]}
+                >
+                  DNI: {cvData.dni}
+                </Text>
+              )}
               <Text
                 style={[
                   styles4.contactItem,
@@ -167,14 +171,16 @@ export const Layout4: React.FC<{
               >
                 Tel: {cvData.phone}
               </Text>
-              {cvData.email && <Text
-                style={[
-                  styles4.contactItem,
-                  { fontSize: getFontSize(10, optionsPDF.contadorContent) },
-                ]}
-              >
-                {cvData.email}
-              </Text>}
+              {cvData.email && (
+                <Text
+                  style={[
+                    styles4.contactItem,
+                    { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                  ]}
+                >
+                  {cvData.email}
+                </Text>
+              )}
               <Text
                 style={[
                   styles4.contactItem,
@@ -185,17 +191,19 @@ export const Layout4: React.FC<{
               </Text>
             </View>
 
-            <View>
-              <Text
-                style={[
-                  styles4.sectionTitle,
-                  { fontSize: getFontSize(14, optionsPDF.contadorContent) },
-                ]}
-              >
-                EDUCACIÓN
-              </Text>
-              {optionsPDF.reverseEducation ? educacion.reverse() : educacion}
-            </View>
+            {cvData.cursos.length > 0 && (
+              <View>
+                <Text
+                  style={[
+                    styles4.sectionTitle,
+                    { fontSize: getFontSize(14, optionsPDF.contadorContent) },
+                  ]}
+                >
+                  CURSOS
+                </Text>
+                {optionsPDF.reverseEducation ? cursos.reverse() : cursos}
+              </View>
+            )}
 
             {iaData.skills && (
               <View>
@@ -226,7 +234,10 @@ export const Layout4: React.FC<{
                 <Text
                   style={[
                     styles4.sectionTitle,
-                    { fontSize: getFontSize(14, optionsPDF.contadorContent), marginVertical: 10 },
+                    {
+                      fontSize: getFontSize(14, optionsPDF.contadorContent),
+                      marginVertical: 10,
+                    },
                   ]}
                 >
                   IDIOMAS
@@ -239,7 +250,9 @@ export const Layout4: React.FC<{
                       { fontSize: getFontSize(10, optionsPDF.contadorContent) },
                     ]}
                   >
-                    • {idioma.idioma}: {idioma.nivel.charAt(0).toUpperCase() + idioma.nivel.slice(1)}
+                    • {idioma.idioma}:{" "}
+                    {idioma.nivel.charAt(0).toUpperCase() +
+                      idioma.nivel.slice(1).toLowerCase()}
                   </Text>
                 ))}
               </View>
@@ -253,7 +266,7 @@ export const Layout4: React.FC<{
                 <Text
                   style={[
                     styles4.title,
-                    { fontSize: getFontSize(14, contador), marginBottom:0 },
+                    { fontSize: getFontSize(14, contador), marginBottom: 0 },
                   ]}
                 >
                   {cvData.orientadoCV}
@@ -298,7 +311,7 @@ export const Layout4: React.FC<{
               </View>
             )}
 
-            {cvData.cursos.length > 0 && (
+            {cvData.education.length > 0 && (
               <View>
                 <Text
                   style={[
@@ -306,9 +319,9 @@ export const Layout4: React.FC<{
                     { fontSize: getFontSize(14, optionsPDF.contadorContent) },
                   ]}
                 >
-                  CURSOS
+                  EDUCACIÓN
                 </Text>
-                {optionsPDF.reverseCursos ? cursos.reverse() : cursos}
+                {optionsPDF.reverseCursos ? educacion.reverse() : educacion}
               </View>
             )}
           </View>

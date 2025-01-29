@@ -87,4 +87,12 @@ Font.register({
       height: 3,
       marginRight: 6,
     },
+    profileImage: {
+      position: "absolute",
+      top: 5,
+      left: 10,
+      width: 90,
+      height: 90,
+      objectFit: "cover",
+    }
   });

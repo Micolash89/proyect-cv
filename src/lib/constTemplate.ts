@@ -14,12 +14,12 @@ export const templates: Template[] = [
     {
       id: 2,
       image: "/images/cvTemplate2.PNG",
-      colors: ["#3B82F6", "#34495E", "#2A4365", "#6F7072", "#181D2B", "#AF815E", "#F3F2E3"],
+      colors: ["#3B82F6", "#34495E", "#2A4365", "#6F7072", "#AF815E", "#F3F2E3"],
     },
     {
       id: 3,
       image: "/images/cvTemplate3.PNG",
-      colors: ["#3B82F6", "#2A4365", "#6F7072", "#181D2B", "#AF815E", "#F3F2E3"],
+      colors: ["#3B82F6", "#2A4365", "#6F7072", "#AF815E", "#F3F2E3"],
     },
     {
       id: 4,

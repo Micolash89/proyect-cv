@@ -69,30 +69,6 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
   return (
     <div className="w-full max-w-4xl mx-auto py-4">
       <div className="bg-white dark:bg-gray-900 shadow-lg rounded-xl p-6  transition-all duration-200">
-        <div className="flex items-center justify-between border-b dark:border-gray-700 pb-4">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
-            <svg
-              className="w-7 h-7"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-              />
-            </svg>
-            Configuración del CV
-          </h2>
-
-          <div
-            className="h-8 w-8 rounded-full"
-            style={{ backgroundColor: optionsPDF.color }}
-          />
-        </div>
-
         <div className="space-y-6">
           <div className="flex flex-col items-center space-y-3">
             <WrapperH3 title="Tamaño del Texto" />

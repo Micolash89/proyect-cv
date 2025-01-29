@@ -178,7 +178,6 @@ export const Layout0: React.FC<{
           { padding: 45 - (contador <= 5 ? contador * 5 : 25) },
         ]}
       >
-        {/* Header */}
         <View style={stylesDefault.header}>
           {optionsPDF.fullName ? fullName : cutName}
 
@@ -195,18 +194,10 @@ export const Layout0: React.FC<{
         {cvData.imagenPerfil && (
           <Image
             src={cvData.imagenPerfil}
-            style={{
-              position: "absolute",
-              top: 5,
-              left: 10,
-              width: 90,
-              height: 90,
-              objectFit: "cover",
-            }}
+            style={stylesDefault.profileImage}
           />
         )}
 
-        {/* Profile Summary */}
         {iaData.profile && (
           <View>
             <Text
@@ -224,7 +215,6 @@ export const Layout0: React.FC<{
           </View>
         )}
 
-        {/* Education */}
         {cvData.education.length > 0 && (
           <View>
             <Text
@@ -239,7 +229,6 @@ export const Layout0: React.FC<{
           </View>
         )}
 
-        {/* Experience */}
         {cvData.experience.length > 0 && (
           <View>
             <Text
@@ -254,7 +243,6 @@ export const Layout0: React.FC<{
           </View>
         )}
 
-        {/* Certifications */}
         {cvData.cursos.length > 0 && (
           <View>
             <Text
@@ -269,7 +257,6 @@ export const Layout0: React.FC<{
           </View>
         )}
 
-        {/* Skills */}
         {iaData.skills && (
           <View>
             <Text
@@ -293,7 +280,6 @@ export const Layout0: React.FC<{
           </View>
         )}
 
-        {/* Additional Information */}
         {(cvData.licencia ||
           cvData.movilidad ||
           cvData.incorporacion ||

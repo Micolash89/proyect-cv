@@ -9,6 +9,13 @@ Font.register({
   ],
 });
 
+Font.register({
+  family: "Signature",
+  fonts: [
+    { src: "/fonts/Quensialy-Signature.ttf" },
+  ],
+});
+
 export const styles4 = StyleSheet.create({
   page: {
     padding: 30,
@@ -36,6 +43,14 @@ export const styles4 = StyleSheet.create({
     textTransform: "uppercase",
     color: "#333333",
     fontWeight: "bold",
+  },
+  nameBack:{
+    fontFamily: "Signature",
+    fontSize: 75,
+    position: "absolute",
+    top: 0,
+    right: "5%",
+    color: "#DDDDDD",
   },
   title: {
     fontSize: 14,
@@ -66,7 +81,7 @@ export const styles4 = StyleSheet.create({
   },
   languageItem: {
     fontSize: 10,
-    marginBottom: 10,
+    marginBottom: 5,
     color: "#444444",
     textTransform: "capitalize",
   },
@@ -104,7 +119,7 @@ export const styles4 = StyleSheet.create({
     marginBottom: 5,
   },
   educationEntry: {
-    marginBottom: 10,
+    marginBottom: 5,
   },
   institution: {
     fontSize: 10,

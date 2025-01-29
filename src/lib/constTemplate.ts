@@ -21,16 +21,16 @@ export const templates: Template[] = [
       image: "/images/cvTemplate3.PNG",
       colors: ["#3B82F6", "#2A4365", "#6F7072", "#181D2B", "#AF815E", "#F3F2E3"],
     },
-    // {
-    //   id: 4,
-    //   image: "/placeholder.svg?height=200&width=150",
-    //   colors: ["#3B82F6", "#2C3E50", "#6F7072", "#181D2B", "#AF815E", "#F3F2E3"],
-    // },
-    // {
-    //   id: 5,
-    //   image: "/placeholder.svg?height=200&width=150",
-    //   colors: ["#3B82F6", "#2C3E50", "#6F7072", "#181D2B", "#AF815E", "#F3F2E3"],
-    // },
+    {
+      id: 4,
+      image: "/images/cvTemplate4.PNG",
+      colors: ["#000000"],
+    },
+    {
+      id: 5,
+      image: "/images/cvTemplate5.PNG",
+      colors: ["#000000"],
+    },
     {
       id: 6,
       image: "/images/cvTemplate6.jpg",

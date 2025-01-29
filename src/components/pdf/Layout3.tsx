@@ -11,6 +11,7 @@ export const Layout3: React.FC<{
   contador: number;
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
+  
   const experiencia = cvData.experience.map((exp, index) => (
     <View key={index} style={styles3.experienceItem}>
       <View style={styles3.experienceHeader}>

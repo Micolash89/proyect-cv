@@ -1,168 +1,152 @@
-import { StyleSheet, Font } from "@react-pdf/renderer";
+import { StyleSheet, Font } from "@react-pdf/renderer"
 
-// Register fonts
 Font.register({
-  family: "Montserrat",
+  family: "Helvetica",
   fonts: [
-    { src: "/fonts/Montserrat-Regular.ttf", fontWeight: 400 },
-    { src: "/fonts/Montserrat-SemiBold.ttf", fontWeight: 600 },
-    { src: "/fonts/Montserrat-Bold.ttf", fontWeight: 700 },
+    { src: "/fonts/Helvetica-Regular.ttf" },
+    { src: "/fonts/Helvetica-Bold.ttf", fontWeight: "bold" },
+    { src: "/fonts/Helvetica-Oblique.ttf", fontStyle: "italic" },
   ],
-});
+})
 
 export const styles4 = StyleSheet.create({
   page: {
-    padding: 0,
-    backgroundColor: "#FFFFFF",
-    fontFamily: "Montserrat",
-  },
-  header: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#2A4365",
     padding: 30,
-    marginBottom: 20,
-  },
-  headerContent: {
-    marginLeft: 20,
-    flex: 1,
+    fontFamily: "Helvetica",
   },
   container: {
-    display: "flex",
     flexDirection: "row",
-    padding: "0 30",
+    flex: 1,
   },
   leftColumn: {
-    width: "30%",
+    width: "35%",
     paddingRight: 20,
+    borderRight: "1 solid #DDDDDD",
   },
   rightColumn: {
-    width: "70%",
-    borderLeft: "1 solid #E2E8F0",
+    width: "65%",
     paddingLeft: 20,
   },
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    border: "4 solid #FFFFFF",
+  header: {
+    marginBottom: 20,
   },
   name: {
     fontSize: 24,
-    color: "#FFFFFF",
-    fontWeight: "bold",
+    letterSpacing: 2,
+    textTransform: "uppercase",
     marginBottom: 5,
+    color: "#333333",
+    fontWeight: "bold",
   },
   title: {
-    fontSize: 16,
-    color: "#CBD5E0",
-    fontWeight: "medium",
-  },
-  section: {
+    fontSize: 14,
+    letterSpacing: 1,
+    color: "#666666",
+    textTransform: "uppercase",
     marginBottom: 20,
   },
   sectionTitle: {
-    fontSize: 14,
-    color: "#2A4365",
-    fontWeight: "bold",
-    borderBottom: "2 solid #E2E8F0",
-    paddingBottom: 5,
+    fontSize: 12,
+    letterSpacing: 1.5,
+    textTransform: "uppercase",
     marginBottom: 10,
+    marginTop: 20,
+    color: "#333333",
+    borderBottom: "1 solid #DDDDDD",
+    paddingBottom: 5,
+    fontWeight: "bold",
   },
   contactItem: {
-    marginBottom: 10,
-  },
-  contactText: {
     fontSize: 10,
-    color: "#4A5568",
-    marginBottom: 3,
+    marginBottom: 5,
+    color: "#444444",
   },
   skillItem: {
     fontSize: 10,
-    color: "#4A5568",
     marginBottom: 5,
+    color: "#444444",
   },
   languageItem: {
+    fontSize: 10,
     marginBottom: 5,
+    color: "#444444",
   },
-  languageName: {
+  profileSummary: {
     fontSize: 10,
-    color: "#2D3748",
-    fontWeight: "medium",
+    marginBottom: 20,
+    lineHeight: 1.4,
+    color: "#444444",
+    textAlign: "justify",
   },
-  languageLevel: {
-    fontSize: 9,
-    color: "#718096",
-  },
-  profileText: {
-    fontSize: 10,
-    color: "#4A5568",
-    lineHeight: 1.6,
-  },
-  experienceItem: {
+  experienceEntry: {
     marginBottom: 15,
   },
-  experienceHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 3,
-  },
   companyName: {
-    fontSize: 12,
-    color: "#2D3748",
+    fontSize: 11,
     fontWeight: "bold",
+    marginBottom: 3,
+    color: "#333333",
   },
   jobTitle: {
-    fontSize: 11,
-    color: "#4A5568",
+    fontSize: 10,
     fontWeight: "medium",
-    marginBottom: 2,
+    marginBottom: 3,
+    color: "#444444",
   },
   dateLocation: {
-    fontSize: 10,
-    color: "#718096",
-  },
-  locationText: {
-    fontSize: 10,
-    color: "#718096",
-    marginBottom: 3,
+    fontSize: 9,
+    color: "#666666",
+    marginBottom: 5,
   },
   description: {
     fontSize: 10,
-    color: "#4A5568",
     lineHeight: 1.4,
+    color: "#444444",
+    marginBottom: 5,
   },
-  educationItem: {
-    marginBottom: 12,
+  educationEntry: {
+    marginBottom: 10,
   },
-  educationHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 3,
-  },
-  institutionName: {
-    fontSize: 11,
-    color: "#2D3748",
+  institution: {
+    fontSize: 10,
     fontWeight: "bold",
+    marginBottom: 3,
+    color: "#333333",
   },
   degree: {
     fontSize: 10,
-    color: "#4A5568",
+    color: "#444444",
     marginBottom: 2,
   },
-  certificationItem: {
-    marginBottom: 8,
-  },
-  certificationName: {
-    fontSize: 10,
-    color: "#2D3748",
-    fontWeight: "medium",
-  },
-  certificationInstitution: {
+  gpa: {
     fontSize: 9,
-    color: "#718096",
+    color: "#666666",
   },
-});
+  divider: {
+    borderBottom: "1 solid #DDDDDD",
+    marginVertical: 10,
+  },
+  profileImage: {
+    borderRadius: 50,
+    marginBottom: 20,
+    alignSelf: "center",
+  },
+  profession: {
+    textAlign: "center",
+    marginBottom: 5,
+  },
+  skills: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 5,
+  },
+  skill: {
+    backgroundColor: "#a3a3a3",
+    color: "white",
+    padding: "3 6",
+    borderRadius: 10,
+    margin: 2,
+    fontSize: 8,
+  },
+})
+

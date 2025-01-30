@@ -272,7 +272,7 @@ export default function Home({ user }: { user?: UserDataBase }) {
               <WrapperH2Section
                 title={"Configuración de PDF"}
                 additionalMessage={
-                  "Configura el PDF que deseas generar"
+                  "Personalizar el PDF que deseas generar"
                 }
               />
             </div>

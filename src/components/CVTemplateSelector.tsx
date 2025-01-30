@@ -8,6 +8,7 @@ import WrapperH2Section from "./user/[id]/WrapperH2Section";
 import { templates } from "@/lib/constTemplate";
 import Image from "next/image";
 import { CVDataTemplateSelector } from "@/lib/definitions";
+import clsx from "clsx";
 
 export default function CVTemplateSelector({
   cvData,
@@ -141,9 +142,11 @@ export default function CVTemplateSelector({
                   .map((template) => (
                     <div
                       key={template.id}
-                      className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 p-2"
+                      className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 p-2 "
                     >
-                      <div className="relative">
+                      <div className={clsx(`duration-700 relative overflow-hidden rounded-lg`,{"ring-8 ring-blue-500 ": cvData.template === template.id,
+                        " hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 dark:hover:ring-blue-600 ring-2 ring-offset-2 ring-gray-100 dark:ring-gray-800 shadow-sm": cvData.template !== template.id
+                      })}>
                         <input
                           type="radio"
                           id={`${template.id}`}
@@ -155,18 +158,14 @@ export default function CVTemplateSelector({
                         />
                         <label
                           htmlFor={`${template.id}`}
-                          className={`block w-full h-[300px] cursor-pointer  rounded-lg overflow-hidden transition-all  ${
-                            cvData.template === template.id
-                              ? " ring-8 ring-blue-500"
-                              : " hover:ring-2 hover:ring-offset-2 hover:ring-blue-300 dark:hover:ring-blue-600 ring-2 ring-offset-2 ring-gray-100 dark:ring-gray-800 shadow-sm"
-                          }`}
+                          className={`block w-full h-[300px] cursor-pointer  rounded-lg overflow-hidden transition-all  `}
                         >
                           <Image
                             fill
                             sizes="100%"
                             src={template.image}
                             alt={`Template ${template.id}`}
-                            className="w-full h-[300px] rounded-lg object-cover object-top"
+                            className="w-full h-[300px] object-cover object-top hover:scale-125 transition-all duration-700 ease-in-out "
                           />
                         </label>
                       </div>

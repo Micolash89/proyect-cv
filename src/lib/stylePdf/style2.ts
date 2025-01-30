@@ -47,17 +47,17 @@ Font.register({
     },
     sectionTitle: {
       fontWeight: 'bold',
-      marginTop: 10,
+      marginTop: 5,
       marginBottom: 10,
       paddingBottom: 5,
     },
     entryContainer: {
-      marginBottom: 10,
+      marginBottom: 7,
     },
     entryHeader: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 5,
+      marginBottom: 3,
     },
     institution: {
       fontWeight: 'bold',

@@ -56,7 +56,7 @@ export const styles3 = StyleSheet.create({
     fontWeight: "medium",
   },
   section: {
-    marginBottom: 20,
+    marginBottom: 10,
   },
   sectionTitle: {
     color: "#2A4365",

@@ -18,15 +18,16 @@ export const styles5 = StyleSheet.create({
   },
   leftColumn: {
     width: "35%",
-    padding: 20,
+    paddingTop: 20,
+    paddingHorizontal: 10,
     paddingBottom: 0,
     marginTop: 250,
   },
   rightColumn: {
     width: "65%",
-    padding: 20,
-    paddingBottom: 0,
     paddingTop: 260,
+    paddingHorizontal: 10,
+    paddingBottom: 0,
   },
   header: {
     position: "absolute",
@@ -76,15 +77,15 @@ export const styles5 = StyleSheet.create({
   sectionTitle: {
     fontSize: 16,
     fontWeight: "medium",
-    marginBottom: 15,
+    marginBottom: 10,
     letterSpacing: 1,
     color: "white",
   },
   rightSectionTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    marginTop: 5,
-    marginBottom: 10,
+    marginTop: 10,
+    marginBottom: 7,
     letterSpacing: 1,
     color: "#333333",
   },
@@ -97,7 +98,7 @@ export const styles5 = StyleSheet.create({
     color: "white",
   },
   skillsList: {
-    marginBottom: 40,
+    marginBottom: 30,
   },
   skillItem: {
     fontSize: 11,

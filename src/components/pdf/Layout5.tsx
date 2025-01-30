@@ -59,7 +59,7 @@ export const Layout5: React.FC<{
 
   const cursos = cvData.cursos.map((curso, index) => (
     <View key={`${curso.curso}-${index}`} style={styles5.languageItem}>
-      <Text style={[styles5.languageName, { fontSize: getFontSize(11, optionsPDF.contadorContent),lineHeight: 1 }]}>
+      <Text style={[styles5.languageName, { fontSize: getFontSize(11, optionsPDF.contadorContent),lineHeight: 1,marginTop: 5 }]}>
         {curso.curso}
       </Text>
       <Text style={[styles5.languageLevel, { fontSize: getFontSize(10, optionsPDF.contadorContent), fontWeight: "medium" }]}>
@@ -97,7 +97,7 @@ export const Layout5: React.FC<{
               <Text style={[styles5.contactItem, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
                Tel: {cvData.phone}
               </Text>
-              {cvData.email && <Text style={[styles5.contactItem, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
+              {cvData.email && <Text style={[styles5.contactItem, { fontSize: getFontSize(11, optionsPDF.contadorContent),lineHeight: 0.5 }]}>
                 {cvData.email}
               </Text>}
               { (cvData.ciudad || cvData.provincia) && <Text style={[styles5.contactItem, { fontSize: getFontSize(11, optionsPDF.contadorContent), marginBottom: 0 }]}>
@@ -197,7 +197,7 @@ export const Layout5: React.FC<{
                   },
                 ]}
               >
-                EDUCACIÓN
+                EDUCACION
               </Text>
               {optionsPDF.reverseEducation ? educacion.reverse() : educacion}
             </View>

@@ -319,7 +319,7 @@ export const Layout1: React.FC<{
           >
 
             {iaData.profile && (
-              <View style={{ marginBottom: 20 }}>
+              <View style={{ marginBottom: 10 }}>
                 <Text
                   style={[
                     styles1.sectionTitle,
@@ -343,7 +343,7 @@ export const Layout1: React.FC<{
             )}
 
             {cvData.experience.length > 0 && (
-              <View style={{ marginBottom: 20 }}>
+              <View style={{ marginBottom: 10 }}>
                 <Text
                   style={[
                     styles1.sectionTitle,
@@ -362,7 +362,7 @@ export const Layout1: React.FC<{
             )}
 
             {cvData.education.length > 0 && (
-              <View style={{ marginBottom: 20 }}>
+              <View style={{ marginBottom: 10 }}>
                 <Text
                   style={[
                     styles1.sectionTitle,

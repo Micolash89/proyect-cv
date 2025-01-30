@@ -85,7 +85,7 @@ export const styles1 = StyleSheet.create({
     paddingBottom: 3,
   },
   experienceEntry: {
-    marginBottom: 15,
+    marginBottom: 12,
   },
   companyName: {
     fontSize: 12,

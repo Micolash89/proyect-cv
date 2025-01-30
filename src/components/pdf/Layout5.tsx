@@ -13,22 +13,67 @@ export const Layout5: React.FC<{
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
   const fullName = (
     <>
-      <Text style={[styles5.name, { fontSize: getFontSize(40, contador) }]}>{cvData.name}</Text>
-      <Text style={[styles5.lastName, { fontSize: getFontSize(40, contador) }]}>{cvData.lastName}</Text>
+      <Text style={[styles5.name, { fontSize: getFontSize(40, contador) }]}>{cvData.name.toUpperCase()}</Text>
+      <Text style={[styles5.lastName, { fontSize: getFontSize(40, contador) }]}>{cvData.lastName.toUpperCase()}</Text>
     </>
   )
 
   const shortName = (
     <>
-      <Text style={[styles5.name, { fontSize: getFontSize(40, contador) }]}>{cvData.name.split(" ")[0]}</Text>
-      <Text style={[styles5.lastName, { fontSize: getFontSize(40, contador) }]}>{cvData.lastName.split(" ")[0]}</Text>
+      <Text style={[styles5.name, { fontSize: getFontSize(40, contador) }]}>{cvData.name.split(" ")[0].toUpperCase()}</Text>
+      <Text style={[styles5.lastName, { fontSize: getFontSize(40, contador) }]}>{cvData.lastName.split(" ")[0].toUpperCase()}</Text>
     </>
   )
+
+  const experiencia = cvData.experience.map((exp, index) => (
+    <View key={`experiencia-${index}`} style={styles5.experienceEntry}>
+      <Text style={[styles5.experienceDate, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
+        {exp.mesInicioExperiencia}/{exp.anioInicioExperiencia} -{" "}
+        {exp.anioFinExperiencia === "Actualidad" ? "Actualidad" : `${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}
+      </Text>
+      <Text style={[styles5.experienceTitle, { fontSize: getFontSize(13, optionsPDF.contadorContent) }]}>
+        {exp.puesto}
+      </Text>
+      <Text style={[styles5.experienceCompany, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
+        {exp.nombreEmpresa}
+      </Text>
+      <Text style={[styles5.experienceDescription, { fontSize: getFontSize(10, optionsPDF.contadorContent) }]}>
+        {iaData.descriptionWork.split("\n")[index]}
+      </Text>
+    </View>
+  ))
+
+  const educacion = cvData.education.map((edu, index) => (
+    <View key={`${edu.institucion}-{index}`} style={styles5.educationEntry}>
+      <Text style={[styles5.educationTitle, { fontSize: getFontSize(13, optionsPDF.contadorContent) }]}>
+        {edu.carrera}
+      </Text>
+      <Text style={[styles5.educationDetails, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
+        {edu.institucion}
+      </Text>
+      <Text style={[styles5.educationDate, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
+        {edu.anioInicioEducacion} - {edu.anioFinEducacion}
+      </Text>
+    </View>
+  ))
+
+  const cursos = cvData.cursos.map((curso, index) => (
+    <View key={`${curso.curso}-${index}`} style={styles5.languageItem}>
+      <Text style={[styles5.languageName, { fontSize: getFontSize(11, optionsPDF.contadorContent),lineHeight: 1 }]}>
+        {curso.curso}
+      </Text>
+      <Text style={[styles5.languageLevel, { fontSize: getFontSize(10, optionsPDF.contadorContent), fontWeight: "medium" }]}>
+        {curso.institucion}
+      </Text>
+      <Text style={[styles5.languageLevel, { fontSize: getFontSize(10, optionsPDF.contadorContent) }]}>
+      {curso.anioInicioCurso === "Actualidad" ? "Actualidad" : `${curso.mesInicioCurso}/${curso.anioInicioCurso}`}
+      </Text>
+    </View>
+  ))
 
   return (
     <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
       <Page size="A4" style={styles5.page}>
-        {/* Header with photo and name */}
         <View style={styles5.header}>
           {cvData.imagenPerfil && <Image src={cvData.imagenPerfil} style={styles5.headerImage} />}
           <View style={styles5.headerContent}>
@@ -39,20 +84,25 @@ export const Layout5: React.FC<{
           </View>
         </View>
 
-        {/* Left Column */}
         <View style={[styles5.leftColumn, { backgroundColor: optionsPDF.color }]}>
           <View>
-            <Text style={[styles5.sectionTitle, { fontSize: getFontSize(16, contador) }]}>CONTACTO</Text>
+            <Text style={[styles5.sectionTitle, { fontSize: getFontSize(16, contador) }]}>INFORMACIÓN</Text>
             <View style={styles5.contactInfo}>
-              <Text style={[styles5.contactItem, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
-                {cvData.phone}
+            <Text style={[styles5.contactItem, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
+            {cvData.fechaNacimiento.split("-").reverse().join("/")}
               </Text>
+            { cvData.dni && <Text style={[styles5.contactItem, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
+                DNI: {cvData.dni}
+              </Text>}
               <Text style={[styles5.contactItem, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
+               Tel: {cvData.phone}
+              </Text>
+              {cvData.email && <Text style={[styles5.contactItem, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
                 {cvData.email}
-              </Text>
-              <Text style={[styles5.contactItem, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
+              </Text>}
+              { (cvData.ciudad || cvData.provincia) && <Text style={[styles5.contactItem, { fontSize: getFontSize(11, optionsPDF.contadorContent), marginBottom: 0 }]}>
                 {cvData.ciudad}, {cvData.provincia}
-              </Text>
+              </Text>}
             </View>
           </View>
 
@@ -61,8 +111,8 @@ export const Layout5: React.FC<{
               <Text style={[styles5.sectionTitle, { fontSize: getFontSize(16, contador) }]}>HABILIDADES</Text>
               {iaData.skills.split("•").map((skill, index) => (
                 <Text
-                  key={index}
-                  style={[styles5.skillItem, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}
+                  key={`skill-${index}`}
+                  style={[styles5.skillItem, { fontSize: getFontSize(11, optionsPDF.contadorContent), marginBottom: (iaData.skills.split("•").length - 1) === index ? 0 : 8 }]}
                 >
                   {skill.trim()}
                 </Text>
@@ -74,7 +124,7 @@ export const Layout5: React.FC<{
             <View>
               <Text style={[styles5.sectionTitle, { fontSize: getFontSize(16, contador) }]}>IDIOMAS</Text>
               {cvData.idiomas.map((idioma, index) => (
-                <View key={index} style={styles5.languageItem}>
+                <View key={`${idioma.idioma}-${index}`} style={styles5.languageItem}>
                   <Text style={[styles5.languageName, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
                     {idioma.idioma}
                   </Text>
@@ -85,9 +135,15 @@ export const Layout5: React.FC<{
               ))}
             </View>
           )}
+
+          {cvData.cursos.length > 0 && (
+            <View>
+              <Text style={[styles5.sectionTitle, { fontSize: getFontSize(16, contador), marginTop: 10 }]}>CERTIFICACIONES</Text> 
+              {optionsPDF.reverseCursos ? cursos.reverse() : cursos}
+            </View>
+          )}
         </View>
 
-        {/* Right Column */}
         <View
           style={[
             styles5.rightColumn,
@@ -96,8 +152,25 @@ export const Layout5: React.FC<{
             },
           ]}
         >
+          <View style={{marginBottom: 5}}>
+              <Text
+                style={[
+                  styles5.rightSectionTitle,
+                  {
+                    fontSize: getFontSize(16, contador),
+                    color: optionsPDF.color,
+                  },
+                ]}
+              >
+                PERFIL
+              </Text>
+              <Text style={[styles5.experienceDescription, { fontSize: getFontSize(10, optionsPDF.contadorContent) }]}>
+              {iaData.profile}
+              </Text>
+            </View>
+
           {cvData.experience.length > 0 && (
-            <View style={{ marginBottom: 40 }}>
+            <View >
               <Text
                 style={[
                   styles5.rightSectionTitle,
@@ -109,31 +182,7 @@ export const Layout5: React.FC<{
               >
                 EXPERIENCIA PROFESIONAL
               </Text>
-              {(optionsPDF.reverseExperience ? [...cvData.experience].reverse() : cvData.experience).map(
-                (exp, index) => (
-                  <View key={index} style={styles5.experienceEntry}>
-                    <Text style={[styles5.experienceDate, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
-                      {exp.mesInicioExperiencia}/{exp.anioInicioExperiencia} -{" "}
-                      {exp.anioFinExperiencia === "Actualidad"
-                        ? "Actualidad"
-                        : `${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}
-                    </Text>
-                    <Text style={[styles5.experienceTitle, { fontSize: getFontSize(13, optionsPDF.contadorContent) }]}>
-                      {exp.puesto}
-                    </Text>
-                    <Text
-                      style={[styles5.experienceCompany, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}
-                    >
-                      {exp.nombreEmpresa}
-                    </Text>
-                    <Text
-                      style={[styles5.experienceDescription, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}
-                    >
-                      {iaData.descriptionWork.split("\n")[index]}
-                    </Text>
-                  </View>
-                ),
-              )}
+              {optionsPDF.reverseExperience ? experiencia.reverse() : experiencia}
             </View>
           )}
 
@@ -150,50 +199,7 @@ export const Layout5: React.FC<{
               >
                 EDUCACIÓN
               </Text>
-              {(optionsPDF.reverseEducation ? [...cvData.education].reverse() : cvData.education).map((edu, index) => (
-                <View key={index} style={styles5.educationEntry}>
-                  <Text style={[styles5.educationTitle, { fontSize: getFontSize(13, optionsPDF.contadorContent) }]}>
-                    {edu.carrera}
-                  </Text>
-                  <Text style={[styles5.educationDetails, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
-                    {edu.institucion}
-                  </Text>
-                  <Text style={[styles5.educationDate, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
-                    {edu.anioInicioEducacion} - {edu.anioFinEducacion}
-                  </Text>
-                </View>
-              ))}
-            </View>
-          )}
-
-          {cvData.cursos.length > 0 && (
-            <View>
-              <Text
-                style={[
-                  styles5.rightSectionTitle,
-                  {
-                    fontSize: getFontSize(16, contador),
-                    color: optionsPDF.color,
-                  },
-                ]}
-              >
-                CERTIFICACIONES
-              </Text>
-              {(optionsPDF.reverseCursos ? [...cvData.cursos].reverse() : cvData.cursos).map((curso, index) => (
-                <View key={index} style={styles5.educationEntry}>
-                  <Text style={[styles5.educationTitle, { fontSize: getFontSize(13, optionsPDF.contadorContent) }]}>
-                    {curso.curso}
-                  </Text>
-                  <Text style={[styles5.educationDetails, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
-                    {curso.institucion}
-                  </Text>
-                  <Text style={[styles5.educationDate, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
-                    {curso.anioInicioCurso === "Actualidad"
-                      ? "Actualidad"
-                      : `${curso.mesInicioCurso}/${curso.anioInicioCurso}`}
-                  </Text>
-                </View>
-              ))}
+              {optionsPDF.reverseEducation ? educacion.reverse() : educacion}
             </View>
           )}
         </View>

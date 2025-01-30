@@ -727,7 +727,7 @@ function FormRegister({
 
                   {cvData.education.map((edu: any, index: number) => (
                     <InfoCard
-                      key={`${index}-educacion`}
+                      key={`${index}-educacion-${edu.carrera}`}
                       title={edu.institucion}
                       subtitle={edu.estudios}
                       details={[
@@ -922,7 +922,7 @@ function FormRegister({
 
                   {cvData.experience.map((exp: any, index: number) => (
                     <InfoCard
-                      key={`${index}-experience`}
+                      key={`${index}-experience-${exp.puesto}-${exp.nombreEmpresa}`}
                       title={exp.puesto}
                       subtitle={exp.nombreEmpresa}
                       details={[
@@ -1119,7 +1119,7 @@ function FormRegister({
 
                   {cvData.cursos.map((curso: any, index: number) => (
                     <InfoCard
-                      key={`${index}-cursos`}
+                      key={`${index}-cursos-${curso.curso}`}
                       title={curso.curso}
                       details={[
                         curso.institucion,
@@ -1226,7 +1226,7 @@ function FormRegister({
 
                   {cvData.idiomas.map((idioma: any, index: number) => (
                     <InfoCard
-                      key={`${index}-idiomas`}
+                      key={`${index}-idiomas-${idioma.idioma}`}
                       title={idioma.idioma}
                       details={[idioma.nivel]}
                       onDelete={() => removeIdiomas(index)}

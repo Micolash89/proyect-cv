@@ -139,9 +139,9 @@ export default function CVTemplateSelector({
               >
                 {templates
                   .slice(currentIndex, currentIndex + itemsPerPage)
-                  .map((template) => (
+                  .map((template, index) => (
                     <div
-                      key={template.id}
+                      key={`${template.id}-${cvData.template}-${index}`}
                       className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 p-2 "
                     >
                       <div className={clsx(`duration-700 relative overflow-hidden rounded-lg`,{"ring-8 ring-blue-500 ": cvData.template === template.id,

@@ -1,20 +1,32 @@
-import { StyleSheet } from "@react-pdf/renderer"
+import { Font, StyleSheet } from "@react-pdf/renderer"
 
-// Usamos Helvetica que viene por defecto en react-pdf
+
+Font.register({
+  family: "Hel",
+  fonts: [
+    { src: "/fonts/Helvetica-Light.ttf", fontWeight: "light" },
+    { src: "/fonts/Helvetica-Medium.ttf", fontWeight: "medium" },
+    { src: "/fonts/Helvetica-Bold.ttf", fontWeight: "bold" },
+    { src: "/fonts/Helvetica-Oblique.ttf", fontStyle: "italic" },
+  ],
+});
+
 export const styles5 = StyleSheet.create({
   page: {
-    fontFamily: "Helvetica",
+    fontFamily: "Hel",
     flexDirection: "row",
   },
   leftColumn: {
     width: "35%",
-    padding: 30,
+    padding: 20,
+    paddingBottom: 0,
     marginTop: 250,
   },
   rightColumn: {
     width: "65%",
-    padding: 30,
-    paddingTop: 280,
+    padding: 20,
+    paddingBottom: 0,
+    paddingTop: 260,
   },
   header: {
     position: "absolute",
@@ -35,23 +47,29 @@ export const styles5 = StyleSheet.create({
     right: 0,
     width: "65%",
     height: 250,
-    padding: 30,
+    padding: 20,
     backgroundColor: "#F5F5F5",
   },
   name: {
-    fontSize: 40,
+    fontSize: 45,
     fontWeight: "light",
-    letterSpacing: 2,
-    marginBottom: 5,
+    letterSpacing: 3,
+    marginBottom: 20,
+    marginTop: 20,
+    marginLeft: 20,
+    lineHeight: 1
   },
   lastName: {
-    fontSize: 40,
+    fontSize: 45,
     fontWeight: "bold",
-    letterSpacing: 2,
-    marginBottom: 20,
+    letterSpacing: 3,
+    marginBottom: 0,
+    marginLeft: 20,
   },
   title: {
     fontSize: 16,
+    marginTop: 30,
+    marginLeft: 20,
     letterSpacing: 1,
     color: "#333333",
   },
@@ -65,7 +83,8 @@ export const styles5 = StyleSheet.create({
   rightSectionTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 15,
+    marginTop: 5,
+    marginBottom: 10,
     letterSpacing: 1,
     color: "#333333",
   },
@@ -85,11 +104,17 @@ export const styles5 = StyleSheet.create({
     marginBottom: 8,
     color: "white",
   },
+  profileText: {
+    fontSize: 11,
+    marginBottom: 5,
+    color: "#333333",
+  },
   languageItem: {
     marginBottom: 8,
   },
   languageName: {
     fontSize: 11,
+    marginBottom: 3,
     color: "white",
   },
   languageLevel: {
@@ -98,7 +123,7 @@ export const styles5 = StyleSheet.create({
     fontStyle: "italic",
   },
   experienceEntry: {
-    marginBottom: 25,
+    marginBottom: 10,
   },
   experienceDate: {
     fontSize: 11,
@@ -119,7 +144,7 @@ export const styles5 = StyleSheet.create({
   experienceDescription: {
     fontSize: 11,
     color: "#333333",
-    lineHeight: 1.4,
+    lineHeight: 1.1,
   },
   educationEntry: {
     marginBottom: 20,
@@ -133,6 +158,7 @@ export const styles5 = StyleSheet.create({
   educationDetails: {
     fontSize: 11,
     color: "#666666",
+    marginBottom: 3,
   },
   educationDate: {
     fontSize: 11,

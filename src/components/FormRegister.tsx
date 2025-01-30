@@ -1401,8 +1401,8 @@ function FormRegister({
               <WrapperSection>
                 <WrapperSectionInput>
                   <WrapperH2Section
-                    title="Orientación Laboral del Currículum Vitae"
-                    additionalMessage="*(opcional) Indica el propósito del CV: ¿Buscas tu
+                    title="(opcional) Perfil Laboral"
+                    additionalMessage="*Indica tu perfil laboral: ¿Buscas tu
                           primer empleo, quieres resaltar experiencia en un
                           sector específico, aspiras a un puesto en particular o
                           un cv genérico?"

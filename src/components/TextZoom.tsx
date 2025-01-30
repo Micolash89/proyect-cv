@@ -228,8 +228,8 @@ export const TextZoom: React.FC<PdfOptionsProps> = ({
 
               <ButtonToggleOptionPDF
                 conditionOption={optionsPDF.orientacionCVTitle}
-                messageTrue="Mostrar Orientación CV"
-                messageFalse="Ocultar Orientación CV"
+                messageTrue="Mostrar perfil de CV"
+                messageFalse="Ocultar perfil de CV"
                 callBackFunction={orientacionCVTitleToggle}
               />
 

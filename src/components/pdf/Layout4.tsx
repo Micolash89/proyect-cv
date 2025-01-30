@@ -126,7 +126,7 @@ export const Layout4: React.FC<{
 
   return (
     <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
-      <Page size="A4" style={styles4.page}>
+      <Page size="A4" style={[styles4.page, {paddingBottom:optionsPDF.contadorContent>1?0:30}]}>
         <View>
           <Text style={styles4.nameBack}>{cvData.lastName.split(" ")[0]}</Text>
         </View>
@@ -259,7 +259,9 @@ export const Layout4: React.FC<{
             )}
           </View>
 
-          <View style={styles4.rightColumn}>
+          <View style={[styles4.rightColumn, {justifyContent: optionsPDF.spaceBetween
+                  ? "space-between"
+                  : "flex-start",}]}>
             <View style={styles4.header}>
               {optionsPDF.fullName ? fullname : cutname}
               {optionsPDF.orientacionCVTitle && (

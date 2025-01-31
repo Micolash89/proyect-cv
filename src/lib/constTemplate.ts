@@ -23,12 +23,12 @@ export const templates: Template[] = [
     },
     {
       id: 4,
-      image: "/images/cvTemplate4.PNG",
+      image: "/images/cvTemplate4.png",
       colors: ["#000000"],
     },
     {
       id: 5,
-      image: "/images/cvTemplate5.PNG",
+      image: "/images/cvTemplate5.png",
       colors: ["#4d4d4d"],
     },
     {
@@ -38,7 +38,7 @@ export const templates: Template[] = [
     },
     {
       id: 7,
-      image: "/images/cvTemplate7.png",
+      image: "/images/cvTemplate7.PNG",
       colors: ["#2C3E50"],
     },
   ];

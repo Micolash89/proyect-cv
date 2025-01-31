@@ -1,5 +1,4 @@
-import { Font, StyleSheet } from "@react-pdf/renderer"
-
+import { Font, StyleSheet } from "@react-pdf/renderer";
 
 Font.register({
   family: "Hel",
@@ -40,7 +39,7 @@ export const styles5 = StyleSheet.create({
     width: "35%",
     height: 250,
     objectFit: "cover",
-    zIndex: 2,
+    filter: "grayscale(100%)",
   },
   headerContent: {
     position: "absolute",
@@ -49,7 +48,7 @@ export const styles5 = StyleSheet.create({
     width: "65%",
     height: 250,
     padding: 20,
-    backgroundColor: "#F5F5F5",
+    backgroundColor: "#ededed",
   },
   name: {
     fontSize: 45,
@@ -58,7 +57,7 @@ export const styles5 = StyleSheet.create({
     marginBottom: 20,
     marginTop: 20,
     marginLeft: 20,
-    lineHeight: 1
+    lineHeight: 1,
   },
   lastName: {
     fontSize: 45,
@@ -87,7 +86,7 @@ export const styles5 = StyleSheet.create({
     marginTop: 10,
     marginBottom: 7,
     letterSpacing: 1,
-    color: "#333333",
+    color: "#000000",
   },
   contactInfo: {
     marginBottom: 40,
@@ -165,5 +164,4 @@ export const styles5 = StyleSheet.create({
     fontSize: 11,
     color: "#333333",
   },
-})
-
+});

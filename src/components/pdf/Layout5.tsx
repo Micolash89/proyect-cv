@@ -158,7 +158,6 @@ export const Layout5: React.FC<{
                   styles5.rightSectionTitle,
                   {
                     fontSize: getFontSize(16, contador),
-                    color: optionsPDF.color,
                   },
                 ]}
               >
@@ -176,7 +175,6 @@ export const Layout5: React.FC<{
                   styles5.rightSectionTitle,
                   {
                     fontSize: getFontSize(16, contador),
-                    color: optionsPDF.color,
                   },
                 ]}
               >
@@ -193,7 +191,6 @@ export const Layout5: React.FC<{
                   styles5.rightSectionTitle,
                   {
                     fontSize: getFontSize(16, contador),
-                    color: optionsPDF.color,
                   },
                 ]}
               >

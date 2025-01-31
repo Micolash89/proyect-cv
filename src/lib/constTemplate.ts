@@ -29,7 +29,7 @@ export const templates: Template[] = [
     {
       id: 5,
       image: "/images/cvTemplate5.PNG",
-      colors: ["#000000"],
+      colors: ["#4d4d4d"],
     },
     {
       id: 6,

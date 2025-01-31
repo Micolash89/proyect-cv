@@ -18,14 +18,15 @@ export const styles5 = StyleSheet.create({
   leftColumn: {
     width: "35%",
     paddingTop: 20,
-    paddingHorizontal: 10,
+    paddingLeft: 20,
+    paddingRight: 5,
     paddingBottom: 0,
     marginTop: 250,
   },
   rightColumn: {
     width: "65%",
     paddingTop: 260,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     paddingBottom: 0,
   },
   header: {
@@ -76,7 +77,7 @@ export const styles5 = StyleSheet.create({
   sectionTitle: {
     fontSize: 16,
     fontWeight: "medium",
-    marginBottom: 10,
+    marginBottom: 5,
     letterSpacing: 1,
     color: "white",
   },

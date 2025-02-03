@@ -43,6 +43,7 @@ export const styles3 = StyleSheet.create({
   profileImage: {
     width: 100,
     height: 100,
+    objectFit: "cover",
     borderRadius: 50,
     border: "4 solid #FFFFFF",
   },

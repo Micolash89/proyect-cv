@@ -466,7 +466,7 @@ export const Layout6: React.FC<{
                   Idiomas
                 </Text>
                 {cvData.idiomas.map((idioma, index) => (
-                  <View key={index} style={styles6.languageItem}>
+                  <View key={index} style={[styles6.languageItem, {marginBottom: (cvData.idiomas.length - 1) === index ? 0 : 5}]}>
                     <Text
                       style={[
                         styles6.languageName,

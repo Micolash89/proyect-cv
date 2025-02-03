@@ -1,6 +1,5 @@
 import { StyleSheet, Font } from "@react-pdf/renderer";
 
-// Register fonts
 Font.register({
   family: "Roboto",
   fonts: [
@@ -49,6 +48,7 @@ export const styles1 = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: "50%",
+    objectFit: "cover",
     marginBottom: 20,
     alignSelf: "center",
     border: "4 solid #FFFFFF",

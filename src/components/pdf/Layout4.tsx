@@ -12,7 +12,7 @@ export const Layout4: React.FC<{
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
   const experiencia = cvData.experience.map((exp, index) => (
-    <View key={index} style={styles4.experienceEntry}>
+    <View key={`${index}-expericiance-`} style={[styles4.experienceEntry,{marginBottom: (cvData.experience.length - 1 === index )? 15 :  10}]}>
       {exp.nombreEmpresa && <Text
         style={[
           styles4.companyName,
@@ -53,7 +53,7 @@ export const Layout4: React.FC<{
   ));
 
   const educacion = cvData.education.map((educacion, index) => (
-    <View key={index} style={styles4.educationEntry}>
+    <View key={`${index}-educacion-`} style={[styles4.educationEntry,{marginBottom: (cvData.education.length - 1 === index )? 0 :  5}]}>
       <Text
         style={[
           styles4.institution,
@@ -82,7 +82,7 @@ export const Layout4: React.FC<{
   ));
 
   const cursos = cvData.cursos.map((curso,index) => (
-    <View key={index} style={styles4.educationEntry}>
+    <View key={`curso-${index}`} style={styles4.educationEntry}>
       <Text
         style={[
           styles4.institution,

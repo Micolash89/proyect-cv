@@ -18,7 +18,9 @@ Font.register({
 
 export const styles4 = StyleSheet.create({
   page: {
-    padding: 30,
+    paddingHorizontal: 20,
+    paddingTop: 10,
+    paddingBottom: 0,
     fontFamily: "Helvetica",
   },
   container: {
@@ -87,13 +89,13 @@ export const styles4 = StyleSheet.create({
   },
   profileSummary: {
     fontSize: 10,
-    marginBottom: 20,
+    marginBottom: 15,
     lineHeight: 1.4,
     color: "#444444",
     textAlign: "justify",
   },
   experienceEntry: {
-    marginBottom: 15,
+    marginBottom: 10,
   },
   companyName: {
     fontSize: 11,
@@ -143,7 +145,9 @@ export const styles4 = StyleSheet.create({
   profileImage: {
     borderRadius: 50,
     marginBottom: 20,
+    height: 150,
     alignSelf: "center",
+    objectFit: "cover",
   },
   profession: {
     textAlign: "center",

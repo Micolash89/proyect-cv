@@ -12,7 +12,7 @@ Font.register({
 export const styles6 = StyleSheet.create({
   page: {
     fontFamily: "Inter",
-    paddingVertical: 10,
+    paddingTop: 10,
     paddingHorizontal: 30,
     lineHeight: 1.5,
   },

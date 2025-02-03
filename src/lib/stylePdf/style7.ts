@@ -34,6 +34,7 @@ export const styles7 = StyleSheet.create({
     height: 80,
     borderRadius: 40,
     border: "3 solid #FFFFFF",
+    objectFit: "cover",
   },
   name: {
     color: "#FFFFFF",
@@ -100,8 +101,7 @@ export const styles7 = StyleSheet.create({
     marginTop: 5,
   },
   skillsGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: "column",
   },
   skillItem: {
     color: "#34495E",

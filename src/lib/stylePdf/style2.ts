@@ -22,7 +22,9 @@ export const styles2 = StyleSheet.create({
   },
   rightColumn: {
     width: "70%",
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 0,
     flexDirection: "column",
     display: "flex",
   },
@@ -57,7 +59,7 @@ export const styles2 = StyleSheet.create({
   entryHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 3,
+    marginBottom: 2,
   },
   institution: {
     fontWeight: "bold",

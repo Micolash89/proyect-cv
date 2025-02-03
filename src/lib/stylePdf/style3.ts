@@ -20,8 +20,9 @@ export const styles3 = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#2A4365",
-    padding: 20,
-    marginBottom: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    marginBottom: 10,
   },
   headerContent: {
     marginLeft: 20,
@@ -32,11 +33,11 @@ export const styles3 = StyleSheet.create({
     padding: 20,
   },
   leftColumn: {
-    width: "35%",
-    paddingRight: 10,
+    width: "30%",
+    paddingRight: 5,
   },
   rightColumn: {
-    width: "65%",
+    width: "70%",
     borderLeft: "1 solid #E2E8F0",
     paddingLeft: 20,
   },
@@ -92,7 +93,7 @@ export const styles3 = StyleSheet.create({
     lineHeight: 1.6,
   },
   experienceItem: {
-    marginBottom: 15,
+    marginBottom: 10,
   },
   experienceHeader: {
     flexDirection: "row",
@@ -107,7 +108,7 @@ export const styles3 = StyleSheet.create({
   jobTitle: {
     color: "#4A5568",
     fontWeight: "medium",
-    marginBottom: 2,
+    marginBottom: 1,
   },
   dateLocation: {
     fontSize: 10,
@@ -115,14 +116,14 @@ export const styles3 = StyleSheet.create({
   },
   locationText: {
     color: "#718096",
-    marginBottom: 3,
+    marginBottom: 1,
   },
   description: {
     color: "#4A5568",
     lineHeight: 1.4,
   },
   educationItem: {
-    marginBottom: 12,
+    marginBottom: 10,
   },
   educationHeader: {
     flexDirection: "row",

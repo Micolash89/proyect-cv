@@ -57,7 +57,7 @@ export const Layout3: React.FC<{
   ));
 
   const educacion = cvData.education.map((edu, index) => (
-    <View key={index} style={styles3.educationItem}>
+    <View key={index} style={[styles3.educationItem, { marginBottom: index === (cvData.education.length - 1) ? 0 : 10 }]}>
       <View style={styles3.educationHeader}>
         {edu.institucion && <Text
           style={[
@@ -283,7 +283,7 @@ export const Layout3: React.FC<{
                     { fontSize: getFontSize(14, optionsPDF.contadorContent) },
                   ]}
                 >
-                  Cursos
+                  CURSOS
                 </Text>
                 {optionsPDF.reverseCursos ? cursos.reverse() : cursos}
               </View>
@@ -329,7 +329,7 @@ export const Layout3: React.FC<{
             )}
 
             {cvData.education.length > 0 && (
-              <View style={[styles3.section, {}]}>
+              <View style={[styles3.section, {marginBottom: 0}]}>
                 <Text
                   style={[
                     styles3.sectionTitle,

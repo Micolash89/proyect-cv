@@ -17,7 +17,7 @@ export const Layout7: React.FC<{
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
   const experiencia = cvData.experience.map((exp, index) => (
-    <View key={index} style={styles7.entryContainer}>
+    <View key={index} style={{paddingBottom: 5}}>
       <View style={styles7.entryHeader}>
         <Text
           style={[
@@ -122,12 +122,12 @@ export const Layout7: React.FC<{
   ));
 
   const cursos = cvData.cursos.map((exp, index) => (
-    <View key={index} style={[styles7.entryContainer, { marginBottom: 10 }]}>
+    <View key={`${index}-cursos-cv`} style={{marginBottom: cvData.cursos.length == (index + 1) ? 0 : 4}} >
       <View style={styles7.entryHeader}>
         <Text
           style={[
             styles7.institution,
-            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+            { fontSize: getFontSize(11, optionsPDF.contadorContent),width: 250 },
           ]}
         >
           {exp.curso}
@@ -294,7 +294,7 @@ export const Layout7: React.FC<{
                       cvData.office && "Microsoft Office",
                       ...cvData.idiomas.map(
                         (idioma) =>
-                          `${idioma.idioma} - ${idioma.nivel.toLowerCase()}`
+                          `${idioma.idioma} - ${idioma.nivel==="BASICO"?"Básico": idioma.nivel.toLowerCase()}`
                       ),
                     ]
                       .filter(Boolean)
@@ -330,7 +330,7 @@ export const Layout7: React.FC<{
               ]}
             >
               {cvData.experience.length > 0 && (
-                <View style={styles7.section}>
+                <View style={[styles7.section, { marginBottom: 5 }]}>
                   <Text
                     style={[
                       styles7.sectionTitle,
@@ -345,7 +345,7 @@ export const Layout7: React.FC<{
                 </View>
               )}
               {cvData.cursos.length > 0 && (
-                <View style={styles7.section}>
+                <View >
                   <Text
                     style={[
                       styles7.sectionTitle,

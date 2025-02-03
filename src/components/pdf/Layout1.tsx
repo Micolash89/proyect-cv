@@ -79,7 +79,7 @@ export const Layout1: React.FC<{
   ));
 
   const cursos = cvData.cursos.map((curso, index) => (
-    <View key={index} style={styles1.educationEntry}>
+    <View key={index} style={[styles1.educationEntry, {marginBottom: (cvData.cursos.length - 1 === index )? 0 :  7}]}>
       <Text
         style={[
           styles1.institution,

@@ -77,6 +77,7 @@ export const styles7 = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 3,
+    fontWeight: "bold",
   },
   institution: {
     fontWeight: "bold",

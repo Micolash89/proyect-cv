@@ -13,7 +13,7 @@ export const styles6 = StyleSheet.create({
   page: {
     fontFamily: "Inter",
     paddingTop: 10,
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     lineHeight: 1.5,
   },
   header: {
@@ -97,7 +97,7 @@ export const styles6 = StyleSheet.create({
     color: "#666666",
   },
   timelineDescription: {
-    marginTop: 5,
+    marginTop: 2,
     color: "#333333",
   },
   skills: {

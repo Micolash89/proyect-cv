@@ -36,11 +36,14 @@ export const styles1 = StyleSheet.create({
     width: "30%",
     color: "#FFFFFF",
     paddingHorizontal: 10,
-    paddingVertical: 20,
+    paddingTop: 20,
+    paddingBottom : 0,
   },
   mainContent: {
     width: "70%",
-    padding: 30,
+    paddingHorizontal: 20,
+    paddingTop: 10,
+    paddingBottom: 0,
     display: "flex",
     flexDirection: "column",
   },
@@ -85,7 +88,7 @@ export const styles1 = StyleSheet.create({
     paddingBottom: 3,
   },
   experienceEntry: {
-    marginBottom: 12,
+    marginBottom: 7,
   },
   companyName: {
     fontSize: 12,
@@ -96,12 +99,12 @@ export const styles1 = StyleSheet.create({
     fontSize: 11,
     fontWeight: "medium",
     color: "#4A5568",
-    marginBottom: 3,
+    marginBottom: 1,
   },
   dateLocation: {
     fontSize: 10,
     color: "#718096",
-    marginBottom: 5,
+    marginBottom: 1,
   },
   description: {
     fontSize: 10,
@@ -114,7 +117,7 @@ export const styles1 = StyleSheet.create({
     marginBottom: 5,
   },
   educationEntry: {
-    marginBottom: 12,
+    marginBottom: 7,
   },
   institution: {
     fontSize: 11,

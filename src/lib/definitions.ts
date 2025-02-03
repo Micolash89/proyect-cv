@@ -157,6 +157,14 @@ export interface UserTable {
   cvTemplateId: number | null;
 }
 
+export interface InfoCardProps {
+  title: string;
+  idKey: string;
+  subtitle?: string;
+  details: string[];
+  onDelete: () => void;
+}
+
 export type Section =
   | "personal"
   | "education"

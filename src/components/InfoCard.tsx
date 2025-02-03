@@ -1,12 +1,6 @@
+import { InfoCardProps } from "@/lib/definitions";
 import clsx from "clsx";
 import { motion } from "framer-motion";
-
-interface InfoCardProps {
-  title: string;
-  subtitle?: string;
-  details: string[];
-  onDelete: () => void;
-}
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -14,7 +8,7 @@ const sectionVariants = {
   exit: { opacity: 0, y: -20 },
 };
 
-export function InfoCard({ title, subtitle, details, onDelete }: InfoCardProps) {
+export function InfoCard({ title,idKey, subtitle, details, onDelete }: InfoCardProps) {
   return (
     <motion.div
       initial="hidden"
@@ -24,7 +18,6 @@ export function InfoCard({ title, subtitle, details, onDelete }: InfoCardProps) 
       className={clsx(
         "mb-4 p-4 border  rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300",
         {
-          // "border-red-500 animate-pulse": title.length > 30,
           "border-gray-200 dark:border-gray-700": title.length ,
         }
       )}
@@ -35,7 +28,7 @@ export function InfoCard({ title, subtitle, details, onDelete }: InfoCardProps) 
           <h3 className="font-bold text-lg block sm:hidden" title={title}>{title.length > 15 ? `${title.slice(0, 15)}...` : title}</h3>
           {subtitle && <h4 className="text-gray-600 dark:text-gray-400">{subtitle}</h4>}
           {details.map((detail, index) => (
-            <p key={index} className="text-sm mt-1 text-gray-700 dark:text-gray-300">
+            <p key={`${index}-${idKey}`} className="text-sm mt-1 text-gray-700 dark:text-gray-300">
               {detail}
             </p>
           ))}

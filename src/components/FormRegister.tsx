@@ -729,6 +729,7 @@ function FormRegister({
                     <InfoCard
                       key={`${index}-educacion-${edu.carrera}`}
                       title={edu.institucion}
+                      idKey={`${index}-educacion-${edu.carrera}`}
                       subtitle={edu.estudios}
                       details={[
                         edu.zonaInstitucion,
@@ -924,6 +925,7 @@ function FormRegister({
                     <InfoCard
                       key={`${index}-experience-${exp.puesto}-${exp.nombreEmpresa}`}
                       title={exp.puesto}
+                      idKey={`${index}-experience-${exp.puesto}-${exp.nombreEmpresa}`}
                       subtitle={exp.nombreEmpresa}
                       details={[
                         exp.zonaEmpresa,
@@ -1121,6 +1123,7 @@ function FormRegister({
                     <InfoCard
                       key={`${index}-cursos-${curso.curso}`}
                       title={curso.curso}
+                      idKey={`${index}-cursos-${curso.curso}`}
                       details={[
                         curso.institucion,
                         `${curso.anioInicioCurso=="Actualidad"?"Actualidad":`${curso.mesInicioCurso}/${curso.anioInicioCurso}`}`,
@@ -1228,6 +1231,7 @@ function FormRegister({
                     <InfoCard
                       key={`${index}-idiomas-${idioma.idioma}`}
                       title={idioma.idioma}
+                      idKey={`${index}-idiomas-${idioma.idioma}`}
                       details={[idioma.nivel]}
                       onDelete={() => removeIdiomas(index)}
                     />
@@ -1304,8 +1308,8 @@ function FormRegister({
 
                   <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {checkboxItems.map((item) => (
-                        <div key={item.id} className="relative">
+                      {checkboxItems.map((item, index) => (
+                        <div key={`${item.id}-${index}-checkbox`} className="relative">
                           <label className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group has-[:checked]:bg-gray-100 dark:has-[:checked]:bg-gray-700 ">
                             <div className="flex items-center h-5 ">
                               <input

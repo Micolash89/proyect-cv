@@ -13,22 +13,22 @@ export const Layout2: React.FC<{
   const experiencia = cvData.experience.map((exp, index) => (
     <View key={index} style={styles2.entryContainer}>
       <View style={styles2.entryHeader}>
-        <Text
+        {exp.nombreEmpresa && <Text
           style={[
             styles2.institution,
             { fontSize: getFontSize(11, optionsPDF.contadorContent) },
           ]}
         >
           {exp.nombreEmpresa}
-        </Text>
-        <Text
+        </Text>}
+       {exp.zonaEmpresa && <Text
           style={[
             styles2.location,
             { fontSize: getFontSize(10, optionsPDF.contadorContent) },
           ]}
         >
           {exp.zonaEmpresa}
-        </Text>
+        </Text>}
       </View>
       <View style={styles2.entryHeader}>
         <Text
@@ -48,28 +48,28 @@ export const Layout2: React.FC<{
           {exp.mesInicioExperiencia}/{exp.anioInicioExperiencia} - {exp.anioFinExperiencia=="Actualidad"?"Actualidad":`${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}
         </Text>
       </View>
-      <Text
+      {iaData.descriptionWork && <Text
         style={[
           styles2.description,
           { fontSize: getFontSize(10, optionsPDF.contadorContent) },
         ]}
       >
         • {iaData.descriptionWork.split("\n")[index]}
-      </Text>
+      </Text>}
     </View>
   ));
 
   const educacion = cvData.education.map((edu, index) => (
     <View key={index} style={styles2.entryContainer}>
       <View style={styles2.entryHeader}>
-        <Text
+        {edu.institucion && <Text
           style={[
             styles2.institution,
             { fontSize: getFontSize(11, optionsPDF.contadorContent) },
           ]}
         >
           {edu.institucion}
-        </Text>
+        </Text>}
         <Text
           style={[
             styles2.location,
@@ -181,7 +181,7 @@ export const Layout2: React.FC<{
           )}
           {(cvData.name || cvData.lastName) &&
             (optionsPDF.fullName ? fullName : cutName)}
-          {cvData.orientadoCV && optionsPDF.orientacionCVTitle && (
+          {(cvData.orientadoCV && optionsPDF.orientacionCVTitle) && (
             <Text
               style={[
                 styles2.profession,

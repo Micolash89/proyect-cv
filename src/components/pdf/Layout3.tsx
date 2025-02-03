@@ -14,14 +14,14 @@ export const Layout3: React.FC<{
   const experiencia = cvData.experience.map((exp, index) => (
     <View key={index} style={styles3.experienceItem}>
       <View style={styles3.experienceHeader}>
-        <Text
+        {exp.nombreEmpresa && <Text
           style={[
             styles3.companyName,
             { fontSize: getFontSize(12, optionsPDF.contadorContent) },
           ]}
         >
           {exp.nombreEmpresa}
-        </Text>
+        </Text>}
         <Text style={styles3.dateLocation}>
           {exp.mesInicioExperiencia}/{exp.anioInicioExperiencia} -{" "}
           {exp.anioFinExperiencia == "Actualidad"
@@ -37,36 +37,36 @@ export const Layout3: React.FC<{
       >
         {exp.puesto}
       </Text>
-      <Text
+      {exp.zonaEmpresa && <Text
         style={[
           styles3.locationText,
           { fontSize: getFontSize(10, optionsPDF.contadorContent) },
         ]}
       >
         {exp.zonaEmpresa}
-      </Text>
-      <Text
+      </Text>}
+      {iaData.descriptionWork && <Text
         style={[
           styles3.description,
           { fontSize: getFontSize(10, optionsPDF.contadorContent) },
         ]}
       >
         • {iaData.descriptionWork.split("\n")[index]}
-      </Text>
+      </Text>}
     </View>
   ));
 
   const educacion = cvData.education.map((edu, index) => (
     <View key={index} style={styles3.educationItem}>
       <View style={styles3.educationHeader}>
-        <Text
+        {edu.institucion && <Text
           style={[
             styles3.institutionName,
             { fontSize: getFontSize(11, optionsPDF.contadorContent) },
           ]}
         >
           {edu.institucion}
-        </Text>
+        </Text>}
         <Text style={styles3.dateLocation}>
           {edu.mesInicioEducacion}/{edu.anioInicioEducacion} -{" "}
           {edu.anioFinEducacion == "Actualidad"
@@ -82,14 +82,14 @@ export const Layout3: React.FC<{
       >
         {edu.carrera} ({edu.estado})
       </Text>
-      <Text
+      {edu.zonaInstitucion && <Text
         style={[
           styles3.locationText,
           { fontSize: getFontSize(10, optionsPDF.contadorContent) },
         ]}
       >
         {edu.zonaInstitucion}
-      </Text>
+      </Text>}
     </View>
   ));
 
@@ -103,14 +103,14 @@ export const Layout3: React.FC<{
       >
         {curso.curso}
       </Text>
-      <Text
+      {curso.institucion && <Text
         style={[
           styles3.languageLevel,
           { fontSize: getFontSize(9, optionsPDF.contadorContent) },
         ]}
       >
         {curso.institucion}
-      </Text>
+      </Text>}
       <Text
         style={[
           styles3.languageLevel,

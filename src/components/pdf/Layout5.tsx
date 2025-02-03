@@ -34,12 +34,12 @@ export const Layout5: React.FC<{
       <Text style={[styles5.experienceTitle, { fontSize: getFontSize(13, optionsPDF.contadorContent) }]}>
         {exp.puesto}
       </Text>
-      <Text style={[styles5.experienceCompany, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
+      {exp.nombreEmpresa && <Text style={[styles5.experienceCompany, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
         {exp.nombreEmpresa}
-      </Text>
-      <Text style={[styles5.experienceDescription, { fontSize: getFontSize(10, optionsPDF.contadorContent) }]}>
+      </Text>}
+      {iaData.descriptionWork && <Text style={[styles5.experienceDescription, { fontSize: getFontSize(10, optionsPDF.contadorContent) }]}>
         {iaData.descriptionWork.split("\n")[index]}
-      </Text>
+      </Text>}
     </View>
   ))
 
@@ -48,9 +48,9 @@ export const Layout5: React.FC<{
       <Text style={[styles5.educationTitle, { fontSize: getFontSize(13, optionsPDF.contadorContent) }]}>
         {edu.carrera}
       </Text>
-      <Text style={[styles5.educationDetails, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
+      {edu.institucion && <Text style={[styles5.educationDetails, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
         {edu.institucion}
-      </Text>
+      </Text>}
       <Text style={[styles5.educationDate, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
         {edu.anioInicioEducacion} - {edu.anioFinEducacion}
       </Text>
@@ -62,9 +62,9 @@ export const Layout5: React.FC<{
       <Text style={[styles5.languageName, { fontSize: getFontSize(11, optionsPDF.contadorContent),lineHeight: 1,marginTop: 5 }]}>
         {curso.curso}
       </Text>
-      <Text style={[styles5.languageLevel, { fontSize: getFontSize(10, optionsPDF.contadorContent), fontWeight: "medium" }]}>
+      {curso.institucion && <Text style={[styles5.languageLevel, { fontSize: getFontSize(10, optionsPDF.contadorContent), fontWeight: "medium" }]}>
         {curso.institucion}
-      </Text>
+      </Text>}
       <Text style={[styles5.languageLevel, { fontSize: getFontSize(10, optionsPDF.contadorContent) }]}>
       {curso.anioInicioCurso === "Actualidad" ? "Actualidad" : `${curso.mesInicioCurso}/${curso.anioInicioCurso}`}
       </Text>
@@ -78,7 +78,7 @@ export const Layout5: React.FC<{
           {cvData.imagenPerfil && <Image src={cvData.imagenPerfil} style={styles5.headerImage} />}
           <View style={styles5.headerContent}>
             {optionsPDF.fullName ? fullName : shortName}
-            {optionsPDF.orientacionCVTitle && (
+            {( cvData.orientadoCV && optionsPDF.orientacionCVTitle) && (
               <Text style={[styles5.title, { fontSize: getFontSize(16, contador) }]}>{cvData.orientadoCV}</Text>
             )}
           </View>
@@ -163,9 +163,9 @@ export const Layout5: React.FC<{
               >
                 PERFIL
               </Text>
-              <Text style={[styles5.experienceDescription, { fontSize: getFontSize(10, optionsPDF.contadorContent) }]}>
+              {iaData.profile && <Text style={[styles5.experienceDescription, { fontSize: getFontSize(10, optionsPDF.contadorContent) }]}>
               {iaData.profile}
-              </Text>
+              </Text>}
             </View>
 
           {cvData.experience.length > 0 && (

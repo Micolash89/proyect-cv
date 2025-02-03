@@ -12,14 +12,14 @@ export const Layout1: React.FC<{
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
   const experiencia = cvData.experience.map((exp, index) => (
     <View key={index} style={styles1.experienceEntry}>
-      <Text
+      {exp.nombreEmpresa && <Text
         style={[
           styles1.companyName,
           { fontSize: getFontSize(12, optionsPDF.contadorContent) },
         ]}
       >
         {exp.nombreEmpresa}
-      </Text>
+      </Text>}
       <Text
         style={[
           styles1.jobTitle,
@@ -37,27 +37,27 @@ export const Layout1: React.FC<{
         {exp.mesInicioExperiencia}/{exp.anioInicioExperiencia} - {exp.anioFinExperiencia=="Actualidad"?"Actualidad ":`${exp.mesFinExperiencia}/${exp.anioFinExperiencia} `}|{" "}
         {exp.zonaEmpresa}
       </Text>
-      <Text
+      {iaData.descriptionWork && <Text
         style={[
           styles1.description,
           { fontSize: getFontSize(10, optionsPDF.contadorContent) },
         ]}
       >
         • {iaData.descriptionWork.split("\n")[index]}
-      </Text>
+      </Text>}
     </View>
   ));
 
   const educacion = cvData.education.map((edu, index) => (
     <View key={index} style={styles1.educationEntry}>
-      <Text
+      {edu.institucion && <Text
         style={[
           styles1.institution,
           { fontSize: getFontSize(11, optionsPDF.contadorContent) },
         ]}
       >
         {edu.institucion}
-      </Text>
+      </Text>}
       <Text
         style={[
           styles1.degree,
@@ -88,14 +88,14 @@ export const Layout1: React.FC<{
       >
         {curso.curso}
       </Text>
-      <Text
+      {curso.institucion &&<Text
         style={[
           styles1.degree,
           { fontSize: getFontSize(11, optionsPDF.contadorContent) },
         ]}
       >
         {curso.institucion}
-      </Text>
+      </Text>}
       <Text
         style={[
           styles1.dateLocation,

@@ -13,7 +13,7 @@ export const Layout6: React.FC<{
 
   const experiencia = (cvData.experience.map((exp, index) => (
     <View key={index} style={styles6.timelineEntry}>
-      <Text
+      {exp.nombreEmpresa &&<Text
         style={[
           styles6.timelineSubtitle,
           {
@@ -26,7 +26,7 @@ export const Layout6: React.FC<{
         ]}
       >
         {exp.nombreEmpresa}
-      </Text>
+      </Text>}
       <View style={styles6.timelineDot} />
       <View style={styles6.timelineContent}>
         <Text
@@ -43,7 +43,7 @@ export const Layout6: React.FC<{
           {exp.puesto} | {exp.mesFinExperiencia}/{exp.anioInicioExperiencia} -{" "}
           {exp.anioFinExperiencia=="Actualidad"?"Actualidad":`${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}
         </Text>
-        <Text
+        {iaData.descriptionWork &&<Text
           style={[
             styles6.timelineDescription,
             {
@@ -55,7 +55,7 @@ export const Layout6: React.FC<{
           ]}
         >
           {iaData.descriptionWork.split("\n")[index]}
-        </Text>
+        </Text>}
       </View>
     </View>
   )));
@@ -85,7 +85,7 @@ export const Layout6: React.FC<{
         >
           {edu.carrera}
         </Text>
-        <Text
+        {edu.institucion && <Text
           style={[
             styles6.timelineSubtitle,
             {
@@ -94,7 +94,7 @@ export const Layout6: React.FC<{
           ]}
         >
           {edu.institucion}
-        </Text>
+        </Text>}
       </View>
     </View>
   )));
@@ -124,7 +124,7 @@ export const Layout6: React.FC<{
         >
           {curso.curso}
         </Text>
-        <Text
+        {curso.institucion && <Text
           style={[
             styles6.timelineSubtitle,
             {
@@ -133,7 +133,7 @@ export const Layout6: React.FC<{
           ]}
         >
           {curso.institucion}
-        </Text>
+        </Text>}
       </View>
     </View>
   ));
@@ -156,7 +156,6 @@ export const Layout6: React.FC<{
         size="A4"
         style={[styles6.page, { fontSize: getFontSize(11, contador) }]}
       >
-        {/* Header */}
         <View style={styles6.header}>
           <View style={styles6.headerLeft}>
             {cvData.imagenPerfil && (
@@ -287,7 +286,6 @@ export const Layout6: React.FC<{
           </View>
         </View>
 
-        {/* Professional Profile */}
         <View
           style={[
             styles6.content,
@@ -320,7 +318,6 @@ export const Layout6: React.FC<{
               </View>
             )}
 
-            {/* Experience */}
             {cvData.experience.length > 0 && (
               <View>
                 <Text
@@ -338,7 +335,6 @@ export const Layout6: React.FC<{
             )}
           </View>
 
-          {/* Education */}
           <View>
             {cvData.education.length > 0 && (
               <Text
@@ -366,7 +362,6 @@ export const Layout6: React.FC<{
             </View>
           </View>
 
-          {/*Skills*/}
           {iaData.skills && (
             <View style={{ width: "100%" }}>
               <Text
@@ -396,7 +391,6 @@ export const Layout6: React.FC<{
             </View>
           )}
 
-          {/* Additional Info and Languages */}
           <View style={styles6.twoColumnSection}>
             {(cvData.licencia ||
               cvData.movilidad ||

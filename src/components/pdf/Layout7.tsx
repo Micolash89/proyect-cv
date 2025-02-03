@@ -85,17 +85,22 @@ export const Layout7: React.FC<{
 
   const educacion = cvData.education.map((edu: any, index: number) => (
     <View key={index} style={styles7.entryContainer}>
-      <View style={styles7.entryHeader}>
-        <Text
-          style={[
-            styles7.institution,
-            { fontSize: getFontSize(11, optionsPDF.contadorContent) },
-          ]}
-        >
-          {edu.institucion}
-        </Text>
-        {edu.institucion.length > 23 ? "" : anioEdu({ edu })}
-      </View>
+      {edu.institucion && (
+        <View style={styles7.entryHeader}>
+          {edu.institucion.length > 23 ? (
+            <Text
+              style={[
+                styles7.institution,
+                { fontSize: getFontSize(11, optionsPDF.contadorContent) },
+              ]}
+            >
+              {edu.institucion}
+            </Text>
+          ) : (
+            anioEdu({ edu })
+          )}
+        </View>
+      )}
       <Text
         style={[
           styles7.degree,
@@ -138,14 +143,14 @@ export const Layout7: React.FC<{
             : `${exp.mesInicioCurso}/${exp.anioInicioCurso}`}
         </Text>
       </View>
-      <Text
+      {exp.institucion && <Text
         style={[
           styles7.jobTitle,
           { fontSize: getFontSize(11, optionsPDF.contadorContent) },
         ]}
       >
         {exp.institucion}
-      </Text>
+      </Text>}
     </View>
   ));
 

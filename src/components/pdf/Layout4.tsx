@@ -13,14 +13,14 @@ export const Layout4: React.FC<{
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
   const experiencia = cvData.experience.map((exp, index) => (
     <View key={index} style={styles4.experienceEntry}>
-      <Text
+      {exp.nombreEmpresa && <Text
         style={[
           styles4.companyName,
           { fontSize: getFontSize(12, optionsPDF.contadorContent) },
         ]}
       >
         {exp.nombreEmpresa}
-      </Text>
+      </Text>}
       <Text
         style={[
           styles4.jobTitle,
@@ -41,14 +41,14 @@ export const Layout4: React.FC<{
           : `${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}{" "}
         | {exp.zonaEmpresa}
       </Text>
-      <Text
+      {iaData.descriptionWork && <Text
         style={[
           styles4.description,
           { fontSize: getFontSize(10, optionsPDF.contadorContent) },
         ]}
       >
         • {iaData.descriptionWork.split("\n")[index]}
-      </Text>
+      </Text>}
     </View>
   ));
 
@@ -62,14 +62,14 @@ export const Layout4: React.FC<{
       >
         {educacion.carrera} ({educacion.estado})
       </Text>
-      <Text
+      {educacion.institucion && <Text
         style={[
           styles4.degree,
           { fontSize: getFontSize(10, optionsPDF.contadorContent) },
         ]}
       >
         {educacion.institucion}
-      </Text>
+      </Text>}
       <Text
         style={[
           styles4.dateLocation,
@@ -264,7 +264,7 @@ export const Layout4: React.FC<{
                   : "flex-start",}]}>
             <View style={styles4.header}>
               {optionsPDF.fullName ? fullname : cutname}
-              {optionsPDF.orientacionCVTitle && (
+              {(cvData.orientadoCV && optionsPDF.orientacionCVTitle) && (
                 <Text
                   style={[
                     styles4.title,

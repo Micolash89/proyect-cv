@@ -14,22 +14,22 @@ export const Layout0: React.FC<{
   const experiencia = cvData.experience.map((exp, index) => (
     <View key={index} style={stylesDefault.entryContainer}>
       <View style={stylesDefault.entryHeader}>
-        <Text
+        {exp.nombreEmpresa && <Text
           style={[
             stylesDefault.institution,
             { fontSize: 11 + optionsPDF.contadorContent },
           ]}
         >
           {exp.nombreEmpresa}
-        </Text>
-        <Text
+        </Text>}
+        { exp.zonaEmpresa && <Text
           style={[
             stylesDefault.location,
             { fontSize: 11 + optionsPDF.contadorContent },
           ]}
         >
           {exp.zonaEmpresa}
-        </Text>
+        </Text>}
       </View>
       <View style={stylesDefault.entryHeader}>
         <Text
@@ -49,36 +49,36 @@ export const Layout0: React.FC<{
           {exp.mesInicioExperiencia}/{ exp.anioInicioExperiencia} - {exp.anioFinExperiencia === "Actualidad" ? "Actualidad" : `${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}
         </Text>
       </View>
-      <Text
+      {iaData.descriptionWork && <Text
         style={[
           stylesDefault.description,
           { fontSize: 11 + optionsPDF.contadorContent },
         ]}
       >
         • {iaData.descriptionWork.split("\n")[index]}
-      </Text>
+      </Text>}
     </View>
   ));
 
   const educacion = cvData.education.map((edu, index) => (
     <View key={index} style={stylesDefault.entryContainer}>
       <View style={stylesDefault.entryHeader}>
-        <Text
+       {edu.institucion && <Text
           style={[
             stylesDefault.institution,
             { fontSize: 11 + optionsPDF.contadorContent },
           ]}
         >
           {edu.institucion}
-        </Text>
-        <Text
+        </Text>}
+        {edu.zonaInstitucion && <Text
           style={[
             stylesDefault.location,
             { fontSize: 11 + optionsPDF.contadorContent },
           ]}
         >
           {edu.zonaInstitucion}
-        </Text>
+        </Text>}
       </View>
       <View style={stylesDefault.entryHeader}>
         <Text
@@ -127,14 +127,14 @@ export const Layout0: React.FC<{
       </View>
 
       <View style={stylesDefault.entryHeader}>
-        <Text
+        {curso.institucion && <Text
           style={[
             stylesDefault.degree,
             { fontSize: 11 + optionsPDF.contadorContent },
           ]}
         >
           {curso.institucion}
-        </Text>
+        </Text>}
       </View>
     </View>
   ));
@@ -200,7 +200,7 @@ export const Layout0: React.FC<{
 
         {iaData.profile && (
           <View>
-            <Text
+            {iaData.profile && <Text
               style={[
                 stylesDefault.description,
                 {
@@ -211,7 +211,7 @@ export const Layout0: React.FC<{
               ]}
             >
               {iaData.profile}
-            </Text>
+            </Text>}
           </View>
         )}
 

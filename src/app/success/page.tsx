@@ -4,7 +4,7 @@ import React from 'react'
 export default function page() {
   return (
     <>
-        <RegistroExitoso mensaje="Pronto nos comunicaremos contigo mediate whatsapp o correo electrónico"/>
+        <RegistroExitoso mensaje="Pronto nos comunicaremos contigo mediante whatsApp o correo electrónico"/>
     </>
   )
 }

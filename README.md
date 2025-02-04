@@ -41,7 +41,7 @@ Una aplicación moderna para la creación y gestión de currículums vitae const
 
 ![Security](https://img.shields.io/badge/-Security-276DC3?style=flat-square&logo=auth0) **Autenticación segura** utilizando bcrypt y jose
 
-![Database](https://img.shields.io/badge/-Database-2D3748?style=flat-square&logo=prisma) **Base de datos** gestionada con Prisma
+![Database](https://img.shields.io/badge/-Database-2D3748?style=flat-square&logo=prisma) **Base de datos** en Supabase gestionada con Prisma
 
 ![UI](https://img.shields.io/badge/tailwindcss-0F172A?&logo=tailwindcss) **UI moderna y responsive** con TailwindCSS
 

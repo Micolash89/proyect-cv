@@ -53,7 +53,7 @@ export default function About() {
             >
               <Image
                 fill
-                src="/images/cvejemplohardvard.png"
+                src="/images/cvejemplohardvard.PNG"
                 alt="Ejemplo de CV"
                 className="object-cover object-top rounded-lg"
               />

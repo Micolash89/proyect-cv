@@ -6,15 +6,7 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import { useRouter, useSearchParams } from "next/navigation";
-
-interface FormDataError {
-  message: string;
-  errors: FormDataErrorErrors;
-}
-
-interface FormDataErrorErrors {
-  [key: string]: string[];
-}
+import { FormDataError } from "@/lib/definitions";
 
 function FormLogin() {
 

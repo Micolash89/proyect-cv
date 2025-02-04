@@ -219,3 +219,11 @@ export interface AnioCurso {
   anioInicioCurso: string;
   mesInicioCurso: string;
 }
+
+interface FormDataErrorErrors {
+  [key: string]: string[];
+}
+export interface FormDataError {
+  message: string;
+  errors: FormDataErrorErrors;
+}

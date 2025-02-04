@@ -272,7 +272,7 @@ export async function postLogin(formdata: FormData) {
 
   revalidatePath("/");
 
-  return createResponse(true, [], "login correcto");
+  return createResponse(true, [], "Se ha iniciado sesion correctamente");
 }
 
 export async function deleteUser(id: number) {

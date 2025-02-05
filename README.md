@@ -1,8 +1,11 @@
-# 📄 Generador de Currículum Vitae (CV Project) 
+# 📄 Generador de Currículum Vitae con IA (CV Project) 
 
-<p align="center">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/TCgPQM7Vqeg" title="Demostración del Proyecto" frameborder="0" allowfullscreen></iframe>
-</p>
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=TCgPQM7Vqeg" target="_blank">
+    <img src="https://img.youtube.com/vi/TCgPQM7Vqeg/0.jpg" alt="Video de YouTube" width="560">
+  </a>
+</div>
 
 <div align="center" >
 <table border="0">

@@ -1,8 +1,8 @@
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 
 export const generateHash = async (cad: string) => {
-  //   const salt = await bcrypt.genSalt();
-  const hashedCad = await bcrypt.hash(`${cad}`, 10);
+  //   const salt = await bcryptjs.genSalt();
+  const hashedCad = await bcryptjs.hash(`${cad}`, 10);
   return hashedCad;
 };
 
@@ -10,5 +10,5 @@ export const comparePassword = async (
   password: string,
   hashedPassword: string
 ) => {
-  return await bcrypt.compare(password, hashedPassword);
+  return await bcryptjs.compare(password, hashedPassword);
 };

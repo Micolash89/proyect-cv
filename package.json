@@ -9,11 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/genai": "^1.21.0",
     "@google/generative-ai": "^0.17.1",
     "@prisma/client": "^5.22.0",
     "@react-pdf/renderer": "^3.4.4",
     "@types/bcrypt": "^5.0.2",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
     "cloudinary": "^2.5.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.5.5",
@@ -28,6 +29,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^3.0.0",
     "@types/node": "^20.16.1",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^18",

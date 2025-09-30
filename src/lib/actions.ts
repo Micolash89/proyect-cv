@@ -41,7 +41,6 @@ export async function postUsuarios(
   imagenPerfil: string,
   formData: FormData
 ) {
-
   const validatedFields = CreateUsuario.safeParse({
     ...Object.fromEntries(formData),
     education,
@@ -192,18 +191,13 @@ export async function postUsuarios(
       });
     }
 
-   await emailService.sendWelcomeEmail(
-      user.email,
-    )
-
+    await emailService.sendWelcomeEmail(user.email);
   } catch (error) {
     prisma.$disconnect();
     return createResponse(false, [], "Error en la base de datos");
   } finally {
     prisma.$disconnect();
   }
-
-
 
   return createResponse(true, [], `Registro de ${apellido} ${nombre} exitoso`);
 }
@@ -281,11 +275,13 @@ export async function deleteUser(id: number) {
       where: { id },
     });
     revalidatePath("/dashboard/users");
-    return { message: "Deleted User." };
+    console.log("User Deleted.");
+    // return { message: "Deleted User." };
   } catch (error) {
-    return {
-      message: "Database Error: Failed to Delete User.",
-    };
+    // return {
+    //   message: "Database Error: Failed to Delete User.",
+    // };
+    console.error("Database Error: Failed to Delete User.", error);
   }
 }
 
@@ -299,7 +295,6 @@ export async function updateUser(
   idCVTemplate: number,
   formData: FormData
 ) {
-
   const UpdateUserData = UpdateUsuario.safeParse({
     id: idUser,
     ...Object.fromEntries(formData),
@@ -584,8 +579,7 @@ export async function getOneUser(id: number) {
   return user;
 }
 
-export async function deleteOneUser(id: number,formData: FormData) {
-  
+export async function deleteOneUser(id: number, formData: FormData) {
   const validatedFields = GetUsuario.safeParse({
     id,
   });

@@ -90,23 +90,26 @@ export async function generarPerfilExperiencia(
   orientadoCV: string
 ) {
   try {
-    // let mensaje = experience
-    //   .map(
-    //     (e) =>
-    //       `puesto: ${e.puesto}, empresa: ${e.nombreEmpresa}, año desde:${e.anioInicioExperiencia}, año hasta:${e.anioFinExperiencia}, descripción:${e.descripcionExperiencia};`
-    //   )
-    //   .join("\n");
+    let mensaje = experience
+      .map(
+        (e) =>
+          `puesto: ${e.puesto}, empresa: ${e.nombreEmpresa}, año desde:${e.anioInicioExperiencia}, año hasta:${e.anioFinExperiencia}, descripción:${e.descripcionExperiencia};`
+      )
+      .join("\n");
 
-    // mensaje += educacion
-    //   .map(
-    //     (e) =>
-    //       `carrera: ${e.carrera}, estado:${e.estado}, estudios:${e.estudios}, institucion:${e.institucion}, inicio:${e.anioInicioEducacion}, fin:${e.anioFinEducacion};`
-    //   )
-    //   .join("\n");
+    mensaje += educacion
+      .map(
+        (e) =>
+          `carrera: ${e.carrera}, estado:${e.estado}, estudios:${e.estudios}, institucion:${e.institucion}, inicio:${e.anioInicioEducacion}, fin:${e.anioFinEducacion};`
+      )
+      .join("\n");
 
-    // mensaje += cursos
-    //   .map((c) => `curso:${c.curso}, institucion:${c.institucion}, año:${c.anioInicioCurso};`)
-    //   .join("\n");
+    mensaje += cursos
+      .map(
+        (c) =>
+          `curso:${c.curso}, institucion:${c.institucion}, año:${c.anioInicioCurso};`
+      )
+      .join("\n");
 
     const response = await rateLimitedRequest({
       model,
@@ -116,22 +119,28 @@ export async function generarPerfilExperiencia(
           role: "user",
           parts: [
             {
-              text: `Redacta un perfil profesional para un currículum vitae orientado a ${orientadoCV}. 
+              text: `Redacta un perfil profesional para un currículum vitae orientado a ${orientadoCV}, basándote exclusivamente en la información proporcionada.
 
-              REQUISITOS ESTRICTOS:
-              - Escribe UN SOLO párrafo en primera persona
-              - Tono formal, profesional y NATURAL (evita frases robóticas o genéricas típicas de IA)
-              - Incluye palabras clave y términos técnicos específicos del sector ${orientadoCV} para optimizar ATS (Applicant Tracking Systems)
-              - Varía la estructura de las oraciones para sonar más humano y auténtico
-              - Incluye ÚNICAMENTE habilidades, experiencia y formación directamente relevantes para ${orientadoCV}
-              - EXCLUYE completamente: estudios, cursos, certificaciones, habilidades técnicas o idiomas que NO estén relacionados con ${orientadoCV}
-              - NO inventes ni agregues información técnica si no se proporciona
-              - NO uses frases cliché como "profesional dinámico", "apasionado por", "orientado a resultados" a menos que sea genuino
-              - NO repitas palabras innecesariamente
-              - Enfócate en logros concretos y valor agregado para el puesto de ${orientadoCV}
-              - Máximo: 120-150 palabras
-                          
-              El resultado debe ser conciso, impactante, con lenguaje natural y estratégicamente optimizado con keywords relevantes para ${orientadoCV} que mejoren la visibilidad en sistemas de reclutamiento automatizados.`,
+REQUISITOS ESTRICTOS:
+- Escribe UN SOLO párrafo en primera persona
+- Tono formal, profesional y NATURAL (evita frases robóticas o genéricas típicas de IA)
+- Redacción GENÉRICA y adaptable, evita especificidad excesiva que cause repetición en otras secciones del CV
+- NO inventes información, tecnologías, habilidades o experiencias que no estén mencionadas
+- Solo utiliza lo que se indica en la información proporcionada, sin asumir ni añadir datos adicionales
+- Incluye palabras clave del sector ${orientadoCV} para optimizar ATS (Applicant Tracking Systems)
+- Varía la estructura de las oraciones para sonar más humano y auténtico
+- Incluye ÚNICAMENTE habilidades, experiencia y formación directamente relevantes para ${orientadoCV}
+- EXCLUYE completamente: estudios, cursos, certificaciones, habilidades técnicas o idiomas que NO estén relacionados con ${orientadoCV}
+- NO uses frases cliché como "profesional dinámico", "apasionado por", "orientado a resultados"
+- NO repitas palabras o conceptos innecesariamente
+- Enfócate en valor agregado y capacidades transferibles para el puesto de ${orientadoCV}
+- Máximo: 120-150 palabras
+
+FORMATO DE SALIDA:
+Un párrafo genérico, profesional y optimizado que sirva como introducción del CV sin entrar en detalles específicos que se desarrollarán en otras secciones.
+
+Información de la persona:
+${mensaje}`,
             },
           ],
         },
@@ -174,32 +183,38 @@ export async function generarItemsExperiencia(
               text: `Redacta las tareas realizadas en el trabajo descrito a continuación. Genera exactamente ${max} tarea${
                 max <= 1 ? "" : "s"
               }.
-               REQUISITOS ESTRICTOS:
-              - Cada tarea debe ser UN SOLO RENGLÓN (máximo 2 líneas si es absolutamente necesario)
-              - Separa cada tarea con "\\n" al final
-              - NO incluyas títulos, numeración, viñetas, ni formato markdown
-              - NO identifiques ni marques cuál es cada tarea
-              - Escribe en tono formal y profesional para currículum vitae
-              - Usa verbos de acción en pasado (primera persona) para transmitir experiencia y logros concretos
-              - Lenguaje NATURAL y auténtico, evita frases robóticas o genéricas de IA
-              - Incluye resultados medibles cuando sea posible (cifras, porcentajes, alcance, impacto)
-              - Varía los verbos de inicio para cada tarea, NO repitas el mismo verbo
-              - Enfócate en logros y responsabilidades específicas del puesto
-              - Optimiza con palabras clave relevantes para el sector del empleo
 
-              VERBOS DE ACCIÓN RECOMENDADOS:
-              - Liderazgo: Lideré, coordiné, supervisé, dirigí, gestioné, organicé, planifiqué, ejecuté, administré
-              - Comunicación: Presenté, redacté, negocié, coordiné, facilité, documenté, persuadí, colaboré
-              - Técnico: Desarrollé, diseñé, optimicé, programé, implementé, mantuve, automaticé, actualicé
-              - Analítico: Analicé, evalué, identifiqué, investigué, mejoré, resolví, diagnostiqué
-              - Resultados: Logré, incrementé, reduje, optimicé, superé, alcancé, obtuve, maximicé
-              - Organizacional: Procesé, organicé, coordiné, controlé, implementé, simplifiqué, gestioné
+REQUISITOS ESTRICTOS:
+- Cada tareas de cada trabajo debe ser UN SOLO RENGLÓN
+- Separa cada tarea con "\\n" al final
+- NO incluyas títulos, numeración, viñetas, ni formato markdown
+- NO identifiques ni marques cuál es cada tarea
+- Escribe en tono formal y profesional para currículum vitae
+- Usa verbos de acción en pasado (primera persona) para transmitir experiencia y logros concretos
+- Lenguaje profesional, evita frases robóticas o genéricas de IA
+- Prioriza claridad y concisión, evitando jergas o tecnicismos innecesarios
+- SOLO incluye tareas y responsabilidades directamente relacionadas con la experiencia laboral descrita
+- NO agregues responsabilidades, logros o habilidades que no estén explícitamente mencionadas en la descripción
+- NO inventes cifras, porcentajes, métricas o resultados numéricos que no estén explícitamente mencionados en la descripción
+- SOLO incluye datos cuantitativos si están claramente especificados en la información proporcionada
+- Si no hay métricas en la información original, describe la tarea de forma cualitativa sin inventar números
+- Varía los verbos de inicio para cada tarea, NO repitas el mismo verbo
+- Enfócate en responsabilidades y acciones concretas del puesto
+- Optimiza con palabras clave relevantes para el sector del empleo
 
-              FORMATO DE SALIDA:
-              Solo texto plano. Cada tarea en un renglón separado por "\\n". Sin introducción, sin explicación adicional. Listo para copiar y pegar directamente en un CV.
+VERBOS DE ACCIÓN RECOMENDADOS:
+- Liderazgo: Lideré, coordiné, supervisé, dirigí, gestioné, organicé, planifiqué, ejecuté, administré
+- Comunicación: Presenté, redacté, negocié, coordiné, facilité, documenté, persuadí, colaboré
+- Técnico: Desarrollé, diseñé, optimicé, programé, implementé, mantuve, automaticé, actualicé
+- Analítico: Analicé, evalué, identifiqué, investigué, mejoré, resolví, diagnostiqué
+- Resultados: Logré, incrementé, reduje, optimicé, superé, alcancé, obtuve, maximicé
+- Organizacional: Procesé, organicé, coordiné, controlé, implementé, simplifiqué, gestioné
 
-              Descripción del trabajo y tareas a desarrollar:
-              ${mensaje}`,
+FORMATO DE SALIDA:
+Solo texto plano. Cada tarea en un renglón separado por "\\n". Sin introducción, sin explicación adicional. Listo para copiar y pegar directamente en un CV.
+
+Descripción del trabajo y tareas a desarrollar:
+${mensaje}`,
             },
           ],
         },
@@ -257,28 +272,30 @@ export async function generarSkills(
           role: "user",
           parts: [
             {
-              text: `Genera una lista de palabras clave y habilidades soft skills estratégicamente seleccionadas para un currículum orientado a ${orientadoCV}.
+            text: `Genera una lista de palabras clave y habilidades para un currículum orientado a ${orientadoCV}, usando ÚNICAMENTE la información proporcionada.
 
-            REQUISITOS ESTRICTOS:
-            - Máximo ${max} palabras clave/habilidades en total
-            - SOLO incluye habilidades y competencias estrictamente relevantes para ${orientadoCV}
-            - Combina habilidades técnicas específicas del sector con soft skills aplicables al perfil de ${orientadoCV}
-            - Las soft skills deben ser genuinas y coherentes con la experiencia de la persona, NO genéricas ni cliché
-            - Excluye cualquier término que no esté directamente alineado con ${orientadoCV}
-            - Prioriza palabras clave que optimicen la búsqueda en sistemas ATS (Applicant Tracking Systems)
-            - Usa terminología actual y profesional del sector ${orientadoCV}
-            - Evita repeticiones o sinónimos innecesarios
-                        
-            SOFT SKILLS VALORADAS (solo si aplican al perfil):
-            Liderazgo, trabajo en equipo, resolución de problemas, comunicación efectiva, adaptabilidad, pensamiento crítico, gestión del tiempo, orientación a resultados, toma de decisiones, creatividad, negociación, análisis, organización, proactividad, empatía, colaboración interdisciplinaria
-                        
-            FORMATO DE SALIDA:
-            Un solo renglón con las palabras clave separadas por ' • ' (espacio-punto-espacio). Sin markdown, sin títulos, sin numeración. Solo texto plano listo para copiar y pegar.
-                        
-            Ejemplo de formato: Gestión de proyectos • Análisis de datos • Liderazgo de equipos • Excel avanzado • Comunicación estratégica
-                        
-            Información de la persona:
-            ${mensaje}`,
+REQUISITOS CRÍTICOS - LEE CON ATENCIÓN:
+- Máximo ${max} palabras clave/habilidades en total
+- PROHIBIDO ABSOLUTAMENTE inventar habilidades técnicas, lenguajes de programación, herramientas, software o tecnologías que NO aparezcan textualmente en la información
+- Si la información NO menciona habilidades técnicas específicas, completa TODA la lista con soft skills genéricas
+- NO asumas conocimientos técnicos basándote solo en ${orientadoCV} - usa exclusivamente lo que dice la información
+- NO añadas habilidades que "deberían tener" o que "son comunes en" ${orientadoCV}
+- Extrae habilidades técnicas SOLAMENTE si están explícitamente escritas en la información proporcionada
+- Complementa con soft skills universales y transferibles relacionadas con ${orientadoCV}
+- Las soft skills deben ser coherentes con la experiencia real descrita
+- Evita repeticiones o sinónimos innecesarios
+
+PRIORIDAD: SOFT SKILLS GENÉRICAS
+Si dudas sobre una habilidad técnica, NO la incluyas. Usa soft skills genéricas de esta lista:
+Trabajo en equipo, resolución de problemas, comunicación efectiva, adaptabilidad, pensamiento crítico, gestión del tiempo, organización, proactividad, liderazgo, atención al detalle, flexibilidad, toma de decisiones, orientación a resultados, creatividad, responsabilidad, colaboración, empatía, iniciativa, planificación
+
+FORMATO DE SALIDA:
+Un solo renglón con las palabras clave separadas por ' • ' (espacio-punto-espacio). Sin markdown, sin títulos, sin numeración. Solo texto plano listo para copiar y pegar.
+
+Ejemplo SIN habilidades técnicas mencionadas: Trabajo en equipo • Resolución de problemas • Comunicación efectiva • Adaptabilidad • Organización • Proactividad
+
+Información de la persona:
+${mensaje}`
             },
           ],
         },

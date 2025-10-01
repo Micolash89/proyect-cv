@@ -10,26 +10,29 @@ export const Layout0: React.FC<{
   contador: number;
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
-
   const experiencia = cvData.experience.map((exp, index) => (
     <View key={index} style={stylesDefault.entryContainer}>
       <View style={stylesDefault.entryHeader}>
-        {exp.nombreEmpresa && <Text
-          style={[
-            stylesDefault.institution,
-            { fontSize: 11 + optionsPDF.contadorContent },
-          ]}
-        >
-          {exp.nombreEmpresa}
-        </Text>}
-        { exp.zonaEmpresa && <Text
-          style={[
-            stylesDefault.location,
-            { fontSize: 11 + optionsPDF.contadorContent },
-          ]}
-        >
-          {exp.zonaEmpresa}
-        </Text>}
+        {exp.nombreEmpresa && (
+          <Text
+            style={[
+              stylesDefault.institution,
+              { fontSize: 11 + optionsPDF.contadorContent },
+            ]}
+          >
+            {exp.nombreEmpresa}
+          </Text>
+        )}
+        {exp.zonaEmpresa && (
+          <Text
+            style={[
+              stylesDefault.location,
+              { fontSize: 11 + optionsPDF.contadorContent },
+            ]}
+          >
+            {exp.zonaEmpresa}
+          </Text>
+        )}
       </View>
       <View style={stylesDefault.entryHeader}>
         <Text
@@ -46,39 +49,48 @@ export const Layout0: React.FC<{
             { fontSize: 11 + optionsPDF.contadorContent },
           ]}
         >
-          {exp.mesInicioExperiencia}/{ exp.anioInicioExperiencia} - {exp.anioFinExperiencia === "Actualidad" ? "Actualidad" : `${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}
+          {exp.mesInicioExperiencia}/{exp.anioInicioExperiencia} -{" "}
+          {exp.anioFinExperiencia === "Actualidad"
+            ? "Actualidad"
+            : `${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}
         </Text>
       </View>
-      {iaData.descriptionWork && <Text
-        style={[
-          stylesDefault.description,
-          { fontSize: 11 + optionsPDF.contadorContent },
-        ]}
-      >
-        • {iaData.descriptionWork.split("\n")[index]}
-      </Text>}
+      {iaData.descriptionWork && (
+        <Text
+          style={[
+            stylesDefault.description,
+            { fontSize: 11 + optionsPDF.contadorContent },
+          ]}
+        >
+          • {iaData.descriptionWork.split("\n")[index]}
+        </Text>
+      )}
     </View>
   ));
 
   const educacion = cvData.education.map((edu, index) => (
     <View key={index} style={stylesDefault.entryContainer}>
       <View style={stylesDefault.entryHeader}>
-       {edu.institucion && <Text
-          style={[
-            stylesDefault.institution,
-            { fontSize: 11 + optionsPDF.contadorContent },
-          ]}
-        >
-          {edu.institucion}
-        </Text>}
-        {edu.zonaInstitucion && <Text
-          style={[
-            stylesDefault.location,
-            { fontSize: 11 + optionsPDF.contadorContent },
-          ]}
-        >
-          {edu.zonaInstitucion}
-        </Text>}
+        {edu.institucion && (
+          <Text
+            style={[
+              stylesDefault.institution,
+              { fontSize: 11 + optionsPDF.contadorContent },
+            ]}
+          >
+            {edu.institucion}
+          </Text>
+        )}
+        {edu.zonaInstitucion && (
+          <Text
+            style={[
+              stylesDefault.location,
+              { fontSize: 11 + optionsPDF.contadorContent },
+            ]}
+          >
+            {edu.zonaInstitucion}
+          </Text>
+        )}
       </View>
       <View style={stylesDefault.entryHeader}>
         <Text
@@ -95,7 +107,8 @@ export const Layout0: React.FC<{
             { fontSize: 11 + optionsPDF.contadorContent },
           ]}
         >
-          {edu.mesInicioEducacion}/{ edu.anioInicioEducacion} - {edu.mesFinEducacion}/{edu.anioFinEducacion}
+          {edu.mesInicioEducacion}/{edu.anioInicioEducacion} -{" "}
+          {edu.mesFinEducacion}/{edu.anioFinEducacion}
         </Text>
       </View>
     </View>
@@ -121,20 +134,23 @@ export const Layout0: React.FC<{
             },
           ]}
         >
-          {curso.anioInicioCurso=="Actualidad"?"Actualidad":`${curso.mesInicioCurso}/${curso.anioInicioCurso}`}
-          
+          {curso.anioInicioCurso == "Actualidad"
+            ? "Actualidad"
+            : `${curso.mesInicioCurso}/${curso.anioInicioCurso}`}
         </Text>
       </View>
 
       <View style={stylesDefault.entryHeader}>
-        {curso.institucion && <Text
-          style={[
-            stylesDefault.degree,
-            { fontSize: 11 + optionsPDF.contadorContent },
-          ]}
-        >
-          {curso.institucion}
-        </Text>}
+        {curso.institucion && (
+          <Text
+            style={[
+              stylesDefault.degree,
+              { fontSize: 11 + optionsPDF.contadorContent },
+            ]}
+          >
+            {curso.institucion}
+          </Text>
+        )}
       </View>
     </View>
   ));
@@ -184,7 +200,7 @@ export const Layout0: React.FC<{
           <Text
             style={[stylesDefault.contactInfo, { fontSize: 11 + contador }]}
           >
-            {cvData.ciudad}, {cvData.provincia}{" "}
+            {cvData.ciudad + cvData.ciudad && ", "} {cvData.provincia}{" "}
             {cvData.dni && `• DNI:${cvData.dni}`} •{" "}
             {cvData.fechaNacimiento.split("-").reverse().join("/")} • Tel.:
             {cvData.phone}
@@ -192,26 +208,25 @@ export const Layout0: React.FC<{
           </Text>
         </View>
         {cvData.imagenPerfil && (
-          <Image
-            src={cvData.imagenPerfil}
-            style={stylesDefault.profileImage}
-          />
+          <Image src={cvData.imagenPerfil} style={stylesDefault.profileImage} />
         )}
 
         {iaData.profile && (
           <View>
-            {iaData.profile && <Text
-              style={[
-                stylesDefault.description,
-                {
-                  fontSize: 10.5 + optionsPDF.contadorContent,
-                  fontStyle: "italic",
-                  textAlign: "justify",
-                },
-              ]}
-            >
-              {iaData.profile}
-            </Text>}
+            {iaData.profile && (
+              <Text
+                style={[
+                  stylesDefault.description,
+                  {
+                    fontSize: 10.5 + optionsPDF.contadorContent,
+                    fontStyle: "italic",
+                    textAlign: "justify",
+                  },
+                ]}
+              >
+                {iaData.profile}
+              </Text>
+            )}
           </View>
         )}
 
@@ -308,10 +323,23 @@ export const Layout0: React.FC<{
                 cvData.licencia && "Licencia de conducir",
                 cvData.movilidad && "Vehículo propio",
                 cvData.incorporacion && "Disponibilidad inmediata",
-                cvData.disponibilidad && cvData.disponibilidad!="NINGUNO" && `Jornada: ${cvData.disponibilidad.toLocaleLowerCase()}`,
+                cvData.disponibilidad &&
+                  cvData.disponibilidad != "NINGUNO" &&
+                  `Jornada: ${cvData.disponibilidad.toLocaleLowerCase()}`,
                 cvData.office && "Microsoft Office",
                 ...cvData.idiomas.map(
-                  (idioma) => `${idioma.idioma.toLocaleLowerCase()=="ingles"?"Inglés":idioma.idioma.charAt(0)+idioma.idioma.slice(1).toLocaleLowerCase()} - ${idioma.nivel=="BASICO"?"Básico":idioma.nivel.charAt(0).toUpperCase() + idioma.nivel.slice(1).toLowerCase()}`
+                  (idioma) =>
+                    `${
+                      idioma.idioma.toLocaleLowerCase() == "ingles"
+                        ? "Inglés"
+                        : idioma.idioma.charAt(0) +
+                          idioma.idioma.slice(1).toLocaleLowerCase()
+                    } - ${
+                      idioma.nivel == "BASICO"
+                        ? "Básico"
+                        : idioma.nivel.charAt(0).toUpperCase() +
+                          idioma.nivel.slice(1).toLowerCase()
+                    }`
                 ),
               ]
                 .filter(Boolean)

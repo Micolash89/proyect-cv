@@ -182,7 +182,7 @@ export const Layout4: React.FC<{
               <Text
                 style={[
                   styles4.sectionTitle,
-                  { fontSize: getFontSize(14, optionsPDF.contadorContent) },
+                  { fontSize: getFontSize(14, contador) },
                 ]}
               >
                 DATOS
@@ -190,7 +190,7 @@ export const Layout4: React.FC<{
               <Text
                 style={[
                   styles4.contactItem,
-                  { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                  { fontSize: getFontSize(10, contador) },
                 ]}
               >
                 {cvData.fechaNacimiento.split("-").reverse().join("/")}
@@ -199,7 +199,7 @@ export const Layout4: React.FC<{
                 <Text
                   style={[
                     styles4.contactItem,
-                    { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                    { fontSize: getFontSize(10, contador) },
                   ]}
                 >
                   DNI: {cvData.dni}
@@ -208,7 +208,7 @@ export const Layout4: React.FC<{
               <Text
                 style={[
                   styles4.contactItem,
-                  { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                  { fontSize: getFontSize(10, contador) },
                 ]}
               >
                 Tel: {cvData.phone}
@@ -217,7 +217,7 @@ export const Layout4: React.FC<{
                 <Text
                   style={[
                     styles4.contactItem,
-                    { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                    { fontSize: getFontSize(10, contador) },
                   ]}
                 >
                   {cvData.email}
@@ -227,12 +227,12 @@ export const Layout4: React.FC<{
                 style={[
                   styles4.contactItem,
                   {
-                    fontSize: getFontSize(10, optionsPDF.contadorContent),
+                    fontSize: getFontSize(10, contador),
                     marginBottom: 0,
                   },
                 ]}
               >
-                {cvData.ciudad}, {cvData.provincia}
+                {cvData.ciudad+cvData.ciudad&&", "} {cvData.provincia}
               </Text>
             </View>
 
@@ -241,7 +241,7 @@ export const Layout4: React.FC<{
                 <Text
                   style={[
                     styles4.sectionTitle,
-                    { fontSize: getFontSize(14, optionsPDF.contadorContent) },
+                    { fontSize: getFontSize(14, contador) },
                   ]}
                 >
                   CURSOS
@@ -255,7 +255,7 @@ export const Layout4: React.FC<{
                 <Text
                   style={[
                     styles4.sectionTitle,
-                    { fontSize: getFontSize(14, optionsPDF.contadorContent) },
+                    { fontSize: getFontSize(14, contador) },
                   ]}
                 >
                   HABILIDADES
@@ -265,7 +265,7 @@ export const Layout4: React.FC<{
                     key={index}
                     style={[
                       styles4.skillItem,
-                      { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                      { fontSize: getFontSize(10, contador) },
                     ]}
                   >
                     • {skill.trim()}
@@ -280,7 +280,7 @@ export const Layout4: React.FC<{
                   style={[
                     styles4.sectionTitle,
                     {
-                      fontSize: getFontSize(14, optionsPDF.contadorContent),
+                      fontSize: getFontSize(14, contador),
                       marginVertical: 10,
                     },
                   ]}
@@ -292,7 +292,7 @@ export const Layout4: React.FC<{
                     key={index}
                     style={[
                       styles4.languageItem,
-                      { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+                      { fontSize: getFontSize(10, contador) },
                     ]}
                   >
                     •{" "}

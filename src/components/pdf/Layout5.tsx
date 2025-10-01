@@ -126,10 +126,10 @@ export const Layout5: React.FC<{
               {cvData.idiomas.map((idioma, index) => (
                 <View key={`${idioma.idioma}-${index}`} style={styles5.languageItem}>
                   <Text style={[styles5.languageName, { fontSize: getFontSize(11, optionsPDF.contadorContent) }]}>
-                    {idioma.idioma}
+                    {idioma.idioma.toLocaleLowerCase()=="ingles"?"Inglés":idioma.idioma.charAt(0).toUpperCase() + idioma.idioma.slice(1).toLowerCase()}
                   </Text>
                   <Text style={[styles5.languageLevel, { fontSize: getFontSize(10, optionsPDF.contadorContent) }]}>
-                    {idioma.nivel}
+                    {idioma.nivel=="BASICO"?"Básico":idioma.nivel.charAt(0).toUpperCase() + idioma.nivel.slice(1).toLowerCase()}
                   </Text>
                 </View>
               ))}

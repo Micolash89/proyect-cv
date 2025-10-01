@@ -246,7 +246,7 @@ export const Layout3: React.FC<{
                     { fontSize: getFontSize(14, optionsPDF.contadorContent) },
                   ]}
                 >
-                  LENGUAJES
+                  IDIOMAS
                 </Text>
                 {cvData.idiomas.map((idioma, index) => (
                   <View key={index} style={styles3.languageItem}>
@@ -258,7 +258,7 @@ export const Layout3: React.FC<{
                         },
                       ]}
                     >
-                      {idioma.idioma}
+                      {idioma.idioma.toLocaleLowerCase()=="ingles"?"Inglés":idioma.idioma.charAt(0).toUpperCase() + idioma.idioma.slice(1).toLowerCase()}
                     </Text>
                     <Text
                       style={[
@@ -268,7 +268,7 @@ export const Layout3: React.FC<{
                         },
                       ]}
                     >
-                      {idioma.nivel}
+                      {idioma.nivel=="BASICO"?"Básico":idioma.nivel.charAt(0).toUpperCase() + idioma.nivel.slice(1).toLowerCase()}
                     </Text>
                   </View>
                 ))}

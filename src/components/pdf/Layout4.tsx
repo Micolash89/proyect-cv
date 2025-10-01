@@ -12,15 +12,23 @@ export const Layout4: React.FC<{
   optionsPDF: OptionsPDF;
 }> = ({ cvData, iaData, contador, optionsPDF }) => {
   const experiencia = cvData.experience.map((exp, index) => (
-    <View key={`${index}-expericiance-`} style={[styles4.experienceEntry,{marginBottom: (cvData.experience.length - 1 === index )? 15 :  10}]}>
-      {exp.nombreEmpresa && <Text
-        style={[
-          styles4.companyName,
-          { fontSize: getFontSize(12, optionsPDF.contadorContent) },
-        ]}
-      >
-        {exp.nombreEmpresa}
-      </Text>}
+    <View
+      key={`${index}-expericiance-`}
+      style={[
+        styles4.experienceEntry,
+        { marginBottom: cvData.experience.length - 1 === index ? 15 : 10 },
+      ]}
+    >
+      {exp.nombreEmpresa && (
+        <Text
+          style={[
+            styles4.companyName,
+            { fontSize: getFontSize(12, optionsPDF.contadorContent) },
+          ]}
+        >
+          {exp.nombreEmpresa}
+        </Text>
+      )}
       <Text
         style={[
           styles4.jobTitle,
@@ -41,19 +49,27 @@ export const Layout4: React.FC<{
           : `${exp.mesFinExperiencia}/${exp.anioFinExperiencia}`}{" "}
         | {exp.zonaEmpresa}
       </Text>
-      {iaData.descriptionWork && <Text
-        style={[
-          styles4.description,
-          { fontSize: getFontSize(10, optionsPDF.contadorContent) },
-        ]}
-      >
-        • {iaData.descriptionWork.split("\n")[index]}
-      </Text>}
+      {iaData.descriptionWork && (
+        <Text
+          style={[
+            styles4.description,
+            { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+          ]}
+        >
+          • {iaData.descriptionWork.split("\n")[index]}
+        </Text>
+      )}
     </View>
   ));
 
   const educacion = cvData.education.map((educacion, index) => (
-    <View key={`${index}-educacion-`} style={[styles4.educationEntry,{marginBottom: (cvData.education.length - 1 === index )? 0 :  5}]}>
+    <View
+      key={`${index}-educacion-`}
+      style={[
+        styles4.educationEntry,
+        { marginBottom: cvData.education.length - 1 === index ? 0 : 5 },
+      ]}
+    >
       <Text
         style={[
           styles4.institution,
@@ -62,14 +78,16 @@ export const Layout4: React.FC<{
       >
         {educacion.carrera} ({educacion.estado})
       </Text>
-      {educacion.institucion && <Text
-        style={[
-          styles4.degree,
-          { fontSize: getFontSize(10, optionsPDF.contadorContent) },
-        ]}
-      >
-        {educacion.institucion}
-      </Text>}
+      {educacion.institucion && (
+        <Text
+          style={[
+            styles4.degree,
+            { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+          ]}
+        >
+          {educacion.institucion}
+        </Text>
+      )}
       <Text
         style={[
           styles4.dateLocation,
@@ -81,7 +99,7 @@ export const Layout4: React.FC<{
     </View>
   ));
 
-  const cursos = cvData.cursos.map((curso,index) => (
+  const cursos = cvData.cursos.map((curso, index) => (
     <View key={`curso-${index}`} style={styles4.educationEntry}>
       <Text
         style={[
@@ -89,20 +107,22 @@ export const Layout4: React.FC<{
           { fontSize: getFontSize(11, optionsPDF.contadorContent) },
         ]}
       >
-         {curso.curso}
+        {curso.curso}
       </Text>
-      {curso.institucion && <Text
-        style={[
-          styles4.degree,
-          { fontSize: getFontSize(10, optionsPDF.contadorContent) },
-        ]}
-      >
-        {curso.institucion}
-      </Text>}
+      {curso.institucion && (
+        <Text
+          style={[
+            styles4.degree,
+            { fontSize: getFontSize(10, optionsPDF.contadorContent) },
+          ]}
+        >
+          {curso.institucion}
+        </Text>
+      )}
       <Text
         style={[
           styles4.dateLocation,
-          { fontSize: getFontSize(10, optionsPDF.contadorContent)},
+          { fontSize: getFontSize(10, optionsPDF.contadorContent) },
         ]}
       >
         {curso.anioInicioCurso === "Actualidad"
@@ -113,20 +133,42 @@ export const Layout4: React.FC<{
   ));
 
   const cutname = (
-    <Text style={[styles4.name, { fontSize: getFontSize(24, contador), marginBottom: optionsPDF.orientacionCVTitle? 0:20 }]}>
+    <Text
+      style={[
+        styles4.name,
+        {
+          fontSize: getFontSize(24, contador),
+          marginBottom: optionsPDF.orientacionCVTitle ? 0 : 20,
+        },
+      ]}
+    >
       {cvData.name.split(" ")[0]} {cvData.lastName.split(" ")[0]}
     </Text>
   );
 
   const fullname = (
-    <Text style={[styles4.name, { fontSize: getFontSize(24, contador), marginBottom: optionsPDF.orientacionCVTitle? 0:20 }]}>
+    <Text
+      style={[
+        styles4.name,
+        {
+          fontSize: getFontSize(24, contador),
+          marginBottom: optionsPDF.orientacionCVTitle ? 0 : 20,
+        },
+      ]}
+    >
       {cvData.name} {cvData.lastName}
     </Text>
   );
 
   return (
     <Document title={`Currículum Vitae - ${cvData.name} ${cvData.lastName}`}>
-      <Page size="A4" style={[styles4.page, {paddingBottom:optionsPDF.contadorContent>1?0:30}]}>
+      <Page
+        size="A4"
+        style={[
+          styles4.page,
+          { paddingBottom: optionsPDF.contadorContent > 1 ? 0 : 30 },
+        ]}
+      >
         <View>
           <Text style={styles4.nameBack}>{cvData.lastName}</Text>
         </View>
@@ -184,7 +226,10 @@ export const Layout4: React.FC<{
               <Text
                 style={[
                   styles4.contactItem,
-                  { fontSize: getFontSize(10, optionsPDF.contadorContent), marginBottom: 0 },
+                  {
+                    fontSize: getFontSize(10, optionsPDF.contadorContent),
+                    marginBottom: 0,
+                  },
                 ]}
               >
                 {cvData.ciudad}, {cvData.provincia}
@@ -250,21 +295,35 @@ export const Layout4: React.FC<{
                       { fontSize: getFontSize(10, optionsPDF.contadorContent) },
                     ]}
                   >
-                    • {idioma.idioma}:{" "}
-                    {idioma.nivel.charAt(0).toUpperCase() +
-                      idioma.nivel.slice(1).toLowerCase()}
+                    •{" "}
+                    {idioma.idioma.toLocaleLowerCase() == "ingles"
+                      ? "inglés"
+                      : idioma.idioma.charAt(0).toLocaleUpperCase() +
+                        idioma.idioma.slice(1).toLocaleLowerCase()}
+                    :{" "}
+                    {idioma.nivel == "BASICO"
+                      ? "Básico"
+                      : idioma.nivel.charAt(0).toUpperCase() +
+                        idioma.nivel.slice(1).toLowerCase()}
                   </Text>
                 ))}
               </View>
             )}
           </View>
 
-          <View style={[styles4.rightColumn, {justifyContent: optionsPDF.spaceBetween
+          <View
+            style={[
+              styles4.rightColumn,
+              {
+                justifyContent: optionsPDF.spaceBetween
                   ? "space-between"
-                  : "flex-start",}]}>
+                  : "flex-start",
+              },
+            ]}
+          >
             <View style={styles4.header}>
               {optionsPDF.fullName ? fullname : cutname}
-              {(cvData.orientadoCV && optionsPDF.orientacionCVTitle) && (
+              {cvData.orientadoCV && optionsPDF.orientacionCVTitle && (
                 <Text
                   style={[
                     styles4.title,

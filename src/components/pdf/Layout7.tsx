@@ -294,7 +294,7 @@ export const Layout7: React.FC<{
                       cvData.office && "Microsoft Office",
                       ...cvData.idiomas.map(
                         (idioma) =>
-                          `${idioma.idioma} - ${idioma.nivel==="BASICO"?"Básico": idioma.nivel.toLowerCase()}`
+                          `${idioma.idioma.toLocaleLowerCase()=="ingles"?"inglés":idioma.idioma.charAt(0).toUpperCase()+idioma.idioma.slice(1).toLocaleLowerCase()} - ${idioma.nivel==="BASICO"?"Básico": idioma.nivel.toLowerCase()}`
                       ),
                     ]
                       .filter(Boolean)

@@ -475,7 +475,7 @@ export const Layout6: React.FC<{
                         },
                       ]}
                     >
-                      {idioma.idioma}:
+                      {idioma.idioma==="ingles"?"Inglés":idioma.idioma.charAt(0).toLocaleUpperCase() + idioma.idioma.slice(1).toLowerCase()}:
                     </Text>
                     <Text
                       style={[

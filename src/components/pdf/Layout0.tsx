@@ -308,10 +308,10 @@ export const Layout0: React.FC<{
                 cvData.licencia && "Licencia de conducir",
                 cvData.movilidad && "Vehículo propio",
                 cvData.incorporacion && "Disponibilidad inmediata",
-                cvData.disponibilidad && cvData.disponibilidad!="NINGUNO" && `Jornada: ${cvData.disponibilidad}`,
+                cvData.disponibilidad && cvData.disponibilidad!="NINGUNO" && `Jornada: ${cvData.disponibilidad.toLocaleLowerCase()}`,
                 cvData.office && "Microsoft Office",
                 ...cvData.idiomas.map(
-                  (idioma) => `${idioma.idioma} - ${idioma.nivel.toLowerCase()}`
+                  (idioma) => `${idioma.idioma.toLocaleLowerCase()=="ingles"?"Inglés":idioma.idioma.charAt(0)+idioma.idioma.slice(1).toLocaleLowerCase()} - ${idioma.nivel=="BASICO"?"Básico":idioma.nivel.charAt(0).toUpperCase() + idioma.nivel.slice(1).toLowerCase()}`
                 ),
               ]
                 .filter(Boolean)

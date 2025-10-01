@@ -16,13 +16,13 @@ export class EmailService {
     });
   }
 
-  async sendWelcomeEmail(name: string) {
+  async sendWelcomeEmail(id:number,name: string, apellido: string, email: string) {
     try {
       await this.transporter.sendMail({
         from: '"Generador de CV 📄" <noreply@proyect-cv.com>',
         to: envEmailConfig.email_send,
         subject: "Bienvenido",
-        html: `<h1>Hola ${name}, bienvenido!</h1>`,
+        html: `<h1>Nuevo Registro ${name}, bienvenido!</h1>`,
       });
     } catch (error) {
       console.error("Error enviando email", error);

@@ -317,7 +317,8 @@ export const Layout2: React.FC<{
                 { fontSize: getFontSize(10, contador) },
               ]}
             >
-              {idioma.idioma.charAt(0).toUpperCase() +
+              {idioma.idioma.toLocaleLowerCase()=="ingles"?"Inglés":
+              idioma.idioma.charAt(0).toUpperCase() +
                 idioma.idioma.slice(1).toLowerCase()}{" "}
               -{" "}
               {idioma.nivel == "BASICO"

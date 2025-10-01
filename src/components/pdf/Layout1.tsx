@@ -239,7 +239,8 @@ export const Layout1: React.FC<{
                     ]}
                   >
                     •{" "}
-                    {idioma.idioma.charAt(0).toUpperCase() +
+                    {idioma.idioma.toLocaleLowerCase()=="ingles"?"Inglés":
+                    idioma.idioma.charAt(0).toUpperCase() +
                       idioma.idioma.slice(1).toLowerCase()}{" "}
                     -{" "}
                     {idioma.nivel == "BASICO"

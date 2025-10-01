@@ -191,7 +191,7 @@ export async function postUsuarios(
       });
     }
 
-    await emailService.sendWelcomeEmail(user.email);
+    await emailService.sendWelcomeEmail(user.id,user.nombre,user.apellido,user.email);
   } catch (error) {
     prisma.$disconnect();
     return createResponse(false, [], "Error en la base de datos");
